@@ -3,46 +3,412 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O'Brien Vision</title>
+    <title>Outcomes For Professionals Age 50+ After Redundancy</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
     <style>
         body {
             font-family: "Helvetica Neue", Arial, sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
             background-color: #ffffff;
-            color: #333;
-            line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: 1540px;
             margin: 0 auto;
+            min-width: 800px;
         }
-        h1 {
-            font-size: 3em;
-            color: #2c3e50;
+        .title {
             text-align: center;
-            margin-bottom: 30px;
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
         }
-        .subtitle {
-            font-size: 1.2em;
-            color: #7f8c8d;
-            text-align: center;
-            margin-bottom: 50px;
+        .time-labels {
+            position: relative;
+            margin-bottom: 10px;
+            font-size: clamp(12px, 1.5vw, 16px);
+            color: black;
+            height: 40px;
         }
-        .content {
-            max-width: 800px;
-            margin: 0 auto;
+        .time-label {
+            position: absolute;
             text-align: center;
+            white-space: nowrap;
+            transform: translateX(-50%);
+        }
+        .copyright {
+            font-size: clamp(10px, 1vw, 12px);
+            color: #15496f;
+            margin-top: 20px;
+        }
+        .sources {
+            font-size: clamp(8px, 0.8vw, 10px);
+            color: gray;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+        .link {
+            fill: none;
+            stroke-opacity: 0.3;
+        }
+        .link:hover {
+            stroke-opacity: 0.6;
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: clamp(10px, 1vw, 12px);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #sankey-chart {
+            width: 100%;
+            overflow-x: auto;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>O'Brien Vision</h1>
-        <p class="subtitle">Coming Soon</p>
-        <div class="content">
-            <p>Welcome to O'Brien Vision. This website is currently under development.</p>
+        <div class="title">Outcomes For Professionals Age 50+ After Redundancy</div>
+        
+        <div class="time-labels" id="time-labels">
+            <!-- Labels will be positioned dynamically -->
+        </div>
+        
+        <div id="sankey-chart"></div>
+        
+        <div class="copyright">© Justin O'Brien 2025</div>
+        
+        <div class="sources">
+            Sources:<br>
+            1. ONS Redundancies: RED02 & July 2025 bulletin<br>
+            2. Ageing Better State of Ageing 2020-24<br>
+            3. Resolution Foundation press release<br>
+            4. ONS Analysis of Job Changers and Stayers (skill-flow table)<br>
+            5. Guardian report on long-term unemployment<br>
+            6. Rest Less analysis of LFS redundancy data
         </div>
     </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // Data from your Python file
+        const data = {
+            nodes: [
+                // Starting point
+                { name: "Professional Job", group: "professional", timeIndex: 0 },
+                
+                // 3 months
+                { name: "14%", group: "professional", timeIndex: 1 },
+                { name: "14%", group: "lower-paid", timeIndex: 1 },
+                { name: "7%", group: "self-employed", timeIndex: 1 },
+                { name: "65%", group: "unemployed", timeIndex: 1 },
+                
+                // 6 months
+                { name: "25%", group: "professional", timeIndex: 2 },
+                { name: "25%", group: "lower-paid", timeIndex: 2 },
+                { name: "12%", group: "self-employed", timeIndex: 2 },
+                { name: "38%", group: "unemployed", timeIndex: 2 },
+                
+                // 12 months
+                { name: "29%", group: "professional", timeIndex: 3 },
+                { name: "28%", group: "lower-paid", timeIndex: 3 },
+                { name: "13%", group: "self-employed", timeIndex: 3 },
+                { name: "30%", group: "unemployed", timeIndex: 3 },
+                
+                // 24 months
+                { name: "33%", group: "professional", timeIndex: 4 },
+                { name: "32%", group: "lower-paid", timeIndex: 4 },
+                { name: "15%", group: "self-employed", timeIndex: 4 },
+                { name: "20%", group: "unemployed", timeIndex: 4 },
+                
+                // Long term
+                { name: "45%\nProfessional Job", group: "professional", timeIndex: 5 },
+                { name: "10%\nLower Paid Job", group: "lower-paid", timeIndex: 5 },
+                { name: "15%\nSelf-Employed", group: "self-employed", timeIndex: 5 },
+                { name: "30%\nUnemployed", group: "unemployed", timeIndex: 5 }
+            ],
+            links: [
+                // Starting point → 3m
+                { source: 0, target: 1, value: 14.35 },
+                { source: 0, target: 2, value: 14.00 },
+                { source: 0, target: 3, value: 6.65 },
+                { source: 0, target: 4, value: 65.00 },
+                
+                // 3m → 6m
+                { source: 1, target: 5, value: 14.35 },
+                { source: 2, target: 6, value: 14.00 },
+                { source: 3, target: 7, value: 6.65 },
+                { source: 4, target: 5, value: 11.07 },
+                { source: 4, target: 6, value: 10.80 },
+                { source: 4, target: 7, value: 5.13 },
+                { source: 4, target: 8, value: 38.00 },
+                
+                // 6m → 12m
+                { source: 5, target: 9, value: 25.42 },
+                { source: 6, target: 10, value: 24.80 },
+                { source: 7, target: 11, value: 11.78 },
+                { source: 8, target: 9, value: 3.28 },
+                { source: 8, target: 10, value: 3.20 },
+                { source: 8, target: 11, value: 1.52 },
+                { source: 8, target: 12, value: 30.00 },
+                
+                // 12m → 24m
+                { source: 9, target: 13, value: 28.70 },
+                { source: 10, target: 14, value: 28.00 },
+                { source: 11, target: 15, value: 13.30 },
+                { source: 12, target: 13, value: 4.10 },
+                { source: 12, target: 14, value: 4.00 },
+                { source: 12, target: 15, value: 1.90 },
+                { source: 12, target: 16, value: 20.00 },
+                
+                // 24m → Forever
+                { source: 13, target: 17, value: 33.0 },
+                { source: 14, target: 17, value: 12.0 },
+                { source: 14, target: 18, value: 10.0 },
+                { source: 14, target: 20, value: 10.0 },
+                { source: 15, target: 19, value: 15.0 },
+                { source: 16, target: 20, value: 20.0 }
+            ]
+        };
+
+        // Color scheme
+        const colors = {
+            professional: "#1f77b4",
+            "lower-paid": "#ff7f0e",
+            "self-employed": "#2ca02c",
+            unemployed: "#d62728"
+        };
+
+        // Time labels
+        const timeLabels = [
+            "Date of<br>Redundancy",
+            "3 Months", 
+            "6 Months", 
+            "12 Months", 
+            "24 Months", 
+            "Long Term"
+        ];
+
+        let svg, nodes, links;
+
+        function createSankeyDiagram() {
+            // Clear existing content
+            d3.select("#sankey-chart").selectAll("*").remove();
+            d3.select("#time-labels").selectAll("*").remove();
+
+            // Get container dimensions
+            const container = document.querySelector('.container');
+            const containerWidth = container.clientWidth;
+            
+            // Calculate responsive dimensions
+            const minWidth = 800;
+            const maxWidth = 1540;
+            const actualWidth = Math.max(minWidth, Math.min(maxWidth, containerWidth));
+            
+            // Responsive margins and sizing
+            const leftMargin = Math.max(120, actualWidth * 0.12);
+            const rightMargin = Math.max(120, actualWidth * 0.1);
+            const margin = { top: 20, right: rightMargin, bottom: 20, left: leftMargin };
+            const width = actualWidth - margin.left - margin.right;
+            const height = Math.max(400, width * 0.4);
+
+            // Create SVG
+            svg = d3.select("#sankey-chart")
+                .append("svg")
+                .attr("width", actualWidth)
+                .attr("height", height + margin.top + margin.bottom);
+
+            // Create defs for gradients
+            const defs = svg.append("defs");
+
+            // Create sankey generator
+            const sankey = d3.sankey()
+                .nodeWidth(Math.max(15, width * 0.015))
+                .nodePadding(Math.max(10, width * 0.01))
+                .extent([[margin.left, margin.top], [width - margin.right + margin.left, height - margin.bottom + margin.top]]);
+
+            // Process data
+            const sankeyData = sankey(data);
+            nodes = sankeyData.nodes;
+            links = sankeyData.links;
+
+            // Create gradients for each link
+            links.forEach((link, i) => {
+                const sourceColor = colors[link.source.group];
+                const targetColor = colors[link.target.group];
+                
+                const gradientId = `gradient-${i}`;
+                const gradient = defs.append("linearGradient")
+                    .attr("id", gradientId)
+                    .attr("gradientUnits", "userSpaceOnUse")
+                    .attr("x1", link.source.x1)
+                    .attr("x2", link.target.x0);
+
+                gradient.append("stop")
+                    .attr("offset", "0%")
+                    .attr("stop-color", sourceColor);
+
+                gradient.append("stop")
+                    .attr("offset", "100%")
+                    .attr("stop-color", targetColor);
+
+                link.gradientId = gradientId;
+            });
+
+            // Add links with gradients
+            const link = svg.append("g")
+                .selectAll(".link")
+                .data(links)
+                .enter().append("path")
+                .attr("class", "link")
+                .attr("d", d3.sankeyLinkHorizontal())
+                .attr("stroke", d => `url(#${d.gradientId})`)
+                .attr("stroke-width", d => Math.max(1, d.width))
+                .attr("fill", "none")
+                .attr("stroke-opacity", 0.3)
+                .on("mouseover", function(event, d) {
+                    d3.select(this).attr("stroke-opacity", 0.6);
+                    
+                    const tooltip = d3.select("#tooltip");
+                    tooltip.transition().duration(200).style("opacity", 1);
+                    tooltip.html(`
+                        <strong>${d.source.name}</strong> → <strong>${d.target.name}</strong><br>
+                        Flow: ${d.value.toFixed(1)}%
+                    `)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px");
+                })
+                .on("mouseout", function(event, d) {
+                    d3.select(this).attr("stroke-opacity", 0.3);
+                    d3.select("#tooltip").transition().duration(200).style("opacity", 0);
+                });
+
+            // Add nodes
+            const node = svg.append("g")
+                .selectAll(".node")
+                .data(nodes)
+                .enter().append("g")
+                .attr("class", "node")
+                .attr("transform", d => `translate(${d.x0},${d.y0})`);
+
+            // Add node rectangles
+            node.append("rect")
+                .attr("height", d => d.y1 - d.y0)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("fill", d => colors[d.group])
+                .attr("stroke", "none");
+
+            // Calculate responsive font size
+            const fontSize = Math.max(12, Math.min(22, width * 0.018));
+
+            // Add node labels
+            node.append("text")
+                .attr("x", d => {
+                    if (d.timeIndex === 0) {
+                        return -10;
+                    } else {
+                        return -6;
+                    }
+                })
+                .attr("y", d => (d.y1 - d.y0) / 2)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", "end")
+                .style("font-size", `${fontSize}px`)
+                .style("font-family", "Helvetica Neue, Arial, sans-serif")
+                .style("fill", "black")
+                .each(function(d) {
+                    const text = d3.select(this);
+                    const lines = d.name.split('\n');
+                    
+                    if (lines.length > 1 && d.timeIndex === 5) {
+                        text.text(lines[0]);
+                    } else {
+                        text.text(d.name);
+                    }
+                });
+
+            // Add category labels on the right for final nodes
+            node.filter(d => d.timeIndex === 5 && d.name.includes('\n'))
+                .append("text")
+                .attr("x", d => (d.x1 - d.x0) + 10)
+                .attr("y", d => (d.y1 - d.y0) / 2)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", "start")
+                .style("font-size", `${fontSize}px`)
+                .style("font-family", "Helvetica Neue, Arial, sans-serif")
+                .style("fill", "black")
+                .text(d => d.name.split('\n')[1]);
+
+            // Add interactivity for nodes
+            node.on("mouseover", function(event, d) {
+                const tooltip = d3.select("#tooltip");
+                tooltip.transition().duration(200).style("opacity", 1);
+                tooltip.html(`
+                    <strong>${d.name.replace('\n', ' ')}</strong><br>
+                    Category: ${d.group.replace('-', ' ')}
+                `)
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select("#tooltip").transition().duration(200).style("opacity", 0);
+            });
+
+            // Position time labels based on actual node positions
+            positionTimeLabels();
+        }
+
+        function positionTimeLabels() {
+            const timeLabelsContainer = d3.select("#time-labels");
+            timeLabelsContainer.selectAll("*").remove(); // Clear existing labels
+            
+            // Get unique x-positions for each time index from the SVG
+            const timePositions = {};
+            nodes.forEach(node => {
+                if (!timePositions[node.timeIndex]) {
+                    // Calculate the center position of the node column
+                    timePositions[node.timeIndex] = node.x0 + (node.x1 - node.x0) / 2;
+                }
+            });
+
+            // Get the container offset to align with SVG
+            const svgRect = svg.node().getBoundingClientRect();
+            const containerRect = document.querySelector('.container').getBoundingClientRect();
+            const offsetX = svgRect.left - containerRect.left;
+
+            // Create and position labels
+            timeLabels.forEach((label, index) => {
+                if (timePositions[index] !== undefined) {
+                    timeLabelsContainer
+                        .append("div")
+                        .attr("class", "time-label")
+                        .style("position", "absolute")
+                        .style("left", `${offsetX + timePositions[index]}px`)
+                        .style("top", "0")
+                        .style("transform", "translateX(-50%)")
+                        .html(label);
+                }
+            });
+        }
+
+        // Initial creation
+        createSankeyDiagram();
+
+        // Responsive resize
+        window.addEventListener('resize', function() {
+            clearTimeout(window.resizeTimer);
+            window.resizeTimer = setTimeout(createSankeyDiagram, 250);
+        });
+
+    </script>
 </body>
 </html>
