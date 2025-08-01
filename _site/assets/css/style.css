@@ -444,7 +444,7 @@ footer p + p {
   --code-border: #e1e4e8;
 }
 
-/* Dark mode overrides */
+/* Dark mode overrides - aggressive targeting for Modernist theme */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-primary: #0d1117;
@@ -460,85 +460,133 @@ footer p + p {
     --code-bg: #161b22;
     --code-border: #30363d;
   }
-  /* Apply dark mode styles */
-  body {
+  /* UNIVERSAL OVERRIDES - highest priority */
+  *, *::before, *::after {
+    border-color: var(--border-color) !important;
+  }
+  /* Body and HTML */
+  html, body {
     background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
   }
-  /* Header styling */
-  .header {
+  /* MODERNIST THEME SPECIFIC OVERRIDES */
+  /* Main wrapper - this is the key container */
+  .wrapper, #wrapper, body > div {
+    background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
+  }
+  /* Header section - this is the light blue area */
+  header, .header, header.header {
     background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
+    background-image: none !important;
+    background-attachment: unset !important;
     border-bottom: 1px solid var(--border-color) !important;
   }
-  /* Navigation links */
-  .header a {
+  /* Header gradients and background overrides */
+  header::before, header::after,
+  .header::before, .header::after {
+    display: none !important;
+  }
+  /* Header text */
+  header h1, header h2, header h3, header h4, header h5, header h6,
+  .header h1, .header h2, .header h3, .header h4, .header h5, .header h6 {
     color: var(--text-primary) !important;
   }
-  .header a:hover {
-    color: var(--link-hover) !important;
-  }
-  /* Main content area */
-  .wrapper {
-    background-color: var(--bg-primary) !important;
-  }
-  /* Sidebar styling */
-  header {
-    background-color: var(--bg-secondary) !important;
-    border-right: 1px solid var(--border-color) !important;
-  }
-  header h1 {
-    color: var(--text-primary) !important;
-  }
-  header p {
+  header p, .header p {
     color: var(--text-secondary) !important;
   }
-  /* Links */
-  a {
+  /* Header links */
+  header a, .header a {
     color: var(--link-color) !important;
   }
-  a:hover {
+  header a:hover, .header a:hover {
     color: var(--link-hover) !important;
   }
-  /* Content sections */
-  section {
+  /* Main content section */
+  section, .section, main, .main {
     background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
   }
-  /* Headings */
+  /* Content containers */
+  .content, #content, .page-content, .post-content {
+    background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+  /* All headings */
   h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary) !important;
   }
-  /* Paragraphs and text */
-  p {
+  /* All paragraphs and text */
+  p, span, div, li, td, th {
+    color: var(--text-primary) !important;
+  }
+  /* Lists */
+  ul, ol {
+    color: var(--text-primary) !important;
+  }
+  /* Links */
+  a, a:link, a:visited {
+    color: var(--link-color) !important;
+  }
+  a:hover, a:active, a:focus {
+    color: var(--link-hover) !important;
+  }
+  /* Cards and content blocks */
+  .card, .content-item, .project, .post {
+    background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+  /* Any elements with background colors */
+  [style*=background-color], [style*="background:"] {
+    background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
+  }
+  /* Override any light backgrounds */
+  .light, .bg-light, .background-light {
+    background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
     color: var(--text-primary) !important;
   }
   /* Code blocks */
-  pre, code {
+  pre, code, .highlight {
     background-color: var(--code-bg) !important;
+    background: var(--code-bg) !important;
     border: 1px solid var(--code-border) !important;
     color: var(--text-primary) !important;
   }
   /* Blockquotes */
   blockquote {
     background-color: var(--bg-accent) !important;
+    background: var(--bg-accent) !important;
     border-left: 4px solid var(--link-color) !important;
     color: var(--text-primary) !important;
   }
   /* Tables */
   table {
     background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
   }
   th, td {
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
+    background-color: transparent !important;
   }
   th {
     background-color: var(--bg-accent) !important;
+    background: var(--bg-accent) !important;
   }
   /* Form elements */
   input, textarea, select {
     background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
   }
@@ -547,49 +595,70 @@ footer p + p {
     box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
   }
   /* Buttons */
-  button, .btn {
+  button, .btn, input[type=submit], input[type=button] {
     background-color: var(--link-color) !important;
+    background: var(--link-color) !important;
     border: 1px solid var(--link-color) !important;
     color: var(--bg-primary) !important;
   }
-  button:hover, .btn:hover {
+  button:hover, .btn:hover, input[type=submit]:hover, input[type=button]:hover {
     background-color: var(--link-hover) !important;
+    background: var(--link-hover) !important;
     border-color: var(--link-hover) !important;
   }
-  /* Custom elements for your site */
-  .content-item {
+  /* Navigation */
+  nav, .nav, .navigation {
     background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
     border: 1px solid var(--border-color) !important;
   }
-  .content-item.featured {
-    border-color: var(--link-color) !important;
-    box-shadow: 0 2px 8px var(--shadow-color) !important;
+  nav ul, .nav ul, .navigation ul {
+    background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
   }
-  .tag {
+  nav li, .nav li, .navigation li {
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+  nav a, .nav a, .navigation a {
+    color: var(--text-primary) !important;
+  }
+  nav a:hover, .nav a:hover, .navigation a:hover {
     background-color: var(--bg-accent) !important;
+    background: var(--bg-accent) !important;
+    color: var(--link-hover) !important;
+  }
+  /* Footer */
+  footer, .footer {
+    background-color: var(--bg-secondary) !important;
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border-top: 1px solid var(--border-color) !important;
+  }
+  /* Special elements */
+  .tag, .badge, .label {
+    background-color: var(--bg-accent) !important;
+    background: var(--bg-accent) !important;
     color: var(--text-secondary) !important;
     border: 1px solid var(--border-color) !important;
   }
-  .date {
+  .date, .meta, .post-meta {
     color: var(--text-muted) !important;
   }
-  .post-meta {
-    color: var(--text-muted) !important;
+  /* Modernist theme specific selectors */
+  .inner {
+    background-color: var(--bg-primary) !important;
+    background: var(--bg-primary) !important;
   }
-  /* Navigation section */
-  .navigation ul {
-    background-color: var(--bg-secondary) !important;
-    border: 1px solid var(--border-color) !important;
+  /* Remove any box shadows that might interfere */
+  * {
+    box-shadow: none !important;
   }
-  .navigation li {
-    border-bottom: 1px solid var(--border-color) !important;
+  /* Re-add our custom shadows */
+  .content-item.featured, .post-list li:hover {
+    box-shadow: 0 4px 12px var(--shadow-color) !important;
   }
-  .navigation a {
-    color: var(--text-primary) !important;
-  }
-  .navigation a:hover {
-    background-color: var(--bg-accent) !important;
-    color: var(--link-hover) !important;
+  img {
+    box-shadow: 0 2px 8px var(--shadow-color) !important;
   }
 }
 /* ========================================
