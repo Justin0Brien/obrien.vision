@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizing Career Transitions: The Story Behind the Sankey Diagram - Justin O&#39;Brien</title>
+    <meta name="description" content="Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.">
+    
+    <!-- SEO -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Visualizing Career Transitions: The Story Behind the Sankey Diagram | Justin O’Brien</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Visualizing Career Transitions: The Story Behind the Sankey Diagram" />
+<meta name="author" content="Justin O'Brien" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy." />
+<meta property="og:description" content="Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy." />
+<link rel="canonical" href="http://localhost:4000/2025/08/01/visualizing-career-transitions/" />
+<meta property="og:url" content="http://localhost:4000/2025/08/01/visualizing-career-transitions/" />
+<meta property="og:site_name" content="Justin O’Brien" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-08-01T11:00:00+01:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Visualizing Career Transitions: The Story Behind the Sankey Diagram" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Justin O'Brien"},"dateModified":"2025-08-01T11:00:00+01:00","datePublished":"2025-08-01T11:00:00+01:00","description":"Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.","headline":"Visualizing Career Transitions: The Story Behind the Sankey Diagram","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2025/08/01/visualizing-career-transitions/"},"url":"http://localhost:4000/2025/08/01/visualizing-career-transitions/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Analytics (uncomment when ready) -->
+    <!-- Google Analytics or other analytics code -->
+</head>
+<body>
+    <header class="site-header">
+        <nav class="site-nav">
+            <div class="nav-container">
+                <a class="site-title" href="/">Justin O'Brien</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/projects/">Projects</a>
+                    <a href="/contact/">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="page-content">
+        <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+        <div class="post-meta">
+            <time datetime="2025-08-01T11:00:00+01:00">
+                August 01, 2025
+            </time>
+            
+                <span class="author">by Justin O'Brien</span>
+            
+            
+                <div class="post-tags">
+                    
+                        <span class="tag">sankey-diagram</span>
+                    
+                        <span class="tag">d3js</span>
+                    
+                        <span class="tag">career-transitions</span>
+                    
+                        <span class="tag">unemployment</span>
+                    
+                </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+
+<p>When I set out to visualize employment outcomes for professionals aged 50+ following redundancy, I knew the story was complex. Unlike a simple before-and-after comparison, career transitions unfold over time, with multiple pathways and outcomes that shift as months pass.</p>
+
+<p>The <a href="/sankey.html">interactive Sankey diagram</a> I created tells this story through the flow of percentages across different time periods, revealing patterns that might be lost in traditional charts or tables.</p>
+
+<h2 id="why-a-sankey-diagram">Why a Sankey Diagram?</h2>
+
+<p>Sankey diagrams excel at showing flow and transition. They’re perfect for visualizing:</p>
+
+<ul>
+  <li><strong>Proportional relationships</strong>: The width of each flow represents the percentage of people following that path</li>
+  <li><strong>Multiple outcomes</strong>: Unlike pie charts that show a single moment, Sankey diagrams can show how outcomes evolve</li>
+  <li><strong>Complex pathways</strong>: Some people find professional jobs quickly, others cycle through different states before settling into long-term outcomes</li>
+</ul>
+
+<h2 id="the-data-story">The Data Story</h2>
+
+<p>The visualization reveals several key insights:</p>
+
+<h3 id="early-struggles">Early Struggles</h3>
+<p>At 3 months post-redundancy, 65% of professionals aged 50+ remain unemployed. This stark figure highlights the immediate challenge this demographic faces in the job market.</p>
+
+<h3 id="gradual-recovery">Gradual Recovery</h3>
+<p>By 6 months, the unemployment rate drops to 38%, and by 12 months to 30%. However, this recovery isn’t just about finding similar professional roles – it’s about adaptation and compromise.</p>
+
+<h3 id="the-new-normal">The New Normal</h3>
+<p>After 24 months, the data shows a “new normal” where:</p>
+<ul>
+  <li>45% eventually return to professional roles</li>
+  <li>10% accept lower-paid positions</li>
+  <li>15% become self-employed</li>
+  <li>30% remain unemployed long-term</li>
+</ul>
+
+<h2 id="design-decisions">Design Decisions</h2>
+
+<p>Several design choices enhance the storytelling:</p>
+
+<h3 id="color-coding">Color Coding</h3>
+<ul>
+  <li><strong>Blue</strong>: Professional employment (positive outcome)</li>
+  <li><strong>Orange</strong>: Lower-paid employment (compromise outcome)</li>
+  <li><strong>Green</strong>: Self-employment (alternative pathway)</li>
+  <li><strong>Red</strong>: Unemployment (challenge outcome)</li>
+</ul>
+
+<h3 id="gradients">Gradients</h3>
+<p>Links between nodes use gradients that blend the source and target colors, visually representing the transition between different employment states.</p>
+
+<h3 id="time-labels">Time Labels</h3>
+<p>Clear time markers help users understand the progression and see how outcomes evolve over the critical first two years.</p>
+
+<h3 id="responsive-design">Responsive Design</h3>
+<p>The diagram adapts to different screen sizes while maintaining readability and impact.</p>
+
+<h2 id="technical-implementation">Technical Implementation</h2>
+
+<p>Built with D3.js and the d3-sankey plugin, the visualization processes flow data to create smooth, proportional connections between employment states across time periods.</p>
+
+<p>Key technical features:</p>
+<ul>
+  <li>Responsive SVG rendering</li>
+  <li>Interactive tooltips showing exact percentages</li>
+  <li>Hover effects to highlight specific flows</li>
+  <li>Gradient definitions for smooth color transitions</li>
+</ul>
+
+<h2 id="the-broader-context">The Broader Context</h2>
+
+<p>This visualization is part of a larger investigation into age-related employment challenges. The data combines insights from multiple sources including ONS statistics, Labour Force Survey data, and research from organizations like Ageing Better and the Resolution Foundation.</p>
+
+<p>The goal isn’t just to present statistics, but to make the human impact of redundancy visible and understandable to policymakers, employers, and the affected individuals themselves.</p>
+
+<h2 id="whats-next">What’s Next?</h2>
+
+<p>This Sankey diagram opens up several avenues for further exploration:</p>
+
+<ul>
+  <li>Regional variations in outcomes</li>
+  <li>Industry-specific transition patterns</li>
+  <li>The role of skills in successful transitions</li>
+  <li>Interventions that improve outcomes</li>
+</ul>
+
+<p>I’m continuing to develop interactive tools that make employment data more accessible and actionable. Each visualization aims to bridge the gap between raw statistics and human understanding.</p>
+
+<hr />
+
+<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-navigation">
+            
+            
+        </div>
+    </footer>
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <p>&copy; 2025 Justin O'Brien. All rights reserved.</p>
+            <div class="social-links">
+                
+                    <a href="https://github.com/your-github-username" target="_blank" rel="noopener">GitHub</a>
+                
+                
+                    <a href="https://linkedin.com/in/your-linkedin-username" target="_blank" rel="noopener">LinkedIn</a>
+                
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>
