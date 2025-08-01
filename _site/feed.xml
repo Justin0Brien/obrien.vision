@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-01T16:59:00+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4000/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4000/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4000/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-01T17:07:24+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4000/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4000/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4000/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
 
 <p>When I set out to visualize employment outcomes for professionals aged 50+ following redundancy, I knew the story was complex. Unlike a simple before-and-after comparison, career transitions unfold over time, with multiple pathways and outcomes that shift as months pass.</p>
 
@@ -19,13 +19,17 @@
 <p>The visualization reveals several key insights:</p>
 
 <h3 id="early-struggles">Early Struggles</h3>
+
 <p>At 3 months post-redundancy, 65% of professionals aged 50+ remain unemployed. This stark figure highlights the immediate challenge this demographic faces in the job market.</p>
 
 <h3 id="gradual-recovery">Gradual Recovery</h3>
+
 <p>By 6 months, the unemployment rate drops to 38%, and by 12 months to 30%. However, this recovery isn’t just about finding similar professional roles – it’s about adaptation and compromise.</p>
 
 <h3 id="the-new-normal">The New Normal</h3>
+
 <p>After 24 months, the data shows a “new normal” where:</p>
+
 <ul>
   <li>45% eventually return to professional roles</li>
   <li>10% accept lower-paid positions</li>
@@ -38,6 +42,7 @@
 <p>Several design choices enhance the storytelling:</p>
 
 <h3 id="color-coding">Color Coding</h3>
+
 <ul>
   <li><strong>Blue</strong>: Professional employment (positive outcome)</li>
   <li><strong>Orange</strong>: Lower-paid employment (compromise outcome)</li>
@@ -46,12 +51,15 @@
 </ul>
 
 <h3 id="gradients">Gradients</h3>
+
 <p>Links between nodes use gradients that blend the source and target colors, visually representing the transition between different employment states.</p>
 
 <h3 id="time-labels">Time Labels</h3>
+
 <p>Clear time markers help users understand the progression and see how outcomes evolve over the critical first two years.</p>
 
 <h3 id="responsive-design">Responsive Design</h3>
+
 <p>The diagram adapts to different screen sizes while maintaining readability and impact.</p>
 
 <h2 id="technical-implementation">Technical Implementation</h2>
@@ -59,6 +67,7 @@
 <p>Built with D3.js and the d3-sankey plugin, the visualization processes flow data to create smooth, proportional connections between employment states across time periods.</p>
 
 <p>Key technical features:</p>
+
 <ul>
   <li>Responsive SVG rendering</li>
   <li>Interactive tooltips showing exact percentages</li>

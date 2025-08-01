@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: About
 permalink: /about/
 ---
@@ -19,16 +19,19 @@ With experience spanning both the public and private sectors, I bring a unique p
 ## Expertise
 
 ### Data Visualization
+
 - Interactive web-based charts and dashboards
 - D3.js, Python (matplotlib, plotly), R (ggplot2)
 - Responsive design for multi-device accessibility
 
 ### Statistical Analysis
+
 - Employment and economic modeling
 - Longitudinal data analysis
 - Survey methodology and interpretation
 
 ### Research Areas
+
 - Career transitions and job market dynamics
 - Age-related employment challenges
 - Skills migration across industries

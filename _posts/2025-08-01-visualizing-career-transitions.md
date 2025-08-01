@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Visualizing Career Transitions: The Story Behind the Sankey Diagram"
 date: 2025-08-01 10:00:00 +0000
 categories: [data-visualization, employment]
@@ -27,13 +27,17 @@ Sankey diagrams excel at showing flow and transition. They're perfect for visual
 The visualization reveals several key insights:
 
 ### Early Struggles
+
 At 3 months post-redundancy, 65% of professionals aged 50+ remain unemployed. This stark figure highlights the immediate challenge this demographic faces in the job market.
 
 ### Gradual Recovery
+
 By 6 months, the unemployment rate drops to 38%, and by 12 months to 30%. However, this recovery isn't just about finding similar professional roles – it's about adaptation and compromise.
 
 ### The New Normal
+
 After 24 months, the data shows a "new normal" where:
+
 - 45% eventually return to professional roles
 - 10% accept lower-paid positions
 - 15% become self-employed
@@ -44,18 +48,22 @@ After 24 months, the data shows a "new normal" where:
 Several design choices enhance the storytelling:
 
 ### Color Coding
+
 - **Blue**: Professional employment (positive outcome)
 - **Orange**: Lower-paid employment (compromise outcome)
 - **Green**: Self-employment (alternative pathway)
 - **Red**: Unemployment (challenge outcome)
 
 ### Gradients
+
 Links between nodes use gradients that blend the source and target colors, visually representing the transition between different employment states.
 
 ### Time Labels
+
 Clear time markers help users understand the progression and see how outcomes evolve over the critical first two years.
 
 ### Responsive Design
+
 The diagram adapts to different screen sizes while maintaining readability and impact.
 
 ## Technical Implementation
@@ -63,6 +71,7 @@ The diagram adapts to different screen sizes while maintaining readability and i
 Built with D3.js and the d3-sankey plugin, the visualization processes flow data to create smooth, proportional connections between employment states across time periods.
 
 Key technical features:
+
 - Responsive SVG rendering
 - Interactive tooltips showing exact percentages
 - Hover effects to highlight specific flows
