@@ -1,0 +1,108 @@
+---
+---
+
+@import "jekyll-theme-modernist";
+
+/* Custom styles for modernist theme */
+
+.home {
+  line-height: 1.6;
+}
+
+.featured-content, .about-preview, .recent-posts, .navigation {
+  margin-bottom: 2rem;
+}
+
+.content-item, .post-preview {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+
+.content-item.featured {
+  border-color: #4183c4;
+  background-color: #f0f7ff;
+}
+
+.content-item h3, .post-preview h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.content-item h3 a, .post-preview h3 a {
+  color: #4183c4;
+  text-decoration: none;
+}
+
+.content-item h3 a:hover, .post-preview h3 a:hover {
+  text-decoration: underline;
+}
+
+.date, .post-meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.tag {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.about-preview p {
+  margin-bottom: 1rem;
+}
+
+.navigation ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.navigation li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+}
+
+.navigation li a {
+  color: #4183c4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navigation li a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .content-item, .post-preview {
+    padding: 0.8rem;
+  }
+  
+  .tags {
+    gap: 0.2rem;
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+  }
+}

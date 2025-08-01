@@ -8,8 +8,8 @@ gem "csv"
 gem "logger"
 gem "base64"
 
-# Theme
-gem "minima", "~> 2.5"
+# Theme - GitHub Pages modernist theme
+gem "jekyll-theme-modernist"
 
 # Plugins
 group :jekyll_plugins do

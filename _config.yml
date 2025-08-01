@@ -2,14 +2,14 @@
 title: Justin O'Brien
 email: justin@obrien.vision
 description: >-
-  Personal and professional website showcasing data visualizations, analysis, and insights.
-  Exploring the intersection of technology, data, and human experience.
+  Data Visualization • Analysis • Insights. 
+  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.
 baseurl: ""
 url: "https://obrien.vision"
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: jekyll-theme-modernist
 plugins:
   - jekyll-feed
   - jekyll-sitemap
@@ -21,8 +21,12 @@ paginate: 5
 paginate_path: "/page:num/"
 
 # Social media and contact
-github_username: your-github-username
+github_username: Justin0Brien
 linkedin_username: your-linkedin-username
+
+# Modernist theme settings
+show_downloads: false
+is_project_page: false
 
 # Exclude from processing
 exclude:

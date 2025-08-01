@@ -4,11 +4,6 @@ title: Home
 ---
 
 <div class="home">
-  <header class="site-header">
-    <h1 class="site-title">Justin O'Brien</h1>
-    <p class="site-description">Data Visualization • Analysis • Insights</p>
-  </header>
-
   <section class="featured-content">
     <h2>Latest Work</h2>
     
@@ -85,124 +80,14 @@ title: Home
       <p>Posts coming soon. Check back for insights on data visualization, employment trends, and economic analysis.</p>
     {% endif %}
   </section>
+
+  <section class="navigation">
+    <h2>Explore</h2>
+    <ul>
+      <li><a href="/about/">About Me</a> - Background and expertise</li>
+      <li><a href="/blog/">Blog</a> - Insights and analysis</li>
+      <li><a href="/sankey.html">Interactive Visualizations</a> - Data-driven stories</li>
+      <li><a href="/contact/">Contact</a> - Get in touch</li>
+    </ul>
+  </section>
 </div>
-
-<style>
-.home {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-}
-
-.site-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding-bottom: 2rem;
-  border-bottom: 2px solid #e9ecef;
-}
-
-.site-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1f77b4;
-}
-
-.site-description {
-  font-size: 1.2rem;
-  color: #666;
-  margin: 0;
-}
-
-.featured-content, .about-preview, .recent-posts {
-  margin-bottom: 3rem;
-}
-
-.content-item, .post-preview {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
-  transition: box-shadow 0.3s ease;
-}
-
-.content-item:hover, .post-preview:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.content-item.featured {
-  border-color: #1f77b4;
-  background-color: #f8f9ff;
-}
-
-.content-item h3, .post-preview h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-.content-item h3 a, .post-preview h3 a {
-  color: #1f77b4;
-  text-decoration: none;
-}
-
-.content-item h3 a:hover, .post-preview h3 a:hover {
-  text-decoration: underline;
-}
-
-.date, .post-meta {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.description {
-  margin-bottom: 1rem;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tag {
-  background-color: #e9ecef;
-  color: #495057;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.about-preview p {
-  margin-bottom: 1rem;
-}
-
-h2 {
-  color: #343a40;
-  border-bottom: 2px solid #e9ecef;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .home {
-    padding: 1rem 0.5rem;
-  }
-  
-  .site-title {
-    font-size: 2rem;
-  }
-  
-  .content-item, .post-preview {
-    padding: 1rem;
-  }
-  
-  .tags {
-    gap: 0.25rem;
-  }
-}
-</style>
