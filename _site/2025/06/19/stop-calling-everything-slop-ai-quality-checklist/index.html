@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stop Calling Everything 'Slop': Build a Smarter AI Quality Checklist</title>
+  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <![endif]-->
+  <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1><a href="http://localhost:4001/">Justin O'Brien</a></h1>
+      
+      
+
+      <p>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</p>
+
+      
+
+      
+
+      
+    </header>
+    <section>
+
+    <p><img src="/assets/images/posts/2025-06-19/slop-delve.png" alt="AI Quality Taxonomy Overview" /></p>
+
+<p><em>Originally published June 19, 2025</em></p>
+
+<h2 id="slop-is-sloppy">Slop is Sloppy</h2>
+
+<p>The Generative-AI backlash has coined a new catch-all insult: “AI slop.” The label began life as internet shorthand for the torrents of low-effort, algorithm-written web pages and uncanny Midjourney pictures that clog our feeds, but it has since mutated into a blanket sneer aimed at almost any machine-assisted work. A close look at the term’s roots shows why the metaphor of “slop” is rhetorically powerful yet often intellectually lazy: it conflates genuine creative misfires with otherwise polished writing or imagery that simply stumbles on the last metre—extra fingers here, a mis-dated statistic there. In short, “slop” risks obscuring nuance just when we most need clear critical vocabulary.</p>
+
+<h2 id="where-slop-comes-from">Where “Slop” Comes From</h2>
+
+<p>Slop began life in late-mediaeval English as a word for a muddy puddle. By the seventeenth century it had slid—appropriately—into farm talk for semi-liquid pig feed, and by Victorian times it carried two extra shades of contempt: mass-produced cheap clothing sold in “slop-shops”, and sentimental drivel in popular fiction. The sound of the word, rooted in the same Germanic stem as slip and slide, has always suggested something wet, messy and faintly unpleasant.</p>
+
+<p>In 2024 the tech community borrowed the term to label low-effort, machine-generated content: “AI slop.” The analogy to junk e-mail “spam” was irresistible—and accurate when you’re scrolling past six-fingered celebrity portraits or keyword-stuffed listicles. But using slop for every piece of AI-assisted work is, well, sloppy. A polished image with a stray extra thumb, or an otherwise solid article with a single mis-dated statistic, deserves more precise criticism than a trip to the pig trough.</p>
+
+<h2 id="why-the-metaphor-misfires">Why the Metaphor Misfires</h2>
+
+<p><strong>It Collapses Gradations of Quality</strong> - Not all machine-assisted work is interchangeable mush. Lumping everything together as slop discourages more precise critique.</p>
+
+<p><strong>It Blinds Us to Human Complicity</strong> - Many so-called slop sites are monetised by ordinary publishers chasing ad revenue or engagement metrics, not by the models themselves. Calling the output “AI slop” can deflect responsibility from the editors who chose speed over standards.</p>
+
+<p><strong>It Fuels Blanket Scepticism</strong> - The Guardian notes that rising public distrust now leads readers to assume authentic flood photos are <a href="https://www.theguardian.com/commentisfree/2024/nov/09/the-images-of-spains-floods-werent-created-by-ai-the-trouble-is-people-think-they-were">deepfakes</a>, hampering disaster response. Over-using the epithet slop risks a boy-who-cried-wolf effect in which all digital media are suspect and genuine warnings are ignored.</p>
+
+<p>If every AI-touched work is dismissed as pigswill, we lose the ability to judge craft, intention and risk on their merits. Better to reserve slop for genuine sludge—and enrich our critical toolkit with vocabulary that discriminates between a puddle and a merely muddy boot-print.</p>
+
+<p>Below is a working taxonomy I use, synthesised from sources in disparate domains. It groups errors into six high-level families and gives each sub-type a short code—handy for tagging documents or briefing reviewers.</p>
+
+<h2 id="the-six-families-of-ai-quality-issues">The Six Families of AI Quality Issues</h2>
+
+<ol>
+  <li>
+    <p><strong>Synthetic Truth Failures</strong> – When the model’s facts are wrong. That includes outright hallucinations, out-of-date statements, fabricated citations, faulty numbers, mis-quoted sources and other inventions that undermine factual reliability.</p>
+  </li>
+  <li>
+    <p><strong>Semantic &amp; Structural Incoherence</strong> – The answer may be factually fine, yet the writing itself is muddled: contradictions, run-on repetition, abrupt truncations, broken formatting, off-topic rambles, word-salad syntax, persona drift or verbose filler.</p>
+  </li>
+  <li>
+    <p><strong>Aesthetic Anomalies</strong> – Glitches you can see or hear: extra fingers in an image, impossible camera angles, jittery video frames, lip-sync slips, robotic speech or buzz-phrase-laden prose that instantly signals “this was generated”.</p>
+  </li>
+  <li>
+    <p><strong>Ethical &amp; Societal Harm</strong> – Content that causes social damage: biased or stereotyped depictions, hate speech, deep-fake misinformation, unlicensed use of copyrighted material, or mass-produced spam that clogs information channels.</p>
+  </li>
+  <li>
+    <p><strong>Security &amp; Privacy Breaches</strong> – Attacks or accidents that expose data or create system risk, such as prompt-injection exploits, leakage of private training data, or AI-generated code that ships with hidden vulnerabilities.</p>
+  </li>
+  <li>
+    <p><strong>Alignment &amp; Control Deviations</strong> – Moments when the model ignores its safety rails: providing disallowed instructions, delivering over-confident claims with no basis, or doling out definitive medical/legal advice it was never authorised to give.</p>
+  </li>
+</ol>
+
+<p><img src="/assets/images/posts/2025-06-19/jargon-blob-illustration.jpg" alt="The Jargon Blob says &quot;Synergy! Optimize! Paradigm Shift! Leverage!" /></p>
+
+<h2 id="1--synthetic-truth-failures">1 – Synthetic Truth Failures</h2>
+
+<p><em>When the model gets the facts wrong</em></p>
+
+<p><strong>Fabrication</strong> – Invents people, events or facts (“hallucinations”). ⚖️ <em>A New York lawyer cited six non-existent court decisions fabricated by ChatGPT</em> (<a href="https://www.legaldive.com/news/chatgpt-fake-legal-cases-generative-ai-hallucinations/651557/">LegalDive</a>)</p>
+
+<p><strong>Temporal drift</strong> – Gives information that used to be true but is now outdated. 🕰️ <em>Some LLMs still name outdated office-holders after their training cut-off</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">Guardian</a>)</p>
+
+<p><strong>Confabulated citation</strong> – Cites journals, URLs or court cases that do not exist. 📚 <em>Users requesting niche academic references receive fictitious DOIs and broken links</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">same Guardian investigation</a>)</p>
+
+<p><strong>Numeric mis-calculation</strong> – Bungles sums, exchange rates or unit conversions. 🧮 <em>GPT-3.5 stumbles on multi-step arithmetic problems</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">Guardian analysis</a>)</p>
+
+<p><strong>Quote / attribution error</strong> – Puts real words in the wrong mouth or cites the wrong source. 🗣️ <em>ChatGPT mis-credited 153 of 200 press quotes, including an Orlando Sentinel letter attributed to Time</em> (<a href="https://www.cjr.org/tow_center/how-chatgpt-misrepresents-publisher-content.php">CJR</a>); <em>fake court citations also turning up in filings</em> (<a href="https://www.businessinsider.com/increasing-ai-hallucinations-fake-citations-court-records-data-2025-5">Business Insider</a>)</p>
+
+<p><strong>Entity conflation</strong> – Melds details from two or more people into one biography. 🪪 <em>ChatGPT repeatedly listed privacy activist Max Schrems with the wrong birth date, prompting a NOYB complaint</em> (<a href="https://timesofindia.indiatimes.com/world/rest-of-world/chatgpt-faces-plaint-in-austria-for-hallucinating-wrong-answers/articleshow/109704321.cms">Times of India</a>)</p>
+
+<p><strong>Biographical defamation</strong> – States reputationally damaging falsehoods about a real person. ⚠️ <em>The model alleged an Australian mayor had served prison time; he is now suing for defamation</em> (<a href="https://www.reuters.com/technology/australian-mayor-readies-worlds-first-defamation-lawsuit-over-chatgpt-content-2023-04-05/">Reuters</a>)</p>
+
+<p><strong>Geospatial misplacement</strong> – Pins an event to the wrong location or mis-labels landmarks. 📍 <em>AI “photos” showed a flooded Disney World during Hurricane Milton; Reuters debunked them</em> (<a href="https://www.reuters.com/fact-check/ai-images-flooded-disney-world-spread-online-2024-10-15/">Reuters</a>) – <em>genuine Spanish flood images were also dismissed as AI fakes</em> (<a href="https://www.theguardian.com/commentisfree/2024/nov/09/the-images-of-spains-floods-werent-created-by-ai-the-trouble-is-people-think-they-were">Guardian</a>)</p>
+
+<p><strong>Statistical phantom</strong> – Invents survey data, market shares or PDFs to match. 📊 <em>Asked for Polish cloud-adoption figures, ChatGPT produced non-existent Deloitte reports and broken links</em> (<a href="https://medium.com/@agata.cupriak/why-is-chatgpt-making-up-facts-and-how-to-deal-with-that-57b504dd28">Medium</a>); <em>MIT Sloan warns of widespread “phantom datasets”</em> (<a href="https://mitsloanedtech.mit.edu/ai/basics/addressing-ai-hallucinations-and-bias/">MIT Sloan EdTech</a>)</p>
+
+<p><strong>Why it matters:</strong> Synthetic truth failures undermine credibility outright. Some even carry legal risk.</p>
+
+<h2 id="2--semantic--structural-incoherence">2 – Semantic &amp; Structural Incoherence</h2>
+
+<p><em>When the prose sounds off—even if the facts are technically correct</em></p>
+
+<p><strong>Logical contradiction</strong> – Claims two incompatible facts in the same answer. 🔄 <em>ChatGPT once described a jacket as both “completely waterproof” and “not water-resistant” in a single paragraph</em> (<a href="https://medium.com/@mbonsign/improving-large-language-models-handling-of-contradictions-fostering-epistemic-humility-629fca6abcf0">Medium</a>)</p>
+
+<p><strong>Run-on repetition</strong> – Loops favourite phrases (“As an AI language model…”) or drifts into copy-paste mode. 🔁 <em>A Nature study shows models fed on their own output spiral into repetitive “model-collapse” loops</em> (<a href="https://www.nature.com/articles/s41586-024-07566-y">Nature</a>)</p>
+
+<p><strong>Truncation</strong> – Cuts off mid-sentence or drops a heading when the context window overflows. ✂️ <em>Devs report ChatGPT abruptly ending replies once it hits token limits</em> (<a href="https://www.o8.agency/blog/ai/advanced-chatgpt-context-windows-and-prompt-engineering">o8 Agency blog</a>)</p>
+
+<p><strong>Formatting breakage</strong> – Outputs code or tables that will not compile or render. 🧩 <em>An arXiv audit found 32% of GitHub Copilot snippets failed to compile across four languages</em> (<a href="https://arxiv.org/html/2310.02059v1">arXiv</a>)</p>
+
+<p><strong>Irrelevant reply</strong> – Answers a different question altogether. ❓ <em>The Dr3 benchmark records GPT-4 replying “Barack Obama” to “In which year was David Beckham’s wife born?”</em> (<a href="https://arxiv.org/html/2403.12393v1">arXiv</a>)</p>
+
+<p><strong>Word-salad</strong> – Produces grammatically tangled, semantically empty text. 🥗 <em>Researchers scored frontier models on a “gibberish scale”, flagging bursts of incoherent word-salad</em> (<a href="https://arxiv.org/html/2410.15234v3">arXiv</a>)</p>
+
+<p><strong>Topic drift</strong> – Wanders off into an unrelated subject as the chat grows. 🧭 <em>A 2025 study on “goal drift” shows agents veer off task after long context interactions</em> (<a href="https://arxiv.org/html/2505.02709v1">arXiv</a>)</p>
+
+<p><strong>Persona drift</strong> – Forgets its assigned role or leaks hidden instructions. 🎭 <em>“Measuring Persona Drift” tests found consistency collapsing over multi-session dialogues</em> (<a href="https://arxiv.org/html/2402.10962v1">arXiv</a>)</p>
+
+<p><strong>Verbosity compensation</strong> – Pads answers with florid filler to mask uncertainty. 📜 <em>The first paper on Verbosity Compensation shows LLMs grow wordier when unsure</em> (<a href="https://openreview.net/forum?id=l49uZcEIcq">OpenReview</a>)</p>
+
+<p><strong>Why it matters:</strong> Sloppy structure confuses readers and saps trust—even if nothing is factually wrong.</p>
+
+<h2 id="3--aesthetic-anomalies">3 – Aesthetic Anomalies</h2>
+
+<p><em>The look or sound of the output gives the game away</em></p>
+
+<p><strong>Visual artefact</strong> – Extra fingers, fused limbs in a still image. 🖐️ <em>AI-generated portraits often show hands with nine fingers or digits growing from palms</em> (<a href="https://www.britannica.com/topic/Why-does-AI-art-screw-up-hands-2230501">Britannica</a>)</p>
+
+<p><strong>Phantom perspective</strong> – Impossible shadows or camera angles. 🌀 <em>AI images may place staircases that run both up and down at once, a classic perspective giveaway</em> (<a href="https://insight.kellogg.northwestern.edu/article/ai-photos-identification">Kellogg Insight</a>)</p>
+
+<p><strong>Stilted writing style</strong> – Buzz-phrase-ridden corporate waffle. 📝 <em>Cover-letters packed with “leveraging data-driven insights” scream ChatGPT-draft</em> (<a href="https://medium.com/learning-data/words-and-phrases-that-make-it-obvious-you-used-chatgpt-2ba374033ac6">Medium</a>)</p>
+
+<p><strong>Motion artefact</strong> – Limbs rotate 360° in video. 🎥 <em>Runway Gen-2 demo clips show wrists spinning unrealistically mid-move</em> (<a href="https://www.youtube.com/watch?v=vezJXJGQMoY">YouTube</a>)</p>
+
+<p><strong>Temporal inconsistency</strong> – Objects morph between frames. ⏱️ <em>The UniCtrl paper calls such cross-frame drift the “central unsolved issue” in text-to-video</em> (<a href="https://arxiv.org/abs/2403.02332">arXiv</a>)</p>
+
+<p><strong>Frame ghosting</strong> – Echo silhouettes after frame interpolation. 👻 <em>Topaz Video AI users report spectral duplicates around moving subjects</em> (<a href="https://community.topazlabs.com/t/frame-interpolation-apollo-makes-some-duplicate-frames/57367">Topaz forum</a>)</p>
+
+<p><strong>Limb distortion</strong> – Body parts vanish or multiply. 💪 <em>An anatomy-audit found “proliferated limbs and missing fingers” rife in T2I datasets</em> (<a href="https://arxiv.org/html/2503.00811v1">arXiv</a>)</p>
+
+<p><strong>Lip-sync slip</strong> – Mouth movement out of time with speech. 👄 <em>Berkeley’s LIPINC detector spots millisecond-level audio-video mismatches in deepfakes</em> (<a href="https://farid.berkeley.edu/downloads/publications/cvprw24c.pdf">PDF</a>)</p>
+
+<p><strong>Gesture drift</strong> – Avatar repeats an awkward shrug. 🤖 <em>Synthesia avatars are criticised for stiff, looping body-language</em> (<a href="https://www.argil.ai/blog/avatar-gestures-in-synthesia-a-complete-guide-to-natural-body-language">Argil AI</a>)</p>
+
+<p><strong>Flat voice prosody</strong> – Monotone, robotic cadence. 🔈 <em>Wayline’s UX blog flags flat prosody as a top engagement killer in TTS output</em> (<a href="https://www.wayline.io/blog/imperfect-ai-voice-engagement">Wayline</a>)</p>
+
+<p><strong>Prosodic pathology</strong> – Stress patterns that feel “off”. 🗣️ <em>Deepgram explains how monotone or misplaced emphasis reduces naturalness</em> (<a href="https://deepgram.com/learn/text-to-speech-ai">Deepgram</a>)</p>
+
+<p><strong>Textural inconsistency</strong> – Fabrics or grass flicker frame-to-frame. 🌾 <em>The VideoJAM paper links “texture flicker” to weak appearance-motion coupling</em> (<a href="https://arxiv.org/abs/2502.02492">arXiv</a>)</p>
+
+<p><strong>Perspective roulette</strong> – Camera jumps to an impossible position mid-shot. 🎥 <em>Researchers catalogue perspective flips as a common diffusion-model failure</em> (<a href="https://arxiv.org/html/2304.06470v6">arXiv</a>)</p>
+
+<p><strong>Why it matters:</strong> Aesthetic glitches are reliable tells for deepfakes and signal that visual quality control—not another fact-check—is the urgent next step.</p>
+
+<h2 id="4--ethical--societal-harm">4 – Ethical &amp; Societal Harm</h2>
+
+<p><em>When the content hurts people or the public sphere</em></p>
+
+<p><strong>Bias &amp; stereotyping</strong> – Over-represents one demographic as “default”. 🌍 <em>Stable Diffusion routinely produced light-skinned male faces even for neutral prompts about “a person”</em> (<a href="https://www.washington.edu/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/">UW study</a>)</p>
+
+<p><strong>Toxic language</strong> – Hate, harassment or slurs. 💬 <em>Microsoft’s Tay chatbot spiralled into racist tweets within 24 hours of launch</em> (<a href="https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/">Microsoft blog</a>)</p>
+
+<p><strong>Misinformation &amp; deepfakes</strong> – Fake news photos, bogus quotes. 📰 <em>AI “photos” of a flooded Disney World during Hurricane Milton went viral before Reuters debunked them</em> (<a href="https://www.reuters.com/fact-check/ai-images-flooded-disney-world-spread-online-2024-10-15/">Reuters</a>)</p>
+
+<p><strong>Copyright &amp; plagiarism</strong> – Outputs protected material verbatim. ©️ <em>Getty Images is suing Stability AI for scraping more than 12 million photos to train Stable Diffusion</em> (<a href="https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/">Reuters</a>)</p>
+
+<p><strong>Spam scale</strong> – Thousands of low-value pages clogging the web. 🗑️ <em>NewsGuard is tracking 1,271 AI-generated “news” sites with minimal human oversight</em> (<a href="https://www.newsguardtech.com/special-reports/ai-tracking-center">NewsGuard</a>)</p>
+
+<p><strong>Why it matters:</strong> Ethical failures crop up in corrections columns, defamation suits and copyright trials—real-world harm that goes far beyond a mere factual slip-up.</p>
+
+<h2 id="5--security--privacy-breaches">5 – Security &amp; Privacy Breaches</h2>
+
+<p><em>Attacks or accidents that expose data or users</em></p>
+
+<p><strong>Prompt injection</strong> – Attacker hijacks instructions or leaks hidden text. 🛡️ <em>Industry testing found prompt-injection success rates above 50% across leading LLMs</em> (<a href="https://www.paloaltonetworks.com/cyberpedia/what-is-a-prompt-injection-attack">Palo Alto Networks</a>)</p>
+
+<p><strong>Data leakage</strong> – Private training data or user info spills out. 🔓 <em>A March 2023 bug let some ChatGPT users view others’ chat titles and billing details</em> (<a href="https://www.reuters.com/technology/chatgpt-owner-openai-fixes-significant-issue-exposing-user-chat-titles-2023-03-22/">Reuters</a>)</p>
+
+<p><strong>Code vulnerability</strong> – Generated code hides an exploitable flaw. 🐞 <em>An arXiv audit showed 32% of Copilot’s Python snippets carried security issues</em> (<a href="https://arxiv.org/html/2310.02059v1">arXiv</a>)</p>
+
+<p><strong>Why it matters:</strong> Security failures incur regulatory fines, reputational damage and ransomware risk—far costlier than a simple typo.</p>
+
+<h2 id="6--alignment--control-deviations">6 – Alignment &amp; Control Deviations</h2>
+
+<p><em>The model ignores or subverts its guardrails</em></p>
+
+<p><strong>Guardrail bypass</strong> – Supplies disallowed instructions (e.g., weapon guides). 💣 <em>Users tricked Discord’s Clyde chatbot into giving step-by-step recipes for napalm and meth</em> (<a href="https://techcrunch.com/2023/04/20/jailbreak-tricks-discords-new-chatbot-into-sharing-napalm-and-meth-instructions/">TechCrunch</a>)</p>
+
+<p><strong>Over-confidence</strong> – States a low-probability claim as absolute fact. 📢 <em>ChatGPT confidently cited non-existent judicial precedents in a U.S. legal brief, fooling the lawyer who filed it</em> (<a href="https://hai.stanford.edu/news/hallucinating-law-legal-mistakes-large-language-models-are-pervasive">Stanford HAI</a>)</p>
+
+<p><strong>Speculative advice</strong> – Hands out medical or legal diagnoses it should not. 🩺 <em>A Stanford study found AI chatbots dispensing inappropriate mental-health guidance and validating delusions in therapy-style chats</em> (<a href="https://www.sfgate.com/tech/article/stanford-researchers-chatgpt-bad-therapist-20383990.php">SFGate</a>)</p>
+
+<p><strong>Why it matters:</strong> Alignment failures breach safety promises, expose users to real-world harm and heighten regulatory scrutiny.</p>
+
+<hr />
+
+<h2 id="closing-thought">Closing Thought</h2>
+
+<p>If “AI slop” is a lazy label, our response should be the opposite: attentive, specific and proportionate. Naming the precise failure—whether it’s a phantom statistic or a jailbreak that spills private data—gives designers a target to fix and audiences a reason to keep reading. The next time an algorithm slips, let’s reach for the right code in the taxonomy instead of the nearest trough: clearer language is the first step towards cleaner machine-made work.</p>
+
+<hr />
+
+<p><em>Have you encountered specific AI quality issues in your work? Which categories from this taxonomy do you find most useful for evaluation? <a href="/contact/">Share your thoughts</a> or discuss this framework with your team.</em></p>
+
+
+    </section>
+  </div>
+  <script src="/assets/js/scale.fix.js"></script>
+  <script src="/assets/js/theme-toggle.js"></script>
+</body>
+</html>
