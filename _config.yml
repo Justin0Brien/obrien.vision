@@ -1,0 +1,59 @@
+# Site settings
+title: Justin O'Brien
+email: justin@obrien.vision
+description: >-
+  Personal and professional website showcasing data visualizations, analysis, and insights.
+  Exploring the intersection of technology, data, and human experience.
+baseurl: ""
+url: "https://obrien.vision"
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Jekyll settings
+permalink: /:year/:month/:day/:title/
+paginate: 5
+paginate_path: "/page:num/"
+
+# Social media and contact
+github_username: your-github-username
+linkedin_username: your-linkedin-username
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - venv/
+  - .git/
+  - .gitignore
+  - README.md
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Justin O'Brien"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
