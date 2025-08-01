@@ -3,10 +3,351 @@
 
 @import "jekyll-theme-modernist";
 
-/* Custom styles for modernist theme */
+/* ========================================
+   DARK MODE SUPPORT
+   Automatic light/dark mode based on system preference
+   ======================================== */
+
+:root {
+  /* Light mode colors (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-accent: #eaeaea;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --link-color: #0366d6;
+  --link-hover: #0256cc;
+  --border-color: #e1e4e8;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --code-bg: #f6f8fa;
+  --code-border: #e1e4e8;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-accent: #21262d;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --link-color: #58a6ff;
+    --link-hover: #79c0ff;
+    --border-color: #30363d;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --code-bg: #161b22;
+    --code-border: #30363d;
+  }
+
+  /* Apply dark mode styles */
+  body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Header styling */
+  .header {
+    background-color: var(--bg-secondary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  /* Navigation links */
+  .header a {
+    color: var(--text-primary) !important;
+  }
+
+  .header a:hover {
+    color: var(--link-hover) !important;
+  }
+
+  /* Main content area */
+  .wrapper {
+    background-color: var(--bg-primary) !important;
+  }
+
+  /* Sidebar styling */
+  header {
+    background-color: var(--bg-secondary) !important;
+    border-right: 1px solid var(--border-color) !important;
+  }
+
+  header h1 {
+    color: var(--text-primary) !important;
+  }
+
+  header p {
+    color: var(--text-secondary) !important;
+  }
+
+  /* Links */
+  a {
+    color: var(--link-color) !important;
+  }
+
+  a:hover {
+    color: var(--link-hover) !important;
+  }
+
+  /* Content sections */
+  section {
+    background-color: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+
+  /* Paragraphs and text */
+  p {
+    color: var(--text-primary) !important;
+  }
+
+  /* Code blocks */
+  pre, code {
+    background-color: var(--code-bg) !important;
+    border: 1px solid var(--code-border) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    background-color: var(--bg-accent) !important;
+    border-left: 4px solid var(--link-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Tables */
+  table {
+    background-color: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  th, td {
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  th {
+    background-color: var(--bg-accent) !important;
+  }
+
+  /* Form elements */
+  input, textarea, select {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--link-color) !important;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
+  }
+
+  /* Buttons */
+  button, .btn {
+    background-color: var(--link-color) !important;
+    border: 1px solid var(--link-color) !important;
+    color: var(--bg-primary) !important;
+  }
+
+  button:hover, .btn:hover {
+    background-color: var(--link-hover) !important;
+    border-color: var(--link-hover) !important;
+  }
+
+  /* Custom elements for your site */
+  .content-item {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  .content-item.featured {
+    border-color: var(--link-color) !important;
+    box-shadow: 0 2px 8px var(--shadow-color) !important;
+  }
+
+  .tag {
+    background-color: var(--bg-accent) !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  .date {
+    color: var(--text-muted) !important;
+  }
+
+  .post-meta {
+    color: var(--text-muted) !important;
+  }
+
+  /* Navigation section */
+  .navigation ul {
+    background-color: var(--bg-secondary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  .navigation li {
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  .navigation a {
+    color: var(--text-primary) !important;
+  }
+
+  .navigation a:hover {
+    background-color: var(--bg-accent) !important;
+    color: var(--link-hover) !important;
+  }
+}
+
+/* ========================================
+   EXISTING CUSTOM STYLES
+   ======================================== */
 
 .home {
   line-height: 1.6;
+}
+
+/* ========================================
+   ENHANCED STYLES FOR BETTER EXPERIENCE
+   ======================================== */
+
+/* Smooth transitions for theme switching */
+body, header, section, .wrapper {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+/* Improved typography and spacing */
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--bg-secondary, #f5f5f5);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, #e1e4e8);
+  transition: box-shadow 0.2s ease;
+}
+
+.post-list li:hover {
+  box-shadow: 0 4px 12px var(--shadow-color, rgba(0, 0, 0, 0.1));
+}
+
+.post-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.4rem;
+}
+
+.post-date {
+  color: var(--text-muted, #999999);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-excerpt {
+  color: var(--text-secondary, #666666);
+  line-height: 1.5;
+}
+
+/* Better code block styling */
+pre {
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  line-height: 1.4;
+}
+
+code {
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+/* Image responsiveness */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px var(--shadow-color, rgba(0, 0, 0, 0.1));
+}
+
+/* Better blockquote styling */
+blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  font-style: italic;
+}
+
+/* Table improvements */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+/* Navigation improvements */
+.navigation {
+  margin: 2rem 0;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.navigation li {
+  margin: 0;
+}
+
+.navigation a {
+  display: block;
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Focus states for accessibility */
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: 2px solid var(--link-color, #0366d6);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  header, .navigation {
+    display: none;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
 }
 
 .featured-content, .about-preview, .recent-posts, .navigation {
