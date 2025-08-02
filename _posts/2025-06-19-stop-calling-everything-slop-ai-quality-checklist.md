@@ -1,11 +1,12 @@
 ---
 layout: default
 title: "Stop Calling Everything 'Slop': Build a Smarter AI Quality Checklist"
-date: 2025-06-19 10:00:00 +0000
+date: 2025-06-19
 categories: [artificial-intelligence, quality-control, content-creation]
 tags: [ai-ethics, machine-learning, content-quality, ai-criticism, taxonomy]
 author: "Justin O'Brien"
 excerpt: "The term 'AI slop' has become a lazy catch-all for any machine-assisted work. Here's a detailed taxonomy for more precise AI quality assessment—because clear language is the first step toward cleaner machine-made work."
+image: "/assets/images/posts/2025-06-19-stop-calling-everything-slop-ai-quality-checklist/hero-ai-quality-taxonomy.jpg"
 ---
 ![AI Quality Taxonomy Overview](/assets/images/posts/2025-06-19/slop-delve.png)
 

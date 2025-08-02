@@ -1,11 +1,12 @@
 ---
 layout: default
 title: "Why I'm Staying Away from UK Higher Education—For Now"
-date: 2025-06-18 10:00:00 +0000
+date: 2025-06-18
 categories: [higher-education, academia, career]
 tags: [universities, employment, academic-jobs, uk-education, career-change]
 author: "Justin O'Brien"
 excerpt: "After spending most of my life inside universities, I find myself on the outside looking in—and I don't plan to go back any time soon. Here's why the current state of UK higher education is pushing talent away."
+image: "/assets/images/posts/2025-06-18-staying-away-from-uk-higher-education/hero-university-exit.jpg"
 ---
 
 ![Article Hero Image *Railway Station Departure Board*](/assets/images/posts/2025-06-18/leaving-higher-education.jpg)

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About 'Rightsizing' in UK Universities"
 date: 2025-06-25
 categories: [higher-education, language, redundancies]

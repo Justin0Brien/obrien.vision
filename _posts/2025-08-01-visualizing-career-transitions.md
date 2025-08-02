@@ -1,6 +1,14 @@
 ---
 layout: default
 title: "Visualizing Career Transitions: The Story Behind the Sankey Diagram"
+date: 2025-08-01
+categories: [data-visualization, employment]
+tags: [sankey-diagram, d3js, career-transitions, unemployment]
+author: "Justin O'Brien"
+excerpt: "Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy."
+image: "/assets/images/posts/2025-08-01-visualizing-career-transitions/hero-sankey-flow.jpg"
+---t: default
+title: "Visualizing Career Transitions: The Story Behind the Sankey Diagram"
 date: 2025-08-01 10:00:00 +0000
 categories: [data-visualization, employment]
 tags: [sankey-diagram, d3js, career-transitions, unemployment]

@@ -41,12 +41,12 @@
     --code-border: #30363d;
   }
 
-  /* UNIVERSAL OVERRIDES - highest priority */
-  *, *::before, *::after {
-    border-color: var(--border-color) !important;
-  }
-
-  /* Body and HTML */
+  /* Universal overrides for all elements */
+  * {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-primary) !important;
+    text-shadow: none !important;
+  }  /* Body and HTML */
   html, body {
     background-color: var(--bg-primary) !important;
     background: var(--bg-primary) !important;
@@ -80,6 +80,19 @@
   header h1, header h2, header h3, header h4, header h5, header h6,
   .header h1, .header h2, .header h3, .header h4, .header h5, .header h6 {
     color: var(--text-primary) !important;
+    text-shadow: none !important;
+  }
+
+  /* Header title link specifically */
+  header h1 a, .header h1 a {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+  }
+
+  header h1 a:hover, .header h1 a:hover {
+    color: var(--link-hover) !important;
+    text-shadow: none !important;
   }
 
   header p, .header p {
@@ -118,6 +131,19 @@
   /* All paragraphs and text */
   p, span, div, li, td, th {
     color: var(--text-primary) !important;
+  }
+
+  /* Bold and strong text */
+  b, strong, .bold, .strong {
+    color: var(--text-primary) !important;
+    font-weight: bold !important;
+  }
+
+  /* Bold text in dark mode specifically */
+  @media (prefers-color-scheme: dark) {
+    b, strong, .bold, .strong {
+      color: #ffffff !important;
+    }
   }
 
   /* Lists */

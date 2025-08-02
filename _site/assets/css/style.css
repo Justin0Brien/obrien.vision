@@ -460,11 +460,12 @@ footer p + p {
     --code-bg: #161b22;
     --code-border: #30363d;
   }
-  /* UNIVERSAL OVERRIDES - highest priority */
-  *, *::before, *::after {
-    border-color: var(--border-color) !important;
-  }
-  /* Body and HTML */
+  /* Universal overrides for all elements */
+  * {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-primary) !important;
+    text-shadow: none !important;
+  } /* Body and HTML */
   html, body {
     background-color: var(--bg-primary) !important;
     background: var(--bg-primary) !important;
@@ -493,6 +494,17 @@ footer p + p {
   header h1, header h2, header h3, header h4, header h5, header h6,
   .header h1, .header h2, .header h3, .header h4, .header h5, .header h6 {
     color: var(--text-primary) !important;
+    text-shadow: none !important;
+  }
+  /* Header title link specifically */
+  header h1 a, .header h1 a {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+    text-decoration: none !important;
+  }
+  header h1 a:hover, .header h1 a:hover {
+    color: var(--link-hover) !important;
+    text-shadow: none !important;
   }
   header p, .header p {
     color: var(--text-secondary) !important;
@@ -525,156 +537,227 @@ footer p + p {
   p, span, div, li, td, th {
     color: var(--text-primary) !important;
   }
+  /* Bold and strong text */
+  b, strong, .bold, .strong {
+    color: var(--text-primary) !important;
+    font-weight: bold !important;
+  }
+  /* Bold text in dark mode specifically */
   /* Lists */
+  /* Links */
+  /* Cards and content blocks */
+  /* Any elements with background colors */
+  /* Override any light backgrounds */
+  /* Code blocks */
+  /* Blockquotes */
+  /* Tables */
+  /* Form elements */
+  /* Buttons */
+  /* Navigation */
+  /* Footer */
+  /* Special elements */
+  /* Modernist theme specific selectors */
+  /* Special targeting for post previews and content items */
+  /* Navigation and explore sections */
+  /* List items in navigation */
+  /* Remove any box shadows that might interfere */
+  /* Re-add our custom shadows */
+}
+@media (prefers-color-scheme: dark) and (prefers-color-scheme: dark) {
+  b, strong, .bold, .strong {
+    color: #ffffff !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
   ul, ol {
     color: var(--text-primary) !important;
   }
-  /* Links */
+}
+@media (prefers-color-scheme: dark) {
   a, a:link, a:visited {
     color: var(--link-color) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   a:hover, a:active, a:focus {
     color: var(--link-hover) !important;
   }
-  /* Cards and content blocks */
+}
+@media (prefers-color-scheme: dark) {
   .card, .content-item, .project, .post {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
   }
-  /* Any elements with background colors */
+}
+@media (prefers-color-scheme: dark) {
   [style*=background-color], [style*="background:"] {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
   }
-  /* Override any light backgrounds */
+}
+@media (prefers-color-scheme: dark) {
   .light, .bg-light, .background-light {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     color: var(--text-primary) !important;
   }
-  /* Code blocks */
+}
+@media (prefers-color-scheme: dark) {
   pre, code, .highlight {
     background-color: var(--code-bg) !important;
     background: var(--code-bg) !important;
     border: 1px solid var(--code-border) !important;
     color: var(--text-primary) !important;
   }
-  /* Blockquotes */
+}
+@media (prefers-color-scheme: dark) {
   blockquote {
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
     border-left: 4px solid var(--link-color) !important;
     color: var(--text-primary) !important;
   }
-  /* Tables */
+}
+@media (prefers-color-scheme: dark) {
   table {
     background-color: var(--bg-primary) !important;
     background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   th, td {
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
     background-color: transparent !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   th {
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
   }
-  /* Form elements */
+}
+@media (prefers-color-scheme: dark) {
   input, textarea, select {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   input:focus, textarea:focus, select:focus {
     border-color: var(--link-color) !important;
     box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
   }
-  /* Buttons */
+}
+@media (prefers-color-scheme: dark) {
   button, .btn, input[type=submit], input[type=button] {
     background-color: var(--link-color) !important;
     background: var(--link-color) !important;
     border: 1px solid var(--link-color) !important;
     color: var(--bg-primary) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   button:hover, .btn:hover, input[type=submit]:hover, input[type=button]:hover {
     background-color: var(--link-hover) !important;
     background: var(--link-hover) !important;
     border-color: var(--link-hover) !important;
   }
-  /* Navigation */
+}
+@media (prefers-color-scheme: dark) {
   nav, .nav, .navigation {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     border: 1px solid var(--border-color) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   nav ul, .nav ul, .navigation ul {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   nav li, .nav li, .navigation li {
     border-bottom: 1px solid var(--border-color) !important;
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   nav a, .nav a, .navigation a {
     color: var(--text-primary) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   nav a:hover, .nav a:hover, .navigation a:hover {
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
     color: var(--link-hover) !important;
   }
-  /* Footer */
+}
+@media (prefers-color-scheme: dark) {
   footer, .footer {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     color: var(--text-primary) !important;
     border-top: 1px solid var(--border-color) !important;
   }
-  /* Special elements */
+}
+@media (prefers-color-scheme: dark) {
   .tag, .badge, .label {
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
     color: var(--text-secondary) !important;
     border: 1px solid var(--border-color) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   .date, .meta, .post-meta {
     color: var(--text-muted) !important;
   }
-  /* Modernist theme specific selectors */
+}
+@media (prefers-color-scheme: dark) {
   .inner {
     background-color: var(--bg-primary) !important;
     background: var(--bg-primary) !important;
   }
-  /* Special targeting for post previews and content items */
+}
+@media (prefers-color-scheme: dark) {
   .post-preview, .content-item, .featured-content article {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
     color: var(--text-primary) !important;
   }
-  /* Navigation and explore sections */
+}
+@media (prefers-color-scheme: dark) {
   .navigation, .explore {
     background-color: var(--bg-secondary) !important;
     background: var(--bg-secondary) !important;
   }
-  /* List items in navigation */
+}
+@media (prefers-color-scheme: dark) {
   .navigation ul li, .explore ul li {
     background-color: var(--bg-accent) !important;
     background: var(--bg-accent) !important;
   }
-  /* Remove any box shadows that might interfere */
+}
+@media (prefers-color-scheme: dark) {
   * {
     box-shadow: none !important;
   }
-  /* Re-add our custom shadows */
+}
+@media (prefers-color-scheme: dark) {
   .content-item.featured, .post-list li:hover, .post-preview:hover {
     box-shadow: 0 4px 12px var(--shadow-color) !important;
   }
+}
+@media (prefers-color-scheme: dark) {
   img {
     box-shadow: 0 2px 8px var(--shadow-color) !important;
   }

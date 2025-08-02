@@ -68,11 +68,11 @@ title: Home
   <section class="recent-posts">
     <h2>Recent Posts</h2>
     {% if site.posts.size > 0 %}
-      {% for post in site.posts limit:3 %}
+      {% for post in site.posts limit:12 %}
         <article class="post-preview">
           <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
           <p class="post-meta">{{ post.date | date: "%B %d, %Y" }}</p>
-          <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+          <p>{{ post.excerpt | strip_html | truncatewords: 60 }}</p>
         </article>
       {% endfor %}
       <p><a href="/blog/">View all posts →</a></p>

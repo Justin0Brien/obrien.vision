@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "Why Can't We Be Friends? Universities and the £1.5 Billion Collaboration Challenge"
 date: 2025-07-10
 categories: [higher-education, collaboration, procurement]
@@ -9,7 +9,7 @@ author: Justin O'Brien
 image: "/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg"
 ---
 
-![University buildings connected by bridges with pound signs floating between them](/assets/images/posts/2025-07-20-why-cant-we-be-friends/friends.jpg)
+![University buildings connected by bridges with pound signs floating between them](/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg)
 
 ## How British Universities Keep Tripping over Their Own Mortarboards on the way to saving £1.5 billion
 
