@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-08-02T13:12:54+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4001/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4001/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-08-02T13:39:58+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4001/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4001/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
 
 <p>When I set out to visualize employment outcomes for professionals aged 50+ following redundancy, I knew the story was complex. Unlike a simple before-and-after comparison, career transitions unfold over time, with multiple pathways and outcomes that shift as months pass.</p>
 
@@ -96,7 +96,494 @@
 
 <hr />
 
-<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O'Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-08-01-visualizing-career-transitions/hero-sankey-flow.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-08-01-visualizing-career-transitions/hero-sankey-flow.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge</title><link href="http://localhost:4001/2025/07/10/why-cant-we-be-friends/" rel="alternate" type="text/html" title="Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge" /><published>2025-07-10T00:00:00+01:00</published><updated>2025-07-10T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/10/why-cant-we-be-friends</id><content type="html" xml:base="http://localhost:4001/2025/07/10/why-cant-we-be-friends/"><![CDATA[<p><img src="/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" alt="University buildings connected by bridges with pound signs floating between them" /></p>
+<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O'Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-08-01-visualizing-career-transitions/hero-sankey-flow.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-08-01-visualizing-career-transitions/hero-sankey-flow.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beating The Odds: Four Months in Mid-Life Employment Limbo</title><link href="http://localhost:4001/2025/07/31/beating-the-odds/" rel="alternate" type="text/html" title="Beating The Odds: Four Months in Mid-Life Employment Limbo" /><published>2025-07-31T00:00:00+01:00</published><updated>2025-07-31T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/31/beating-the-odds</id><content type="html" xml:base="http://localhost:4001/2025/07/31/beating-the-odds/"><![CDATA[<p><img src="/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" alt="Professional looking person with graphs and career pathway charts in background" /></p>
+
+<h2 id="four-months-in-mid-life-employment-limbo">Four Months in Mid-Life Employment Limbo</h2>
+
+<p>I was made redundant 4 months ago today.</p>
+
+<p><strong>31 March:</strong> I executed the traditional farewell ritual of the mid-career professional: an almost-imperceptible shrug in the general direction of the photocopier and a short walk to the car park. No speeches, no novelty cake, not even a limp balloon. Just me, a cardboard box and the sort of existential soundtrack you normally get in French cinema.</p>
+
+<p><strong>1 April:</strong> New month, new life. I was up with the larks, pounding the cross-trainer in a heroic attempt to sculpt a “new me”. Resistance machines were conquered, endorphins flowed, and—for a glorious forty-eight hours—I was basically the poster child for Mid-Life Reinvention.</p>
+
+<p><strong>3 April:</strong> Doughnuts happened. Then ice cream. If Ben &amp; Jerry ever need to boost quarterly sales, they should simply make more fifty-somethings redundant; we’ll do the heavy lifting.</p>
+
+<p>Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. I’ve uploaded a few LinkedIn posts and articles, but that’s the tip of the iceberg. It turns out that finding work in 2025 is very different from the last time I was in the job market. That was when Mark Zuckerberg was still in high school, Elon Musk had yet to be fired from PayPal, and Google was a long way from becoming a verb.</p>
+
+<p>So what’s it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a freezer full of salted-caramel regret?</p>
+
+<p><strong>It’s actually not too bad, apart from the whole zero salary thing.</strong></p>
+
+<h2 id="the-numbers-game">The Numbers Game</h2>
+
+<p>And I’m not alone. Exiting a professional job in your fifties (unwillingly) is not a rare occurrence, especially in 2025.</p>
+
+<p>To figure out what happens next, I turned not to necromancy or tarot cards but to statistics and data visualisation. I’ve done a little research, the sources for which you’ll find at the end of this article. There isn’t a single definitive source of data so I’ve extracted some figures and done some careful extrapolation. And guesswork.</p>
+
+<iframe src="/sankey.html" width="100%" height="600" frameborder="0" style="border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;"></iframe>
+
+<h3 id="figure-1-career-pathways-after-redundancy-at-50">Figure 1. Career Pathways After Redundancy at 50+</h3>
+
+<p>Should I be worried that after 4 months I don’t have a job - any job? Not really. Only <strong>14% of my age group have another professional job within 3 months</strong> of leaving the old one. Another 14% are in lower paid work, and 7% say they’re “self-employed”, but <strong>two thirds are still jobless</strong>.</p>
+
+<p>This jobless figure does drop and two years after redundancy only 20% are unemployed, although long term this goes up to nearly a third.</p>
+
+<p>Should I be concerned that the odds are against me: I have a <strong>less than evens chance</strong> of landing in a professional job sometime in the next few years?</p>
+
+<h2 id="understanding-the-odds">Understanding the Odds</h2>
+
+<p>Some people resist any discussion of probability, preferring an unexamined optimism that screens out unfavourable statistics. I take the opposite view: the more granular the data—baseline rates, confidence intervals, omitted caveats—the better. Equipped with that information, we can assess alternatives rationally rather than intuitively.</p>
+
+<p>For me, this is what it means to <strong>beat the odds</strong>. It is not a matter of willing a coin to land heads or expecting double-sixes on demand; it is a systematic appraisal of the distribution of outcomes under different courses of action and an informed adjustment of strategy in light of those probabilities.</p>
+
+<p><strong>Chance remains a constant, but its impact can be moderated when we understand, rather than ignore, the numbers.</strong></p>
+
+<p>There’s much more to say about what these figures tell us, but even I know that an article full of numbers should be brief.</p>
+
+<h2 id="your-turn">Your Turn</h2>
+
+<p>How did your own post-redundancy odds play out? Drop a note below—stats or stories equally welcome.</p>
+
+<hr />
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>Centre for Ageing Better, Work</td>
+          <td>State of Ageing in 2020 – <a href="https://ageing-better.org.uk/work-state-ageing-2020">ageing-better.org.uk/work-state-ageing-2020</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <p>Resolution Foundation, A U-shaped crisis: the impact of the COVID-19 crisis on older workers – <a href="https://www.resolutionfoundation.org/publications/a-u-shaped-crisis/">resolutionfoundation.org/publications/a-u-shaped-crisis</a></p>
+  </li>
+  <li>
+    <p>Resolution Foundation, “COVID-19 crisis has caused the biggest annual employment fall for older workers since the 1980s” – <a href="https://www.resolutionfoundation.org/press-releases/covid-19-crisis-has-caused-the-biggest-annual-employment-fall-for-older-workers-since-the-1980s/">resolutionfoundation.org/press-releases</a></p>
+  </li>
+  <li>
+    <p>The Guardian, “Over-50s who lose jobs much more likely to stay unemployed, study finds” – <a href="https://www.theguardian.com/society/2021/jan/18/over-50s-who-lose-jobs-much-more-likely-to-stay-unemployed-study-finds">theguardian.com/society/2021/jan/18</a></p>
+  </li>
+  <li>
+    <p>Rest Less, “Redundancies Amongst the Over 50s Have Nearly Tripled in a Year” – <a href="https://wiseage.org.uk/2021/04/redundancies-amongst-the-over-50s-have-nearly-tripled-in-a-year/">wiseage.org.uk/2021/04</a></p>
+  </li>
+  <li>
+    <p>Centre for Ageing Better, Redundancy support for Over 50s – <a href="https://ageing-better.org.uk/redundancy-support-over-50s">ageing-better.org.uk/redundancy-support-over-50s</a></p>
+  </li>
+  <li>
+    <p>Office for National Statistics, Analysis of Job Changers and Stayers – <a href="https://www.ons.gov.uk/economy/nationalaccounts/uksectoraccounts/compendium/economicreview/april2019/analysisofjobchangersandstayers">ons.gov.uk/economy/nationalaccounts</a></p>
+  </li>
+  <li>
+    <p>Centre for Ageing Better, The State of Ageing 2022 – <a href="https://ageing-better.org.uk/state-of-ageing">ageing-better.org.uk/state-of-ageing</a></p>
+  </li>
+  <li>
+    <p>Office for National Statistics, Dataset RED02: Redundancies by age, industry and region – <a href="https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/redundancies/datasets/redundanciesbyindustryagesexandreemploymentratesred02">ons.gov.uk/employmentandlabourmarket</a></p>
+  </li>
+  <li>Office for National Statistics, Employment in the UK: July 2025 bulletin – <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/employmentintheuk/july2025">ons.gov.uk/employmentandlabourmarket</a></li>
+</ul>]]></content><author><name>Justin O'Brien</name></author><category term="employment" /><category term="career" /><category term="redundancy" /><category term="job-search" /><category term="over-50s" /><category term="unemployment" /><category term="career-transition" /><category term="employment-statistics" /><category term="professional-development" /><summary type="html"><![CDATA[I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a freezer full of salted-caramel regret?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-31-beating-the-odds/hero-career-transition.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-31-beating-the-odds/hero-career-transition.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ethics in Artificial Intelligence: Yes, There Is a Problem</title><link href="http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence/" rel="alternate" type="text/html" title="Ethics in Artificial Intelligence: Yes, There Is a Problem" /><published>2025-07-23T00:00:00+01:00</published><updated>2025-07-23T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence</id><content type="html" xml:base="http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence/"><![CDATA[<p><img src="/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" alt="Abstract visualization of AI neural networks with ethical scales and human silhouettes" /></p>
+
+<h2 id="a-clear-and-candid-guide-to-ai-ethics">A Clear and Candid Guide to AI Ethics</h2>
+
+<p>Artificial intelligence (AI) has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they’re the reason you’re reading this article instead of a holiday brochure.</p>
+
+<p>This paper peers—torch in hand—into the trickier nooks of AI from a global vantage point. We’ll rummage through its resource guzzling, copyright snacking, bias-soaked data diet, the Silicon Valley swagger that births it, and the many honourable (and not-so-honourable) uses already on parade.</p>
+
+<h2 id="energy-and-human-resource-consumption">Energy and Human Resource Consumption</h2>
+
+<h3 id="the-environmental-footprint-of-ai">The Environmental Footprint of AI</h3>
+
+<p>Training large AI models requires enormous computational power, translating into heavy energy usage and a substantial carbon footprint. For example, the training of OpenAI’s GPT-3 model is estimated to have consumed <strong>1,287 MWh of electricity</strong>, emitting over <strong>550 metric tons of CO₂</strong> – on par with hundreds of transatlantic flights<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>. This process also used more than 700,000 liters of water for cooling data centre servers<sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>.</p>
+
+<p>Globally, data centres (which host AI workloads among other tasks) account for about <strong>1.5% of electricity consumption</strong> (around 415 TWh in 2024), a share expected to roughly double by 2030 due to AI growth<sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">3</a></sup><sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">4</a></sup>. In practical terms, that means data centres could soon draw nearly 945 TWh annually – about as much power as the entire country of Japan uses in a year<sup id="fnref:5"><a href="#fn:5" class="footnote" rel="footnote" role="doc-noteref">5</a></sup>.</p>
+
+<p>Major tech hubs like the US, Europe and China currently consume 85% of data centre energy<sup id="fnref:6"><a href="#fn:6" class="footnote" rel="footnote" role="doc-noteref">6</a></sup><sup id="fnref:7"><a href="#fn:7" class="footnote" rel="footnote" role="doc-noteref">7</a></sup>, highlighting a global disparity. Even after models are trained, the energy for running AI (“inference”) at scale can eclipse training costs – one study noted that inference could comprise 90% of an AI model’s total energy lifecycle as millions of users prompt these models daily<sup id="fnref:8"><a href="#fn:8" class="footnote" rel="footnote" role="doc-noteref">8</a></sup>.</p>
+
+<h3 id="the-human-labour-behind-automated-ai">The Human Labour Behind “Automated” AI</h3>
+
+<p>Less visible but equally critical is the human labour powering AI development. Behind every “smart” AI system are often thousands of human workers who label data, moderate content, and train AI models – tasks that can be repetitive, grueling, or psychologically taxing.</p>
+
+<p>In 2021, OpenAI quietly outsourced the job of filtering toxic and harmful content (to make ChatGPT safer) to contractors in Kenya, <strong>paying them less than $2 per hour</strong>. These workers had to read and label tens of thousands of disturbing text snippets – including descriptions of child sexual abuse, torture, and violence – so that the AI could learn to recognise and avoid producing such content<sup id="fnref:9"><a href="#fn:9" class="footnote" rel="footnote" role="doc-noteref">9</a></sup>.</p>
+
+<p>The psychological toll was enormous: moderators reported trauma, anxiety and lasting mental health damage from constant exposure to graphic material<sup id="fnref:10"><a href="#fn:10" class="footnote" rel="footnote" role="doc-noteref">10</a></sup><sup id="fnref:11"><a href="#fn:11" class="footnote" rel="footnote" role="doc-noteref">11</a></sup>. Several have since filed petitions and lawsuits (for instance, in Kenya) over exploitative conditions – citing low pay (around $1.50–$3 an hour), inadequate counseling support, and even abrupt dismissals after the projects ended<sup id="fnref:12"><a href="#fn:12" class="footnote" rel="footnote" role="doc-noteref">12</a></sup><sup id="fnref:13"><a href="#fn:13" class="footnote" rel="footnote" role="doc-noteref">13</a></sup>.</p>
+
+<p>This “ghost work” underpins not just ChatGPT but many AI services – from social media moderation to self-driving car vision – often outsourced to developing countries where labour is cheap.</p>
+
+<h2 id="copyright-and-creator-rights">Copyright and Creator Rights</h2>
+
+<p>AI’s voracious appetite for data has it nibbling at every creative buffet—books, art, code, music—often without so much as a “may I?”. Contemporary AI models learn from vast datasets scraped from the internet – encompassing books, articles, code, images, music and more – much of which is copyrighted material obtained without explicit consent from the authors or artists.</p>
+
+<h3 id="unconsented-training-data">Unconsented Training Data</h3>
+
+<p>Writers, visual artists, musicians and other creators have grown alarmed at AI models being trained on their work. In mid-2023, a group of prominent authors – including <strong>Michael Chabon, Jodi Picoult and George R.R. Martin</strong> – sued OpenAI, alleging that their novels and essays were used to train ChatGPT without consent<sup id="fnref:14"><a href="#fn:14" class="footnote" rel="footnote" role="doc-noteref">14</a></sup><sup id="fnref:15"><a href="#fn:15" class="footnote" rel="footnote" role="doc-noteref">15</a></sup>.</p>
+
+<p>They pointed out that the chatbot could accurately summarise their books or imitate their writing styles, implying it had effectively ingested and learned from their copyrighted texts<sup id="fnref:16"><a href="#fn:16" class="footnote" rel="footnote" role="doc-noteref">16</a></sup>. This lawsuit is one of several class actions by authors and publishers against AI firms, and it followed similar cases by visual artists against generative AI image companies<sup id="fnref:17"><a href="#fn:17" class="footnote" rel="footnote" role="doc-noteref">17</a></sup><sup id="fnref:18"><a href="#fn:18" class="footnote" rel="footnote" role="doc-noteref">18</a></sup>.</p>
+
+<p>In a landmark example, a class-action suit <strong>Andersen v. Stability AI</strong> was filed in 2023 by a group of artists after they discovered the AI image generator Stable Diffusion had been trained on 5 billion images scraped from the web (LAION dataset), including their own artworks, without any permission<sup id="fnref:19"><a href="#fn:19" class="footnote" rel="footnote" role="doc-noteref">19</a></sup><sup id="fnref:20"><a href="#fn:20" class="footnote" rel="footnote" role="doc-noteref">20</a></sup>.</p>
+
+<h3 id="legal-and-ethical-tensions">Legal and Ethical Tensions</h3>
+
+<p>Legally, the question of whether using copyrighted data for AI training is “fair use” or infringement is still being decided. In a February 2025 decision, a U.S. court (<strong>Thomson Reuters v. ROSS</strong>) held that wholesale copying of a competitor’s copyrighted material (legal case summaries from Westlaw) to train an AI research tool was not fair use<sup id="fnref:21"><a href="#fn:21" class="footnote" rel="footnote" role="doc-noteref">21</a></sup><sup id="fnref:22"><a href="#fn:22" class="footnote" rel="footnote" role="doc-noteref">22</a></sup>.</p>
+
+<p>The judge noted that the AI in that case wasn’t even a generative model, but a search tool that repackaged the original texts, directly harming the copyright owner’s market<sup id="fnref:23"><a href="#fn:23" class="footnote" rel="footnote" role="doc-noteref">23</a></sup><sup id="fnref:24"><a href="#fn:24" class="footnote" rel="footnote" role="doc-noteref">24</a></sup>. While generative AI may muddy the waters (since outputs aren’t verbatim copies, but can be derivative in style or content), the legal trend suggests courts are wary of unfettered, unlicensed use of copyrighted datasets.</p>
+
+<h3 id="toward-solutions--consent-and-transparency">Toward Solutions – Consent and Transparency</h3>
+
+<p>Policymakers are starting to respond. The draft <strong>EU AI Act</strong> includes provisions that AI developers must disclose any copyrighted material used in training their models<sup id="fnref:25"><a href="#fn:25" class="footnote" rel="footnote" role="doc-noteref">25</a></sup><sup id="fnref:26"><a href="#fn:26" class="footnote" rel="footnote" role="doc-noteref">26</a></sup>. European lawmakers explicitly added a requirement that generative AI systems like ChatGPT publish summaries of the copyrighted data they were trained on, aiming to introduce transparency and enable rightsholders to claim misuse<sup id="fnref:27"><a href="#fn:27" class="footnote" rel="footnote" role="doc-noteref">27</a></sup>.</p>
+
+<h2 id="training-data-and-bias">Training Data and Bias</h2>
+
+<p>The ancient maxim “garbage in, garbage out” gets a silicon makeover here. Feed an AI dodgy data and you’ll get dodgy decisions—only faster and at scale.</p>
+
+<h3 id="opaque-datasets-and-hidden-biases">Opaque Datasets and Hidden Biases</h3>
+
+<p>Many advanced AI models are trained on colossal datasets that are not fully disclosed to the public or regulators. For instance, when OpenAI released GPT-4 in 2023, it notably provided <strong>no details</strong> about the model’s architecture, training methods, or dataset composition, citing competition and safety concerns<sup id="fnref:28"><a href="#fn:28" class="footnote" rel="footnote" role="doc-noteref">28</a></sup><sup id="fnref:29"><a href="#fn:29" class="footnote" rel="footnote" role="doc-noteref">29</a></sup>.</p>
+
+<p>While trade secrecy is understandable, this opacity has a direct ethical impact: without knowing what data an AI was trained on, it’s “impossible to evaluate” what biases or blind spots might be built into it<sup id="fnref:30"><a href="#fn:30" class="footnote" rel="footnote" role="doc-noteref">30</a></sup>.</p>
+
+<h3 id="bias-in-bias-out--examples">Bias in, Bias Out – Examples</h3>
+
+<p>When biased data goes in, discriminatory outcomes come out. A notorious example was <strong>Amazon’s AI recruiting tool</strong>, an algorithm developed to screen resumes. It was trained on ten years of past hiring data – which were skewed toward male candidates (reflecting the tech industry’s male dominance)<sup id="fnref:31"><a href="#fn:31" class="footnote" rel="footnote" role="doc-noteref">31</a></sup><sup id="fnref:32"><a href="#fn:32" class="footnote" rel="footnote" role="doc-noteref">32</a></sup>.</p>
+
+<p>The AI “taught itself” that male applicants were preferable and began penalising resumes that mentioned “women’s” (as in “women’s chess club”), and downgrading graduates of women’s colleges<sup id="fnref:33"><a href="#fn:33" class="footnote" rel="footnote" role="doc-noteref">33</a></sup><sup id="fnref:34"><a href="#fn:34" class="footnote" rel="footnote" role="doc-noteref">34</a></sup>. In effect, the system became sexist, systematically filtering out qualified women. Amazon’s engineers tried to correct the specific flags, but they couldn’t guarantee the AI wouldn’t find new ways to discriminate, so the project was eventually scrapped<sup id="fnref:35"><a href="#fn:35" class="footnote" rel="footnote" role="doc-noteref">35</a></sup><sup id="fnref:36"><a href="#fn:36" class="footnote" rel="footnote" role="doc-noteref">36</a></sup>.</p>
+
+<p>Another well-documented case is in criminal justice: risk assessment algorithms used by courts to predict reoffending have exhibited racial bias. ProPublica’s famous 2016 investigation into the <strong>COMPAS system</strong> found that black defendants were falsely labeled “high risk” at nearly twice the rate of white defendants, while white defendants were more frequently mislabeled as low risk<sup id="fnref:37"><a href="#fn:37" class="footnote" rel="footnote" role="doc-noteref">37</a></sup>.</p>
+
+<h2 id="the-silicon-valley-ethos-and-the-drive-to-innovate">The Silicon Valley Ethos and the Drive to Innovate</h2>
+
+<p>Silicon Valley’s original mantra—”move fast and break things”—is all fun and games until the “things” include society.</p>
+
+<h3 id="from-motto-to-liability">From Motto to Liability</h3>
+
+<p>In the startup heyday, “move fast and break things” was celebrated as a recipe for disrupting incumbents and achieving technological leaps. However, when it comes to AI systems that can affect millions of lives, this approach can be dangerously reckless. A recent poll found that <strong>72% of Americans prefer AI development to slow down</strong> with more guardrails, versus only 8% who want it to speed up<sup id="fnref:38"><a href="#fn:38" class="footnote" rel="footnote" role="doc-noteref">38</a></sup><sup id="fnref:39"><a href="#fn:39" class="footnote" rel="footnote" role="doc-noteref">39</a></sup>.</p>
+
+<p>High-profile mishaps have validated these fears: from chatbots that went awry spouting misinformation or hate, to social networks unleashing algorithms that amplified societal divisions. The “launch now, fix later” mentality is being increasingly questioned.</p>
+
+<h3 id="profit-driven-innovation-and-moral-hazard">Profit-Driven Innovation and Moral Hazard</h3>
+
+<p>Silicon Valley’s ecosystem runs on venture capital and the promise of massive profits. This can incentivise a single-minded focus on growth metrics and market capture, potentially overshadowing ethical considerations. AI has become a competitive arms race among tech giants and startups, with enormous financial stakes – which can lead to corners being cut.</p>
+
+<p>Gary Marcus observed a “moral descent” in Big Tech: as companies grew more powerful and profitable, “the desire to do good decreases… in the quest for growth”<sup id="fnref:40"><a href="#fn:40" class="footnote" rel="footnote" role="doc-noteref">40</a></sup>. He argues that many firms talk about altruistic missions, but in recent years have prioritised profit maximisation at the expense of users and society<sup id="fnref:41"><a href="#fn:41" class="footnote" rel="footnote" role="doc-noteref">41</a></sup>.</p>
+
+<h2 id="uses-and-misuses-of-ai">Uses and Misuses of AI</h2>
+
+<p>AI is a dual-use tool: the same algorithms that power beneficial applications can be misappropriated for malicious or harmful ends.</p>
+
+<h3 id="ai-in-social-media-deepfakes-and-algorithmic-amplification">AI in Social Media: Deepfakes and Algorithmic Amplification</h3>
+
+<h4 id="deepfakes-and-misinformation">Deepfakes and Misinformation</h4>
+
+<p>Deepfakes are hyper-realistic fake videos or audio generated by AI, often depicting someone saying or doing things they never did. In the wrong hands, deepfakes can be a potent weapon for misinformation, political propaganda, or personal harassment.</p>
+
+<p>A striking statistic: an analysis in 2023 found that <strong>98% of deepfake videos online were pornographic</strong>, targeting women in 99% of cases<sup id="fnref:42"><a href="#fn:42" class="footnote" rel="footnote" role="doc-noteref">42</a></sup>. In other words, the vast majority of deepfakes globally consist of non-consensual sexual images – typically a woman’s face superimposed on explicit content – effectively a high-tech form of revenge porn or voyeurism.</p>
+
+<h4 id="algorithmic-amplification-of-harmful-content">Algorithmic Amplification of Harmful Content</h4>
+
+<p>Social media algorithms – the content recommendation AIs on Facebook, YouTube, TikTok, etc. – determine what billions of people see in their feeds. Their optimisation for engagement can lead to the amplification of extreme or harmful content, creating echo chambers and fueling polarisation.</p>
+
+<p>Facebook’s own algorithm changes were found to preferentially boost content that sparked anger or intense reactions, which tended to be divisive posts or misinformation, thus contributing to a more toxic discourse<sup id="fnref:43"><a href="#fn:43" class="footnote" rel="footnote" role="doc-noteref">43</a></sup><sup id="fnref:44"><a href="#fn:44" class="footnote" rel="footnote" role="doc-noteref">44</a></sup>.</p>
+
+<h3 id="fraud-and-scams-voice-cloning-and-phishing-automation">Fraud and Scams: Voice Cloning and Phishing Automation</h3>
+
+<h4 id="voice-cloning-and-imposter-scams">Voice Cloning and “Imposter” Scams</h4>
+
+<p>Scammers have begun exploiting trust by using AI to clone voices from just a short recording. In one chilling case, an Arizona mother received a call that mimicked her 15-year-old daughter’s voice perfectly, sobbing that she’d been kidnapped and begging for help<sup id="fnref:45"><a href="#fn:45" class="footnote" rel="footnote" role="doc-noteref">45</a></sup><sup id="fnref:46"><a href="#fn:46" class="footnote" rel="footnote" role="doc-noteref">46</a></sup>. The voice and cries were so convincing that the mother was certain it was her child – the scammers demanded a ransom, threatening violence. It turned out the daughter was safe; the entire call was a hoax using an AI-generated voice.</p>
+
+<p>A survey by security firm McAfee found <strong>70% of people said they might not distinguish a cloned voice from the real thing</strong>, and alarmingly, today’s AI needs only about <strong>3 seconds of audio sample</strong> to reproduce a person’s voice with high fidelity<sup id="fnref:47"><a href="#fn:47" class="footnote" rel="footnote" role="doc-noteref">47</a></sup>.</p>
+
+<h4 id="ai-generated-phishing-and-fraudulent-content">AI-Generated Phishing and Fraudulent Content</h4>
+
+<p>Phishing emails – those fraudulent messages that try to trick you into giving passwords or money – have been around for decades, but AI is supercharging their quality and quantity. With AI language models, a scammer can now generate tailored, grammatically perfect, and context-specific messages by the hundreds.</p>
+
+<p>Europol (the EU’s police agency) warned in 2023 that ChatGPT’s ability to produce highly realistic text with ease makes it a powerful tool for criminals<sup id="fnref:48"><a href="#fn:48" class="footnote" rel="footnote" role="doc-noteref">48</a></sup>.</p>
+
+<h2 id="surveillance-and-policing">Surveillance and Policing</h2>
+
+<p>AI technologies are increasingly employed in surveillance and law enforcement, raising profound ethical issues around privacy, civil liberties, accuracy, and potential abuse of power.</p>
+
+<h3 id="mass-surveillance-and-privacy-erosion">Mass Surveillance and Privacy Erosion</h3>
+
+<p>In authoritarian contexts especially, AI-powered surveillance has been used to oppress and control populations. The starkest example is <strong>Xinjiang, China</strong>, where an estimated million-plus Uyghur Muslims have been subjected to high-tech repression. The Chinese government has deployed a “high-tech network of surveillance” in the region, including ubiquitous cameras with facial recognition, mandatory biometric data collection (DNA, iris scans), and phone/computer data monitoring – all fed into AI systems that flag “suspicious” behaviour<sup id="fnref:49"><a href="#fn:49" class="footnote" rel="footnote" role="doc-noteref">49</a></sup>.</p>
+
+<p>Even outside such extreme cases, the spread of facial recognition in public spaces is blurring the line between security and privacy. There have been at least three known wrongful arrests of Black individuals in the US due to faulty face recognition matches<sup id="fnref:50"><a href="#fn:50" class="footnote" rel="footnote" role="doc-noteref">50</a></sup><sup id="fnref:51"><a href="#fn:51" class="footnote" rel="footnote" role="doc-noteref">51</a></sup>. One case was <strong>Robert Williams in Detroit</strong>: facial recognition misidentified him as a suspect, leading to his arrest and jailing for a crime he didn’t commit. Detroit later settled his lawsuit with a $300k payment and agreed to change its policies<sup id="fnref:52"><a href="#fn:52" class="footnote" rel="footnote" role="doc-noteref">52</a></sup><sup id="fnref:53"><a href="#fn:53" class="footnote" rel="footnote" role="doc-noteref">53</a></sup>.</p>
+
+<h3 id="predictive-policing-and-bias">Predictive Policing and Bias</h3>
+
+<p>Another use of AI in law enforcement is predictive analytics – algorithms that analyse crime data to predict where crimes might occur or who might be involved. While it might sound objective, these systems can perpetuate existing biases in policing data. “Bias in, bias out” applies strongly here.</p>
+
+<p>Simply put, if your AI might ruin someone’s life, double-check it.</p>
+
+<h2 id="employment-hiring-and-workplace-monitoring">Employment, Hiring, and Workplace Monitoring</h2>
+
+<h3 id="ai-in-hiring--fairness-and-transparency">AI in Hiring – Fairness and Transparency</h3>
+
+<p>Companies are increasingly using AI tools to screen job applicants, parse resumes, or even conduct video interviews with algorithmic analysis of facial expressions and tone. The promise is efficiency and objectivity; the peril is encoding bias and opacity in how employment decisions are made.</p>
+
+<p>This lack of transparency and potential for discrimination has prompted regulatory attention. The <strong>EU AI Act</strong> will treat AI in employment as “high-risk,” requiring that such systems be proven non-discriminatory, transparent, and subject to human oversight<sup id="fnref:54"><a href="#fn:54" class="footnote" rel="footnote" role="doc-noteref">54</a></sup><sup id="fnref:55"><a href="#fn:55" class="footnote" rel="footnote" role="doc-noteref">55</a></sup>.</p>
+
+<h3 id="workplace-monitoring-and-algorithmic-management">Workplace Monitoring and “Algorithmic Management”</h3>
+
+<p>Employers have always monitored performance, but AI takes it to new levels of intrusiveness and automation. <strong>Amazon</strong> is the poster child of this trend: in its warehouses, an AI-driven system tracks each worker’s productivity in real time – items scanned, packing speed, “time off task” down to the minute<sup id="fnref:56"><a href="#fn:56" class="footnote" rel="footnote" role="doc-noteref">56</a></sup><sup id="fnref:57"><a href="#fn:57" class="footnote" rel="footnote" role="doc-noteref">57</a></sup>.</p>
+
+<p>If a worker’s metrics fall below a target, the system will automatically generate warnings and even termination notices without a manager’s input<sup id="fnref:58"><a href="#fn:58" class="footnote" rel="footnote" role="doc-noteref">58</a></sup><sup id="fnref:59"><a href="#fn:59" class="footnote" rel="footnote" role="doc-noteref">59</a></sup>. Documents revealed that over a little more than a year, a single Amazon warehouse fired about <strong>300 employees (10% of staff)</strong> purely for productivity shortfalls as decided by this automated system<sup id="fnref:60"><a href="#fn:60" class="footnote" rel="footnote" role="doc-noteref">60</a></sup><sup id="fnref:61"><a href="#fn:61" class="footnote" rel="footnote" role="doc-noteref">61</a></sup>.</p>
+
+<h2 id="military-and-geopolitical-applications">Military and Geopolitical Applications</h2>
+
+<p>Perhaps the most grave domain of AI ethics is its use in warfare and geopolitical power struggles. AI is becoming integral to military systems, intelligence analysis, and autonomous weapons – raising existential questions about lethal decision-making by machines and the stability of global peace.</p>
+
+<h3 id="autonomous-weapons-killer-robots">Autonomous Weapons (“Killer Robots”)</h3>
+
+<p>One of the biggest debates is over <strong>Lethal Autonomous Weapons Systems (LAWS)</strong> – weapons that can select and engage targets without human intervention. The ethical issues here are immense. First, there’s the question of human control: delegating life-and-death decisions to algorithms arguably crosses a moral line, as machines lack human judgment, empathy, and accountability<sup id="fnref:62"><a href="#fn:62" class="footnote" rel="footnote" role="doc-noteref">62</a></sup><sup id="fnref:63"><a href="#fn:63" class="footnote" rel="footnote" role="doc-noteref">63</a></sup>.</p>
+
+<p>Because of these issues, over 30 countries and numerous NGOs have called for a preemptive ban on killer robots (through campaigns like “Stop Killer Robots”), akin to bans on chemical or biological weapons. In 2015, thousands of AI researchers signed an open letter warning that autonomous weapons could be “the third revolution in warfare” (after gunpowder and nuclear arms)<sup id="fnref:64"><a href="#fn:64" class="footnote" rel="footnote" role="doc-noteref">64</a></sup>.</p>
+
+<h3 id="ai-arms-race-and-geopolitical-tensions">AI Arms Race and Geopolitical Tensions</h3>
+
+<p>We are witnessing an AI arms race in a broader sense: countries pouring resources into military AI for intelligence, cyber warfare, and autonomous systems. This race raises geopolitical ethical questions: will AI make wars more likely by giving some nations confidence in quick, decisive tech-driven victory?</p>
+
+<h2 id="regulatory-outlook">Regulatory Outlook</h2>
+
+<p>The ethical implications of AI span the environmental to the existential. A few clear themes emerge:</p>
+
+<h3 id="transparency-and-accountability">Transparency and Accountability</h3>
+
+<p>Whether it’s training data composition, model decision-making, or AI usage in hiring/policing, openness is critical. We’ve seen that when AI operates as a black box, trust erodes and harms go unmitigated. The <strong>EU’s AI Act</strong> is a significant step in this direction, introducing traceability and oversight requirements<sup id="fnref:65"><a href="#fn:65" class="footnote" rel="footnote" role="doc-noteref">65</a></sup><sup id="fnref:66"><a href="#fn:66" class="footnote" rel="footnote" role="doc-noteref">66</a></sup>.</p>
+
+<h3 id="fairness-and-human-centric-design">Fairness and Human-Centric Design</h3>
+
+<p>AI must be designed and deployed to augment human capabilities and decision-making, not to entrench inequalities or replace human values. The concept of <strong>AI ethics by design</strong> is gaining traction – similar to privacy by design – where equity and fairness checks are baked into the development process from the start.</p>
+
+<h3 id="empowerment-vs-control">Empowerment vs. Control</h3>
+
+<p>There is a fundamental tension between AI’s use to empower users/workers/citizens and its use to control or manipulate them. Ethical AI development leans towards empowerment – using AI to help rather than surveil; giving users more control rather than covertly nudging their behaviour.</p>
+
+<h3 id="global-collaboration-and-norms">Global Collaboration and Norms</h3>
+
+<p>AI’s challenges are global – carbon emitted in one country warms the whole planet; a deepfake in one language can influence another country’s politics; an arms race benefits no nation in the end. Thus, global governance and cooperation are key.</p>
+
+<h3 id="continuous-oversight-and-adaptation">Continuous Oversight and Adaptation</h3>
+
+<p>AI technology evolves quickly. Ethical and regulatory approaches must be agile and updated regularly. One innovative idea is the creation of <strong>AI oversight bodies</strong> – national or regional “AI Agencies” that specialise in monitoring AI developments and advising on policy.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Finally, it’s worth emphasising the human element. AI, for all the talk of autonomy, ultimately reflects human choices – in what objectives we set, what data we feed it, and where we apply it. As AI becomes more powerful, those choices have ever greater impact.</p>
+
+<p>It falls on us – developers, policymakers, business leaders, and society at large – to wield AI in service of human dignity, equity, and prosperity. As the saying goes, with great power comes great responsibility. AI is indeed great power. This article has highlighted some of the responsibilities that come with it.</p>
+
+<p>Navigating the ethical challenges will not be easy, but with informed, global and multidisciplinary engagement, we can ensure AI remains a tool for good – amplifying the best of human ingenuity, not the worst of our biases or greed.</p>
+
+<p><strong>In the end, AI is merely a mirror for human choices—albeit a gigantic, turbo-charged one. With vigilance and humility, we might just keep the mirror cracked but functional rather than shattered.</strong></p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Training GPT-3 used 1,287 MWh, 550 tons CO₂ <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>Data centers water usage for cooling servers <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Data centers 1.5% of global electricity in 2024 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>Doubling by 2030 due to AI growth <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5">
+      <p>Japan annual electricity consumption comparison <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6">
+      <p>AI servers ~15% of data center energy <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:7">
+      <p>Major tech hubs 85% consumption <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:8">
+      <p>Inference 90% of AI model lifecycle energy <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:9">
+      <p>OpenAI’s Kenyan moderators paid &lt;$2/hour for toxic content labeling <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:10">
+      <p>Psychological trauma reported by moderators <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:11">
+      <p>Mental health damage from graphic content exposure <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:12">
+      <p>Lawsuits over exploitative conditions <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:13">
+      <p>Low pay and inadequate support documentation <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:14">
+      <p>Authors sued OpenAI over books used in training without permission <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:15">
+      <p>Michael Chabon, Jodi Picoult and George R.R. Martin lawsuit <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:16">
+      <p>ChatGPT summarizing and imitating writing styles <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:17">
+      <p>Class actions by authors and publishers <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:18">
+      <p>Visual artists against generative AI companies <a href="#fnref:18" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:19">
+      <p>Artists’ class action against Stability AI <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:20">
+      <p>5 billion scraped images in LAION dataset <a href="#fnref:20" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:21">
+      <p>Thomson Reuters v ROSS court decision 2025 <a href="#fnref:21" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:22">
+      <p>AI training use not fair use ruling <a href="#fnref:22" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:23">
+      <p>Search tool repackaging original texts <a href="#fnref:23" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:24">
+      <p>Harm to copyright owner’s market <a href="#fnref:24" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:25">
+      <p>EU AI Act copyrighted material disclosure <a href="#fnref:25" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:26">
+      <p>AI developers transparency requirements <a href="#fnref:26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:27">
+      <p>ChatGPT training data summaries requirement <a href="#fnref:27" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:28">
+      <p>OpenAI’s GPT-4 report gave no info on data or training <a href="#fnref:28" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:29">
+      <p>Competition and safety concerns cited <a href="#fnref:29" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:30">
+      <p>Impossible to evaluate biases without data knowledge <a href="#fnref:30" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:31">
+      <p>Amazon’s AI hiring tool penalised “women’s” in resumes <a href="#fnref:31" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:32">
+      <p>Tech industry male dominance in training data <a href="#fnref:32" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:33">
+      <p>Discrimination against women’s organizations <a href="#fnref:33" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:34">
+      <p>Downgrading women’s college graduates <a href="#fnref:34" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:35">
+      <p>Amazon engineers unable to guarantee no discrimination <a href="#fnref:35" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:36">
+      <p>Project eventually scrapped due to bias issues <a href="#fnref:36" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:37">
+      <p>ProPublica COMPAS system investigation findings <a href="#fnref:37" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:38">
+      <p>72% Americans prefer AI development slowdown <a href="#fnref:38" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:39">
+      <p>Only 8% want AI development to speed up <a href="#fnref:39" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:40">
+      <p>Gary Marcus on Big Tech “moral descent” <a href="#fnref:40" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:41">
+      <p>Profit over society prioritization <a href="#fnref:41" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:42">
+      <p>98% of deepfakes online are pornographic, targeting women <a href="#fnref:42" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:43">
+      <p>Facebook’s engagement algorithm boosts divisive content <a href="#fnref:43" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:44">
+      <p>Algorithm changes preferentially boost anger reactions <a href="#fnref:44" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:45">
+      <p>Arizona mother AI voice cloning scam <a href="#fnref:45" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:46">
+      <p>Daughter’s voice perfectly mimicked for kidnapping hoax <a href="#fnref:46" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:47">
+      <p>McAfee survey on voice cloning detection <a href="#fnref:47" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:48">
+      <p>Europol warning about ChatGPT enabling realistic phishing <a href="#fnref:48" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:49">
+      <p>China’s AI surveillance of Uyghurs with facial recognition <a href="#fnref:49" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:50">
+      <p>Three wrongful arrests via face recognition in US <a href="#fnref:50" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:51">
+      <p>Facial recognition accuracy issues for people of colour <a href="#fnref:51" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:52">
+      <p>Robert Williams Detroit wrongful arrest case <a href="#fnref:52" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:53">
+      <p>$300k settlement and policy changes <a href="#fnref:53" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:54">
+      <p>EU AI Act high-risk employment classification <a href="#fnref:54" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:55">
+      <p>Non-discriminatory and transparent requirements <a href="#fnref:55" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:56">
+      <p>Amazon’s automated warehouse productivity system <a href="#fnref:56" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:57">
+      <p>Real-time worker tracking and metrics <a href="#fnref:57" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:58">
+      <p>Automatic warnings and termination notices <a href="#fnref:58" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:59">
+      <p>No manager input required for disciplinary action <a href="#fnref:59" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:60">
+      <p>300+ employees fired in single warehouse <a href="#fnref:60" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:61">
+      <p>10% of staff terminated by automated system <a href="#fnref:61" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:62">
+      <p>Autonomous weapons dehumanise decision-making <a href="#fnref:62" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:63">
+      <p>Machines lack human judgment and accountability <a href="#fnref:63" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:64">
+      <p>2015 open letter warning about autonomous weapons <a href="#fnref:64" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:65">
+      <p>EU AI Act traceability requirements <a href="#fnref:65" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:66">
+      <p>Oversight and transparency mandates <a href="#fnref:66" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Justin O'Brien</name></author><category term="artificial-intelligence" /><category term="ethics" /><category term="technology" /><category term="ai-ethics" /><category term="machine-learning" /><category term="bias" /><category term="surveillance" /><category term="automation" /><category term="regulation" /><category term="environmental-impact" /><category term="copyright" /><summary type="html"><![CDATA[Artificial intelligence has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they're the reason you're reading this article instead of a holiday brochure.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/hero-ai-ethics.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/hero-ai-ethics.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge</title><link href="http://localhost:4001/2025/07/10/why-cant-we-be-friends/" rel="alternate" type="text/html" title="Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge" /><published>2025-07-10T00:00:00+01:00</published><updated>2025-07-10T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/10/why-cant-we-be-friends</id><content type="html" xml:base="http://localhost:4001/2025/07/10/why-cant-we-be-friends/"><![CDATA[<p><img src="/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" alt="University buildings connected by bridges with pound signs floating between them" /></p>
 
 <h2 id="how-british-universities-keep-tripping-over-their-own-mortarboards-on-the-way-to-saving-15-billion">How British Universities Keep Tripping over Their Own Mortarboards on the way to saving £1.5 billion</h2>
 
@@ -149,7 +636,140 @@
 
 <p>The ancient statutes did not force us into perpetual single-player mode. We chose that path, puffed up by league tables and institutional lore. The sooner we remember that the public benefit is collective, the sooner we can stop balancing the books on the shoulders of students and junior staff, and start spending the savings on something radical—like teaching.</p>
 
-<p>Until then the pyramids will stand aloof, apexes glinting, each convinced it is the tallest in the desert, none quite noticing how much sand is slipping through the cracks.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="collaboration" /><category term="procurement" /><category term="university-cooperation" /><category term="shared-services" /><category term="UKUPC" /><category term="institutional-culture" /><category term="university-autonomy" /><category term="cost-savings" /><summary type="html"><![CDATA[UK universities could save £1.5 billion through collaboration, but pyramid politics and cultural feudalism keep them competing over stationery while students foot the bill.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Murder a University: A Guide to Institutional Death</title><link href="http://localhost:4001/2025/07/08/how-to-murder-a-university/" rel="alternate" type="text/html" title="How to Murder a University: A Guide to Institutional Death" /><published>2025-07-08T00:00:00+01:00</published><updated>2025-07-08T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/08/how-to-murder-a-university</id><content type="html" xml:base="http://localhost:4001/2025/07/08/how-to-murder-a-university/"><![CDATA[<p><img src="/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg" alt="Empty university lecture hall with ominous shadows" /></p>
+<p>Until then the pyramids will stand aloof, apexes glinting, each convinced it is the tallest in the desert, none quite noticing how much sand is slipping through the cracks.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="collaboration" /><category term="procurement" /><category term="university-cooperation" /><category term="shared-services" /><category term="UKUPC" /><category term="institutional-culture" /><category term="university-autonomy" /><category term="cost-savings" /><summary type="html"><![CDATA[UK universities could save £1.5 billion through collaboration, but pyramid politics and cultural feudalism keep them competing over stationery while students foot the bill.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Cheaper, Easier, Efficienter? The Curious Tale of UK Universities and Private Contractors</title><link href="http://localhost:4001/2025/07/09/cheaper-easier-efficienter/" rel="alternate" type="text/html" title="Cheaper, Easier, Efficienter? The Curious Tale of UK Universities and Private Contractors" /><published>2025-07-09T00:00:00+01:00</published><updated>2025-07-09T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/09/cheaper-easier-efficienter</id><content type="html" xml:base="http://localhost:4001/2025/07/09/cheaper-easier-efficienter/"><![CDATA[<p><img src="/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg" alt="University building with corporate logos and pound signs swirling around it" /></p>
+
+<h2 id="the-never-ending-hunt-for-a-bargain">The Never-Ending Hunt for a Bargain</h2>
+
+<p><strong>Spoiler alert:</strong> nobody ends up bathing in gold coins, but at least the catering’s cheaper.</p>
+
+<h3 id="setting-the-scene">Setting the Scene</h3>
+
+<p>Back in 2010, ministers decided that what British higher education really needed was the bracing draught of the free market—plus the occasional spreadsheet from a management consultant. Since then, almost every UK university has flirted, dated or gone fully steady with private-sector partners. On paper the romance promised three irresistible benefits:</p>
+
+<ul>
+  <li><strong>Lower costs</strong> (because cleaners apparently thrive on fresh air and gratitude)</li>
+  <li><strong>Improved “efficiencies”</strong> (a word that does heroic work in policy documents)</li>
+  <li><strong>A dash of entrepreneurial sparkle</strong> (complete with PowerPoint animations)</li>
+</ul>
+
+<p>Fifteen years later, we can ask: who actually made any money? And did anyone remember to turn the lights off when Carillion imploded?</p>
+
+<h2 id="1-outsourcing-the-basics-beans-bins-and-broken-boilers">1. Outsourcing the Basics: Beans, Bins and Broken Boilers</h2>
+
+<p>Campus support services were the first to be handed to the private sector. The logic was simple: specialist firms would run catering, cleaning, IT and security more cheaply than your average university could manage in-house. London Metropolitan University even tried to outsource virtually everything except actual lecturing—although that grand plan soon hit a wall thicker than most dissertations<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup><sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup><sup id="fnref:3"><a href="#fn:3" class="footnote" rel="footnote" role="doc-noteref">3</a></sup>.</p>
+
+<p><strong>Did universities save cash?</strong> For a while, yes. <strong>Did contractors get fabulously rich?</strong> Not exactly. Margins were so slender that giants like Carillion toppled over in 2018, leaving half-finished projects and a nation of bemused vice-chancellors<sup id="fnref:4"><a href="#fn:4" class="footnote" rel="footnote" role="doc-noteref">4</a></sup><sup id="fnref:5"><a href="#fn:5" class="footnote" rel="footnote" role="doc-noteref">5</a></sup>.</p>
+
+<p><strong>Bonus irony:</strong> many outsourced staff discovered they could enjoy lower wages <em>and</em> weaker holiday pay <em>and</em> poorer pensions—proof that modernisation can, indeed, be a triple win (just not necessarily for them).</p>
+
+<h2 id="2-digital-dreams-moocs-opms-and-other-acronyms">2. Digital Dreams: MOOCs, OPMs and Other Acronyms</h2>
+
+<p>When Massive Open Online Courses (MOOCs) burst onto the scene circa 2012, prophets foretold a future of “frictionless” global education. The Open University duly launched FutureLearn; venture capital flowed; and newspapers welcomed “the end of the campus” (again).</p>
+
+<p>Alas, FutureLearn managed to burn through cash at roughly the speed of a freshers’-week overdraft, racking up multi-million-pound losses before being sold off like a slightly scuffed laptop on Facebook Marketplace<sup id="fnref:6"><a href="#fn:6" class="footnote" rel="footnote" role="doc-noteref">6</a></sup>.</p>
+
+<p>Meanwhile, <strong>Online Programme Management (OPM) companies</strong>—those nice people who promise to design your master’s degree, recruit your students and then split the fees 50/50—multiplied faster than seagulls near chips. By 2023 there were almost 50 UK OPM partnerships<sup id="fnref:7"><a href="#fn:7" class="footnote" rel="footnote" role="doc-noteref">7</a></sup>.</p>
+
+<p>Sadly, negative financial results also multiplied. Pearson, sensing a party turning awkward, paid a private-equity outfit to take its ailing OPM arm off its hands<sup id="fnref:8"><a href="#fn:8" class="footnote" rel="footnote" role="doc-noteref">8</a></sup>. Industry analysts now describe the traditional OPM market as “in freefall”, which is consultant-speak for “bring a parachute”<sup id="fnref:9"><a href="#fn:9" class="footnote" rel="footnote" role="doc-noteref">9</a></sup><sup id="fnref:10"><a href="#fn:10" class="footnote" rel="footnote" role="doc-noteref">10</a></sup>.</p>
+
+<h2 id="3-pathway-and-occasionally-slipway-colleges">3. Pathway (and Occasionally Slipway) Colleges</h2>
+
+<p>Nothing says global Britain like outsourcing your foundation year to a for-profit joint venture. Firms such as INTO, Study Group and Navitas set up “embedded” colleges right on campus to recruit and teach international students. Universities liked the steady pipeline of tuition; investors liked the steady pipeline of, well, tuition.</p>
+
+<p><strong>Reality, however, proved trickier.</strong> Several INTO ventures haemorrhaged cash, survived only on university loans or shut down entirely. INTO’s London branch with UEA cost the university millions before the plug was pulled<sup id="fnref:11"><a href="#fn:11" class="footnote" rel="footnote" role="doc-noteref">11</a></sup><sup id="fnref:12"><a href="#fn:12" class="footnote" rel="footnote" role="doc-noteref">12</a></sup><sup id="fnref:13"><a href="#fn:13" class="footnote" rel="footnote" role="doc-noteref">13</a></sup>. Staff enjoyed lower pay, students occasionally enjoyed lower entry standards, and auditors enjoyed wondering where all the money had gone.</p>
+
+<h2 id="4-private-universities-and-the-great-gsm-london-meltdown">4. Private Universities and the Great GSM London Meltdown</h2>
+
+<p>The government also invited wholly private universities to join the fray. BPP University and the University of Law still stand, but others fared less handsomely. The collapse of GSM London in 2019 left 3,500 students hunting for new courses and demonstrated that “challenging market conditions” is polite code for “we ran out of cash”<sup id="fnref:14"><a href="#fn:14" class="footnote" rel="footnote" role="doc-noteref">14</a></sup>.</p>
+
+<p>Regulators have since developed a keen interest in preventing more such episodes, chiefly to avoid headlines involving stranded undergraduates and smouldering piles of student-loan money.</p>
+
+<h2 id="5-where-the-money-is-student-accommodation">5. Where the Money Is: Student Accommodation</h2>
+
+<p>One area has minted profits: <strong>purpose-built student housing</strong>. Firms like Unite Students and UPP erect shiny new halls, charge eye-watering rents, and report earnings that make the average OPM executive sob quietly into their latte. Unite’s pre-tax profit quadrupled to £444 million in 2022<sup id="fnref:15"><a href="#fn:15" class="footnote" rel="footnote" role="doc-noteref">15</a></sup>, which is almost enough to afford the rent on one of its deluxe ensuite studios in Zone 1 (plus maybe a kettle).</p>
+
+<p><strong>Why does this work when other ventures flop?</strong> Simple: the revenue comes straight from students’ wallets, the product is literal bricks and mortar, and no one has to mark essays at 3 a.m.</p>
+
+<h2 id="6-the-consultants-the-software-and-everyone-else">6. The Consultants, the Software and Everyone Else</h2>
+
+<p>Elsewhere, ed-tech vendors (Turnitin, Blackboard, assorted proctoring start-ups) have done rather nicely by charging annual licences and letting academics argue about plagiarism in their spare time. Management-consultancy firms, meanwhile, discovered that universities are prepared to pay handsomely for PowerPoints advising them to “do more with less” and “unlock stakeholder synergies”<sup id="fnref:16"><a href="#fn:16" class="footnote" rel="footnote" role="doc-noteref">16</a></sup>.</p>
+
+<p>There is no recorded instance of McKinsey going bust because a vice-chancellor drove too hard a bargain.</p>
+
+<h2 id="drawing-a-wobbly-bottom-line">Drawing a (Wobbly) Bottom Line</h2>
+
+<p>After a decade-plus of experimentation, the ledger looks something like this:</p>
+
+<ul>
+  <li><strong>Campus outsourcing:</strong> minor savings for universities, major headaches for suppliers, existential dread for cleaners</li>
+  <li><strong>Online education:</strong> technological utopia postponed; investors queue here for refunds</li>
+  <li><strong>Pathway colleges:</strong> profits highly dependent on immigration rules, exchange rates and luck</li>
+  <li><strong>Private universities:</strong> some winners, several spectacular losers</li>
+  <li><strong>Student accommodation:</strong> champagne all round (unless you’re paying the rent)</li>
+  <li><strong>Consultants &amp; software vendors:</strong> steady as she goes, thanks very much</li>
+</ul>
+
+<p>In other words, privatisation has certainly sprinkled higher education with market forces. It just hasn’t sprinkled everyone with money. Universities shaved costs here and there; employees often absorbed the haircut; and many private firms discovered that teaching, supporting and housing students is fiendishly expensive—unless you own the halls, in which case it’s rather cosy.</p>
+
+<p><strong>The next time someone breezily promises “efficiencies” courtesy of a shiny new partnership, remember:</strong> in academia, as in life, you rarely get something for nothing. Except, of course, PowerPoint animations. Those are apparently free.</p>
+
+<hr />
+
+<h2 id="references">References</h2>
+
+<p><em>All hyperlinks accessed July 2025.</em></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>The Guardian – “London Metropolitan University outsourcing services” (20 Aug 2012) <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>The Guardian – “Universities could save £3 bn by outsourcing” (23 Dec 2010) <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>Times Higher Education – “Outsourcing plan hits the wall” (25 Oct 2012) <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>LSE British Politics and Policy Blog – “What Carillion’s collapse tells us about public-sector outsourcing” (2018) <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5">
+      <p>The Guardian – “Lessons to be learned from Carillion’s collapse” (16 Jan 2018) <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6">
+      <p>Class Central – “FutureLearn burns through SEEK funding” (2022) <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:7">
+      <p>Neil Mosley – “OPM and UK university partnerships: the state of play” (2023) <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:8">
+      <p>Neil Mosley – “Pearson exits the OPM business” (2023) <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:9">
+      <p>Forbes – “For traditional online-college managers, the party is over” (17 Oct 2024) <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:10">
+      <p>Sage Journals – “The OPM market in freefall” (2023) <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:11">
+      <p>UCU – “Say NO to INTO” briefing (2014) <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:12">
+      <p>UCU – INTO venture loss data (2014) <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:13">
+      <p>View from a Bridge – “Rulings, Filings and Finances” (2023) <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:14">
+      <p>The Guardian – “Private higher-education college goes into administration” (31 Jul 2019) <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:15">
+      <p>PBSA News – “Unite Students increases turnover by 8 percent” (25 Feb 2025) <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:16">
+      <p>Public Money &amp; Management – “Extraordinary growth of private management consultancy involvement in UK HE” (2024) <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="privatisation" /><category term="outsourcing" /><category term="university-outsourcing" /><category term="private-sector-partnerships" /><category term="cost-savings" /><category term="efficiency" /><category term="market-forces" /><category term="higher-education-policy" /><summary type="html"><![CDATA[Fifteen years after ministers promised that private partnerships would revolutionise British higher education, we ask: who actually made any money? Spoiler alert: nobody ends up bathing in gold coins, but at least the catering's cheaper.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-09-cheaper-easier-efficienter/hero-university-privatisation.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-09-cheaper-easier-efficienter/hero-university-privatisation.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Murder a University: A Guide to Institutional Death</title><link href="http://localhost:4001/2025/07/08/how-to-murder-a-university/" rel="alternate" type="text/html" title="How to Murder a University: A Guide to Institutional Death" /><published>2025-07-08T00:00:00+01:00</published><updated>2025-07-08T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/08/how-to-murder-a-university</id><content type="html" xml:base="http://localhost:4001/2025/07/08/how-to-murder-a-university/"><![CDATA[<p><img src="/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg" alt="Empty university lecture hall with ominous shadows" /></p>
 
 <p>In recent posts I’ve already skipped indelicately through Britain’s higher-education money-pit, tutted at missed savings, and poked the soggy bits of management. “Cheer up,” I promised. So naturally it’s time to talk about death.
 Not yours, happily, but the demise of an entire university – a topic so bleak it makes actuarial tables look frisky.</p>
@@ -529,324 +1149,4 @@ With tuition funded through the apprenticeship levy and salaries paid by employe
 
 <p>If a university’s very purpose is boiled down to its quarterly profit figures, we might as well convert the Bodleian into a bargain-bin bookshop flogging paperbacks two-for-a-pound. Universities, by etymology and by evidence, are about <strong>busyness in the broadest sense</strong>: the restless pursuit of knowledge that pays society back many times over—financially, medically, democratically.</p>
 
-<p>What should the “business model” be? <strong>Busyness itself</strong>: teaching, probing, discovering—always with the public good in mind. Yes, the books must balance (stay tuned for my next piece on how), but the real dividends are educated citizens and new knowledge.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-strategy" /><category term="public-value" /><category term="university-business-model" /><category term="SROI" /><category term="social-return-investment" /><category term="public-good" /><category term="UK-universities" /><category term="university-finance" /><summary type="html"><![CDATA[Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/hero-university-busyness.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/hero-university-busyness.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Governmental Shrugs: When Car Factories Matter More Than Universities</title><link href="http://localhost:4001/2025/06/30/governmental-shrugs/" rel="alternate" type="text/html" title="Governmental Shrugs: When Car Factories Matter More Than Universities" /><published>2025-06-30T00:00:00+01:00</published><updated>2025-06-30T00:00:00+01:00</updated><id>http://localhost:4001/2025/06/30/governmental-shrugs</id><content type="html" xml:base="http://localhost:4001/2025/06/30/governmental-shrugs/"><![CDATA[<p><img src="/assets/images/posts/2025-07-25-governmental-shrugs/hero-shrugging-politician.jpg" alt="Politician shrugging while university buildings crumble in background" /></p>
-
-<p>At British universities, 2025 is shaping up to be the year when 10,000 academic, technical and professional posts toddle off towards the Jobcentre, waving their P45s like tear-stained handkerchiefs. Westminster’s response has been a philosophical shrug tucked inside the well-rehearsed line that universities are “independent organisations” that really ought to jolly well clean up their own mess. By contrast, the merest newspaper flutter suggesting Lotus might moth-ball its Norfolk factory (all 1,300 jobs of it) prompted the Business Secretary to speed-dial the Chinese owners, after which the company dutifully announced that of course it wasn’t going anywhere, thank you very much. Apparently some independent organisations are more independent than others.</p>
-
-<h2 id="a-crisis-in-ten-thousand-lessons">A Crisis in Ten Thousand Lessons</h2>
-
-<p>Teaching an undergraduate now costs about <strong>£12,500 a head</strong>, yet the fee cap in England has been frozen at <strong>£9,250 since 2017</strong>. Even Labour’s promised bump to a grandiose £9,535 next year adds little more than garnish. Unsurprisingly, the Office for Students reckons most institutions will be running deficits within two years.</p>
-
-<p>Research is no lifeboat either: UK Research &amp; Innovation normally pays <strong>80% of full economic cost</strong>, leaving universities to find the other 20% down the back of the sofa. Across the sector, only <strong>71% of research costs are actually recovered</strong>.</p>
-
-<p>And then we removed the only profitable revenue stream. A ban on most dependants from January 2024 helped push international student visa applications down <strong>12% in a single year</strong>, while dependant visas collapsed by <strong>83%</strong>. When even The Pie News has the words “record fall” in its headline, you know it’s not a vintage year for campus optimism.</p>
-
-<h2 id="government-guidance-please-keep-calm-and-self-fund">Government Guidance: Please Keep Calm and Self-Fund</h2>
-
-<p>Asked what might be done, ministers reliably point out that universities are free, sovereign entities, presumably able to mint their own bullion and grow money trees next to the sociology building. There are, of course, the odd exceptions north of Hadrian’s Wall: Dundee secured a £62 million Scottish Government loan (pronounced in Edinburgh as “fiscal prudence”, in St Andrews as “cheque-book socialism”). But for everyone else, the official line resembles a Victorian medical pamphlet: <em>keep warm, drink beef tea, and try not to fade away</em>.</p>
-
-<h2 id="meanwhile-in-norfolk-deploy-the-panic-button">Meanwhile in Norfolk: Deploy the Panic-Button</h2>
-
-<p>When a Financial Times whisper suggested Lotus might slide its production over to the United States, Whitehall’s hazard lights came on. Within hours the Business Secretary was arranging urgent talks, Lotus confirmed Hethel was safe for now, and Norfolk exhaled. The jobs at risk? A mere <strong>1,300</strong>—roughly the headcount of a mid-sized faculty at, say, Sussex, but clearly of far greater strategic significance.</p>
-
-<p>To be fair, car making is one of the few industrial pastimes Britain still practises competitively. Even in a wobbly 2024 the nation built almost <strong>780,000 cars</strong>, exporting over three-quarters of them, and Whitehall is understandably twitchy about losing any remaining assembly lines. A fresh UK–US trade tweak trimming tariffs has only heightened the sense that the sector is a precious, if precarious, jewel.</p>
-
-<h2 id="spot-the-difference-clue-it-isnt-the-extra-zero">Spot the Difference (Clue: It Isn’t the Extra Zero)</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Sector</th>
-      <th>Jobs under threat</th>
-      <th>Typical government reflex</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Universities</td>
-      <td><strong>10,000</strong></td>
-      <td><em>“They’re independent; pass the biscuits.”</em></td>
-    </tr>
-    <tr>
-      <td>Lotus Cars</td>
-      <td><strong>1,300</strong></td>
-      <td>Phone call, statement, comfort blanket</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>The delightfully lopsided enthusiasm suggests that, in the national pecking order, a hand-built sports car outranks a biomedical lab, a languages department and the entire postgraduate research pipeline combined. It may also explain why some vice-chancellors are eyeing the idea of bolting spoilers to the admin block and rebranding as “Higher Education, but with Cup Holders”.</p>
-
-<h2 id="why-it-matters-beyond-the-ivory-tower">Why It Matters (Beyond the Ivory Tower)</h2>
-
-<p>Universities underpin £95 billion of economic output, drive half of all basic research and train the very engineers Lotus will need for its next electric model. Starve them, and the future supply of skilled workers, patents and—let’s be honest—pub quiz champions goes with them. Yet policy continues to treat the sector as a cost centre rather than the soft-power and productivity machine every industrial strategy paper claims to cherish.</p>
-
-<h2 id="closing-thoughts-a-polite-suggestion">Closing Thoughts: A Polite Suggestion</h2>
-
-<p>If 10,000 university jobs do vanish this year, imagine the ministerial switchboard lit up with as many calls as Norfolk enjoyed last weekend. Until then, campus leaders might consider relocating to a disused airfield, painting everything British-Racing-Green and applying for a small but tasteful government rescue package. Stranger things have certainly received a ministerial phone-call.</p>
-
-<blockquote>
-  <p><strong>“If you work in UK HE, tag one colleague and one MP who needs to see these numbers.”</strong></p>
-</blockquote>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="government-policy" /><category term="economic-priorities" /><category term="university-funding" /><category term="job-losses" /><category term="government-response" /><category term="economic-policy" /><category term="UK-priorities" /><category term="car-industry" /><summary type="html"><![CDATA[Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-30-governmental-shrugs/hero-shrugging-politician.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-30-governmental-shrugs/hero-shrugging-politician.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About ‘Rightsizing’ in UK Universities</title><link href="http://localhost:4001/2025/06/25/rightsizing-rant/" rel="alternate" type="text/html" title="When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About ‘Rightsizing’ in UK Universities" /><published>2025-06-25T00:00:00+01:00</published><updated>2025-06-25T00:00:00+01:00</updated><id>http://localhost:4001/2025/06/25/rightsizing-rant</id><content type="html" xml:base="http://localhost:4001/2025/06/25/rightsizing-rant/"><![CDATA[<p><img src="/assets/images/posts/2025-07-15-rightsizing-rant/rightsizing.jpg" alt="Corporate buzzword cloud dissolving into a clear, plain English dictionary" /></p>
-
-<p>If you’ve ever watched two neurosurgeons chat over coffee, you’ll know specialist jargon can be glorious. In the right hands it is a scalpel: precise, efficient and a blessed relief from paragraph-long explanations. The same goes for every field from quantum physics to tax law.</p>
-
-<p>But in business-speak the scalpel is often replaced by a feather boa—colourful, distracting and entirely useless. “Low-hanging fruit”, “sunset the legacy stack”, “leverage our synergies”: phrases that promise profundity but generally drip with verbal Miracle-Gro and not much else.</p>
-
-<p>Sadly, the corporate world has taken this innocent tool, blunted it beyond recognition and now brandishes it like a toddler with a breadknife. Business-speak promises verbal efficiency but usually delivers opacity, pseudo-profundity and an excuse not to think too hard. As André Spicer memorably noted, it’s “vacuous management-speak dressed up as strategic insight”. <a href="https://www.theguardian.com/news/2017/nov/23/from-inboxing-to-thought-showers-how-business-bullshit-took-over">The Guardian</a></p>
-
-<p>Worst of all are the euphemisms that actively <em>conceal</em> bad news. And few are more pernicious than the current corporate favourite that has oozed across the quad: <strong>“rightsizing.”</strong></p>
-
-<h2 id="rightsizing-what-it-really-means-spoilersmaller">Rightsizing: What it Really means (spoiler—”smaller”)</h2>
-
-<p>Even the normally understated Cambridge Dictionary concedes that <em>rightsize</em> means “to make an organisation <strong>smaller by reducing the number of people working for it</strong>.”</p>
-
-<p>Note the complete lack of any suggestion that the process might occasionally involve champagne recruitment drives. The shrinkage is baked in; the “right” size is, almost invariably, <em>less</em>.</p>
-
-<p>“Right-sizing exercises” were already haunting British lecture theatres a decade ago, as The Guardian’s lament for the humanities reported. <a href="https://www.theguardian.com/education/2015/mar/29/war-against-humanities-at-britains-universities">theguardian.com</a><br />
-Since then the jargon has migrated from Silicon Valley to Senate House quicker than you can say “research excellence framework”.</p>
-
-<p><em>Sixty-seven</em> UK institutions currently have redundancy schemes on the go, a trend cheerfully described by commentators as <em>“right-sizing the sector.”</em> <a href="https://isrf.org/blog/radical-rethinking-coming-up">isrf.org</a> 
-The University of Edinburgh plans to shave <strong>£140 million</strong> off its wage bill by “identifying the <strong>right size and shape</strong> of our staff body”. Translation: fewer bodies. <a href="https://www.ucu.org.uk/article/13929/Edinburgh-university-principal-announces-university-planning-140million-of-cuts">ucu.org.uk</a><br />
-Lincoln, meanwhile, says brutal cuts to <strong>220 posts</strong> are essential so it can <em>“find the right size and shape”</em> for the future—apparently bean-counters are now tailors as well. <a href="https://www.timeshighereducation.com/news/lincoln-faces-strike-threat-after-putting-220-staff-risk">timeshighereducation.com</a></p>
-
-<p>Spot the pattern: every time the phrase crops up, payroll numbers go down.</p>
-
-<h2 id="why-the-euphemism-is-so-objectionable">Why The Euphemism is so objectionable</h2>
-
-<ul>
-  <li>
-    <p><strong>It’s inaccurate.</strong> “Right” implies careful optimisation; in reality these are emergency cuts after years of financial bravado.</p>
-  </li>
-  <li>
-    <p><strong>It’s cowardly.</strong> If leaders truly believed in the virtue of mass sackings they would say <em>“We’re firing people.”</em></p>
-  </li>
-  <li>
-    <p><strong>It shifts the shame.</strong> Leavers shoulder the trauma, stayers wrestle survivor’s guilt, senior managers bask in “doing the right thing”.</p>
-  </li>
-  <li>
-    <p><strong>It’s bad business.</strong> Routine lay-offs damage engagement and profitability in the long run—Harvard Business Review has been saying so for years. <a href="https://hbr.org/2018/05/layoffs-that-dont-break-your-company">hbr.org</a></p>
-  </li>
-</ul>
-
-<p>Redundancies don’t just remove salaries; they vaporise institutional memory, crater local economies and hollow out research capacity. Yet the glossy presentation will announce the institution is now “more agile”—rather like a gymnast who’s “lost weight” after an amputation.</p>
-
-<p>Language shapes policy. Keep calling mass sackings “rightsizing” and we normalise spreadsheet sadism as prudent housekeeping. Call them what they are—<em>redundancies in their hundreds</em>—and suddenly the morality (and the maths) look a lot murkier.</p>
-
-<h2 id="what-to-do-instead-of-playing-buzzword-buckaroo">What to Do instead of Playing Buzzword Buckaroo</h2>
-
-<ol>
-  <li>
-    <p><strong>Use the Queen’s (plain) English.</strong><br />
-If you truly must lop off heads, call it <em>redundancy</em>, <em>job losses</em> or—brace yourself—<em>sacking people</em>. Your staff have PhDs; they can cope with syllables.</p>
-  </li>
-  <li>
-    <p><strong>Refuse to translate gibberish for free.</strong><br />
-When the memo says the university will become “leaner”, email back:<br />
-<em>“Just checking—does ‘leaner’ mean fewer colleagues and larger workloads? Ta.”</em><br />
-Copy-in HR. Enjoy the silence.</p>
-  </li>
-  <li>
-    <p><strong>Play Buzzword Bingo—out loud.</strong><br />
-Keep a visible card in meetings. When “right-size”, “agile pivot” or “future-proofing” is uttered, shout “Full house!” and demand a straight answer. (Yes, it’s career-limiting. So is a P45.)</p>
-  </li>
-  <li>
-    <p><strong>Insist on the arithmetic.</strong><br />
-No more PowerPoints with rainbow doughnuts. Ask: <em>“Exactly how many posts, which departments, and over what timescale?”</em> Numbers concentrate minds; euphemisms evaporate under the spotlight.</p>
-  </li>
-  <li>
-    <p><strong>Unionise your vocabulary.</strong><br />
-Agree collectively never to parrot management’s euphemisms. The minute staff stop repeating nonsense, leadership is forced either to speak plainly or look patently ridiculous. Both outcomes are acceptable.</p>
-  </li>
-  <li>
-    <p><strong>Reward candour.</strong><br />
-When a senior manager finally says “We’re making redundancies,” resist the urge to boo. Applaud the honesty—then debate the strategy. The goal is clarity first, accountability second.</p>
-  </li>
-  <li>
-    <p><strong>Remember that language sets precedent.</strong><br />
-If we allow “rightsizing” today, tomorrow brings “talent de-densification” and “knowledge off-shoring”. Nip it in the bud before we all need a glossary to find the exit.</p>
-  </li>
-</ol>
-
-<hr />
-
-<p><strong>Bottom line:</strong> Sack the euphemism, interrogate the plan, and keep your irony fully loaded. Because once we translate polite fiction into plain fact, the real discussion—about funding, priorities and the future of higher education—can at last begin.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="language" /><category term="redundancies" /><category term="business-jargon" /><category term="rightsizing" /><category term="university-cuts" /><category term="corporate-speak" /><category term="euphemisms" /><category term="academic-jobs" /><category term="redundancy" /><summary type="html"><![CDATA[67 UK universities have redundancy schemes running, but they're calling it 'rightsizing.' It's time to sack the euphemism and interrogate the plan.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/hero-jargon-chloroform.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/hero-jargon-chloroform.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist</title><link href="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/" rel="alternate" type="text/html" title="Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist" /><published>2025-06-19T00:00:00+01:00</published><updated>2025-06-19T00:00:00+01:00</updated><id>http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist</id><content type="html" xml:base="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/"><![CDATA[<p><img src="/assets/images/posts/2025-06-19/slop-delve.png" alt="AI Quality Taxonomy Overview" /></p>
-
-<p><em>Originally published June 19, 2025</em></p>
-
-<h2 id="slop-is-sloppy">Slop is Sloppy</h2>
-
-<p>The Generative-AI backlash has coined a new catch-all insult: “AI slop.” The label began life as internet shorthand for the torrents of low-effort, algorithm-written web pages and uncanny Midjourney pictures that clog our feeds, but it has since mutated into a blanket sneer aimed at almost any machine-assisted work. A close look at the term’s roots shows why the metaphor of “slop” is rhetorically powerful yet often intellectually lazy: it conflates genuine creative misfires with otherwise polished writing or imagery that simply stumbles on the last metre—extra fingers here, a mis-dated statistic there. In short, “slop” risks obscuring nuance just when we most need clear critical vocabulary.</p>
-
-<h2 id="where-slop-comes-from">Where “Slop” Comes From</h2>
-
-<p>Slop began life in late-mediaeval English as a word for a muddy puddle. By the seventeenth century it had slid—appropriately—into farm talk for semi-liquid pig feed, and by Victorian times it carried two extra shades of contempt: mass-produced cheap clothing sold in “slop-shops”, and sentimental drivel in popular fiction. The sound of the word, rooted in the same Germanic stem as slip and slide, has always suggested something wet, messy and faintly unpleasant.</p>
-
-<p>In 2024 the tech community borrowed the term to label low-effort, machine-generated content: “AI slop.” The analogy to junk e-mail “spam” was irresistible—and accurate when you’re scrolling past six-fingered celebrity portraits or keyword-stuffed listicles. But using slop for every piece of AI-assisted work is, well, sloppy. A polished image with a stray extra thumb, or an otherwise solid article with a single mis-dated statistic, deserves more precise criticism than a trip to the pig trough.</p>
-
-<h2 id="why-the-metaphor-misfires">Why the Metaphor Misfires</h2>
-
-<p><strong>It Collapses Gradations of Quality</strong> - Not all machine-assisted work is interchangeable mush. Lumping everything together as slop discourages more precise critique.</p>
-
-<p><strong>It Blinds Us to Human Complicity</strong> - Many so-called slop sites are monetised by ordinary publishers chasing ad revenue or engagement metrics, not by the models themselves. Calling the output “AI slop” can deflect responsibility from the editors who chose speed over standards.</p>
-
-<p><strong>It Fuels Blanket Scepticism</strong> - The Guardian notes that rising public distrust now leads readers to assume authentic flood photos are <a href="https://www.theguardian.com/commentisfree/2024/nov/09/the-images-of-spains-floods-werent-created-by-ai-the-trouble-is-people-think-they-were">deepfakes</a>, hampering disaster response. Over-using the epithet slop risks a boy-who-cried-wolf effect in which all digital media are suspect and genuine warnings are ignored.</p>
-
-<p>If every AI-touched work is dismissed as pigswill, we lose the ability to judge craft, intention and risk on their merits. Better to reserve slop for genuine sludge—and enrich our critical toolkit with vocabulary that discriminates between a puddle and a merely muddy boot-print.</p>
-
-<p>Below is a working taxonomy I use, synthesised from sources in disparate domains. It groups errors into six high-level families and gives each sub-type a short code—handy for tagging documents or briefing reviewers.</p>
-
-<h2 id="the-six-families-of-ai-quality-issues">The Six Families of AI Quality Issues</h2>
-
-<ol>
-  <li>
-    <p><strong>Synthetic Truth Failures</strong> – When the model’s facts are wrong. That includes outright hallucinations, out-of-date statements, fabricated citations, faulty numbers, mis-quoted sources and other inventions that undermine factual reliability.</p>
-  </li>
-  <li>
-    <p><strong>Semantic &amp; Structural Incoherence</strong> – The answer may be factually fine, yet the writing itself is muddled: contradictions, run-on repetition, abrupt truncations, broken formatting, off-topic rambles, word-salad syntax, persona drift or verbose filler.</p>
-  </li>
-  <li>
-    <p><strong>Aesthetic Anomalies</strong> – Glitches you can see or hear: extra fingers in an image, impossible camera angles, jittery video frames, lip-sync slips, robotic speech or buzz-phrase-laden prose that instantly signals “this was generated”.</p>
-  </li>
-  <li>
-    <p><strong>Ethical &amp; Societal Harm</strong> – Content that causes social damage: biased or stereotyped depictions, hate speech, deep-fake misinformation, unlicensed use of copyrighted material, or mass-produced spam that clogs information channels.</p>
-  </li>
-  <li>
-    <p><strong>Security &amp; Privacy Breaches</strong> – Attacks or accidents that expose data or create system risk, such as prompt-injection exploits, leakage of private training data, or AI-generated code that ships with hidden vulnerabilities.</p>
-  </li>
-  <li>
-    <p><strong>Alignment &amp; Control Deviations</strong> – Moments when the model ignores its safety rails: providing disallowed instructions, delivering over-confident claims with no basis, or doling out definitive medical/legal advice it was never authorised to give.</p>
-  </li>
-</ol>
-
-<p><img src="/assets/images/posts/2025-06-19/jargon-blob-illustration.jpg" alt="The Jargon Blob says &quot;Synergy! Optimize! Paradigm Shift! Leverage!" /></p>
-
-<h2 id="1--synthetic-truth-failures">1 – Synthetic Truth Failures</h2>
-
-<p><em>When the model gets the facts wrong</em></p>
-
-<p><strong>Fabrication</strong> – Invents people, events or facts (“hallucinations”). ⚖️ <em>A New York lawyer cited six non-existent court decisions fabricated by ChatGPT</em> (<a href="https://www.legaldive.com/news/chatgpt-fake-legal-cases-generative-ai-hallucinations/651557/">LegalDive</a>)</p>
-
-<p><strong>Temporal drift</strong> – Gives information that used to be true but is now outdated. 🕰️ <em>Some LLMs still name outdated office-holders after their training cut-off</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">Guardian</a>)</p>
-
-<p><strong>Confabulated citation</strong> – Cites journals, URLs or court cases that do not exist. 📚 <em>Users requesting niche academic references receive fictitious DOIs and broken links</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">same Guardian investigation</a>)</p>
-
-<p><strong>Numeric mis-calculation</strong> – Bungles sums, exchange rates or unit conversions. 🧮 <em>GPT-3.5 stumbles on multi-step arithmetic problems</em> (<a href="https://www.theguardian.com/business/2025/jun/15/policymakers-who-think-ai-can-help-rescue-flagging-uk-economy-should-take-heed">Guardian analysis</a>)</p>
-
-<p><strong>Quote / attribution error</strong> – Puts real words in the wrong mouth or cites the wrong source. 🗣️ <em>ChatGPT mis-credited 153 of 200 press quotes, including an Orlando Sentinel letter attributed to Time</em> (<a href="https://www.cjr.org/tow_center/how-chatgpt-misrepresents-publisher-content.php">CJR</a>); <em>fake court citations also turning up in filings</em> (<a href="https://www.businessinsider.com/increasing-ai-hallucinations-fake-citations-court-records-data-2025-5">Business Insider</a>)</p>
-
-<p><strong>Entity conflation</strong> – Melds details from two or more people into one biography. 🪪 <em>ChatGPT repeatedly listed privacy activist Max Schrems with the wrong birth date, prompting a NOYB complaint</em> (<a href="https://timesofindia.indiatimes.com/world/rest-of-world/chatgpt-faces-plaint-in-austria-for-hallucinating-wrong-answers/articleshow/109704321.cms">Times of India</a>)</p>
-
-<p><strong>Biographical defamation</strong> – States reputationally damaging falsehoods about a real person. ⚠️ <em>The model alleged an Australian mayor had served prison time; he is now suing for defamation</em> (<a href="https://www.reuters.com/technology/australian-mayor-readies-worlds-first-defamation-lawsuit-over-chatgpt-content-2023-04-05/">Reuters</a>)</p>
-
-<p><strong>Geospatial misplacement</strong> – Pins an event to the wrong location or mis-labels landmarks. 📍 <em>AI “photos” showed a flooded Disney World during Hurricane Milton; Reuters debunked them</em> (<a href="https://www.reuters.com/fact-check/ai-images-flooded-disney-world-spread-online-2024-10-15/">Reuters</a>) – <em>genuine Spanish flood images were also dismissed as AI fakes</em> (<a href="https://www.theguardian.com/commentisfree/2024/nov/09/the-images-of-spains-floods-werent-created-by-ai-the-trouble-is-people-think-they-were">Guardian</a>)</p>
-
-<p><strong>Statistical phantom</strong> – Invents survey data, market shares or PDFs to match. 📊 <em>Asked for Polish cloud-adoption figures, ChatGPT produced non-existent Deloitte reports and broken links</em> (<a href="https://medium.com/@agata.cupriak/why-is-chatgpt-making-up-facts-and-how-to-deal-with-that-57b504dd28">Medium</a>); <em>MIT Sloan warns of widespread “phantom datasets”</em> (<a href="https://mitsloanedtech.mit.edu/ai/basics/addressing-ai-hallucinations-and-bias/">MIT Sloan EdTech</a>)</p>
-
-<p><strong>Why it matters:</strong> Synthetic truth failures undermine credibility outright. Some even carry legal risk.</p>
-
-<h2 id="2--semantic--structural-incoherence">2 – Semantic &amp; Structural Incoherence</h2>
-
-<p><em>When the prose sounds off—even if the facts are technically correct</em></p>
-
-<p><strong>Logical contradiction</strong> – Claims two incompatible facts in the same answer. 🔄 <em>ChatGPT once described a jacket as both “completely waterproof” and “not water-resistant” in a single paragraph</em> (<a href="https://medium.com/@mbonsign/improving-large-language-models-handling-of-contradictions-fostering-epistemic-humility-629fca6abcf0">Medium</a>)</p>
-
-<p><strong>Run-on repetition</strong> – Loops favourite phrases (“As an AI language model…”) or drifts into copy-paste mode. 🔁 <em>A Nature study shows models fed on their own output spiral into repetitive “model-collapse” loops</em> (<a href="https://www.nature.com/articles/s41586-024-07566-y">Nature</a>)</p>
-
-<p><strong>Truncation</strong> – Cuts off mid-sentence or drops a heading when the context window overflows. ✂️ <em>Devs report ChatGPT abruptly ending replies once it hits token limits</em> (<a href="https://www.o8.agency/blog/ai/advanced-chatgpt-context-windows-and-prompt-engineering">o8 Agency blog</a>)</p>
-
-<p><strong>Formatting breakage</strong> – Outputs code or tables that will not compile or render. 🧩 <em>An arXiv audit found 32% of GitHub Copilot snippets failed to compile across four languages</em> (<a href="https://arxiv.org/html/2310.02059v1">arXiv</a>)</p>
-
-<p><strong>Irrelevant reply</strong> – Answers a different question altogether. ❓ <em>The Dr3 benchmark records GPT-4 replying “Barack Obama” to “In which year was David Beckham’s wife born?”</em> (<a href="https://arxiv.org/html/2403.12393v1">arXiv</a>)</p>
-
-<p><strong>Word-salad</strong> – Produces grammatically tangled, semantically empty text. 🥗 <em>Researchers scored frontier models on a “gibberish scale”, flagging bursts of incoherent word-salad</em> (<a href="https://arxiv.org/html/2410.15234v3">arXiv</a>)</p>
-
-<p><strong>Topic drift</strong> – Wanders off into an unrelated subject as the chat grows. 🧭 <em>A 2025 study on “goal drift” shows agents veer off task after long context interactions</em> (<a href="https://arxiv.org/html/2505.02709v1">arXiv</a>)</p>
-
-<p><strong>Persona drift</strong> – Forgets its assigned role or leaks hidden instructions. 🎭 <em>“Measuring Persona Drift” tests found consistency collapsing over multi-session dialogues</em> (<a href="https://arxiv.org/html/2402.10962v1">arXiv</a>)</p>
-
-<p><strong>Verbosity compensation</strong> – Pads answers with florid filler to mask uncertainty. 📜 <em>The first paper on Verbosity Compensation shows LLMs grow wordier when unsure</em> (<a href="https://openreview.net/forum?id=l49uZcEIcq">OpenReview</a>)</p>
-
-<p><strong>Why it matters:</strong> Sloppy structure confuses readers and saps trust—even if nothing is factually wrong.</p>
-
-<h2 id="3--aesthetic-anomalies">3 – Aesthetic Anomalies</h2>
-
-<p><em>The look or sound of the output gives the game away</em></p>
-
-<p><strong>Visual artefact</strong> – Extra fingers, fused limbs in a still image. 🖐️ <em>AI-generated portraits often show hands with nine fingers or digits growing from palms</em> (<a href="https://www.britannica.com/topic/Why-does-AI-art-screw-up-hands-2230501">Britannica</a>)</p>
-
-<p><strong>Phantom perspective</strong> – Impossible shadows or camera angles. 🌀 <em>AI images may place staircases that run both up and down at once, a classic perspective giveaway</em> (<a href="https://insight.kellogg.northwestern.edu/article/ai-photos-identification">Kellogg Insight</a>)</p>
-
-<p><strong>Stilted writing style</strong> – Buzz-phrase-ridden corporate waffle. 📝 <em>Cover-letters packed with “leveraging data-driven insights” scream ChatGPT-draft</em> (<a href="https://medium.com/learning-data/words-and-phrases-that-make-it-obvious-you-used-chatgpt-2ba374033ac6">Medium</a>)</p>
-
-<p><strong>Motion artefact</strong> – Limbs rotate 360° in video. 🎥 <em>Runway Gen-2 demo clips show wrists spinning unrealistically mid-move</em> (<a href="https://www.youtube.com/watch?v=vezJXJGQMoY">YouTube</a>)</p>
-
-<p><strong>Temporal inconsistency</strong> – Objects morph between frames. ⏱️ <em>The UniCtrl paper calls such cross-frame drift the “central unsolved issue” in text-to-video</em> (<a href="https://arxiv.org/abs/2403.02332">arXiv</a>)</p>
-
-<p><strong>Frame ghosting</strong> – Echo silhouettes after frame interpolation. 👻 <em>Topaz Video AI users report spectral duplicates around moving subjects</em> (<a href="https://community.topazlabs.com/t/frame-interpolation-apollo-makes-some-duplicate-frames/57367">Topaz forum</a>)</p>
-
-<p><strong>Limb distortion</strong> – Body parts vanish or multiply. 💪 <em>An anatomy-audit found “proliferated limbs and missing fingers” rife in T2I datasets</em> (<a href="https://arxiv.org/html/2503.00811v1">arXiv</a>)</p>
-
-<p><strong>Lip-sync slip</strong> – Mouth movement out of time with speech. 👄 <em>Berkeley’s LIPINC detector spots millisecond-level audio-video mismatches in deepfakes</em> (<a href="https://farid.berkeley.edu/downloads/publications/cvprw24c.pdf">PDF</a>)</p>
-
-<p><strong>Gesture drift</strong> – Avatar repeats an awkward shrug. 🤖 <em>Synthesia avatars are criticised for stiff, looping body-language</em> (<a href="https://www.argil.ai/blog/avatar-gestures-in-synthesia-a-complete-guide-to-natural-body-language">Argil AI</a>)</p>
-
-<p><strong>Flat voice prosody</strong> – Monotone, robotic cadence. 🔈 <em>Wayline’s UX blog flags flat prosody as a top engagement killer in TTS output</em> (<a href="https://www.wayline.io/blog/imperfect-ai-voice-engagement">Wayline</a>)</p>
-
-<p><strong>Prosodic pathology</strong> – Stress patterns that feel “off”. 🗣️ <em>Deepgram explains how monotone or misplaced emphasis reduces naturalness</em> (<a href="https://deepgram.com/learn/text-to-speech-ai">Deepgram</a>)</p>
-
-<p><strong>Textural inconsistency</strong> – Fabrics or grass flicker frame-to-frame. 🌾 <em>The VideoJAM paper links “texture flicker” to weak appearance-motion coupling</em> (<a href="https://arxiv.org/abs/2502.02492">arXiv</a>)</p>
-
-<p><strong>Perspective roulette</strong> – Camera jumps to an impossible position mid-shot. 🎥 <em>Researchers catalogue perspective flips as a common diffusion-model failure</em> (<a href="https://arxiv.org/html/2304.06470v6">arXiv</a>)</p>
-
-<p><strong>Why it matters:</strong> Aesthetic glitches are reliable tells for deepfakes and signal that visual quality control—not another fact-check—is the urgent next step.</p>
-
-<h2 id="4--ethical--societal-harm">4 – Ethical &amp; Societal Harm</h2>
-
-<p><em>When the content hurts people or the public sphere</em></p>
-
-<p><strong>Bias &amp; stereotyping</strong> – Over-represents one demographic as “default”. 🌍 <em>Stable Diffusion routinely produced light-skinned male faces even for neutral prompts about “a person”</em> (<a href="https://www.washington.edu/news/2023/11/29/ai-image-generator-stable-diffusion-perpetuates-racial-and-gendered-stereotypes-bias/">UW study</a>)</p>
-
-<p><strong>Toxic language</strong> – Hate, harassment or slurs. 💬 <em>Microsoft’s Tay chatbot spiralled into racist tweets within 24 hours of launch</em> (<a href="https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/">Microsoft blog</a>)</p>
-
-<p><strong>Misinformation &amp; deepfakes</strong> – Fake news photos, bogus quotes. 📰 <em>AI “photos” of a flooded Disney World during Hurricane Milton went viral before Reuters debunked them</em> (<a href="https://www.reuters.com/fact-check/ai-images-flooded-disney-world-spread-online-2024-10-15/">Reuters</a>)</p>
-
-<p><strong>Copyright &amp; plagiarism</strong> – Outputs protected material verbatim. ©️ <em>Getty Images is suing Stability AI for scraping more than 12 million photos to train Stable Diffusion</em> (<a href="https://www.reuters.com/legal/getty-images-lawsuit-says-stability-ai-misused-photos-train-ai-2023-02-06/">Reuters</a>)</p>
-
-<p><strong>Spam scale</strong> – Thousands of low-value pages clogging the web. 🗑️ <em>NewsGuard is tracking 1,271 AI-generated “news” sites with minimal human oversight</em> (<a href="https://www.newsguardtech.com/special-reports/ai-tracking-center">NewsGuard</a>)</p>
-
-<p><strong>Why it matters:</strong> Ethical failures crop up in corrections columns, defamation suits and copyright trials—real-world harm that goes far beyond a mere factual slip-up.</p>
-
-<h2 id="5--security--privacy-breaches">5 – Security &amp; Privacy Breaches</h2>
-
-<p><em>Attacks or accidents that expose data or users</em></p>
-
-<p><strong>Prompt injection</strong> – Attacker hijacks instructions or leaks hidden text. 🛡️ <em>Industry testing found prompt-injection success rates above 50% across leading LLMs</em> (<a href="https://www.paloaltonetworks.com/cyberpedia/what-is-a-prompt-injection-attack">Palo Alto Networks</a>)</p>
-
-<p><strong>Data leakage</strong> – Private training data or user info spills out. 🔓 <em>A March 2023 bug let some ChatGPT users view others’ chat titles and billing details</em> (<a href="https://www.reuters.com/technology/chatgpt-owner-openai-fixes-significant-issue-exposing-user-chat-titles-2023-03-22/">Reuters</a>)</p>
-
-<p><strong>Code vulnerability</strong> – Generated code hides an exploitable flaw. 🐞 <em>An arXiv audit showed 32% of Copilot’s Python snippets carried security issues</em> (<a href="https://arxiv.org/html/2310.02059v1">arXiv</a>)</p>
-
-<p><strong>Why it matters:</strong> Security failures incur regulatory fines, reputational damage and ransomware risk—far costlier than a simple typo.</p>
-
-<h2 id="6--alignment--control-deviations">6 – Alignment &amp; Control Deviations</h2>
-
-<p><em>The model ignores or subverts its guardrails</em></p>
-
-<p><strong>Guardrail bypass</strong> – Supplies disallowed instructions (e.g., weapon guides). 💣 <em>Users tricked Discord’s Clyde chatbot into giving step-by-step recipes for napalm and meth</em> (<a href="https://techcrunch.com/2023/04/20/jailbreak-tricks-discords-new-chatbot-into-sharing-napalm-and-meth-instructions/">TechCrunch</a>)</p>
-
-<p><strong>Over-confidence</strong> – States a low-probability claim as absolute fact. 📢 <em>ChatGPT confidently cited non-existent judicial precedents in a U.S. legal brief, fooling the lawyer who filed it</em> (<a href="https://hai.stanford.edu/news/hallucinating-law-legal-mistakes-large-language-models-are-pervasive">Stanford HAI</a>)</p>
-
-<p><strong>Speculative advice</strong> – Hands out medical or legal diagnoses it should not. 🩺 <em>A Stanford study found AI chatbots dispensing inappropriate mental-health guidance and validating delusions in therapy-style chats</em> (<a href="https://www.sfgate.com/tech/article/stanford-researchers-chatgpt-bad-therapist-20383990.php">SFGate</a>)</p>
-
-<p><strong>Why it matters:</strong> Alignment failures breach safety promises, expose users to real-world harm and heighten regulatory scrutiny.</p>
-
-<hr />
-
-<h2 id="closing-thought">Closing Thought</h2>
-
-<p>If “AI slop” is a lazy label, our response should be the opposite: attentive, specific and proportionate. Naming the precise failure—whether it’s a phantom statistic or a jailbreak that spills private data—gives designers a target to fix and audiences a reason to keep reading. The next time an algorithm slips, let’s reach for the right code in the taxonomy instead of the nearest trough: clearer language is the first step towards cleaner machine-made work.</p>
-
-<hr />
-
-<p><em>Have you encountered specific AI quality issues in your work? Which categories from this taxonomy do you find most useful for evaluation? <a href="/contact/">Share your thoughts</a> or discuss this framework with your team.</em></p>]]></content><author><name>Justin O'Brien</name></author><category term="artificial-intelligence" /><category term="quality-control" /><category term="content-creation" /><category term="ai-ethics" /><category term="machine-learning" /><category term="content-quality" /><category term="ai-criticism" /><category term="taxonomy" /><summary type="html"><![CDATA[The term 'AI slop' has become a lazy catch-all for any machine-assisted work. Here's a detailed taxonomy for more precise AI quality assessment—because clear language is the first step toward cleaner machine-made work.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-19-stop-calling-everything-slop-ai-quality-checklist/hero-ai-quality-taxonomy.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-19-stop-calling-everything-slop-ai-quality-checklist/hero-ai-quality-taxonomy.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>What should the “business model” be? <strong>Busyness itself</strong>: teaching, probing, discovering—always with the public good in mind. Yes, the books must balance (stay tuned for my next piece on how), but the real dividends are educated citizens and new knowledge.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-strategy" /><category term="public-value" /><category term="university-business-model" /><category term="SROI" /><category term="social-return-investment" /><category term="public-good" /><category term="UK-universities" /><category term="university-finance" /><summary type="html"><![CDATA[Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/hero-university-busyness.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/hero-university-busyness.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
