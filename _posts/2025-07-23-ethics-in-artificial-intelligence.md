@@ -7,6 +7,7 @@ tags: [ai-ethics, machine-learning, bias, surveillance, automation, regulation, 
 excerpt: "Artificial intelligence has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they're the reason you're reading this article instead of a holiday brochure."
 author: Justin O'Brien
 image: "/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/hero-ai-ethics.jpg"
+thumbnail: "/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg"
 ---
 
 ![Abstract visualization of AI neural networks with ethical scales and human silhouettes](/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg)

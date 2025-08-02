@@ -7,6 +7,7 @@ tags: [university-outsourcing, private-sector-partnerships, cost-savings, effici
 excerpt: "Fifteen years after ministers promised that private partnerships would revolutionise British higher education, we ask: who actually made any money? Spoiler alert: nobody ends up bathing in gold coins, but at least the catering's cheaper."
 author: Justin O'Brien
 image: "/assets/images/posts/2025-07-09-cheaper-easier-efficienter/hero-university-privatisation.jpg"
+thumbnail: "/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg"
 ---
 
 ![University building with corporate logos and pound signs swirling around it](/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg)

@@ -13,6 +13,43 @@
 </head>
 <body>
   <div class="wrapper">
+    <!-- Main Navigation -->
+    <nav class="main-navigation">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <a href="{{ "/" | absolute_url }}" class="brand-link">{{ site.title | default: site.github.repository_name }}</a>
+        </div>
+        
+        <!-- Mobile menu toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        
+        <!-- Navigation Menu -->
+        <div class="nav-menu">
+          <ul class="nav-links">
+            <li class="nav-item">
+              <a href="{{ "/" | relative_url }}" class="nav-link {% if page.url == "/" %}active{% endif %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ "/about/" | relative_url }}" class="nav-link {% if page.url contains "/about" %}active{% endif %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ "/blog/" | relative_url }}" class="nav-link {% if page.url contains "/blog" or layout == "post" %}active{% endif %}">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ "/sankey.html" | relative_url }}" class="nav-link {% if page.url contains "/sankey" %}active{% endif %}">Visualizations</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ "/contact/" | relative_url }}" class="nav-link {% if page.url contains "/contact" %}active{% endif %}">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <header>
       <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
       
@@ -46,5 +83,6 @@
   </div>
   <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
 </body>
 </html>

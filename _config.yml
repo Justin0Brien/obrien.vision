@@ -14,6 +14,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-minimagick
 
 # Jekyll settings
 permalink: /:year/:month/:day/:title/
@@ -61,3 +62,12 @@ defaults:
       type: "projects"
     values:
       layout: "project"
+
+# Image processing
+minimagick:
+  thumbnail:
+    source: assets/images/posts
+    destination: assets/images/thumbs
+    resize: "300x200^"
+    gravity: "center"
+    extent: "300x200"
