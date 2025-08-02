@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-08-01T18:13:13+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4001/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4001/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-08-02T09:32:12+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4001/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4001/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
 
 <p>When I set out to visualize employment outcomes for professionals aged 50+ following redundancy, I knew the story was complex. Unlike a simple before-and-after comparison, career transitions unfold over time, with multiple pathways and outcomes that shift as months pass.</p>
 
@@ -96,7 +96,581 @@
 
 <hr />
 
-<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary></entry><entry><title type="html">Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist</title><link href="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/" rel="alternate" type="text/html" title="Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist" /><published>2025-06-19T11:00:00+01:00</published><updated>2025-06-19T11:00:00+01:00</updated><id>http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist</id><content type="html" xml:base="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/"><![CDATA[<p><img src="/assets/images/posts/2025-06-19/slop-delve.png" alt="AI Quality Taxonomy Overview" /></p>
+<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary></entry><entry><title type="html">Fixing Universities: A Collective Approach to Financial Crisis</title><link href="http://localhost:4001/2025/08/01/fixing-universities/" rel="alternate" type="text/html" title="Fixing Universities: A Collective Approach to Financial Crisis" /><published>2025-08-01T00:00:00+01:00</published><updated>2025-08-01T00:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/fixing-universities</id><content type="html" xml:base="http://localhost:4001/2025/08/01/fixing-universities/"><![CDATA[<p><img src="/assets/images/posts/2025-08-01-fixing-universities/hero-university-finance.jpg" alt="University buildings with financial charts overlay" /></p>
+
+<p>Universities in the UK are in trouble. Big trouble with pound signs.
+Student fees are capped - Unis are paying about £3K a year to teach each student
+Research is underfunded. Grants pay only about 70 pence of every research pound. Universities are funding their own research.
+The once great bastions of soft power, stricter visa regulations have put off international students.</p>
+
+<p>Let’s start with what won’t work.</p>
+<ol>
+  <li>The government won’t allow a higher fee cap. There’s no way they would allow the fee to pass the £10,000 ceiling given the state of student debt. It needs to go to £12K. This as been obvious since fees were introduced 15 years ago and immediately all universities charged the maximum allowed fee. No sign of “competition” between universities to teach cheaply. Why? ‘cos teaching is expensive when it involves actual teachers.</li>
+  <li>The government won’t increase research spending more than a token amount. Never has happened, never will happen.</li>
+  <li>The government won’t lift visa restrictions. The situation for international students will likely get worse rather than better.</li>
+</ol>
+
+<h2 id="whats-been-tried-the-cutting-paradox">What’s Been Tried: The Cutting Paradox</h2>
+
+<p><strong>Cut costs!</strong> Universities spend a lot on people. All kinds of staff. Cut them! Well, that’s what’s happening. What’s the result? A university that cuts say 500 staff across the board will get a short term benefit of saving the balance sheet for a year or two. It’s always more complicated than you’d think because it’s expensive to get rid of people - it’s a drawn out process that involves paying voluntary severances and compulsory redundancy payments. You may be cutting £30m from your annual budget but you also have to find £10m for all these one off payments. But what are the downsides of that short term balance sheet benefit? You have just made your university smaller. Long term your income is going to go down. You’ve done a sudden shrink in response to (widely predicted) circumstances. You can pretend that “efficiencies” and “productivity boosts” will mean you can do more with fewer staff. But when your staff are already working long hours amidst the threat of compulsory redundancy, how much more productive can you get? Probably LESS productive.</p>
+
+<p>But, say senior managers struggling to get by on six figure salaries, there’s no other way to cut costs. We as a university have done everything we can!</p>
+
+<p>This is a true, as a university you have done everything you can do.</p>
+
+<p>But collectively, as a Universities UK, with 141 member institutions, you have done jack shit.</p>
+
+<h2 id="the-ranking-tables-scam">The Ranking Tables Scam</h2>
+
+<p>To get where we’re going, let’s start with the pointless waste of time and money that are University ranking tables, from eg The Guardian, The Times, The Good University Guide. Every year university PR teams pore over the newly published tables to find a statement that is vaguely accurate and sounds good - “proud to announce we’ve vaulted two places in the guide”, “now the highest rated institution … in north west suffolk”. The truth is that if you ignore the dumb ranks, and look at universities’ average scores over a few years they’re all pretty much the same. Wealthy universities do well, upstart institutions with no money do poorly. The rest are middling. Whisper it: there’s not much difference between them.</p>
+
+<p>For all the money spent on marketing, promoting the unique aspects of the campus, the courses, the people, the buildings, the ethos, etc. Most universities in the UK teach mostly the same courses with the same content.</p>
+
+<p>The problem with universities promoting themselves as unique institutions is that they do everything own their own. (because they’re unique!). Except they aren’t. They are all spending huge sums on the same things - Virtual Learning Environments, Digital Exams, Intranet platforms.</p>
+
+<h2 id="the-15-billion-solution">The £1.5 Billion Solution</h2>
+
+<p>In IT alone, 15% savings could be made by working together. Thats up to £250 million a year across the sector.</p>
+
+<p>Universities claim they can’t do this, and must remain independent, citing competition-law concerns and autonomy. Competition Law is a not a problem. The IT service providers will lobby that it is, but this is where your letters to junior ministers come in.</p>
+
+<p>And autonomy? do me a favour. Whose autonomy? “The university”.
+The university should have “autonomy” to choose between say Moodle, Blackboard, Canvas and Brightspace for it’s online learning platform? What you mean is that senior management and a special working group wants autonomy. They want to flex their bulging senior management muscles. But for every single person who would actually use the system - the lectures putting crap on it, and the students using it - there is no autonomy at all. They have to use the system they’re provided.</p>
+
+<p>It’s yet another example of the outdated and inefficient management structure of universities costing them millions.</p>
+
+<p>And universities already use collective procurement through UK Universities Purchasing Consortia (UKPC), and other regional bodies. This currently saves about £500 million a year. Nice. but with full nationwide collective procurement, this could be tripled to about £1.5 billion per year. Which would be even nicer.</p>
+
+<h2 id="a-case-study-ethics-systems">A Case Study: Ethics Systems</h2>
+
+<p>Let’s look at a case study. Most universities in the UK use Infonetica Ethics RM for processing ethics applications for research with human participants. Most people who use these systems don’t know that because each university has a separate contract with Infonetica and brands their internal version with their own stupid name for it. It’s a generally slow and clunky system, but that’s common for IT in the education sector. As anyone who has ever applied for ethical approval on this system is only too well aware, it takes hours to figure out what do to and how to complete the online forms in a way that won’t result in multiple length rejections. And as anyone who has ever reviewed ethics applications submitted this way knows only too well, it takes far too long to review each problem and highlight the inconsistencies with uni policy.</p>
+
+<p>This is for many reasons, usually related to the decisions originally made when the uni set up the system with Infonetica many years ago, and the complete lack of useful documentation. Fixing systems with bad UI and bad documentation is slow and expensive. So unis don’t do it. But if the same system is used across more than a 100 universities, each uni’s contribution to fixing the problem is now only 1% of the time and cost. It’s practically free.</p>
+
+<h2 id="shared-teaching-materials">Shared Teaching Materials</h2>
+
+<p>But I would go further than that. Above I noted that most university courses are the same. Does it matter where you study psychology, or mechanical engineering or history? Especially where there is an oversight body (eg the BPS for psychology), there are great similarities, let’s put it that way. so it’s perplexing why individual lecturers spend so many hundreds of hours duplicating the efforts of hundreds of other lecturers replicating similar teaching materials (slides, videos, handouts, worksheets) and assessments (exams, essays, mcqs etc). Modify a shared core, people. Saves time and money.</p>
+
+<p>With all these savings, even in the current crisis in UK HE, there would have been no need for compulsory redundancies. None at all.</p>
+
+<p>It’s too late to save me. But I’d like to think that lessons could be learned. Go out there and make this happen, people!</p>
+
+<hr />
+
+<h2 id="a-comprehensive-recovery-plan">A Comprehensive Recovery Plan</h2>
+
+<p><strong>In brief:</strong> Years of frozen home-student fees, higher inflation and a recent policy squeeze on international recruitment mean almost half of English universities forecast an operating deficit this year. If Westminster cannot or will not repair the funding model, institutions must take responsibility for their own financial resilience. They can do so without abandoning their charitable mission by (1) diversifying teaching income (micro-credentials, TNE and degree apprenticeships); (2) commercialising research more intelligently; (3) growing philanthropy and endowments; (4) sweating estates and raising low-cost capital through green and social bonds; and (5) driving costs down via sector-wide shared-service platforms. Doing all five together creates a balanced portfolio that reduces exposure to any single government lever.</p>
+
+<h3 id="1-why-the-status-quo-is-unsustainable">1. Why the Status Quo is Unsustainable</h3>
+
+<ul>
+  <li>Domestic tuition has been capped at £9,250 since 2017; in real terms it is now worth barely £6,000. The Russell Group calculates that universities already subsidise each UK undergraduate by £2,500 a year, rising to c. £5,000 by 2030 if nothing changes.</li>
+  <li>The Office for Students’ latest stress-test shows 43% of providers expect to post a deficit in 2024-25 and sector cash reserves are shrinking.</li>
+  <li>Financial pressure is visible to students: 68% now work in term-time and satisfaction with “value for money” has fallen sharply.</li>
+  <li>Universities UK warns that new migration rules and frozen fee caps will strip a further £1.4bn from institutional income by 2025-26.</li>
+</ul>
+
+<h3 id="2-guiding-principles-for-non-profit-independence">2. Guiding Principles for Non-profit Independence</h3>
+
+<ol>
+  <li><strong>Retain charitable status.</strong> Surpluses must continue to be reinvested in teaching, research and civic mission.</li>
+  <li><strong>Protect academic freedom and public trust.</strong> Diversification should not compromise integrity or transparency.</li>
+  <li><strong>Pursue portfolio balance.</strong> Combine multiple revenue and efficiency moves so no single activity dominates risk.</li>
+</ol>
+
+<h3 id="3-diversifying-teaching-related-income">3. Diversifying Teaching-related Income</h3>
+
+<p><strong>International Pathways and Transnational Education (TNE)</strong>
+UK universities taught 558,000 students offshore in 2021-22 and TNE growth has out-paced on-shore recruitment every year since the pandemic. Scalable franchise or joint-campus models (e.g. Coventry’s global network) spread regulatory risk and generate licence fees with lower capital outlay than a full branch campus.</p>
+
+<p><strong>Micro-credentials and Lifelong Learning</strong>
+HEIs already earn about £720m a year from short-course CPD; demand is rising as employers refresh digital skills. These flexible products are insulated from Home-Office visa controls and priced for margin.</p>
+
+<p><strong>Degree Apprenticeships</strong>
+With tuition funded through the apprenticeship levy and salaries paid by employers, degree apprenticeships bring net positive cash while widening participation.</p>
+
+<h3 id="4-building-philanthropy-and-endowments">4. Building Philanthropy and Endowments</h3>
+
+<ul>
+  <li>Oxford’s <em>Oxford Thinking</em> campaign raised £3.3bn in gifts between 2004-19</li>
+  <li>Cambridge’s central endowment has grown to £4.2bn (net asset value, June 2024)</li>
+  <li>Structured matching schemes and donor-advised funds can accelerate gift income while keeping control in university hands</li>
+</ul>
+
+<h3 id="5-a-phased-action-plan-for-leaders">5. A Phased Action Plan for Leaders</h3>
+
+<ol>
+  <li><strong>12 months:</strong> map all third-stream income, set clear margin targets for CPD, micro-credentials and contract research</li>
+  <li><strong>24 months:</strong> establish or join a shared-services consortium; issue first sustainability-linked private placement if CAPEX pipeline &gt;£100m</li>
+  <li><strong>36 months:</strong> launch a global alumni gift-matching challenge and shift at least 5% of investment portfolio into mission-aligned venture funds</li>
+  <li><strong>Five-year horizon:</strong> aim for ≥30% of total income to come from non-state, non-regulated tuition sources</li>
+</ol>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Independence is not a binary switch but a spectrum. By broadening income streams, locking in low-cost mission-aligned capital and sharing back-office functions, UK universities can restore financial headroom and strategic autonomy while remaining firmly not-for-profit. The exemplars already doing this prove it can be done without sacrificing public purpose—or educational quality. What is required now is the collective will to emulate and scale these approaches across the sector.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="university-finance" /><category term="collaboration" /><category term="UK-universities" /><category term="funding-crisis" /><category term="collective-procurement" /><category term="shared-services" /><category term="education-policy" /><category term="institutional-efficiency" /><summary type="html"><![CDATA[Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-08-01-fixing-universities/hero-university-finance.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-08-01-fixing-universities/hero-university-finance.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Murder a University: A Guide to Institutional Death</title><link href="http://localhost:4001/2025/07/30/how-to-murder-a-university/" rel="alternate" type="text/html" title="How to Murder a University: A Guide to Institutional Death" /><published>2025-07-30T00:00:00+01:00</published><updated>2025-07-30T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/30/how-to-murder-a-university</id><content type="html" xml:base="http://localhost:4001/2025/07/30/how-to-murder-a-university/"><![CDATA[<p><img src="/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg" alt="Empty university lecture hall with ominous shadows" /></p>
+
+<p>In recent posts I’ve already skipped indelicately through Britain’s higher-education money-pit, tutted at missed savings, and poked the soggy bits of management. “Cheer up,” I promised. So naturally it’s time to talk about death.
+Not yours, happily, but the demise of an entire university – a topic so bleak it makes actuarial tables look frisky.</p>
+
+<h2 id="1-the-warning-lights-that-no-one-reads">1. The Warning Lights That No One Reads</h2>
+
+<p>Contrary to tabloid folklore, a UK university cannot simply press CTRL-ALT-DELETE and vanish. The Office for Students (OfS), our sector’s all-seeing eye, monitors every provider’s cash-flow forecasts like a helicopter parent reading WhatsApp. The moment liquidity drops to roughly a month’s pocket money, OfS may slap on “specific conditions” – think: “No, you may <strong>not</strong> build another glass atrium while the payroll’s on fire.”</p>
+
+<p>Should things wobble further, OfS issues a <strong>Student Protection Direction</strong>: a legally enforceable market-exit plan explaining where the students will finish their degrees once the lights go out. It is, in effect, a fire-drill for higher education, minus the jaunty hi-vis jackets.</p>
+
+<h2 id="2-rescue-attempts-before-the-undertaker-arrives">2. Rescue Attempts Before the Undertaker Arrives</h2>
+
+<p><strong>Internal surgery.</strong> Governing bodies usually start by freezing head-count, flogging spare buildings, and axing under-subscribed courses. Given that three-quarters of English universities expect deficits in 2025-26, this is becoming less “remedy” and more “morning routine”.</p>
+
+<p><strong>Tough-love funding.</strong> During Covid the Department for Education ran the <strong>Higher Education Restructuring Regime (HERR)</strong>: loans with strings, the strings mainly involving painful governance reform or outright merger. HERR has now retired to the policy graveyard, but ministers still keep a bail-out defibrillator handy – heavily conditional and rarely charged.</p>
+
+<p><strong>Voluntary mergers.</strong> OfS positively encourages courtship. Universities UK even has a matchmaking task-force roaming the sector like a polite dating app. Recent hook-ups include Northeastern’s absorption of New College of the Humanities, and the serial mergers in Wales that birthed the University of Wales Trinity Saint David.
+Do note: under charity law this is a transfer of assets, not a sale, so no one gets a yacht out of it.</p>
+
+<h2 id="3-when-the-pulse-flat-lines-formal-insolvency">3. When the Pulse Flat-Lines: Formal Insolvency</h2>
+
+<p>There is, amazingly, <strong>no bespoke higher-education insolvency regime</strong>. Instead, which procedural rabbit-hole you tumble down depends on your constitutional birth-certificate:</p>
+
+<ul>
+  <li><strong>Companies limited by guarantee or for-profit outfits</strong> go through mainstream administration, CVA or liquidation. Exhibit A: GSM London (2019) folded, and its students finished degrees elsewhere.</li>
+  <li><strong>Higher-Education Corporations</strong> (post-92 universities) face a statutory <strong>Dissolution Order</strong>: the Secretary of State orders assets transferred to another HE provider or charity. No one has pressed this big red button yet.</li>
+  <li><strong>Royal-Charter universities</strong> can be wound up only as “unregistered companies” in court – or they may politely surrender their charter to the Privy Council. Insolvency lawyers say either route would lock the campus faster than you can mutter “asset freeze”.</li>
+</ul>
+
+<p>In all cases, once an insolvency practitioner or liquidator is appointed, management’s power evaporates faster than complimentary wine at graduation. Meanwhile, OfS hovers ready to revoke degree-awarding powers if standards slip.</p>
+
+<h2 id="4-whose-assets-are-they-anyway">4. Whose Assets Are They Anyway?</h2>
+
+<p>Here’s the twist: much of a university’s estate is held on permanent endowment or special trusts. Endowments, archives, the chapel, the embarrassing early portraits – all are effectively coated in charitable Teflon, untouchable by ordinary creditors unless the Charity Commission or a court approves a re-purpose.
+Secured lenders may still repossess student accommodation or the shiny conference centre, but the quadrangle and silver Mace are destined for another charity, not a bank’s balance sheet.</p>
+
+<h2 id="5-students-and-staff-the-human-bits">5. Students and Staff: The Human Bits</h2>
+
+<ul>
+  <li><strong>Teach-out or transfer.</strong> Student Protection Plans outline where learners will complete their degrees. The plan is usually dull but reassuring, much like the in-flight safety card.</li>
+  <li><strong>Redundancies.</strong> Staff wages rank as preferential debts, which sounds comforting until one remembers the pension deficit lurking behind the sofa. Eligible schemes tip into the Pension Protection Fund; others hope for better reincarnation.</li>
+</ul>
+
+<h2 id="6-five-things-every-linkedin-sage-should-remember">6. Five Things Every LinkedIn Sage Should Remember</h2>
+
+<ol>
+  <li><strong>Bankruptcy is rare, not mythical.</strong> Company-form providers may use Insolvency Act tools; chartered universities need court or Privy Council theatrics.</li>
+  <li><strong>Bail-outs come with handcuffs.</strong> Expect governance reform, course closures and the odd forced marriage before any public money appears.</li>
+  <li><strong>Mergers are the sector’s escape hatch.</strong> Assets glide across under charity law, teaching continues, and everyone pretends it was always meant to be.</li>
+  <li><strong>Charitable status is an asset force-field.</strong> Endowments and heritage estates survive creditors, however ravenous.</li>
+  <li><strong>Speed matters.</strong> Once cash-days-in-hand sinks below the OfS danger zone, outside control is only a board-paper away.</li>
+</ol>
+
+<h2 id="and-finally-a-glimmer-of-optimism">And Finally… a Glimmer of Optimism</h2>
+
+<p>Yes, a university can die – but it usually doesn’t. More often it slims down, pairs up, or accepts a stern talking-to and staggers on with renewed purpose. The sector’s safety nets may be bureaucratic spaghetti, yet they exist precisely so that students finish degrees, staff keep lecturing, and the library cat retains employment.</p>
+
+<p>So if your institution’s balance sheet currently resembles a student overdraft, worry – but not too much. Don’t be like me. Instead, pick up the phone, open the books, and start negotiating <strong>while the choice is still yours</strong>. With luck, the only funeral you’ll attend is for the CFO’s cherished vanity project – and nobody will miss that at all.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="university-governance" /><category term="insolvency" /><category term="university-closure" /><category term="OfS-regulation" /><category term="insolvency-law" /><category term="student-protection" /><category term="UK-universities" /><category term="institutional-failure" /><summary type="html"><![CDATA[A UK university cannot simply press CTRL-ALT-DELETE and vanish. Here's what actually happens when institutions reach the end of the financial road.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beyond the Balance Sheet: Why UK Universities Need a Busyness Model</title><link href="http://localhost:4001/2025/07/28/beyond-the-balance-sheet/" rel="alternate" type="text/html" title="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" /><published>2025-07-28T00:00:00+01:00</published><updated>2025-07-28T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/28/beyond-the-balance-sheet</id><content type="html" xml:base="http://localhost:4001/2025/07/28/beyond-the-balance-sheet/"><![CDATA[<p><img src="/assets/images/posts/2025-07-28-beyond-balance-sheet/hero-university-busyness.jpg" alt="University campus with overlaid social impact metrics" /></p>
+
+<p>Calling a university’s strategy its “<strong>business model</strong>” is a bit like calling the Royal Opera House a karaoke bar— both involve singing for money, but that’s where the resemblance ends. Yes, the UK sector’s fiscal plumbing is hissing ominously, but the ‘business model’ mantra pares back a sprawling public-good ecosystem until it resembles someone trying to fund science with a primary-school bake sale.</p>
+
+<h2 id="a-semantic-shambles">A Semantic Shambles</h2>
+
+<p>The word <strong>business</strong> harks back to Old-English <em>bisignes</em>—”being busy with care,” not “squeezing out profit.” When vice-chancellors wax lyrical about their “business model,” we are no longer speaking of scholarship, discovery or civic duty; we are cooing over spreadsheets.</p>
+
+<h3 id="busyness-vs-the-biz">Busyness Vs <em>The Biz</em></h3>
+
+<ul>
+  <li>In a functioning university, perhaps 2–3 % of staff genuinely busy themselves with treasury wizardry; the other 97 % teach quantum mechanics, conserve Saxon manuscripts or invent vaccines.</li>
+  <li>Letting the financial tail wag the academic dog means treating lecturers as revenue streams and students as balance-sheet “units”—the ultimate triumph of nouns over nuance.</li>
+</ul>
+
+<h2 id="the-cash-flow-tunnel-vision">The Cash-Flow Tunnel Vision</h2>
+
+<h3 id="what-the-bean-counters-see">What the Bean-Counters See</h3>
+
+<ul>
+  <li>Net operating cash-flow in English providers tumbled from <strong>11.6 % to 6.5 %</strong> of income between 2021-22 and 2022-23. Ninety-three institutions are in deficit, 108 expect to join them this year.</li>
+  <li>The Russell Group reckons up to <strong>70 %</strong> of universities could plunge into the red by 2025-26 without intervention.</li>
+  <li><strong>108 providers</strong> now sit on fewer than 30 days’ cash—financially akin to living on Pot Noodles until payday.</li>
+  <li>Domestic tuition fees have risen precisely once since 2012; even a mooted jump to <strong>£9,535</strong> barely dents inflation, leaving a teaching funding shortfall of <strong>£390 million</strong> per annum.</li>
+  <li>Students foot the bill: average graduate debt in England hit <strong>£53,000</strong> in 2024-25.</li>
+</ul>
+
+<h3 id="what-this-tunnel-vision-misses">What This Tunnel Vision Misses</h3>
+
+<p>Cash-flow models treat higher education as a glorified ATM, ignoring the calculable extras:</p>
+
+<ul>
+  <li><strong>Total economic impact (2021-22):</strong> £265 billion—roughly £14 back for every £1 of public money.</li>
+  <li><strong>Graduate salary premium:</strong> median £42k versus £30.5k for non-graduates in 2024.</li>
+  <li><strong>Extra tax per graduate:</strong> roughly £75k drifts into the Exchequer over a lifetime.</li>
+  <li><strong>Lives saved by university research:</strong> 6.3 million worldwide in the first year of the Oxford/AZ vaccine alone.</li>
+  <li><strong>Health-span gain:</strong> each extra year of education trims adult-mortality risk by around 2 %.</li>
+</ul>
+
+<h2 id="the-wider-ledger-civic-regional-and-planetary-dividends">The Wider Ledger: Civic, Regional and Planetary Dividends</h2>
+
+<ul>
+  <li>Universities act as “anchor institutions” spurring local growth; Birmingham’s 2024 study offers tidy ways to count the civic cash.</li>
+  <li>Every £1 pumped into universities can add <strong>£14</strong> to private-sector productivity—that’s £40 billion a year in fresh private-sector productivity.</li>
+  <li>Northumbria University shows how study meets service: its award-winning Student Law Office has helped overturn wrongful convictions, while its Business Clinic offers free consultancy that keeps hundreds of local SMEs on track —proof that when students roll up their sleeves, academic graft turns directly into social value.</li>
+</ul>
+
+<h2 id="social-return-on-investment-the-missing-framework">Social Return on Investment: The Missing Framework</h2>
+
+<p>We already possess a toolkit—<strong>Social Return on Investment (SROI)</strong>—to price such intangibles in pounds and pence. If you’ve ever sat through finance committee meeting, you’ll know the room divides neatly into two camps: those who can locate the decimal point on a spreadsheet, and those who nod earnestly while doodling owls in the margins. <strong>Social Return on Investment (SROI)</strong> was invented to help the latter persuade the former that rescuing humanities departments isn’t fiscal vandalism but, in fact, rather good value.</p>
+
+<p>Put plainly, SROI asks: <em>“What would society cough up in hard cash for the lovely side-effects of this project if it had to buy them at B&amp;Q?”</em> You start by identifying every stakeholder likely to benefit—students, local businesses, bored pigeons, whomever—then attach a sensible monetary tag to each outcome, from boosted earnings to fewer GP visits. Finally, you subtract the original outlay and produce a neatly reassuring ratio such as “£1 in, £3 out,” which even the sternest bursar can frame and hang next to the fire exit.</p>
+
+<p>Because it translates woolly concepts like “community cohesion” into shiny pound signs, SROI is catnip to policymakers who worship at the altar of ‘evidence-based’. The snag, of course, is that assigning a sticker price to longer, healthier lives or a cheerier high street requires a smattering of judgement and (brace yourself) talking to real people. This is precisely why the method so often languishes in consultants’ slide decks while Whitehall merrily churns out pie charts based on easier sums—usually ones beginning and ending with tuition-fee income.</p>
+
+<p>In short, it’s the accounting world’s polite reminder that some investments pay back in more than lucre.</p>
+
+<h2 id="why-the-business-model-mindset-is-bad-business">Why the “Business-Model” Mindset Is Bad Business</h2>
+
+<ol>
+  <li><strong>Short-termism</strong> – Cap-ex-obsessed MBAs siphon cash from fieldwork to plate-glass atria; The <em>Guardian</em> calls it “whitewashing the tomb” of scholarship.</li>
+  <li><strong>Perverse incentives</strong> – Chasing high-fee international students skews curricula and leaves institutions hostage to visa policy.</li>
+  <li><strong>Missing markets</strong> – Improved public health, civic stability and democratic engagement don’t show up on purely financial dashboards.</li>
+  <li><strong>Erosion of trust</strong> – When barely a fifth of spend reaches academic staff, students understandably ask, “What exactly does my debt fund?”</li>
+</ol>
+
+<h2 id="towards-a-university-modelnot-a-business-model">Towards a <em>University Model</em>—Not a <em>Business Model</em></h2>
+
+<ul>
+  <li><strong>Customer → Co-producer of knowledge</strong></li>
+  <li><strong>Revenue stream → Social value stream</strong></li>
+  <li><strong>Market share → Civic footprint</strong></li>
+  <li><strong>Cost centre → Public-investment multiplier</strong></li>
+</ul>
+
+<h3 id="practical-fixes">Practical Fixes</h3>
+
+<ul>
+  <li><strong>Embed SROI</strong> baselines in OfS returns so every programme reports both cash and social yields.</li>
+  <li><strong>Add a Public Value Statement</strong> to the annual report—template courtesy of UUK—quantifying graduate tax boosts, SME support, even carbon savings.</li>
+  <li><strong>Ring-fence curiosity-driven research</strong> (yes, the stuff that gave you the Covid jab) so it isn’t raided for short-term liquidity.</li>
+  <li><strong>Re-brand finance teams</strong> as enablers, not overlords: their job is to keep the lights on so everyone else can stay <em>busy</em> with the real work.</li>
+</ul>
+
+<h2 id="final-plea">Final Plea</h2>
+
+<p>If a university’s very purpose is boiled down to its quarterly profit figures, we might as well convert the Bodleian into a bargain-bin bookshop flogging paperbacks two-for-a-pound. Universities, by etymology and by evidence, are about <strong>busyness in the broadest sense</strong>: the restless pursuit of knowledge that pays society back many times over—financially, medically, democratically.</p>
+
+<p>What should the “business model” be? <strong>Busyness itself</strong>: teaching, probing, discovering—always with the public good in mind. Yes, the books must balance (stay tuned for my next piece on how), but the real dividends are educated citizens and new knowledge.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="university-strategy" /><category term="public-value" /><category term="university-business-model" /><category term="SROI" /><category term="social-return-investment" /><category term="public-good" /><category term="UK-universities" /><category term="university-finance" /><summary type="html"><![CDATA[Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-28-beyond-balance-sheet/hero-university-busyness.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-28-beyond-balance-sheet/hero-university-busyness.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Governmental Shrugs: When Car Factories Matter More Than Universities</title><link href="http://localhost:4001/2025/07/25/governmental-shrugs/" rel="alternate" type="text/html" title="Governmental Shrugs: When Car Factories Matter More Than Universities" /><published>2025-07-25T00:00:00+01:00</published><updated>2025-07-25T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/25/governmental-shrugs</id><content type="html" xml:base="http://localhost:4001/2025/07/25/governmental-shrugs/"><![CDATA[<p><img src="/assets/images/posts/2025-07-25-governmental-shrugs/hero-shrugging-politician.jpg" alt="Politician shrugging while university buildings crumble in background" /></p>
+
+<p>At British universities, 2025 is shaping up to be the year when 10,000 academic, technical and professional posts toddle off towards the Jobcentre, waving their P45s like tear-stained handkerchiefs. Westminster’s response has been a philosophical shrug tucked inside the well-rehearsed line that universities are “independent organisations” that really ought to jolly well clean up their own mess. By contrast, the merest newspaper flutter suggesting Lotus might moth-ball its Norfolk factory (all 1,300 jobs of it) prompted the Business Secretary to speed-dial the Chinese owners, after which the company dutifully announced that of course it wasn’t going anywhere, thank you very much. Apparently some independent organisations are more independent than others.</p>
+
+<h2 id="a-crisis-in-ten-thousand-lessons">A Crisis in Ten Thousand Lessons</h2>
+
+<p>Teaching an undergraduate now costs about <strong>£12,500 a head</strong>, yet the fee cap in England has been frozen at <strong>£9,250 since 2017</strong>. Even Labour’s promised bump to a grandiose £9,535 next year adds little more than garnish. Unsurprisingly, the Office for Students reckons most institutions will be running deficits within two years.</p>
+
+<p>Research is no lifeboat either: UK Research &amp; Innovation normally pays <strong>80% of full economic cost</strong>, leaving universities to find the other 20% down the back of the sofa. Across the sector, only <strong>71% of research costs are actually recovered</strong>.</p>
+
+<p>And then we removed the only profitable revenue stream. A ban on most dependants from January 2024 helped push international student visa applications down <strong>12% in a single year</strong>, while dependant visas collapsed by <strong>83%</strong>. When even The Pie News has the words “record fall” in its headline, you know it’s not a vintage year for campus optimism.</p>
+
+<h2 id="government-guidance-please-keep-calm-and-self-fund">Government Guidance: Please Keep Calm and Self-Fund</h2>
+
+<p>Asked what might be done, ministers reliably point out that universities are free, sovereign entities, presumably able to mint their own bullion and grow money trees next to the sociology building. There are, of course, the odd exceptions north of Hadrian’s Wall: Dundee secured a £62 million Scottish Government loan (pronounced in Edinburgh as “fiscal prudence”, in St Andrews as “cheque-book socialism”). But for everyone else, the official line resembles a Victorian medical pamphlet: <em>keep warm, drink beef tea, and try not to fade away</em>.</p>
+
+<h2 id="meanwhile-in-norfolk-deploy-the-panic-button">Meanwhile in Norfolk: Deploy the Panic-Button</h2>
+
+<p>When a Financial Times whisper suggested Lotus might slide its production over to the United States, Whitehall’s hazard lights came on. Within hours the Business Secretary was arranging urgent talks, Lotus confirmed Hethel was safe for now, and Norfolk exhaled. The jobs at risk? A mere <strong>1,300</strong>—roughly the headcount of a mid-sized faculty at, say, Sussex, but clearly of far greater strategic significance.</p>
+
+<p>To be fair, car making is one of the few industrial pastimes Britain still practises competitively. Even in a wobbly 2024 the nation built almost <strong>780,000 cars</strong>, exporting over three-quarters of them, and Whitehall is understandably twitchy about losing any remaining assembly lines. A fresh UK–US trade tweak trimming tariffs has only heightened the sense that the sector is a precious, if precarious, jewel.</p>
+
+<h2 id="spot-the-difference-clue-it-isnt-the-extra-zero">Spot the Difference (Clue: It Isn’t the Extra Zero)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sector</th>
+      <th>Jobs under threat</th>
+      <th>Typical government reflex</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Universities</td>
+      <td><strong>10,000</strong></td>
+      <td><em>“They’re independent; pass the biscuits.”</em></td>
+    </tr>
+    <tr>
+      <td>Lotus Cars</td>
+      <td><strong>1,300</strong></td>
+      <td>Phone call, statement, comfort blanket</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The delightfully lopsided enthusiasm suggests that, in the national pecking order, a hand-built sports car outranks a biomedical lab, a languages department and the entire postgraduate research pipeline combined. It may also explain why some vice-chancellors are eyeing the idea of bolting spoilers to the admin block and rebranding as “Higher Education, but with Cup Holders”.</p>
+
+<h2 id="why-it-matters-beyond-the-ivory-tower">Why It Matters (Beyond the Ivory Tower)</h2>
+
+<p>Universities underpin £95 billion of economic output, drive half of all basic research and train the very engineers Lotus will need for its next electric model. Starve them, and the future supply of skilled workers, patents and—let’s be honest—pub quiz champions goes with them. Yet policy continues to treat the sector as a cost centre rather than the soft-power and productivity machine every industrial strategy paper claims to cherish.</p>
+
+<h2 id="closing-thoughts-a-polite-suggestion">Closing Thoughts: A Polite Suggestion</h2>
+
+<p>If 10,000 university jobs do vanish this year, imagine the ministerial switchboard lit up with as many calls as Norfolk enjoyed last weekend. Until then, campus leaders might consider relocating to a disused airfield, painting everything British-Racing-Green and applying for a small but tasteful government rescue package. Stranger things have certainly received a ministerial phone-call.</p>
+
+<blockquote>
+  <p><strong>“If you work in UK HE, tag one colleague and one MP who needs to see these numbers.”</strong></p>
+</blockquote>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="government-policy" /><category term="economic-priorities" /><category term="university-funding" /><category term="job-losses" /><category term="government-response" /><category term="economic-policy" /><category term="UK-priorities" /><category term="car-industry" /><summary type="html"><![CDATA[Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-25-governmental-shrugs/hero-shrugging-politician.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-25-governmental-shrugs/hero-shrugging-politician.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge</title><link href="http://localhost:4001/2025/07/10/why-cant-we-be-friends/" rel="alternate" type="text/html" title="Why Can’t We Be Friends? Universities and the £1.5 Billion Collaboration Challenge" /><published>2025-07-10T00:00:00+01:00</published><updated>2025-07-10T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/10/why-cant-we-be-friends</id><content type="html" xml:base="http://localhost:4001/2025/07/10/why-cant-we-be-friends/"><![CDATA[<p><img src="/assets/images/posts/2025-07-20-why-cant-we-be-friends/friends.jpg" alt="University buildings connected by bridges with pound signs floating between them" /></p>
+
+<h2 id="how-british-universities-keep-tripping-over-their-own-mortarboards-on-the-way-to-saving-15-billion">How British Universities Keep Tripping over Their Own Mortarboards on the way to saving £1.5 billion</h2>
+
+<p>Back in my previous dispatch I suggested—straight-faced, honest—that if UK universities would only stop elbowing one another in the ribs and buy a few mundane things together, they could shave something like <strong>£1.5 billion</strong> off the national higher-education bill. The reaction ranged from polite throat-clearing to the sort of laughter usually reserved for a vice-chancellor announcing he’s discovered student satisfaction.</p>
+
+<p>The immediate retort goes like this:
+<em>“We’d love to hold hands, but our royal charter won’t let us. Also, league-table season is coming and we really must focus on us.”</em></p>
+
+<p>So let’s open the creaking oak doors, dust off the parchment and ask what the founding documents actually say about cooperation.</p>
+
+<h2 id="the-myth-of-the-insular-charter">The Myth of the Insular Charter</h2>
+
+<p>Take the University of Bath’s charter, a 1960s vintage as modern as student-union posters of Che Guevara. Article 3(s) empowers the institution “to co-operate … with other Universities and Authorities … for such other purposes as the University may from time to time determine.” Warwick’s near-identical clause, drafted the same year, even supplies the helpful phrase “by means of joint boards.” Medievalists may prefer the Oxford &amp; Cambridge Act 1571, which bestows on both universities every liberty “tending to the better increase of learning”—Elizabeth I’s sixteenth-century way of saying <em>crack on, lads.</em></p>
+
+<p>None of these charters obliges a university to conduct its own payroll service or procure detergent solo. Quite the reverse: they hand trustees a broad corporate power and then ask only that they pursue the public benefit. Under the Charities Act 2011 that means spending money sensibly, ideally on students and research rather than twenty-seven slightly different contracts for electricity.</p>
+
+<p>Even the Higher Education &amp; Research Act 2017—the statute that regulates everything from fee caps to whether a lecture capture counts as a miracle—stays studiously silent on joint purchasing, save for encouraging the Office for Students to share information “with any person”. In regulatory terms, the road to collaboration is as clear as a deserted library at dawn.</p>
+
+<h2 id="evidence-that-it-works-when-we-can-be-bothered">Evidence that it Works (when We Can Be bothered)</h2>
+
+<p>Proof of concept already exists. The eight regional purchasing consortia that make up <strong>UKUPC</strong> cheerfully report cashable savings of <strong>£116 million</strong> a year just on frameworks for IT kit, lab consumables and the sort of biscuits mysteriously labelled “conference”. Jisc, the sector’s collectively owned digital backbone, estimates still bigger efficiencies when universities plug into shared cloud contracts and broadband pipes rather than each reinventing the cable.</p>
+
+<p>In other words, collaboration already happens; it merely stops well short of the tantalising billions.</p>
+
+<h2 id="pyramid-politics">Pyramid Politics</h2>
+
+<p>Why, then, won’t the other ninety per cent of spend toddle into a joint catalogue? Part of the answer lies in higher education’s architectural fetish for pyramids. Each university is a neat hierarchy that tapers to a single point: the vice-chancellor. That apex owns the brand, the risk register and the annual report photograph involving an improbably shiny staircase.</p>
+
+<p>Try persuading two such pyramids to overlap and, like amateur Egyptologists, you discover the points refuse to tessellate. The apexes bang together; nobody is quite sure whose logo appears first; and before long a worried registrar starts muttering about autonomy while clutching the league-table supplement.</p>
+
+<p>Besides, competition is deliciously flattering. Nothing strokes an institutional ego like out-bidding the red-brick down the road for a star professor, or opening a “satellite campus” two postcodes closer to the M25. Cooperation, by contrast, is the social-science equivalent of cardigan weather: worthy, but unlikely to win you an alumni gala.</p>
+
+<h2 id="the-cultural-cul-de-sac">The Cultural Cul-de-sac</h2>
+
+<p>Culture, not charter, is therefore the choke-point. The sector talks a good game about collegiality—<em>academic Senate</em>, <em>Common Room</em>, that sort of thing—yet behaves, fiscally speaking, like a family arguing over the last roast potato. Every pound saved together is a pound that fails to show up in <em>our</em> margin this year, and heaven forfend the governing council should peer admiringly at someone else’s balance sheet.</p>
+
+<p>The result is a kind of accidental feudalism. Twelve separate payroll offices survive because shutting eleven of them requires a committee vote in each fiefdom. Entire fleets of minivans dutifully ply their solitary routes because nobody wants to ride in a rival’s livery. And so the collective chequebook remains locked in a cabinet labelled <em>Strategic Autonomy</em> even while bursars complain about electricity prices.</p>
+
+<h2 id="can-the-points-be-joined">Can the Points Be Joined?</h2>
+
+<p>The optimistic answer is yes, but the job is more joinery than geometry. Instead of squashing pyramids together, one builds a platform—call it a moat, since we appear stuck in the Middle Ages anyway—and lets each pyramid lower a drawbridge when it fancies cheap stationery. Jisc’s broadband, the UKUPC frameworks: these are moats already in place, proving the concept works provided nobody insists on repainting the water.</p>
+
+<p>What remains is political courage. It will take a vice-chancellor bold enough to admit that another university’s procurement officer occasionally knows a bargain when she sees one. It will take governing bodies willing to measure prestige in research outputs rather than how many branded pens sit in the storeroom. And it will take the OfS to applaud savings with the same fervour it reserves for access plans and TEF medals.</p>
+
+<h2 id="a-modest-proposal-sans-brass-band">A Modest Proposal (sans Brass band)</h2>
+
+<p>Release a sector-wide mandate: any back-office contract worth more than the average professorial salary must first be tendered through a shared framework. No compulsion to buy together—simply an obligation to <em>see</em> the price of solidarity before signing the solo deal. If the saving is real (spoiler: it will be) the pyramid will, in time, build its own drawbridge.</p>
+
+<p>Do that and the £1.5 billion I waved about earlier stops looking like a whimsical footnote and starts resembling the future pension contributions for an entire generation of early-career academics. Suddenly cooperation isn’t woolly altruism; it’s enlightened self-interest—which, incidentally, is exactly what every charter was written to promote.</p>
+
+<p>The ancient statutes did not force us into perpetual single-player mode. We chose that path, puffed up by league tables and institutional lore. The sooner we remember that the public benefit is collective, the sooner we can stop balancing the books on the shoulders of students and junior staff, and start spending the savings on something radical—like teaching.</p>
+
+<p>Until then the pyramids will stand aloof, apexes glinting, each convinced it is the tallest in the desert, none quite noticing how much sand is slipping through the cracks.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="collaboration" /><category term="procurement" /><category term="university-cooperation" /><category term="shared-services" /><category term="UKUPC" /><category term="institutional-culture" /><category term="university-autonomy" /><category term="cost-savings" /><summary type="html"><![CDATA[UK universities could save £1.5 billion through collaboration, but pyramid politics and cultural feudalism keep them competing over stationery while students foot the bill.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)</title><link href="http://localhost:4001/2025/07/07/university-ownership/" rel="alternate" type="text/html" title="Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)" /><published>2025-07-07T00:00:00+01:00</published><updated>2025-07-07T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/07/university-ownership</id><content type="html" xml:base="http://localhost:4001/2025/07/07/university-ownership/"><![CDATA[<p><img src="/assets/images/posts/2025-07-05-university-ownership/who-owns-university.jpg" alt="Ancient university buildings with floating &quot;For Sale&quot; signs crossed out, surrounded by confused estate agents" /></p>
+
+<p>Picture, if you will, a university. Towers of stained glass or brutalist concrete, professors in tweed, coffee queues that never move, and somewhere deep inside a committee discussing the minutes of a committee that discussed the minutes of a committee. Now ask the seemingly innocent question, “So, who owns this place?” After a brief silence you will hear a faint pop as the notion of <em>ownership</em> packs its bags and leaves the building.</p>
+
+<h2 id="ownership-the-short-answer-there-isnt-any">Ownership: the Short Answer (There Isn’t Any)</h2>
+
+<p>Universities in the United Kingdom belong to exactly the same person who owns Stonehenge, St Paul’s Cathedral and the Shipping Forecast: <strong>nobody in particular and everyone in theory</strong>. They are <em>corporations sole</em> or <em>charitable bodies</em> conjured into existence by Royal Charter, Act of Parliament or, in more recent ventures, Companies House paperwork so thick it could stun a yak. They do not issue shares, pay dividends or hand the keys to anyone who fancies flipping them for a quick profit. Think of them as legally recognised stray cats—magnificent, slightly aloof, and impossible to sell on eBay.</p>
+
+<h2 id="a-brief-taxonomy-of-academic-creatures">A Brief Taxonomy of Academic Creatures</h2>
+
+<ol>
+  <li><strong>The Charter Brigade</strong> – Oxford, Cambridge and other medieval antiques granted life by monarchs who thought indoor plumbing was sorcery. Their charters are amended only slightly faster than plate tectonics.</li>
+  <li><strong>The Polytechnic Posse</strong> – rebadged as universities in 1992 and technically “Higher Education Corporations.” Same academic aspirations, just with better signage and more acronyms.</li>
+  <li><strong>The Limited-by-Guarantee Gang</strong> – the newest kids on the quad, wrapped up in company law but still charitable, so no one gets to drive off in a Lamborghini funded by the library fines.</li>
+</ol>
+
+<p>Each tribe has its own governance rituals, but all share one mystical vow: <em>Thou shalt pursue education and research for the public benefit, even when the Treasury forgets thy postcode.</em></p>
+
+<h2 id="enter-the-office-for-students-no-really-thats-the-name">Enter the Office for Students (No, Really, That’s the Name)</h2>
+
+<p>When ministers merged the late HEFCE with a consumer watchdog, they could have christened the result the “Office for Higher Education” or even “OfUni”. Instead we got <strong>OfS</strong>, which sounds less like a regulator and more like the room where lost undergraduates go to cry. The branding is deliberate: government wanted to imply that universities are mere suppliers in a plucky student marketplace. In practice OfS spends its days checking whether institutions still meet charitable objects and haven’t accidentally set fire to their balance sheets. Imagine Ofgem, but with more Latin mottos and fewer hard hats.</p>
+
+<h2 id="why-a-university-is-not-a-school-a-college-or-heaven-forfend-a-private-firm">Why a University Is <em>Not</em> a School, a College, or (Heaven Forfend) a Private Firm</h2>
+
+<p>Schools and further-education colleges live on a steady diet of Department-for-Education directives, Ofsted inspections and well-meaning PowerPoints about “governance maturity.” Universities, by contrast, are <strong>self-owning, self-policing and occasionally self-destructive</strong>. Their governing councils hold the deeds, write the strategies and endure the grand opera of academic senate debates. Attempting to run them like a multi-academy trust is about as sensible as herding cats with a tuba.</p>
+
+<p>Conversely, treating universities as if they were listed companies—complete with quarterly earnings calls and “synergy roadmaps”—is the sort of policy idea that should come with a child-safety cap. Shareholders can flog Pizza Express if it underperforms; a university can’t flog its Chemistry Department on a wet Wednesday in Hull. Its assets are <em>locked</em> to charitable purpose. You might monetise car-parking, but flogging Erasmus Darwin’s microscope on Etsy is definitely off the menu.</p>
+
+<h3 id="things-a-university-isnt">Things a University <em>Isn’t</em></h3>
+
+<ul>
+  <li>A profit-spitting machine whose raison d’être is shareholder value.</li>
+  <li>A branch campus of Whitehall where ministers can rearrange the furniture on Fridays.</li>
+  <li>A giant school that closes at 3 p.m. and hands out gold stars for punctuality.</li>
+</ul>
+
+<h2 id="the-perils-of-competitive-market-daydreams">The Perils of Competitive-Market Daydreams</h2>
+
+<p>Proponents of full-throttle competition argue that if we just let price signals roam free, vice-chancellors would miraculously become Jeff Bezos in mortar-boards. Reality check: higher education markets are sticky, brand-driven and internationally entangled. A university can’t relocate to Shenzhen if the local council hikes business rates. Nor can it ruthlessly axe “unprofitable segments” without inviting a small riot on campus followed by parliamentary questions about regional levelling-up. There is, in short, <strong>no clearance aisle for astrophysics</strong>.</p>
+
+<h2 id="so-what-does-work">So What <em>Does</em> Work?</h2>
+
+<p>Governance that remembers the institution is a <strong>public-benefit charity first, educational powerhouse second and investment portfolio last</strong>. Sensible engagement with government—because shouting “academic freedom!” while ignoring audit letters rarely ends well. And, yes, trimming the management-speak (no one knows what a “transformative learner journey ecosystem” is, including the person who wrote it).</p>
+
+<h3 id="five-blunt-take-aways-for-anyone-tempted-to-fix-universities">Five Blunt Take-aways for Anyone Tempted to “Fix” Universities</h3>
+
+<ol>
+  <li><strong>You can’t sell them.</strong> Not even to Elon Musk.</li>
+  <li><strong>You can’t close them like branch libraries.</strong> Royal Charters have longer half-lives than plutonium.</li>
+  <li><strong>You can’t bully them into acting like widget factories.</strong> Knowledge doesn’t scale on Amazon Web Services.</li>
+  <li><strong>You can nudge them—carefully—through funding strings and regulatory carrots.</strong> Heavy sticks usually snap.</li>
+  <li><strong>Most of what looks like inefficiency is actually the cost of safeguarding independence, curiosity and the occasional Nobel Prize.</strong> Deal with it.</li>
+</ol>
+
+<h2 id="the-punchline">The Punchline</h2>
+
+<p>Universities are strange, ancient, gloriously inefficient organisms designed to preserve and create knowledge long after this year’s buzzwords have faded. Try to run them like a sixth-form college and you’ll crush the serendipity that makes research happen. Try to run them like Waterstone’s and you’ll soon discover that philosophy departments are spectacularly loss-making—right up until they generate the ethical framework that saves humanity from its own AI.</p>
+
+<p>So the next time someone suggests “rationalising the sector,” ask whether they’ve ever tried rationalising a cathedral or a grand piano. Some things owe their lasting value precisely to the fact that nobody owns them, and universities—awkward, argumentative and occasionally sublime—are at the top of that wonderfully inconvenient list.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="governance" /><category term="policy" /><category term="university-ownership" /><category term="charitable-status" /><category term="royal-charter" /><category term="governance" /><category term="OfS" /><category term="university-autonomy" /><category term="public-benefit" /><summary type="html"><![CDATA[Universities belong to exactly the same person who owns Stonehenge and the Shipping Forecast: nobody in particular and everyone in theory. They're magnificent, slightly aloof, and impossible to sell on eBay.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-07-university-ownership/hero-nobody-owns-university.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-07-university-ownership/hero-nobody-owns-university.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Flatpacks, Not Ivory Towers: A Blueprint for Community-First Campuses</title><link href="http://localhost:4001/2025/07/03/flatpacks-not-ivory-towers/" rel="alternate" type="text/html" title="Flatpacks, Not Ivory Towers: A Blueprint for Community-First Campuses" /><published>2025-07-03T00:00:00+01:00</published><updated>2025-07-03T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/03/flatpacks-not-ivory-towers</id><content type="html" xml:base="http://localhost:4001/2025/07/03/flatpacks-not-ivory-towers/"><![CDATA[<p><img src="/assets/images/posts/2025-07-10-flatpacks-not-ivory-towers/house-of-cards.jpg" alt="Split image: traditional university pyramid structure crumbling into flat, collaborative workspace blocks" /></p>
+
+<p>Having previously moaned about government support (lack thereof), the parochial “business models” and ignorance of simple cost savings in UK universities, I now turn to the <em>why</em>. Why are universities incapable of managing themselves efficiently or even rationally?</p>
+
+<p>Part of the reason is that British universities, once bastions of eccentric brilliance held together by chalk dust and tweed, have quietly morphed into Versailles-sized palaces of PowerPoint where nothing happens until someone has convened a stakeholder-engagement workshop—complete with gluten-free muffins.</p>
+
+<h2 id="the-managerial-pyramid-a-curious-growth-industry">The Managerial Pyramid: A Curious Growth Industry</h2>
+
+<p>Between August 2023 and July 2024 our universities added roughly 7,000 new academics, a perfectly civilised three-per-cent increase. Admirable—until you discover that non-academic posts grew almost twice as fast, continuing the decade-long trend charted by HESA. At several Russell Group institutions a mere twenty-one per cent of total spending now lands in anyone’s lecture timetable; the rest vanishes into other operating expenses—marketing campaigns, franchise fees, strategic consultancies and the sort of “digital transformations” that require everyone to use four log-ins where one once sufficed.</p>
+
+<p>Meanwhile, vice-chancellors have launched their own space programme. Average remuneration in 2025 eased past £340,000, while a handful of particularly well-nourished incumbents saunter along at closer to £400k once subsidised mansions are thrown in. By comparison, the median lecturer’s real-terms pay has fallen fifteen per cent since 2009. Nothing like a little shared sacrifice to build camaraderie.</p>
+
+<h2 id="bureaucracy-by-design-and-delight">Bureaucracy by Design (and Delight)</h2>
+
+<p>Regulation, like ivy, never sleeps. The Research Excellence Framework devoured £471 million in 2021 and will cheerfully eat another half-a-billion each time the cycle renews. Its younger sibling, the Teaching Excellence Framework, now costs providers about £50 million per outing once one tallies all the compulsory surveys, data returns and 40-page narratives.</p>
+
+<p>Staff morale responds in the predictable fashion: pulse surveys show soaring stress wherever a fresh “compliance document” lands in the inbox. One academic described the annual quality-assurance audit as “the Hunger Games in knitwear”.</p>
+
+<h2 id="financial-cracks-and-educational-fallout">Financial Cracks and Educational Fallout</h2>
+
+<p>Ask the University of Dundee, whose £35 million deficit recently triggered an exodus from the senior leadership suite. When the international-student cash tide recedes, even the grandest managerial pyramids reveal damp foundations. Students notice other tremors too: contact hours squeezed by ballooning class sizes, endless queueing for feedback, libraries that close earlier than budget meetings run late. Early-career researchers, keen on anything resembling a pension, vote with their feet—and sometimes their passports.</p>
+
+<h2 id="lean-lessons-we-imported-then-mislaid">Lean Lessons We Imported, Then Mislaid</h2>
+
+<p>Oddly enough, Britain already ran a successful experiment in <em>less</em> management. Sunderland’s Nissan plant, opened in 1986, matched Japan’s productivity within three years by championing Lean and Kaizen—ideas built on flat structures, relentless small improvements and the heretical belief that the person closest to the work might know something useful about it.</p>
+
+<p>Toyota’s UK team later used the same methods to cut inventory by two-thirds and redirect resources to the front line. British-owned factories that clung to 1950s hierarchies mostly decayed or died.</p>
+
+<h2 id="three-alternative-operating-systems-and-a-health-warning">Three Alternative Operating Systems (and a Health Warning)</h2>
+
+<p><em>First</em>, cast your gaze to the Netherlands, where Buurtzorg’s self-managed nursing teams operate without middle managers, yet somehow deliver stellar outcomes and sky-high job satisfaction. Professional standards remain non-negotiable, but nobody needs thirty signature boxes to requisition a kettle.</p>
+
+<p><em>Second</em>, recall Brazil’s Semco. There, employees famously vote on their bosses’ pay and set departmental budgets in town-hall meetings. Radical? Yes. Effective? Also yes—provided your workforce can decide anything more complex than lunch without descending into civil war.</p>
+
+<p><em>Third</em>, the gaming company Valve ditched titles altogether: people choose projects, desks come on wheels, and the org chart looks like spilled noodles. Innovation gallops. So can informal power networks, so transparency had better ride shotgun.</p>
+
+<p>Each model shares a family resemblance: authority lives near the coalface, not at the summit of Mount Gantt Chart. Academics, who already peer-review one another’s research with merciless glee, might actually thrive here.</p>
+
+<h2 id="what-universities-could-actually-do-tomorrow-morning">What Universities Could <em>Actually</em> Do Tomorrow Morning</h2>
+
+<p><strong>Shrink HQ and empower departments.</strong> Give each department an operating grant and let adults decide how many “learning-technologies partners” they truly need. Every pound unspent on a meeting buys an extra seminar.</p>
+
+<p><strong>Turn audits into Kaizen sprints.</strong> Swap annual 40-page action plans for fortnightly improvement sessions run by the people who teach. Toyota can review a production line before lunch; surely a team of historians can streamline the feedback loop on the Reformation essay.</p>
+
+<p><strong>Publish the executive-to-median salary ratio.</strong> If sunlight is indeed the best disinfectant, broadcast how many lectures could be funded by one deputy pro vice-chancellor’s compensation package. The optics alone might deflate the pyramid faster than any white-paper.</p>
+
+<p><strong>Borrow participatory budgeting.</strong> Let a History cohort decide whether they prefer another administrator or more teaching support. It’s their tuition fee, after all.</p>
+
+<p><strong>Pilot self-managing colleges.</strong> Start with postgraduate research units—small, motivated, already semi-autonomous. Measure completion rates, student satisfaction and cost per credit against centrally micro-managed equivalents. Publish the results, even if they make the senior common room gasp into its sauvignon blanc.</p>
+
+<blockquote>
+  <p><strong>“Flat structures may harbour shadow hierarchies, but pyramids advertise theirs in brushed steel on the door.”</strong></p>
+</blockquote>
+
+<h2 id="a-brief-nudge-to-the-sceptics">A Brief Nudge to the Sceptics</h2>
+
+<p>Yes, Lean can be abused by stopwatch zealots who time your loo breaks. That is a failure of imagination, not an iron law. And yes, Valve alumni confess that popularity contests lurk in any flatland. The antidote is radical transparency, not the comforting embrace of eighteenth-century titles like <em>Pro-Vice-Assistant-Deputy Dean for Enabling Strategies</em>.</p>
+
+<h2 id="conclusion-short-we-promised">Conclusion (Short, We Promised)</h2>
+
+<p>Our universities once borrowed the seminar from Germany and the tutorial from Oxford’s medieval guilds. Lifting a few modern governance ideas is hardly sacrilege. Flatten the hierarchy, trust the people who can actually spell <em>phenomenology</em>, and we may yet rediscover that elusive pastime known as scholarship. A slimmer pyramid also leaves more room at the base for students—and rather less space at the top for executive away-days in Provence.</p>
+
+<hr />
+
+<p><em>Feel free to disagree, but please lodge all complaints via the new seven-stage stakeholder-engagement portal, open Mondays between 10:07 and 10:12.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="management" /><category term="organizational-design" /><category term="university-governance" /><category term="lean-management" /><category term="hierarchy" /><category term="administrative-bloat" /><category term="kaizen" /><category term="participatory-budgeting" /><category term="flat-structures" /><summary type="html"><![CDATA[British universities have morphed into Versailles-sized palaces of PowerPoint where the managerial pyramid grows faster than academic staff. Time to flatten the hierarchy and trust the people who can actually spell phenomenology.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/hero-flat-vs-pyramid.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/hero-flat-vs-pyramid.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About ‘Rightsizing’ in UK Universities</title><link href="http://localhost:4001/2025/06/25/rightsizing-rant/" rel="alternate" type="text/html" title="When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About ‘Rightsizing’ in UK Universities" /><published>2025-06-25T00:00:00+01:00</published><updated>2025-06-25T00:00:00+01:00</updated><id>http://localhost:4001/2025/06/25/rightsizing-rant</id><content type="html" xml:base="http://localhost:4001/2025/06/25/rightsizing-rant/"><![CDATA[<p><img src="/assets/images/posts/2025-07-15-rightsizing-rant/rightsizing.jpg" alt="Corporate buzzword cloud dissolving into a clear, plain English dictionary" /></p>
+
+<p>If you’ve ever watched two neurosurgeons chat over coffee, you’ll know specialist jargon can be glorious. In the right hands it is a scalpel: precise, efficient and a blessed relief from paragraph-long explanations. The same goes for every field from quantum physics to tax law.</p>
+
+<p>But in business-speak the scalpel is often replaced by a feather boa—colourful, distracting and entirely useless. “Low-hanging fruit”, “sunset the legacy stack”, “leverage our synergies”: phrases that promise profundity but generally drip with verbal Miracle-Gro and not much else.</p>
+
+<p>Sadly, the corporate world has taken this innocent tool, blunted it beyond recognition and now brandishes it like a toddler with a breadknife. Business-speak promises verbal efficiency but usually delivers opacity, pseudo-profundity and an excuse not to think too hard. As André Spicer memorably noted, it’s “vacuous management-speak dressed up as strategic insight”. <a href="https://www.theguardian.com/news/2017/nov/23/from-inboxing-to-thought-showers-how-business-bullshit-took-over">The Guardian</a></p>
+
+<p>Worst of all are the euphemisms that actively <em>conceal</em> bad news. And few are more pernicious than the current corporate favourite that has oozed across the quad: <strong>“rightsizing.”</strong></p>
+
+<h2 id="rightsizing-what-it-really-means-spoilersmaller">Rightsizing: What it Really means (spoiler—”smaller”)</h2>
+
+<p>Even the normally understated Cambridge Dictionary concedes that <em>rightsize</em> means “to make an organisation <strong>smaller by reducing the number of people working for it</strong>.”</p>
+
+<p>Note the complete lack of any suggestion that the process might occasionally involve champagne recruitment drives. The shrinkage is baked in; the “right” size is, almost invariably, <em>less</em>.</p>
+
+<p>“Right-sizing exercises” were already haunting British lecture theatres a decade ago, as The Guardian’s lament for the humanities reported. <a href="https://www.theguardian.com/education/2015/mar/29/war-against-humanities-at-britains-universities">theguardian.com</a><br />
+Since then the jargon has migrated from Silicon Valley to Senate House quicker than you can say “research excellence framework”.</p>
+
+<p><em>Sixty-seven</em> UK institutions currently have redundancy schemes on the go, a trend cheerfully described by commentators as <em>“right-sizing the sector.”</em> <a href="https://isrf.org/blog/radical-rethinking-coming-up">isrf.org</a> 
+The University of Edinburgh plans to shave <strong>£140 million</strong> off its wage bill by “identifying the <strong>right size and shape</strong> of our staff body”. Translation: fewer bodies. <a href="https://www.ucu.org.uk/article/13929/Edinburgh-university-principal-announces-university-planning-140million-of-cuts">ucu.org.uk</a><br />
+Lincoln, meanwhile, says brutal cuts to <strong>220 posts</strong> are essential so it can <em>“find the right size and shape”</em> for the future—apparently bean-counters are now tailors as well. <a href="https://www.timeshighereducation.com/news/lincoln-faces-strike-threat-after-putting-220-staff-risk">timeshighereducation.com</a></p>
+
+<p>Spot the pattern: every time the phrase crops up, payroll numbers go down.</p>
+
+<h2 id="why-the-euphemism-is-so-objectionable">Why The Euphemism is so objectionable</h2>
+
+<ul>
+  <li>
+    <p><strong>It’s inaccurate.</strong> “Right” implies careful optimisation; in reality these are emergency cuts after years of financial bravado.</p>
+  </li>
+  <li>
+    <p><strong>It’s cowardly.</strong> If leaders truly believed in the virtue of mass sackings they would say <em>“We’re firing people.”</em></p>
+  </li>
+  <li>
+    <p><strong>It shifts the shame.</strong> Leavers shoulder the trauma, stayers wrestle survivor’s guilt, senior managers bask in “doing the right thing”.</p>
+  </li>
+  <li>
+    <p><strong>It’s bad business.</strong> Routine lay-offs damage engagement and profitability in the long run—Harvard Business Review has been saying so for years. <a href="https://hbr.org/2018/05/layoffs-that-dont-break-your-company">hbr.org</a></p>
+  </li>
+</ul>
+
+<p>Redundancies don’t just remove salaries; they vaporise institutional memory, crater local economies and hollow out research capacity. Yet the glossy presentation will announce the institution is now “more agile”—rather like a gymnast who’s “lost weight” after an amputation.</p>
+
+<p>Language shapes policy. Keep calling mass sackings “rightsizing” and we normalise spreadsheet sadism as prudent housekeeping. Call them what they are—<em>redundancies in their hundreds</em>—and suddenly the morality (and the maths) look a lot murkier.</p>
+
+<h2 id="what-to-do-instead-of-playing-buzzword-buckaroo">What to Do instead of Playing Buzzword Buckaroo</h2>
+
+<ol>
+  <li>
+    <p><strong>Use the Queen’s (plain) English.</strong><br />
+If you truly must lop off heads, call it <em>redundancy</em>, <em>job losses</em> or—brace yourself—<em>sacking people</em>. Your staff have PhDs; they can cope with syllables.</p>
+  </li>
+  <li>
+    <p><strong>Refuse to translate gibberish for free.</strong><br />
+When the memo says the university will become “leaner”, email back:<br />
+<em>“Just checking—does ‘leaner’ mean fewer colleagues and larger workloads? Ta.”</em><br />
+Copy-in HR. Enjoy the silence.</p>
+  </li>
+  <li>
+    <p><strong>Play Buzzword Bingo—out loud.</strong><br />
+Keep a visible card in meetings. When “right-size”, “agile pivot” or “future-proofing” is uttered, shout “Full house!” and demand a straight answer. (Yes, it’s career-limiting. So is a P45.)</p>
+  </li>
+  <li>
+    <p><strong>Insist on the arithmetic.</strong><br />
+No more PowerPoints with rainbow doughnuts. Ask: <em>“Exactly how many posts, which departments, and over what timescale?”</em> Numbers concentrate minds; euphemisms evaporate under the spotlight.</p>
+  </li>
+  <li>
+    <p><strong>Unionise your vocabulary.</strong><br />
+Agree collectively never to parrot management’s euphemisms. The minute staff stop repeating nonsense, leadership is forced either to speak plainly or look patently ridiculous. Both outcomes are acceptable.</p>
+  </li>
+  <li>
+    <p><strong>Reward candour.</strong><br />
+When a senior manager finally says “We’re making redundancies,” resist the urge to boo. Applaud the honesty—then debate the strategy. The goal is clarity first, accountability second.</p>
+  </li>
+  <li>
+    <p><strong>Remember that language sets precedent.</strong><br />
+If we allow “rightsizing” today, tomorrow brings “talent de-densification” and “knowledge off-shoring”. Nip it in the bud before we all need a glossary to find the exit.</p>
+  </li>
+</ol>
+
+<hr />
+
+<p><strong>Bottom line:</strong> Sack the euphemism, interrogate the plan, and keep your irony fully loaded. Because once we translate polite fiction into plain fact, the real discussion—about funding, priorities and the future of higher education—can at last begin.</p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="language" /><category term="redundancies" /><category term="business-jargon" /><category term="rightsizing" /><category term="university-cuts" /><category term="corporate-speak" /><category term="euphemisms" /><category term="academic-jobs" /><category term="redundancy" /><summary type="html"><![CDATA[67 UK universities have redundancy schemes running, but they're calling it 'rightsizing.' It's time to sack the euphemism and interrogate the plan.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/hero-jargon-chloroform.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/hero-jargon-chloroform.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist</title><link href="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/" rel="alternate" type="text/html" title="Stop Calling Everything ‘Slop’: Build a Smarter AI Quality Checklist" /><published>2025-06-19T11:00:00+01:00</published><updated>2025-06-19T11:00:00+01:00</updated><id>http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist</id><content type="html" xml:base="http://localhost:4001/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/"><![CDATA[<p><img src="/assets/images/posts/2025-06-19/slop-delve.png" alt="AI Quality Taxonomy Overview" /></p>
 
 <p><em>Originally published June 19, 2025</em></p>
 
@@ -275,70 +849,4 @@
 
 <hr />
 
-<p><em>Have you encountered specific AI quality issues in your work? Which categories from this taxonomy do you find most useful for evaluation? <a href="/contact/">Share your thoughts</a> or discuss this framework with your team.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="artificial-intelligence" /><category term="quality-control" /><category term="content-creation" /><category term="ai-ethics" /><category term="machine-learning" /><category term="content-quality" /><category term="ai-criticism" /><category term="taxonomy" /><summary type="html"><![CDATA[The term 'AI slop' has become a lazy catch-all for any machine-assisted work. Here's a detailed taxonomy for more precise AI quality assessment—because clear language is the first step toward cleaner machine-made work.]]></summary></entry><entry><title type="html">Why I’m Staying Away from UK Higher Education—For Now</title><link href="http://localhost:4001/2025/06/18/staying-away-from-uk-higher-education/" rel="alternate" type="text/html" title="Why I’m Staying Away from UK Higher Education—For Now" /><published>2025-06-18T11:00:00+01:00</published><updated>2025-06-18T11:00:00+01:00</updated><id>http://localhost:4001/2025/06/18/staying-away-from-uk-higher-education</id><content type="html" xml:base="http://localhost:4001/2025/06/18/staying-away-from-uk-higher-education/"><![CDATA[<p><img src="/assets/images/posts/2025-06-18/leaving-higher-education.jpg" alt="Article Hero Image *Railway Station Departure Board*" /></p>
-
-<h1 id="why-im-staying-away-from-uk-higher-educationfor-now">Why I’m Staying Away from UK Higher Education—For Now</h1>
-
-<p><em>Originally published June 18, 2025</em></p>
-
-<p>I have spent most of my life inside universities. As a child I remember visiting the Economics Department at Southampton University where my father worked. Economics was all V-necks and whiteboards, but downstairs was Psychology— with its labs and equipment and stuff. As a psychology undergraduate, then PhD student, postdoc, lecturer and researcher I loved the feel of these places. Places where new and good things could happen. Yet, for the first time since Tom Baker was Doctor Who, I find myself on the outside looking in. And, truth be told, I don’t plan to go back any time soon.</p>
-
-<p><img src="/assets/images/posts/2025-06-18/why-psy.jpg" alt="Economics vs Psychology departments comparison *Two university department rooms side-by-side: on the left, the Economics Department resembles a beige sweater convention where serious-faced men scribble matrix calculus in festive red and green markers; on the right, the 1970s Psychology Department bursts with colour and chaos — someone's jogging on a treadmill, a curly-haired researcher pokes at a wobbly oscilloscope, two others wearing oversized headphones grin at a glowing brain, and every wall screams, &quot;We have feelings and technology!&quot;*" /></p>
-
-<p>Below I explain why, drawing on the stark realities now facing British universities.</p>
-
-<h2 id="1-a-sector-shrinking-before-our-eyes">1. A Sector Shrinking Before Our Eyes</h2>
-
-<p>This academic year alone, around 10,000 academic jobs are being cut across the UK. Departments are closing, research groups are dissolving and once-thriving campuses feel eerily subdued. Even prestigious institutions are running “voluntary severance” schemes. If you’re an early-career researcher, the message is clear: the ladder has lost several rungs.</p>
-
-<h2 id="2-the-numbers-no-longer-add-up">2. The Numbers No Longer Add Up</h2>
-
-<p><strong>Undergraduate teaching is a loss-maker.</strong> The £9,250 fee cap (soon to creep up to £9,535) has lost nearly a third of its value in real terms since 2012. Every home student now costs a university more to teach than they bring in.</p>
-
-<p><strong>Research is deeper in the red.</strong> Last year universities in England subsidised research to the tune of £5 billion—and the hole is widening.</p>
-
-<p>The only real surplus comes from international postgraduates and the beds they rent. But fresh visa restrictions and anti-migration rhetoric have already knocked overseas enrolments off course. When your entire business model relies on a market the Home Office can switch off overnight, stability is a pipe-dream.</p>
-
-<h2 id="3-casualisation-has-become-the-default">3. Casualisation Has Become the Default</h2>
-
-<p>To keep the lights on, universities are turning to outsourcing and zero-hours contracts. We’re not just talking about the traditional “hourly-paid tutor”. Entire chunks of teaching are now delivered by:</p>
-
-<ul>
-  <li><strong>Subsidiary companies</strong> that sit outside national pension schemes</li>
-  <li><strong>Private “pathway” colleges</strong> that employ lecturers on lower salaries and minimal job security</li>
-  <li><strong>Online-programme managers</strong> who assemble global pools of gig-economy academics to run webinars and mark essays</li>
-</ul>
-
-<p>The result is a shrinking core of permanent staff carrying ever-heavier workloads, surrounded by a ring of precarious colleagues who can be switched on and off like Wi-Fi.</p>
-
-<p><img src="/assets/images/posts/2025-06-18/lecturer-carousel.jpg" alt="Academic gig economy carousel *A playful, pastel-coloured carousel of laptop-toting lecturers on office chairs, complete with swirling &quot;Hourly Pay&quot;, &quot;Zero Hours&quot;, &quot;OPM Tutor&quot; and &quot;Subsidiary Co.&quot; signs—perfect for illustrating the gig-economy merry-go-round in higher ed.*" /></p>
-
-<h2 id="4-quality-at-risk">4. Quality at Risk</h2>
-
-<p>Rising student numbers (fuelled by a demographic bulge) are colliding with a contracting workforce. Student-to-staff ratios have grown nearly 20% in a decade and are still rising. Larger classes mean less feedback, fewer contact hours and less space for the mentorship that turns a degree into an education.</p>
-
-<p>Meanwhile, research time is endlessly squeezed: if your teaching is already underfunded, clearing the diary to write a grant or mentor a PhD student becomes heroic. Burnout is no longer a risk; it’s the default setting.</p>
-
-<h2 id="5-insolvency-no-longer-unthinkable">5. Insolvency No Longer Unthinkable</h2>
-
-<p>Regulators now openly discuss “orderly exits” if a university runs out of cash. In Scotland, one institution has already needed an emergency government loan; several English providers are flirting with negative reserves. Mergers—or managed shutdowns—look inevitable in the next five years. Against that backdrop, signing a permanent contract starts to feel less like job security and more like a hostage situation.</p>
-
-<h2 id="what-would-tempt-me-back">What Would Tempt Me Back?</h2>
-
-<ul>
-  <li>A <strong>sustainable funding settlement</strong> that restores the real value of teaching grants and covers the full economic cost of research</li>
-  <li>A <strong>commitment to secure employment</strong>—because educational excellence rests on staff who can plan more than 12 months ahead</li>
-  <li>A <strong>credible workforce strategy</strong> that values pedagogy and scholarship as much as big-ticket commercial deals</li>
-</ul>
-
-<p>Yet, if I’m honest, the odds on any of those reforms materialising feel about the same as a Vice Chancellor taking a pay cut. Universities are drifting towards a corporate job market: targets multiply, KPIs sprout like damp dissertation footnotes, and every vacancy looks suspiciously like “same workload, smaller contract, bring your own pen.”</p>
-
-<p>The trouble is we’re importing the least loveable bits of the commercial world (relentless productivity dashboards) without its compensations (competitive pay, stock options, free coffee). What the country actually needs is the reverse: a labour market where job satisfaction and work-life balance set the tone and the private sector, not academia, is scrambling to keep up. Until we stop mistaking “efficiency” for “exhaustion with extra spreadsheets,” higher education will remain a tough sell—no matter how many inspirational quotes are stapled to the staffroom noticeboard.</p>
-
-<p>Until then, I’ll be deploying my skills elsewhere—still cheering on my former students, still collaborating on the odd research paper, but no longer prepared to accept precarity as the price of calling myself an academic.</p>
-
-<p>I haven’t abandoned higher education; higher education has drifted away from the conditions that made it such a rewarding, if demanding, vocation. I hope one day to return. For now, I’m choosing professional stability, and I doubt I’ll be the last.</p>
-
-<hr />
-
-<p><em>What are your thoughts on the current state of UK higher education? Have you experienced similar challenges in academia? Share your perspective in the comments or <a href="/contact/">get in touch</a>.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="higher-education" /><category term="academia" /><category term="career" /><category term="universities" /><category term="employment" /><category term="academic-jobs" /><category term="uk-education" /><category term="career-change" /><summary type="html"><![CDATA[After spending most of my life inside universities, I find myself on the outside looking in—and I don't plan to go back any time soon. Here's why the current state of UK higher education is pushing talent away.]]></summary></entry></feed>
+<p><em>Have you encountered specific AI quality issues in your work? Which categories from this taxonomy do you find most useful for evaluation? <a href="/contact/">Share your thoughts</a> or discuss this framework with your team.</em></p>]]></content><author><name>Justin O&apos;Brien</name></author><category term="artificial-intelligence" /><category term="quality-control" /><category term="content-creation" /><category term="ai-ethics" /><category term="machine-learning" /><category term="content-quality" /><category term="ai-criticism" /><category term="taxonomy" /><summary type="html"><![CDATA[The term 'AI slop' has become a lazy catch-all for any machine-assisted work. Here's a detailed taxonomy for more precise AI quality assessment—because clear language is the first step toward cleaner machine-made work.]]></summary></entry></feed>
