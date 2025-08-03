@@ -22,10 +22,16 @@
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
-    // Update toggle button text
+    // Update toggle button text - check for both button types
     const toggleButton = document.getElementById('theme-toggle');
     if (toggleButton) {
-      toggleButton.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      if (toggleButton.classList.contains('theme-toggle-nav')) {
+        // Navigation button - just emoji
+        toggleButton.textContent = theme === 'dark' ? '☀️' : '🌙';
+      } else {
+        // Fixed position button - emoji + text
+        toggleButton.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
       toggleButton.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
     }
   }
@@ -42,19 +48,26 @@
     const currentTheme = getCurrentTheme();
     applyTheme(currentTheme);
     
-    // Create toggle button if it doesn't exist
+    // Look for existing toggle button in navigation
     let toggleButton = document.getElementById('theme-toggle');
     if (!toggleButton) {
+      // Create fallback fixed position button if nav button doesn't exist
       toggleButton = document.createElement('button');
       toggleButton.id = 'theme-toggle';
       toggleButton.className = 'theme-toggle';
       toggleButton.setAttribute('aria-label', `Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`);
-      toggleButton.addEventListener('click', toggleTheme);
       document.body.appendChild(toggleButton);
     }
     
-    // Set initial button text
-    toggleButton.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    // Add click handler
+    toggleButton.addEventListener('click', toggleTheme);
+    
+    // Set initial button text based on button type
+    if (toggleButton.classList.contains('theme-toggle-nav')) {
+      toggleButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    } else {
+      toggleButton.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
   }
   
   // Listen for system theme changes

@@ -18,12 +18,9 @@ plugins:
 
 # Jekyll settings
 permalink: /:year/:month/:day/:title/
-paginate: 5
-paginate_path: "/page:num/"
 
 # Social media and contact
 github_username: Justin0Brien
-linkedin_username: your-linkedin-username
 
 # Modernist theme settings
 show_downloads: false

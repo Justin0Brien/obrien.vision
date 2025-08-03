@@ -38,7 +38,6 @@ GEM
     jekyll-minimagick (0.0.4)
       jekyll (>= 0.10.0)
       mini_magick (>= 3.3)
-    jekyll-paginate (1.1.0)
     jekyll-sass-converter (3.0.0)
       sass-embedded (~> 1.54)
     jekyll-seo-tag (2.8.0)
@@ -87,7 +86,6 @@ DEPENDENCIES
   jekyll (~> 4.3.0)
   jekyll-feed (~> 0.12)
   jekyll-minimagick
-  jekyll-paginate
   jekyll-seo-tag
   jekyll-sitemap
   jekyll-theme-modernist

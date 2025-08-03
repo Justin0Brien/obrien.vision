@@ -1,0 +1,617 @@
+---
+---
+
+@import "jekyll-theme-modernist";
+
+/* ========================================
+   CSS CUSTOM PROPERTIES (VARIABLES)
+   Light/Dark mode color system
+   ======================================== */
+
+:root {
+  /* Light mode colors (default) */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-accent: #eaeaea;
+  --text-primary: #111111;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --link-color: #0366d6;
+  --link-hover: #0256cc;
+  --border-color: #e1e4e8;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --code-bg: #f6f8fa;
+  --code-border: #e1e4e8;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-accent: #21262d;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --text-muted: #6e7681;
+    --link-color: #58a6ff;
+    --link-hover: #79c0ff;
+    --border-color: #30363d;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --code-bg: #161b22;
+    --code-border: #30363d;
+  }
+
+  /* Base elements for dark mode */
+  html, body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  .wrapper {
+    background-color: var(--bg-primary) !important;
+  }
+
+  header {
+    background-color: var(--bg-secondary) !important;
+    background-image: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+  }
+
+  header::before, header::after {
+    display: none !important;
+  }
+
+  header h1, header h2, header h3, header h4, header h5, header h6 {
+    color: var(--text-primary) !important;
+    text-shadow: none !important;
+  }
+
+  header h1 a {
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+  }
+
+  header h1 a:hover {
+    color: var(--link-hover) !important;
+  }
+
+  header p {
+    color: var(--text-secondary) !important;
+  }
+
+  header a {
+    color: var(--link-color) !important;
+  }
+
+  header a:hover {
+    color: var(--link-hover) !important;
+  }
+
+  section, main {
+    background-color: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+  }
+
+  p, span, div, li, td, th, article {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+  }
+
+  b, strong {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+    font-weight: bold !important;
+  }
+
+  a:not(.nav-link):not(.brand-link) {
+    color: var(--link-color) !important;
+    background: transparent !important;
+  }
+
+  a:not(.nav-link):not(.brand-link):hover {
+    color: var(--link-hover) !important;
+    background: transparent !important;
+  }
+
+  code, pre {
+    background-color: var(--code-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--code-border) !important;
+  }
+
+  blockquote {
+    background: var(--bg-secondary) !important;
+    color: var(--text-secondary) !important;
+    border-left: 4px solid var(--link-color) !important;
+  }
+
+  table {
+    background: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  input, textarea, select, button {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+}
+
+/* ========================================
+   NAVIGATION STYLES
+   Responsive navigation with mobile hamburger menu
+   ======================================== */
+
+.main-navigation {
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.nav-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.nav-brand {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.brand-link {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  background: transparent !important;
+}
+
+.brand-link:hover {
+  color: var(--link-color) !important;
+}
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  background: transparent !important;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-primary) !important;
+  margin: 3px 0;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-menu {
+  display: flex;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  background: transparent !important;
+}
+
+.nav-item {
+  margin: 0 15px;
+  background: transparent !important;
+}
+
+.nav-link {
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 500;
+  background: transparent !important;
+}
+
+.nav-link:hover {
+  color: var(--link-color) !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.nav-link.active {
+  color: var(--link-color) !important;
+  background-color: var(--bg-secondary) !important;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background-color: var(--link-color);
+  border-radius: 1px;
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: flex;
+    order: 3;
+  }
+  
+  .nav-brand {
+    order: 1;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--bg-primary) !important;
+    border-bottom: 1px solid var(--border-color);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    order: 2;
+    box-shadow: 0 4px 6px var(--shadow-color);
+  }
+  
+  .nav-menu.active {
+    transform: translateX(0);
+  }
+  
+  .nav-links {
+    flex-direction: column;
+    padding: 20px 0;
+    align-items: stretch;
+  }
+  
+  .nav-item {
+    margin: 0;
+    text-align: center;
+  }
+  
+  .nav-link {
+    display: block;
+    padding: 15px 20px;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-link.active::after {
+    display: none;
+  }
+  
+  /* Hamburger Animation */
+  .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+}
+
+/* ========================================
+   LAYOUT ADJUSTMENTS
+   Ensure proper spacing with sticky navigation
+   ======================================== */
+
+.wrapper {
+  padding-top: 0;
+}
+
+header {
+  margin-top: 20px !important;
+  padding-top: 0 !important;
+}
+
+section {
+  margin-top: 20px !important;
+}
+
+/* ========================================
+   TYPOGRAPHY & BASE STYLES
+   Consistent text styling across themes
+   ======================================== */
+
+body, html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+p, span, div, li {
+  color: var(--text-primary);
+}
+
+strong, b {
+  color: var(--text-primary);
+  background: transparent;
+  font-weight: bold;
+}
+
+a {
+  color: var(--link-color);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* ========================================
+   CONTENT COMPONENTS
+   Post previews, content items, etc.
+   ======================================== */
+
+.post-preview {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.post-thumbnail {
+  flex-shrink: 0;
+}
+
+.post-thumbnail img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.post-content h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.post-content h3 a:hover {
+  color: var(--link-color);
+}
+
+.post-meta {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.post-tags {
+  margin-top: 15px;
+}
+
+.content-item {
+  margin-bottom: 30px;
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.content-item.featured {
+  border-left: 4px solid var(--link-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.content-item h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.content-item h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.content-item h3 a:hover {
+  color: var(--link-color);
+}
+
+.date {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.description {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--bg-accent);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+/* ========================================
+   SECTION COMPONENTS
+   About preview, navigation, etc.
+   ======================================== */
+
+.about-preview {
+  background: var(--bg-secondary);
+  padding: 30px;
+  margin: 40px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.about-preview h2 {
+  color: var(--text-primary);
+  margin-top: 0;
+}
+
+.about-preview p {
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.recent-posts {
+  margin-top: 40px;
+}
+
+.recent-posts h2 {
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+.navigation {
+  background: var(--bg-secondary);
+  padding: 30px;
+  margin: 40px 0;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.navigation h2 {
+  color: var(--text-primary);
+  margin-top: 0;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+}
+
+.navigation li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: var(--bg-accent);
+  border-radius: 6px;
+}
+
+.navigation a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.navigation a:hover {
+  color: var(--link-hover);
+}
+
+.featured-content {
+  margin-bottom: 40px;
+}
+
+.featured-content h2 {
+  color: var(--text-primary);
+  margin-bottom: 30px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   Mobile-first responsive breakpoints
+   ======================================== */
+
+@media (max-width: 768px) {
+  .post-preview {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .post-thumbnail img {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .content-item {
+    padding: 20px;
+  }
+  
+  .nav-container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-item {
+    padding: 15px;
+  }
+  
+  .post-preview {
+    padding: 15px;
+  }
+  
+  .nav-brand {
+    font-size: 1.1em;
+  }
+  
+  .tag {
+    font-size: 0.7rem;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES
+   Reusable utility styles
+   ======================================== */
+
+.home {
+  line-height: 1.6;
+}
+
+/* Smooth transitions for better UX */
+body, header, section, .wrapper {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
