@@ -564,40 +564,24 @@ footer p + p {
   /* Adjust main wrapper to account for sticky navigation */
   /* Adjust header spacing */
   /* Ensure main content has proper spacing */
-  /* Universal overrides for all elements */
-  /* Body and HTML */
-  /* MODERNIST THEME SPECIFIC OVERRIDES */
-  /* Main wrapper - this is the key container */
-  /* Header section - this is the light blue area */
-  /* Header gradients and background overrides */
-  /* Header text */
-  /* Header title link specifically */
+  /* ========================================
+     TARGETED DARK MODE OVERRIDES
+     Specific element targeting instead of universal selector
+     ======================================== */
+  /* Body and HTML base */
+  /* Main layout containers */
+  /* Header section styling */
+  /* Remove gradients and decorative elements */
+  /* Header text elements */
   /* Header links */
-  /* Main content section */
-  /* Content containers */
-  /* All headings */
-  /* All paragraphs and text */
-  /* Bold and strong text */
-  /* Bold text in dark mode specifically */
-  /* Lists */
+  /* Main content sections */
+  /* Text elements */
+  /* Bold and emphasis text */
   /* Links */
-  /* Cards and content blocks */
-  /* Any elements with background colors */
-  /* Override any light backgrounds */
-  /* Code blocks */
-  /* Blockquotes */
+  /* Code elements */
+  /* List elements */
   /* Tables */
   /* Form elements */
-  /* Buttons */
-  /* Navigation */
-  /* Footer */
-  /* Special elements */
-  /* Modernist theme specific selectors */
-  /* Special targeting for post previews and content items */
-  /* Navigation and explore sections */
-  /* List items in navigation */
-  /* Remove any box shadows that might interfere */
-  /* Re-add our custom shadows */
 }
 @media (prefers-color-scheme: dark) and (max-width: 768px) {
   .mobile-menu-toggle {
@@ -679,31 +663,20 @@ footer p + p {
   }
 }
 @media (prefers-color-scheme: dark) {
-  * {
-    color: var(--text-primary) !important;
-    background-color: var(--bg-primary) !important;
-    text-shadow: none !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
   html, body {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   .wrapper, #wrapper, body > div {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  header, .header, header.header {
+  header, .header {
     background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
     background-image: none !important;
-    background-attachment: unset !important;
     border-bottom: 1px solid var(--border-color) !important;
   }
 }
@@ -714,313 +687,495 @@ footer p + p {
   }
 }
 @media (prefers-color-scheme: dark) {
-  header h1, header h2, header h3, header h4, header h5, header h6,
-  .header h1, .header h2, .header h3, .header h4, .header h5, .header h6 {
+  header h1, header h2, header h3, header h4, header h5, header h6 {
     color: var(--text-primary) !important;
     text-shadow: none !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  header h1 a, .header h1 a {
+  header h1 a {
     color: var(--text-primary) !important;
-    text-shadow: none !important;
     text-decoration: none !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  header h1 a:hover, .header h1 a:hover {
-    color: var(--link-hover) !important;
     text-shadow: none !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  header p, .header p {
+  header h1 a:hover {
+    color: var(--link-hover) !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  header p {
     color: var(--text-secondary) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  header a, .header a {
+  header a {
     color: var(--link-color) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  header a:hover, .header a:hover {
+  header a:hover {
     color: var(--link-hover) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  section, .section, main, .main {
+  section, main {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .content, #content, .page-content, .post-content {
-    background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary) !important;
+    background: transparent !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  p, span, div, li, td, th {
+  p, span, div, li, td, th, article {
     color: var(--text-primary) !important;
+    background: transparent !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   b, strong, .bold, .strong {
     color: var(--text-primary) !important;
+    background: transparent !important;
     font-weight: bold !important;
   }
 }
-@media (prefers-color-scheme: dark) and (prefers-color-scheme: dark) {
-  b, strong, .bold, .strong {
-    color: #ffffff !important;
+@media (prefers-color-scheme: dark) {
+  a:not(.nav-link):not(.brand-link) {
+    color: var(--link-color) !important;
+    background: transparent !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  a:not(.nav-link):not(.brand-link):hover {
+    color: var(--link-hover) !important;
+    background: transparent !important;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  code, pre, .code {
+    background-color: var(--code-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--code-border) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   ul, ol {
     color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  a, a:link, a:visited {
-    color: var(--link-color) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  a:hover, a:active, a:focus {
-    color: var(--link-hover) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .card, .content-item, .project, .post {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  [style*=background-color], [style*="background:"] {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .light, .bg-light, .background-light {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  pre, code, .highlight {
-    background-color: var(--code-bg) !important;
-    background: var(--code-bg) !important;
-    border: 1px solid var(--code-border) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  blockquote {
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-    border-left: 4px solid var(--link-color) !important;
-    color: var(--text-primary) !important;
+    background: transparent !important;
   }
 }
 @media (prefers-color-scheme: dark) {
   table {
-    background-color: var(--bg-primary) !important;
     background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
   }
 }
 @media (prefers-color-scheme: dark) {
-  th, td {
+  input, textarea, select, button {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
     border: 1px solid var(--border-color) !important;
-    color: var(--text-primary) !important;
-    background-color: transparent !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  th {
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  input, textarea, select {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    border: 1px solid var(--border-color) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--link-color) !important;
-    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  button, .btn, input[type=submit], input[type=button] {
-    background-color: var(--link-color) !important;
-    background: var(--link-color) !important;
-    border: 1px solid var(--link-color) !important;
-    color: var(--bg-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  button:hover, .btn:hover, input[type=submit]:hover, input[type=button]:hover {
-    background-color: var(--link-hover) !important;
-    background: var(--link-hover) !important;
-    border-color: var(--link-hover) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav, .nav, .navigation {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    border: 1px solid var(--border-color) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav ul, .nav ul, .navigation ul {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav li, .nav li, .navigation li {
-    border-bottom: 1px solid var(--border-color) !important;
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav a, .nav a, .navigation a {
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  nav a:hover, .nav a:hover, .navigation a:hover {
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-    color: var(--link-hover) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  footer, .footer {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-    border-top: 1px solid var(--border-color) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .tag, .badge, .label {
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-    color: var(--text-secondary) !important;
-    border: 1px solid var(--border-color) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .date, .meta, .post-meta {
-    color: var(--text-muted) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .inner {
-    background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .post-preview, .content-item, .featured-content article {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-    color: var(--text-primary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .navigation, .explore {
-    background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .navigation ul li, .explore ul li {
-    background-color: var(--bg-accent) !important;
-    background: var(--bg-accent) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  * {
-    box-shadow: none !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .content-item.featured, .post-list li:hover, .post-preview:hover {
-    box-shadow: 0 4px 12px var(--shadow-color) !important;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  img {
-    box-shadow: 0 2px 8px var(--shadow-color) !important;
   }
 }
 /* ========================================
-   MANUAL THEME TOGGLE SUPPORT
-   Override system preference when user chooses
+   LIGHT MODE STYLES
+   Ensure proper styling for light mode
    ======================================== */
-/* Light theme when explicitly set */
-[data-theme=light] {
-  --bg-primary: #ffffff !important;
-  --bg-secondary: #f5f5f5 !important;
-  --bg-accent: #eaeaea !important;
-  --text-primary: #111111 !important;
-  --text-secondary: #666666 !important;
-  --text-muted: #999999 !important;
-  --link-color: #0366d6 !important;
-  --link-hover: #0256cc !important;
-  --border-color: #e1e4e8 !important;
-  --shadow-color: rgba(0, 0, 0, 0.1) !important;
-  --code-bg: #f6f8fa !important;
-  --code-border: #e1e4e8 !important;
+/* Light mode base colors */
+body, html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Dark theme when explicitly set */
-[data-theme=dark] {
-  --bg-primary: #0d1117 !important;
-  --bg-secondary: #161b22 !important;
-  --bg-accent: #21262d !important;
-  --text-primary: #f0f6fc !important;
-  --text-secondary: #8b949e !important;
-  --text-muted: #6e7681 !important;
-  --link-color: #58a6ff !important;
-  --link-hover: #79c0ff !important;
-  --border-color: #30363d !important;
-  --shadow-color: rgba(0, 0, 0, 0.3) !important;
-  --code-bg: #161b22 !important;
-  --code-border: #30363d !important;
+/* Text elements in light mode */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
 }
 
-/* Apply manual theme overrides */
-[data-theme=dark] *,
-[data-theme=dark] *::before,
-[data-theme=dark] *::after {
-  border-color: var(--border-color) !important;
+p, span, div, li, td, th {
+  color: var(--text-primary);
 }
 
+/* Bold text should always be visible */
+b, strong {
+  color: var(--text-primary);
+  font-weight: bold;
+  background: transparent;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* ========================================
+   LIGHT MODE BASE STYLES
+   Default styles that work in both modes
+   ======================================== */
+/* Bold text in dark mode specifically */
+@media (prefers-color-scheme: dark) {
+  b, strong, .bold, .strong {
+    color: #ffffff !important;
+  }
+}
+/* Lists */
+ul, ol {
+  color: var(--text-primary) !important;
+}
+
+/* Links */
+a, a:link, a:visited {
+  color: var(--link-color) !important;
+}
+
+a:hover, a:active, a:focus {
+  color: var(--link-hover) !important;
+}
+
+/* Cards and content blocks */
+.card, .content-item, .project, .post {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Any elements with background colors */
+[style*=background-color], [style*="background:"] {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+}
+
+/* Override any light backgrounds */
+.light, .bg-light, .background-light {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Code blocks */
+pre, code, .highlight {
+  background-color: var(--code-bg) !important;
+  background: var(--code-bg) !important;
+  border: 1px solid var(--code-border) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Blockquotes */
+blockquote {
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+  border-left: 4px solid var(--link-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Tables */
+table {
+  background-color: var(--bg-primary) !important;
+  background: var(--bg-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+th, td {
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+}
+
+th {
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+}
+
+/* Form elements */
+input, textarea, select {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--link-color) !important;
+  box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2) !important;
+}
+
+/* Buttons */
+button, .btn, input[type=submit], input[type=button] {
+  background-color: var(--link-color) !important;
+  background: var(--link-color) !important;
+  border: 1px solid var(--link-color) !important;
+  color: var(--bg-primary) !important;
+}
+
+button:hover, .btn:hover, input[type=submit]:hover, input[type=button]:hover {
+  background-color: var(--link-hover) !important;
+  background: var(--link-hover) !important;
+  border-color: var(--link-hover) !important;
+}
+
+/* Navigation */
+nav, .nav, .navigation {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+nav ul, .nav ul, .navigation ul {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+}
+
+nav li, .nav li, .navigation li {
+  border-bottom: 1px solid var(--border-color) !important;
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+}
+
+nav a, .nav a, .navigation a {
+  color: var(--text-primary) !important;
+}
+
+nav a:hover, .nav a:hover, .navigation a:hover {
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+  color: var(--link-hover) !important;
+}
+
+/* Footer */
+footer, .footer {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+/* Special elements */
+.tag, .badge, .label {
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.date, .meta, .post-meta {
+  color: var(--text-muted) !important;
+}
+
+/* Modernist theme specific selectors */
+.inner {
+  background-color: var(--bg-primary) !important;
+  background: var(--bg-primary) !important;
+}
+
+/* Special targeting for post previews and content items */
+.post-preview, .content-item, .featured-content article {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Navigation and explore sections */
+.navigation, .explore {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+}
+
+/* List items in navigation */
+.navigation ul li, .explore ul li {
+  background-color: var(--bg-accent) !important;
+  background: var(--bg-accent) !important;
+}
+
+/* Remove any box shadows that might interfere */
+* {
+  box-shadow: none !important;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* ========================================
+   POST PREVIEW STYLES
+   Thumbnail and layout styles for blog posts
+   ======================================== */
+.post-preview {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.post-thumbnail {
+  flex-shrink: 0;
+}
+
+.post-thumbnail img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.post-content h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.post-content h3 a:hover {
+  color: var(--link-color);
+}
+
+.post-meta {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.post-tags {
+  margin-top: 15px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--bg-accent);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+/* Content items styling */
+.content-item {
+  margin-bottom: 30px;
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.content-item.featured {
+  border-left: 4px solid var(--link-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.content-item h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.content-item h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.content-item h3 a:hover {
+  color: var(--link-color);
+}
+
+.date {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.description {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post-preview {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .post-thumbnail img {
+    width: 100%;
+    height: 200px;
+  }
+  .content-item {
+    padding: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .content-item {
+    padding: 15px;
+  }
+  .post-preview {
+    padding: 15px;
+  }
+}
+/* ========================================
+   THEME COMPATIBILITY & FINAL OVERRIDES
+   Ensure consistent theming across all elements
+   ======================================== */
+/* Ensure text is always visible */
+* {
+  background: transparent;
+}
+
+/* Base text colors */
+body, html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Override any remaining light backgrounds in dark mode */
+@media (prefers-color-scheme: dark) {
+  .wrapper, header, section, main {
+    background-color: var(--bg-primary) !important;
+  }
+  header {
+    background-color: var(--bg-secondary) !important;
+  }
+  /* Ensure all text is visible */
+  * {
+    color: inherit;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+  p, span, div, li {
+    color: var(--text-primary) !important;
+  }
+  strong, b {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+  }
+}
 [data-theme=dark] html,
 [data-theme=dark] body {
   background-color: var(--bg-primary) !important;

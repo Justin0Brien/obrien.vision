@@ -251,103 +251,168 @@ section {
   margin-top: 20px !important;
 }
 
-  /* Universal overrides for all elements */
-  * {
-    color: var(--text-primary) !important;
-    background-color: var(--bg-primary) !important;
-    text-shadow: none !important;
-  }  /* Body and HTML */
+  /* ========================================
+     TARGETED DARK MODE OVERRIDES
+     Specific element targeting instead of universal selector
+     ======================================== */
+
+  /* Body and HTML base */
   html, body {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
   }
 
-  /* MODERNIST THEME SPECIFIC OVERRIDES */
-  
-  /* Main wrapper - this is the key container */
+  /* Main layout containers */
   .wrapper, #wrapper, body > div {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
   }
 
-  /* Header section - this is the light blue area */
-  header, .header, header.header {
+  /* Header section styling */
+  header, .header {
     background-color: var(--bg-secondary) !important;
-    background: var(--bg-secondary) !important;
     background-image: none !important;
-    background-attachment: unset !important;
     border-bottom: 1px solid var(--border-color) !important;
   }
 
-  /* Header gradients and background overrides */
+  /* Remove gradients and decorative elements */
   header::before, header::after,
   .header::before, .header::after {
     display: none !important;
   }
 
-  /* Header text */
-  header h1, header h2, header h3, header h4, header h5, header h6,
-  .header h1, .header h2, .header h3, .header h4, .header h5, .header h6 {
+  /* Header text elements */
+  header h1, header h2, header h3, header h4, header h5, header h6 {
     color: var(--text-primary) !important;
     text-shadow: none !important;
-  }
-
-  /* Header title link specifically */
-  header h1 a, .header h1 a {
-    color: var(--text-primary) !important;
-    text-shadow: none !important;
-    text-decoration: none !important;
-  }
-
-  header h1 a:hover, .header h1 a:hover {
-    color: var(--link-hover) !important;
-    text-shadow: none !important;
-  }
-
-  header p, .header p {
-    color: var(--text-secondary) !important;
   }
 
   /* Header links */
-  header a, .header a {
-    color: var(--link-color) !important;
+  header h1 a {
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
   }
 
-  header a:hover, .header a:hover {
+  header h1 a:hover {
     color: var(--link-hover) !important;
   }
 
-  /* Main content section */
-  section, .section, main, .main {
+  header p {
+    color: var(--text-secondary) !important;
+  }
+
+  header a {
+    color: var(--link-color) !important;
+  }
+
+  header a:hover {
+    color: var(--link-hover) !important;
+  }
+
+  /* Main content sections */
+  section, main {
     background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
     border: 1px solid var(--border-color) !important;
     color: var(--text-primary) !important;
   }
 
-  /* Content containers */
-  .content, #content, .page-content, .post-content {
-    background-color: var(--bg-primary) !important;
-    background: var(--bg-primary) !important;
-    color: var(--text-primary) !important;
-  }
-
-  /* All headings */
+  /* Text elements */
   h1, h2, h3, h4, h5, h6 {
     color: var(--text-primary) !important;
+    background: transparent !important;
   }
 
-  /* All paragraphs and text */
-  p, span, div, li, td, th {
+  p, span, div, li, td, th, article {
     color: var(--text-primary) !important;
+    background: transparent !important;
   }
 
-  /* Bold and strong text */
+  /* Bold and emphasis text */
   b, strong, .bold, .strong {
     color: var(--text-primary) !important;
+    background: transparent !important;
     font-weight: bold !important;
   }
+
+  /* Links */
+  a:not(.nav-link):not(.brand-link) {
+    color: var(--link-color) !important;
+    background: transparent !important;
+  }
+
+  a:not(.nav-link):not(.brand-link):hover {
+    color: var(--link-hover) !important;
+    background: transparent !important;
+  }
+
+  /* Code elements */
+  code, pre, .code {
+    background-color: var(--code-bg) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--code-border) !important;
+  }
+
+  /* List elements */
+  ul, ol {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+  }
+
+  /* Tables */
+  table {
+    background: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  /* Form elements */
+  input, textarea, select, button {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+  }
+
+  }
+
+/* ========================================
+   LIGHT MODE STYLES
+   Ensure proper styling for light mode
+   ======================================== */
+
+/* Light mode base colors */
+body, html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Text elements in light mode */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p, span, div, li, td, th {
+  color: var(--text-primary);
+}
+
+/* Bold text should always be visible */
+b, strong {
+  color: var(--text-primary);
+  font-weight: bold;
+  background: transparent;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+/* ========================================
+   LIGHT MODE BASE STYLES
+   Default styles that work in both modes
+   ======================================== */
 
   /* Bold text in dark mode specifically */
   @media (prefers-color-scheme: dark) {
@@ -530,58 +595,191 @@ section {
     box-shadow: none !important;
   }
 
-  /* Re-add our custom shadows */
-  .content-item.featured, .post-list li:hover, .post-preview:hover {
-    box-shadow: 0 4px 12px var(--shadow-color) !important;
-  }
+  a:hover {
+  color: var(--link-hover);
+}
 
-  img {
-    box-shadow: 0 2px 8px var(--shadow-color) !important;
+/* ========================================
+   POST PREVIEW STYLES
+   Thumbnail and layout styles for blog posts
+   ======================================== */
+
+.post-preview {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.post-thumbnail {
+  flex-shrink: 0;
+}
+
+.post-thumbnail img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-content h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.post-content h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.post-content h3 a:hover {
+  color: var(--link-color);
+}
+
+.post-meta {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+.post-tags {
+  margin-top: 15px;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--bg-accent);
+  color: var(--text-secondary);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+/* Content items styling */
+.content-item {
+  margin-bottom: 30px;
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+}
+
+.content-item.featured {
+  border-left: 4px solid var(--link-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.content-item h3 {
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+.content-item h3 a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.content-item h3 a:hover {
+  color: var(--link-color);
+}
+
+.date {
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-bottom: 15px;
+}
+
+.description {
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .post-preview {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .post-thumbnail img {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .content-item {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-item {
+    padding: 15px;
+  }
+  
+  .post-preview {
+    padding: 15px;
   }
 }
 
 /* ========================================
-   MANUAL THEME TOGGLE SUPPORT
-   Override system preference when user chooses
+   THEME COMPATIBILITY & FINAL OVERRIDES
+   Ensure consistent theming across all elements
    ======================================== */
 
-/* Light theme when explicitly set */
-[data-theme="light"] {
-  --bg-primary: #ffffff !important;
-  --bg-secondary: #f5f5f5 !important;
-  --bg-accent: #eaeaea !important;
-  --text-primary: #111111 !important;
-  --text-secondary: #666666 !important;
-  --text-muted: #999999 !important;
-  --link-color: #0366d6 !important;
-  --link-hover: #0256cc !important;
-  --border-color: #e1e4e8 !important;
-  --shadow-color: rgba(0, 0, 0, 0.1) !important;
-  --code-bg: #f6f8fa !important;
-  --code-border: #e1e4e8 !important;
+/* Ensure text is always visible */
+* {
+  background: transparent;
 }
 
-/* Dark theme when explicitly set */
-[data-theme="dark"] {
-  --bg-primary: #0d1117 !important;
-  --bg-secondary: #161b22 !important;
-  --bg-accent: #21262d !important;
-  --text-primary: #f0f6fc !important;
-  --text-secondary: #8b949e !important;
-  --text-muted: #6e7681 !important;
-  --link-color: #58a6ff !important;
-  --link-hover: #79c0ff !important;
-  --border-color: #30363d !important;
-  --shadow-color: rgba(0, 0, 0, 0.3) !important;
-  --code-bg: #161b22 !important;
-  --code-border: #30363d !important;
+/* Base text colors */
+body, html {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* Apply manual theme overrides */
-[data-theme="dark"] *,
-[data-theme="dark"] *::before,
-[data-theme="dark"] *::after {
-  border-color: var(--border-color) !important;
+/* Override any remaining light backgrounds in dark mode */
+@media (prefers-color-scheme: dark) {
+  .wrapper, header, section, main {
+    background-color: var(--bg-primary) !important;
+  }
+  
+  header {
+    background-color: var(--bg-secondary) !important;
+  }
+  
+  /* Ensure all text is visible */
+  * {
+    color: inherit;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+  }
+  
+  p, span, div, li {
+    color: var(--text-primary) !important;
+  }
+  
+  strong, b {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+  }
 }
 
 [data-theme="dark"] html,
