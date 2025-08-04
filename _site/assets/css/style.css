@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@400;700&display=swap");
 /* ========================================
    COLOR SCHEMES
    ======================================== */
@@ -124,8 +124,27 @@ small {
   text-decoration: none;
 }
 
+.nav-brand a .site-name-primary {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav-brand a .site-name-secondary {
+  font-weight: 400;
+  color: var(--secondary);
+}
+
 .nav-brand a:hover {
   color: var(--accent);
+}
+
+.nav-brand a:hover .site-name-primary {
+  color: var(--accent);
+}
+
+.nav-brand a:hover .site-name-secondary {
+  color: var(--accent);
+  opacity: 0.8;
 }
 
 .nav-menu {
@@ -365,6 +384,22 @@ a:hover {
   line-height: 1.6;
 }
 
+/* Site title styling */
+.site-title {
+  font-family: "Poppins", sans-serif;
+}
+
+.site-name-primary {
+  font-weight: 700;
+  color: var(--background);
+}
+
+.site-name-secondary {
+  font-weight: 400;
+  color: var(--secondary);
+  opacity: 0.9;
+}
+
 /* ========================================
    FOOTER
    ======================================== */
@@ -402,6 +437,22 @@ footer a:hover {
 
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+/* Footer brand styling */
+.footer-brand {
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-brand .site-name-primary {
+  font-weight: 700;
+  color: var(--background);
+}
+
+.footer-brand .site-name-secondary {
+  font-weight: 400;
+  color: var(--secondary);
+  opacity: 0.9;
 }
 
 /* ========================================
