@@ -17,7 +17,7 @@
     <nav class="main-navigation">
       <div class="nav-container">
         <div class="nav-brand">
-          <a href="{{ "/" | absolute_url }}" class="brand-link">{{ site.title | default: site.github.repository_name }}</a>
+          <a href="{{ "/" | absolute_url }}" class="nav-brand">{{ site.title | default: site.github.repository_name }}</a>
         </div>
         
         <!-- Mobile menu toggle -->
@@ -58,6 +58,19 @@
         {{ content }}
       </div>
     </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-links">
+          <a href="{{ "/" | relative_url }}">Home</a>
+          <a href="{{ "/about/" | relative_url }}">About</a>
+          <a href="{{ "/blog/" | relative_url }}">Blog</a>
+          <a href="{{ "/contact/" | relative_url }}">Contact</a>
+        </div>
+        <p>&copy; {{ "now" | date: "%Y" }} Justin O'Brien. All rights reserved.</p>
+        <p>Data visualization and analysis insights for modern employment dynamics.</p>
+      </div>
+    </footer>
   </div>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>

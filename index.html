@@ -9,71 +9,10 @@ title: Home
     <p>Data Visualization • Analysis • Insights. Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</p>
   </header>
 
-  <section class="featured-content">
+  <section class="all-posts">
     <h2>Latest Work</h2>
-    
-    <article class="content-item featured">
-      <h3><a href="/sankey.html">Outcomes For Professionals Age 50+ After Redundancy</a></h3>
-      <p class="date">August 2025</p>
-      <p class="description">
-        An interactive Sankey diagram visualizing employment outcomes for professionals aged 50+ following redundancy. 
-        This data visualization tracks career transitions over 24 months, revealing patterns in job market re-entry, 
-        career changes, and long-term unemployment trends.
-      </p>
-      <p class="tags">
-        <span class="tag">Data Visualization</span>
-        <span class="tag">D3.js</span>
-        <span class="tag">Employment Analysis</span>
-        <span class="tag">Interactive Charts</span>
-      </p>
-    </article>
-
-    <article class="content-item">
-      <h3><a href="#coming-soon">Economic Impact Analysis Dashboard</a></h3>
-      <p class="date">Coming Soon</p>
-      <p class="description">
-        A comprehensive dashboard analyzing regional economic indicators and their correlation with employment trends. 
-        Built with modern web technologies and real-time data integration.
-      </p>
-      <p class="tags">
-        <span class="tag">Dashboard</span>
-        <span class="tag">Economic Data</span>
-        <span class="tag">Real-time Analytics</span>
-      </p>
-    </article>
-
-    <article class="content-item">
-      <h3><a href="#coming-soon">Skills Migration Patterns</a></h3>
-      <p class="date">In Development</p>
-      <p class="description">
-        Exploring how professional skills transfer across industries and the emergence of new career pathways 
-        in the modern economy. Interactive exploration of skill adjacency networks.
-      </p>
-      <p class="tags">
-        <span class="tag">Network Analysis</span>
-        <span class="tag">Career Transitions</span>
-        <span class="tag">Skills Data</span>
-      </p>
-    </article>
-  </section>
-
-  <section class="about-preview">
-    <h2>About</h2>
-    <p>
-      I create data visualizations and analyses that reveal insights into employment, economic trends, and social patterns. 
-      My work combines statistical rigor with compelling visual storytelling to make complex data accessible and actionable.
-    </p>
-    <p>
-      With a focus on employment dynamics, career transitions, and economic indicators, I aim to provide evidence-based 
-      perspectives on the challenges and opportunities facing professionals in today's evolving job market.
-    </p>
-    <p><a href="/about/">Learn more about my background and approach →</a></p>
-  </section>
-
-  <section class="recent-posts">
-    <h2>Recent Posts</h2>
     {% if site.posts.size > 0 %}
-      {% for post in site.posts limit:12 %}
+      {% for post in site.posts %}
         <article class="post-preview">
           {% if post.thumbnail or post.image %}
             <div class="post-thumbnail">
@@ -98,19 +37,8 @@ title: Home
           </div>
         </article>
       {% endfor %}
-      <p><a href="/blog/">View all posts →</a></p>
     {% else %}
       <p>Posts coming soon. Check back for insights on data visualization, employment trends, and economic analysis.</p>
     {% endif %}
-  </section>
-
-  <section class="navigation">
-    <h2>Explore</h2>
-    <ul>
-      <li><a href="/about/">About Me</a> - Background and expertise</li>
-      <li><a href="/blog/">Blog</a> - Insights and analysis</li>
-      <li><a href="/sankey.html">Interactive Visualizations</a> - Data-driven stories</li>
-      <li><a href="/contact/">Contact</a> - Get in touch</li>
-    </ul>
   </section>
 </div>
