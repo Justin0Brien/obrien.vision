@@ -6,10 +6,10 @@ categories: [higher-education, university-finance, collaboration]
 tags: [UK-universities, funding-crisis, collective-procurement, shared-services, education-policy, institutional-efficiency]
 excerpt: "Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification."
 author: Justin O'Brien
-image: "/assets/images/posts/2025-07-02-fixing-universities/hero-university-finance.jpg"
+image: "/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg"
 ---
 
-![University buildings with financial charts overlay](/assets/images/posts/2025-08-01-fixing-universities/hero-university-finance.jpg)
+![University buildings with financial charts overlay](/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg)
 
 Universities in the UK are in trouble. Big trouble with pound signs.
 Student fees are capped - Unis are paying about £3K a year to teach each student

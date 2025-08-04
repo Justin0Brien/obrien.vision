@@ -6,7 +6,7 @@ categories: [higher-education, academia, career]
 tags: [universities, employment, academic-jobs, uk-education, career-change]
 author: "Justin O'Brien"
 excerpt: "After spending most of my life inside universities, I find myself on the outside looking in—and I don't plan to go back any time soon. Here's why the current state of UK higher education is pushing talent away."
-image: "/assets/images/posts/2025-06-18-staying-away-from-uk-higher-education/hero-university-exit.jpg"
+image: "/assets/images/posts/2025-06-18-staying-away-from-uk-higher-education/2025-06-18/leaving-higher-education.jpg"
 ---
 
 ![Article Hero Image *Railway Station Departure Board*](/assets/images/posts/2025-06-18/leaving-higher-education.jpg)

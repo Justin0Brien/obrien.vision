@@ -6,7 +6,7 @@ categories: [higher-education, collaboration, procurement]
 tags: [university-cooperation, shared-services, UKUPC, institutional-culture, university-autonomy, cost-savings]
 excerpt: "UK universities could save £1.5 billion through collaboration, but pyramid politics and cultural feudalism keep them competing over stationery while students foot the bill."
 author: Justin O'Brien
-image: "/assets/images/posts/2025-07-10-why-cant-we-be-friends/hero-university-cooperation.jpg"
+image: "/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg"
 ---
 
 ![University buildings connected by bridges with pound signs floating between them](/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg)

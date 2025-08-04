@@ -6,7 +6,7 @@ categories: [employment, career, redundancy]
 tags: [job-search, over-50s, unemployment, career-transition, employment-statistics, professional-development]
 excerpt: "I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a freezer full of salted-caramel regret?"
 author: Justin O'Brien
-image: "/assets/images/posts/2025-07-31-beating-the-odds/hero-career-transition.jpg"
+image: "/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg"
 thumbnail: "/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg"
 ---
 

@@ -6,7 +6,7 @@ categories: [higher-education, governance, policy]
 tags: [university-ownership, charitable-status, royal-charter, governance, OfS, university-autonomy, public-benefit]
 excerpt: "Universities belong to exactly the same person who owns Stonehenge and the Shipping Forecast: nobody in particular and everyone in theory. They're magnificent, slightly aloof, and impossible to sell on eBay."
 author: Justin O'Brien
-image: "/assets/images/posts/2025-07-07-university-ownership/hero-nobody-owns-university.jpg"
+image: "/assets/images/posts/2025-07-07-university-ownership/who-owns-a-university.jpg"
 ---
 
 ![Ancient university buildings with floating "For Sale" signs crossed out, surrounded by confused estate agents](/assets/images/posts/2025-07-05-university-ownership/who-owns-university.jpg)

@@ -6,7 +6,7 @@ categories: [higher-education, privatisation, outsourcing]
 tags: [university-outsourcing, private-sector-partnerships, cost-savings, efficiency, market-forces, higher-education-policy]
 excerpt: "Fifteen years after ministers promised that private partnerships would revolutionise British higher education, we ask: who actually made any money? Spoiler alert: nobody ends up bathing in gold coins, but at least the catering's cheaper."
 author: Justin O'Brien
-image: "/assets/images/posts/2025-07-09-cheaper-easier-efficienter/hero-university-privatisation.jpg"
+image: "/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg"
 thumbnail: "/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg"
 ---
 
