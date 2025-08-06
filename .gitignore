@@ -4,6 +4,9 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 
+# Post backups (local development only)
+_posts/backup/
+
 # Ruby/Bundler
 .bundle/
 vendor/
