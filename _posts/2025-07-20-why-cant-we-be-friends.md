@@ -6,7 +6,8 @@ categories: [higher-education, collaboration, university-partnerships]
 tags: [university-cooperation, collaboration, institutional-partnerships, competition, higher-education-sector]
 excerpt: "Universities compete fiercely while claiming to collaborate generously. It's time to examine why the sector's most obvious solution—working together—remains frustratingly elusive."
 author: Justin O'Brien
-image: "https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Cooperation"
+image: "/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg"
+thumbnail: "/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg"
 ---
 
 British universities have a peculiar relationship with collaboration. They'll partner for research grants, share libraries, and even run joint degree programmes—right up until the moment they need to compete for the same students, staff, or funding. It's like watching neighbours share garden tools while simultaneously building higher fences.

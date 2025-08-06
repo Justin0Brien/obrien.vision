@@ -6,7 +6,8 @@ categories: [higher-education, corporate-language, management]
 tags: [rightsizing, corporate-jargon, university-management, redundancies, business-speak, euphemisms]
 excerpt: "When 'rightsizing' becomes the euphemism du jour for mass redundancies, you know corporate-speak has officially jumped the shark. Let's decode the jargon that's chloroforming common sense."
 author: Justin O'Brien
-image: "https://via.placeholder.com/800x400/6069c7/ffffff?text=Corporate+Jargon"
+image: "/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg"
+thumbnail: "/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg"
 ---
 
 The word "rightsizing" has slithered into British universities like a particularly obnoxious management consultant. It's the sort of term that sounds vaguely positive—after all, who could argue with making something the *right* size?—while simultaneously describing the wholesale demolition of entire departments. It's linguistic chloroform: designed to make unpleasant realities smell faintly of success rather than redundancy notices.

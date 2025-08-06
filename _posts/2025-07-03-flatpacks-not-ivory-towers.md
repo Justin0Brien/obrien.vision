@@ -7,6 +7,7 @@ tags: [university-governance, lean-management, hierarchy, administrative-bloat, 
 excerpt: "British universities have morphed into Versailles-sized palaces of PowerPoint where the managerial pyramid grows faster than academic staff. Time to flatten the hierarchy and trust the people who can actually spell phenomenology."
 author: Justin O'Brien
 image: "/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg"
+thumbnail: "/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg"
 ---
 
 ![Split image: traditional university pyramid structure crumbling into flat, collaborative workspace blocks](/assets/images/posts/2025-07-10-flatpacks-not-ivory-towers/house-of-cards.jpg)

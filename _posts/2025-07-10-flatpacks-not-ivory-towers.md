@@ -6,7 +6,8 @@ categories: [higher-education, university-structure, organizational-design]
 tags: [university-organization, modular-design, institutional-efficiency, academic-structure, organizational-flexibility]
 excerpt: "Universities are built like medieval cathedrals when they should be assembled like flatpack furniture. Modular, efficient, and possible to rebuild when you inevitably lose the instructions."
 author: Justin O'Brien
-image: "https://via.placeholder.com/800x400/6069c7/ffffff?text=Modular+Universities"
+image: "/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg"
+thumbnail: "/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg"
 ---
 
 Universities are constructed like medieval cathedrals: magnificent, permanent, and requiring decades to build. But perhaps it's time to embrace the IKEA approach: modular components, clear instructions, and the ability to disassemble and rebuild when circumstances change.

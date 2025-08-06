@@ -7,6 +7,7 @@ tags: [UK-universities, funding-crisis, collective-procurement, shared-services,
 excerpt: "Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification."
 author: Justin O'Brien
 image: "/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg"
+thumbnail: "/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg"
 ---
 
 ![University buildings with financial charts overlay](/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg)

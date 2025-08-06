@@ -7,6 +7,7 @@ tags: [business-jargon, rightsizing, university-cuts, corporate-speak, euphemism
 excerpt: "67 UK universities have redundancy schemes running, but they're calling it 'rightsizing.' It's time to sack the euphemism and interrogate the plan."
 author: Justin O'Brien
 image: "/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg"
+thumbnail: "/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg"
 ---
 
 ![Corporate buzzword cloud dissolving into a clear, plain English dictionary](/assets/images/posts/2025-07-15-rightsizing-rant/rightsizing.jpg)

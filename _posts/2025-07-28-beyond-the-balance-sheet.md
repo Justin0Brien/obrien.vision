@@ -6,7 +6,8 @@ categories: [higher-education, university-strategy, public-value]
 tags: [university-business-model, SROI, social-return-investment, public-good, UK-universities, university-finance]
 excerpt: "Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins."
 author: Justin O'Brien
-image: "https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Strategy"
+image: "/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg"
+thumbnail: "/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg"
 ---
 
 Calling a university's strategy its "business model" is a bit like calling the Royal Opera House a karaoke bar— both involve singing for money, but that's where the resemblance ends. Yes, the UK sector's fiscal plumbing is hissing ominously, but the 'business model' mantra pares back a sprawling public-good ecosystem until it resembles someone trying to fund science with a primary-school bake sale.

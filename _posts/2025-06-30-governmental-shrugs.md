@@ -6,10 +6,11 @@ categories: [higher-education, government-policy, economic-priorities]
 tags: [university-funding, job-losses, government-response, economic-policy, UK-priorities, car-industry]
 excerpt: "Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others."
 author: Justin O'Brien
-# image: "/assets/images/posts/2025-06-30-governmental-shrugs/hero-shrugging-politician.jpg"
+image: "/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg"
+thumbnail: "/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg"
 ---
 
-<!-- ![Politician shrugging while university buildings crumble in background](/assets/images/posts/2025-07-25-governmental-shrugs/hero-shrugging-politician.jpg) -->
+![Government priorities comparison between university funding and car industry support](/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg)
 
 At British universities, 2025 is shaping up to be the year when 10,000 academic, technical and professional posts toddle off towards the Jobcentre, waving their P45s like tear-stained handkerchiefs. Westminster's response has been a philosophical shrug tucked inside the well-rehearsed line that universities are "independent organisations" that really ought to jolly well clean up their own mess. By contrast, the merest newspaper flutter suggesting Lotus might moth-ball its Norfolk factory (all 1,300 jobs of it) prompted the Business Secretary to speed-dial the Chinese owners, after which the company dutifully announced that of course it wasn't going anywhere, thank you very much. Apparently some independent organisations are more independent than others.
 
