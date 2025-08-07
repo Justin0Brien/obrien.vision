@@ -1,0 +1,16 @@
+{
+    "name": "obrien.vision",
+    "short_name": "obrien.vision",
+    "description": "Justin O'Brien - Psychology, Vision Science, and Trustworthy AI",
+    "icons": [
+        {
+            "src": "/assets/icons/icon-base.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ],
+    "theme_color": "#6069c7",
+    "background_color": "#ffffff",
+    "display": "minimal-ui",
+    "start_url": "/"
+}

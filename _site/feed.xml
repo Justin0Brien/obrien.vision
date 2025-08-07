@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-08-06T16:54:31+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4001/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4001/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-08-07T16:50:45+01:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Justin O’Brien</title><subtitle>Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.</subtitle><entry><title type="html">Test Post</title><link href="http://localhost:4000/2025/08/07/test-post/" rel="alternate" type="text/html" title="Test Post" /><published>2025-08-07T00:00:00+01:00</published><updated>2025-08-07T00:00:00+01:00</updated><id>http://localhost:4000/2025/08/07/test-post</id><content type="html" xml:base="http://localhost:4000/2025/08/07/test-post/"><![CDATA[<p>title: ‘Test Post: Automated Processing Pipeline’
+date: 2025-08-07
+categories:</p>
+<ul>
+  <li>test</li>
+  <li>automation
+tags:</li>
+  <li>jekyll</li>
+  <li>automation</li>
+  <li>images</li>
+  <li>workflow
+excerpt: Testing the automated post processing pipeline for obrien.vision
+—
+    <h1 id="test-post-automated-processing">Test Post: Automated Processing</h1>
+  </li>
+</ul>
+
+<p>This is a test post to demonstrate the automated processing pipeline for obrien.vision.</p>
+
+<h2 id="what-this-system-does">What This System Does</h2>
+
+<p>The automated processing script should:</p>
+
+<ul>
+  <li>Move this file to <code class="language-plaintext highlighter-rouge">_posts/</code> with proper date-based naming</li>
+  <li>Add the correct frontmatter for images and thumbnails</li>
+  <li>Process any images in this directory into web and thumbnail versions</li>
+  <li>Create the proper directory structure for assets</li>
+  <li>Clean up the source files after processing</li>
+</ul>
+
+<h2 id="features-being-tested">Features Being Tested</h2>
+
+<h3 id="file-processing">File Processing</h3>
+<ul>
+  <li>Frontmatter preservation and enhancement</li>
+  <li>Markdown content preservation</li>
+  <li>Date-based filename generation</li>
+</ul>
+
+<h3 id="image-handling">Image Handling</h3>
+<ul>
+  <li>Automatic hero image detection</li>
+  <li>Thumbnail generation</li>
+  <li>Proper asset organization</li>
+  <li>Path reference updates</li>
+</ul>
+
+<h3 id="workflow-integration">Workflow Integration</h3>
+<ul>
+  <li>Seamless Jekyll integration</li>
+  <li>Clean file organization</li>
+  <li>Error handling and recovery</li>
+</ul>
+
+<h2 id="benefits">Benefits</h2>
+
+<p>This system will significantly streamline the blog posting workflow by:</p>
+
+<ol>
+  <li><strong>Eliminating manual file organization</strong></li>
+  <li><strong>Automating image processing and optimization</strong></li>
+  <li><strong>Ensuring consistent frontmatter structure</strong></li>
+  <li><strong>Creating proper thumbnail versions automatically</strong></li>
+  <li><strong>Maintaining clean asset organization</strong></li>
+</ol>
+
+<p>The goal is to make publishing new content as simple as dropping files in a folder and running a single command!</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<p>Once this test works correctly, we can enhance the system with:</p>
+<ul>
+  <li>ImageMagick integration for image optimization</li>
+  <li>Automatic watermarking</li>
+  <li>EXIF metadata management</li>
+  <li>Advanced resizing and compression</li>
+</ul>
+
+<p>Let’s see how it works!</p>]]></content><author><name>Justin O'Brien</name></author><summary type="html"><![CDATA[title: ‘Test Post: Automated Processing Pipeline’ date: 2025-08-07 categories: test automation tags: jekyll automation images workflow excerpt: Testing the automated post processing pipeline for obrien.vision — Test Post: Automated Processing]]></summary></entry><entry><title type="html">Visualizing Career Transitions: The Story Behind the Sankey Diagram</title><link href="http://localhost:4000/2025/08/01/visualizing-career-transitions/" rel="alternate" type="text/html" title="Visualizing Career Transitions: The Story Behind the Sankey Diagram" /><published>2025-08-01T11:00:00+01:00</published><updated>2025-08-01T11:00:00+01:00</updated><id>http://localhost:4000/2025/08/01/visualizing-career-transitions</id><content type="html" xml:base="http://localhost:4000/2025/08/01/visualizing-career-transitions/"><![CDATA[<h1 id="visualizing-career-transitions-the-story-behind-the-sankey-diagram">Visualizing Career Transitions: The Story Behind the Sankey Diagram</h1>
 
 <p>When I set out to visualize employment outcomes for professionals aged 50+ following redundancy, I knew the story was complex. Unlike a simple before-and-after comparison, career transitions unfold over time, with multiple pathways and outcomes that shift as months pass.</p>
 
@@ -96,7 +175,7 @@
 
 <hr />
 
-<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O'Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary></entry><entry><title type="html">Fixing Universities: A Collective Approach to Financial Crisis</title><link href="http://localhost:4001/2025/08/01/fixing-universities/" rel="alternate" type="text/html" title="Fixing Universities: A Collective Approach to Financial Crisis" /><published>2025-08-01T00:00:00+01:00</published><updated>2025-08-01T00:00:00+01:00</updated><id>http://localhost:4001/2025/08/01/fixing-universities</id><content type="html" xml:base="http://localhost:4001/2025/08/01/fixing-universities/"><![CDATA[<p>Universities in the UK are in trouble. Big trouble with pound signs.
+<p><em>Interested in commissioning similar visualizations or discussing employment data analysis? <a href="/contact/">Get in touch</a> to explore collaboration opportunities.</em></p>]]></content><author><name>Justin O'Brien</name></author><category term="data-visualization" /><category term="employment" /><category term="sankey-diagram" /><category term="d3js" /><category term="career-transitions" /><category term="unemployment" /><summary type="html"><![CDATA[Exploring the design decisions and data insights behind the interactive Sankey diagram showing employment outcomes for professionals aged 50+ after redundancy.]]></summary></entry><entry><title type="html">Fixing Universities: A Collective Approach to Financial Crisis</title><link href="http://localhost:4000/2025/08/01/fixing-universities/" rel="alternate" type="text/html" title="Fixing Universities: A Collective Approach to Financial Crisis" /><published>2025-08-01T00:00:00+01:00</published><updated>2025-08-01T00:00:00+01:00</updated><id>http://localhost:4000/2025/08/01/fixing-universities</id><content type="html" xml:base="http://localhost:4000/2025/08/01/fixing-universities/"><![CDATA[<p>Universities in the UK are in trouble. Big trouble with pound signs.
 Student fees are capped - Unis are paying about £3K a year to teach each student
 Research is underfunded. Grants pay only about 70 pence of every research pound. Universities are funding their own research.
 The once great bastions of soft power, stricter visa regulations have put off international students.</p>
@@ -151,7 +230,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <p>With all these savings, even in the current crisis in UK HE, there would have been no need for compulsory redundancies. None at all.</p>
 
-<p>It’s too late to save me. But I’d like to think that lessons could be learned. Go out there and make this happen, people!</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-finance" /><category term="collaboration" /><category term="UK-universities" /><category term="funding-crisis" /><category term="collective-procurement" /><category term="shared-services" /><category term="education-policy" /><category term="institutional-efficiency" /><summary type="html"><![CDATA[Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beating The Odds: Four Months in Mid-Life Employment Limbo</title><link href="http://localhost:4001/2025/07/31/beating-the-odds/" rel="alternate" type="text/html" title="Beating The Odds: Four Months in Mid-Life Employment Limbo" /><published>2025-07-31T00:00:00+01:00</published><updated>2025-07-31T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/31/beating-the-odds</id><content type="html" xml:base="http://localhost:4001/2025/07/31/beating-the-odds/"><![CDATA[<p><img src="/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" alt="Professional looking person with graphs and career pathway charts in background" /></p>
+<p>It’s too late to save me. But I’d like to think that lessons could be learned. Go out there and make this happen, people!</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-finance" /><category term="collaboration" /><category term="UK-universities" /><category term="funding-crisis" /><category term="collective-procurement" /><category term="shared-services" /><category term="education-policy" /><category term="institutional-efficiency" /><summary type="html"><![CDATA[Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beating The Odds: Four Months in Mid-Life Employment Limbo</title><link href="http://localhost:4000/2025/07/31/beating-the-odds/" rel="alternate" type="text/html" title="Beating The Odds: Four Months in Mid-Life Employment Limbo" /><published>2025-07-31T00:00:00+01:00</published><updated>2025-07-31T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/31/beating-the-odds</id><content type="html" xml:base="http://localhost:4000/2025/07/31/beating-the-odds/"><![CDATA[<p><img src="/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" alt="Professional looking person with graphs and career pathway charts in background" /></p>
 
 <h2 id="four-months-in-mid-life-employment-limbo">Four Months in Mid-Life Employment Limbo</h2>
 
@@ -239,7 +318,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
     <p>Office for National Statistics, Dataset RED02: Redundancies by age, industry and region – <a href="https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/redundancies/datasets/redundanciesbyindustryagesexandreemploymentratesred02">ons.gov.uk/employmentandlabourmarket</a></p>
   </li>
   <li>Office for National Statistics, Employment in the UK: July 2025 bulletin – <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/employmentintheuk/july2025">ons.gov.uk/employmentandlabourmarket</a></li>
-</ul>]]></content><author><name>Justin O'Brien</name></author><category term="employment" /><category term="career" /><category term="redundancy" /><category term="job-search" /><category term="over-50s" /><category term="unemployment" /><category term="career-transition" /><category term="employment-statistics" /><category term="professional-development" /><summary type="html"><![CDATA[I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a freezer full of salted-caramel regret?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Murder a University: A Guide to Institutional Death</title><link href="http://localhost:4001/2025/07/30/how-to-murder-a-university/" rel="alternate" type="text/html" title="How to Murder a University: A Guide to Institutional Death" /><published>2025-07-30T00:00:00+01:00</published><updated>2025-07-30T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/30/how-to-murder-a-university</id><content type="html" xml:base="http://localhost:4001/2025/07/30/how-to-murder-a-university/"><![CDATA[<p>In recent posts I’ve already skipped indelicately through Britain’s higher-education money-pit, tutted at missed savings, and poked the soggy bits of management. “Cheer up,” I promised. So naturally it’s time to talk about death. Not yours, happily, but the demise of an entire university – a topic so bleak it makes actuarial tables look frisky.</p>
+</ul>]]></content><author><name>Justin O'Brien</name></author><category term="employment" /><category term="career" /><category term="redundancy" /><category term="job-search" /><category term="over-50s" /><category term="unemployment" /><category term="career-transition" /><category term="employment-statistics" /><category term="professional-development" /><summary type="html"><![CDATA[I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a freezer full of salted-caramel regret?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">How to Murder a University: A Guide to Institutional Death</title><link href="http://localhost:4000/2025/07/30/how-to-murder-a-university/" rel="alternate" type="text/html" title="How to Murder a University: A Guide to Institutional Death" /><published>2025-07-30T00:00:00+01:00</published><updated>2025-07-30T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/30/how-to-murder-a-university</id><content type="html" xml:base="http://localhost:4000/2025/07/30/how-to-murder-a-university/"><![CDATA[<p>In recent posts I’ve already skipped indelicately through Britain’s higher-education money-pit, tutted at missed savings, and poked the soggy bits of management. “Cheer up,” I promised. So naturally it’s time to talk about death. Not yours, happily, but the demise of an entire university – a topic so bleak it makes actuarial tables look frisky.</p>
 
 <h2 id="the-impossible-dream-of-university-death">The Impossible Dream of University Death</h2>
 
@@ -324,7 +403,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <p>In practice, university “death” is more often a transformation into something unrecognizable than actual closure. The institution may survive, but its soul—the ability to provide quality education and research—may be long gone.</p>
 
-<p>Perhaps the real question isn’t how to kill a university, but how to keep it truly alive. In an era of financial pressure and political interference, that might be the greater challenge.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-governance" /><category term="insolvency" /><category term="university-closure" /><category term="OfS-regulation" /><category term="insolvency-law" /><category term="student-protection" /><category term="UK-universities" /><category term="institutional-failure" /><summary type="html"><![CDATA[A UK university cannot simply press CTRL-ALT-DELETE and vanish. Here's what actually happens when institutions reach the end of the financial road.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Closure" /><media:content medium="image" url="https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Closure" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beyond the Balance Sheet: Why UK Universities Need a Busyness Model</title><link href="http://localhost:4001/2025/07/28/beyond-the-balance-sheet/" rel="alternate" type="text/html" title="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" /><published>2025-07-28T00:00:00+01:00</published><updated>2025-07-28T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/28/beyond-the-balance-sheet</id><content type="html" xml:base="http://localhost:4001/2025/07/28/beyond-the-balance-sheet/"><![CDATA[<p>Calling a university’s strategy its “business model” is a bit like calling the Royal Opera House a karaoke bar— both involve singing for money, but that’s where the resemblance ends. Yes, the UK sector’s fiscal plumbing is hissing ominously, but the ‘business model’ mantra pares back a sprawling public-good ecosystem until it resembles someone trying to fund science with a primary-school bake sale.</p>
+<p>Perhaps the real question isn’t how to kill a university, but how to keep it truly alive. In an era of financial pressure and political interference, that might be the greater challenge.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-governance" /><category term="insolvency" /><category term="university-closure" /><category term="OfS-regulation" /><category term="insolvency-law" /><category term="student-protection" /><category term="UK-universities" /><category term="institutional-failure" /><summary type="html"><![CDATA[A UK university cannot simply press CTRL-ALT-DELETE and vanish. Here's what actually happens when institutions reach the end of the financial road.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Closure" /><media:content medium="image" url="https://via.placeholder.com/800x400/6069c7/ffffff?text=University+Closure" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beyond the Balance Sheet: Why UK Universities Need a Busyness Model</title><link href="http://localhost:4000/2025/07/28/beyond-the-balance-sheet/" rel="alternate" type="text/html" title="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" /><published>2025-07-28T00:00:00+01:00</published><updated>2025-07-28T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/28/beyond-the-balance-sheet</id><content type="html" xml:base="http://localhost:4000/2025/07/28/beyond-the-balance-sheet/"><![CDATA[<p>Calling a university’s strategy its “business model” is a bit like calling the Royal Opera House a karaoke bar— both involve singing for money, but that’s where the resemblance ends. Yes, the UK sector’s fiscal plumbing is hissing ominously, but the ‘business model’ mantra pares back a sprawling public-good ecosystem until it resembles someone trying to fund science with a primary-school bake sale.</p>
 
 <h2 id="the-problem-with-business-models">The Problem with Business Models</h2>
 
@@ -418,7 +497,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <p>The goal should not be to run universities like businesses, but to run them like the complex, valuable public institutions they are. That requires different metrics, different timeframes, and different definitions of success.</p>
 
-<p>After all, the best universities have never been about efficiency—they’ve been about effectiveness at transforming both individuals and society. That’s a kind of busyness worth investing in.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-strategy" /><category term="public-value" /><category term="university-business-model" /><category term="SROI" /><category term="social-return-investment" /><category term="public-good" /><category term="UK-universities" /><category term="university-finance" /><summary type="html"><![CDATA[Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Governmental Shrugs: When Car Factories Matter More Than Universities</title><link href="http://localhost:4001/2025/07/25/governmental-shrugs/" rel="alternate" type="text/html" title="Governmental Shrugs: When Car Factories Matter More Than Universities" /><published>2025-07-25T00:00:00+01:00</published><updated>2025-07-25T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/25/governmental-shrugs</id><content type="html" xml:base="http://localhost:4001/2025/07/25/governmental-shrugs/"><![CDATA[<p>At British universities, 2025 is shaping up to be the year when 10,000 academic, technical and professional posts toddle off towards the Jobcentre, waving their P45s like tear-stained handkerchiefs. Westminster’s response has been a philosophical shrug tucked inside the well-rehearsed line that universities are “independent organisations” that really ought to jolly well clean up their own mess. By contrast, the merest newspaper flutter suggesting Lotus might moth-ball its Norfolk factory (all 1,300 jobs of it) prompted the Business Secretary to speed-dial the Chinese owners, after which the company dutifully announced that of course it wasn’t going anywhere, thank you very much. Apparently some independent organisations are more independent than others.</p>
+<p>After all, the best universities have never been about efficiency—they’ve been about effectiveness at transforming both individuals and society. That’s a kind of busyness worth investing in.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-strategy" /><category term="public-value" /><category term="university-business-model" /><category term="SROI" /><category term="social-return-investment" /><category term="public-good" /><category term="UK-universities" /><category term="university-finance" /><summary type="html"><![CDATA[Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Governmental Shrugs: When Car Factories Matter More Than Universities</title><link href="http://localhost:4000/2025/07/25/governmental-shrugs/" rel="alternate" type="text/html" title="Governmental Shrugs: When Car Factories Matter More Than Universities" /><published>2025-07-25T00:00:00+01:00</published><updated>2025-07-25T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/25/governmental-shrugs</id><content type="html" xml:base="http://localhost:4000/2025/07/25/governmental-shrugs/"><![CDATA[<p>At British universities, 2025 is shaping up to be the year when 10,000 academic, technical and professional posts toddle off towards the Jobcentre, waving their P45s like tear-stained handkerchiefs. Westminster’s response has been a philosophical shrug tucked inside the well-rehearsed line that universities are “independent organisations” that really ought to jolly well clean up their own mess. By contrast, the merest newspaper flutter suggesting Lotus might moth-ball its Norfolk factory (all 1,300 jobs of it) prompted the Business Secretary to speed-dial the Chinese owners, after which the company dutifully announced that of course it wasn’t going anywhere, thank you very much. Apparently some independent organisations are more independent than others.</p>
 
 <h2 id="a-crisis-in-ten-thousand-lessons">A Crisis in Ten Thousand Lessons</h2>
 
@@ -470,7 +549,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <h2 id="closing-thoughts-a-polite-suggestion">Closing Thoughts: A Polite Suggestion</h2>
 
-<p>If 10,000 university jobs do vanish this year, imagine the ministerial switchboard lit up with as many calls as Norfolk enjoyed last weekend. Until then, campus leaders might consider relocating to a disused airfield, painting everything British-Racing-Green and applying for a small but tasteful government rescue package. Stranger things have certainly received a ministerial phone-call.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="government-policy" /><category term="economic-priorities" /><category term="university-funding" /><category term="job-losses" /><category term="government-response" /><category term="economic-policy" /><category term="UK-priorities" /><category term="car-industry" /><summary type="html"><![CDATA[Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ethics in Artificial Intelligence: Yes, There Is a Problem</title><link href="http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence/" rel="alternate" type="text/html" title="Ethics in Artificial Intelligence: Yes, There Is a Problem" /><published>2025-07-23T00:00:00+01:00</published><updated>2025-07-23T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence</id><content type="html" xml:base="http://localhost:4001/2025/07/23/ethics-in-artificial-intelligence/"><![CDATA[<p><img src="/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" alt="Abstract visualization of AI neural networks with ethical scales and human silhouettes" /></p>
+<p>If 10,000 university jobs do vanish this year, imagine the ministerial switchboard lit up with as many calls as Norfolk enjoyed last weekend. Until then, campus leaders might consider relocating to a disused airfield, painting everything British-Racing-Green and applying for a small but tasteful government rescue package. Stranger things have certainly received a ministerial phone-call.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="government-policy" /><category term="economic-priorities" /><category term="university-funding" /><category term="job-losses" /><category term="government-response" /><category term="economic-policy" /><category term="UK-priorities" /><category term="car-industry" /><summary type="html"><![CDATA[Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Ethics in Artificial Intelligence: Yes, There Is a Problem</title><link href="http://localhost:4000/2025/07/23/ethics-in-artificial-intelligence/" rel="alternate" type="text/html" title="Ethics in Artificial Intelligence: Yes, There Is a Problem" /><published>2025-07-23T00:00:00+01:00</published><updated>2025-07-23T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/23/ethics-in-artificial-intelligence</id><content type="html" xml:base="http://localhost:4000/2025/07/23/ethics-in-artificial-intelligence/"><![CDATA[<p><img src="/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" alt="Abstract visualization of AI neural networks with ethical scales and human silhouettes" /></p>
 
 <h2 id="a-clear-and-candid-guide-to-ai-ethics">A Clear and Candid Guide to AI Ethics</h2>
 
@@ -869,7 +948,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
       <p>Oversight and transparency mandates <a href="#fnref:66" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>Justin O'Brien</name></author><category term="artificial-intelligence" /><category term="ethics" /><category term="technology" /><category term="ai-ethics" /><category term="machine-learning" /><category term="bias" /><category term="surveillance" /><category term="automation" /><category term="regulation" /><category term="environmental-impact" /><category term="copyright" /><summary type="html"><![CDATA[Artificial intelligence has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they're the reason you're reading this article instead of a holiday brochure.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Why Can’t We Be Friends? The University Collaboration Paradox</title><link href="http://localhost:4001/2025/07/20/why-cant-we-be-friends/" rel="alternate" type="text/html" title="Why Can’t We Be Friends? The University Collaboration Paradox" /><published>2025-07-20T00:00:00+01:00</published><updated>2025-07-20T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/20/why-cant-we-be-friends</id><content type="html" xml:base="http://localhost:4001/2025/07/20/why-cant-we-be-friends/"><![CDATA[<p>British universities have a peculiar relationship with collaboration. They’ll partner for research grants, share libraries, and even run joint degree programmes—right up until the moment they need to compete for the same students, staff, or funding. It’s like watching neighbours share garden tools while simultaneously building higher fences.</p>
+</div>]]></content><author><name>Justin O'Brien</name></author><category term="artificial-intelligence" /><category term="ethics" /><category term="technology" /><category term="ai-ethics" /><category term="machine-learning" /><category term="bias" /><category term="surveillance" /><category term="automation" /><category term="regulation" /><category term="environmental-impact" /><category term="copyright" /><summary type="html"><![CDATA[Artificial intelligence has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they're the reason you're reading this article instead of a holiday brochure.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Why Can’t We Be Friends? The University Collaboration Paradox</title><link href="http://localhost:4000/2025/07/20/why-cant-we-be-friends/" rel="alternate" type="text/html" title="Why Can’t We Be Friends? The University Collaboration Paradox" /><published>2025-07-20T00:00:00+01:00</published><updated>2025-07-20T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/20/why-cant-we-be-friends</id><content type="html" xml:base="http://localhost:4000/2025/07/20/why-cant-we-be-friends/"><![CDATA[<p>British universities have a peculiar relationship with collaboration. They’ll partner for research grants, share libraries, and even run joint degree programmes—right up until the moment they need to compete for the same students, staff, or funding. It’s like watching neighbours share garden tools while simultaneously building higher fences.</p>
 
 <h2 id="the-collaboration-paradox">The Collaboration Paradox</h2>
 
@@ -922,7 +1001,7 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <p>Universities are better together—when they remember that their real competition isn’t each other, but irrelevance. Perhaps it’s time to turn those mission statement promises into actual policies.</p>
 
-<p>After all, in an uncertain world, the best institutional strategy might just be having good friends.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="collaboration" /><category term="university-partnerships" /><category term="university-cooperation" /><category term="collaboration" /><category term="institutional-partnerships" /><category term="competition" /><category term="higher-education-sector" /><summary type="html"><![CDATA[Universities compete fiercely while claiming to collaborate generously. It's time to examine why the sector's most obvious solution—working together—remains frustratingly elusive.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">The Rightsizing Rant: When Corporate Jargon Eats Reality</title><link href="http://localhost:4001/2025/07/15/rightsizing-rant/" rel="alternate" type="text/html" title="The Rightsizing Rant: When Corporate Jargon Eats Reality" /><published>2025-07-15T00:00:00+01:00</published><updated>2025-07-15T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/15/rightsizing-rant</id><content type="html" xml:base="http://localhost:4001/2025/07/15/rightsizing-rant/"><![CDATA[<p>The word “rightsizing” has slithered into British universities like a particularly obnoxious management consultant. It’s the sort of term that sounds vaguely positive—after all, who could argue with making something the <em>right</em> size?—while simultaneously describing the wholesale demolition of entire departments. It’s linguistic chloroform: designed to make unpleasant realities smell faintly of success rather than redundancy notices.</p>
+<p>After all, in an uncertain world, the best institutional strategy might just be having good friends.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="collaboration" /><category term="university-partnerships" /><category term="university-cooperation" /><category term="collaboration" /><category term="institutional-partnerships" /><category term="competition" /><category term="higher-education-sector" /><summary type="html"><![CDATA[Universities compete fiercely while claiming to collaborate generously. It's time to examine why the sector's most obvious solution—working together—remains frustratingly elusive.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">The Rightsizing Rant: When Corporate Jargon Eats Reality</title><link href="http://localhost:4000/2025/07/15/rightsizing-rant/" rel="alternate" type="text/html" title="The Rightsizing Rant: When Corporate Jargon Eats Reality" /><published>2025-07-15T00:00:00+01:00</published><updated>2025-07-15T00:00:00+01:00</updated><id>http://localhost:4000/2025/07/15/rightsizing-rant</id><content type="html" xml:base="http://localhost:4000/2025/07/15/rightsizing-rant/"><![CDATA[<p>The word “rightsizing” has slithered into British universities like a particularly obnoxious management consultant. It’s the sort of term that sounds vaguely positive—after all, who could argue with making something the <em>right</em> size?—while simultaneously describing the wholesale demolition of entire departments. It’s linguistic chloroform: designed to make unpleasant realities smell faintly of success rather than redundancy notices.</p>
 
 <h2 id="the-euphemism-treadmill">The Euphemism Treadmill</h2>
 
@@ -980,93 +1059,4 @@ The university should have “autonomy” to choose between say Moodle, Blackboa
 
 <p>If universities must shrink, they should at least have the courtesy to call it what it is. Rightsizing is corporate-speak designed to make administrators feel better about difficult decisions while making everyone else feel like they’re living in a dystopian novel where words have been drained of meaning.</p>
 
-<p>The next time someone mentions rightsizing, ask them to translate. You might be surprised by what you find lurking beneath the jargon.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="corporate-language" /><category term="management" /><category term="rightsizing" /><category term="corporate-jargon" /><category term="university-management" /><category term="redundancies" /><category term="business-speak" /><category term="euphemisms" /><summary type="html"><![CDATA[When 'rightsizing' becomes the euphemism du jour for mass redundancies, you know corporate-speak has officially jumped the shark. Let's decode the jargon that's chloroforming common sense.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Flatpacks Not Ivory Towers: Why Universities Should Be Built Like IKEA Furniture</title><link href="http://localhost:4001/2025/07/10/flatpacks-not-ivory-towers/" rel="alternate" type="text/html" title="Flatpacks Not Ivory Towers: Why Universities Should Be Built Like IKEA Furniture" /><published>2025-07-10T00:00:00+01:00</published><updated>2025-07-10T00:00:00+01:00</updated><id>http://localhost:4001/2025/07/10/flatpacks-not-ivory-towers</id><content type="html" xml:base="http://localhost:4001/2025/07/10/flatpacks-not-ivory-towers/"><![CDATA[<p>Universities are constructed like medieval cathedrals: magnificent, permanent, and requiring decades to build. But perhaps it’s time to embrace the IKEA approach: modular components, clear instructions, and the ability to disassemble and rebuild when circumstances change.</p>
-
-<h2 id="the-cathedral-model-vs-the-flatpack-approach">The Cathedral Model vs. The Flatpack Approach</h2>
-
-<p><strong>Traditional Universities (The Cathedral):</strong></p>
-<ul>
-  <li>Permanent departments carved in administrative stone</li>
-  <li>Hierarchical structures that haven’t changed since the 1960s</li>
-  <li>Massive overhead for specialized functions</li>
-  <li>Nearly impossible to reorganize without institutional trauma</li>
-</ul>
-
-<p><strong>Flatpack Universities (The IKEA Model):</strong></p>
-<ul>
-  <li>Flexible, reconfigurable academic units</li>
-  <li>Shared services across multiple functions</li>
-  <li>Rapid assembly and disassembly as needed</li>
-  <li>Clear instructions for organizational change</li>
-</ul>
-
-<h2 id="the-modular-advantage">The Modular Advantage</h2>
-
-<p><strong>Academic Modules:</strong> Instead of fixed departments, universities could operate with flexible academic clusters that form and reform based on research needs and student demand.</p>
-
-<p><strong>Service Modules:</strong> Shared administrative functions across institutions—HR, finance, IT—that can be plugged in as needed.</p>
-
-<p><strong>Infrastructure Modules:</strong> Physical and digital resources that can be scaled up or down without massive capital investment.</p>
-
-<h2 id="case-study-the-stuck-drawer-problem">Case Study: The Stuck Drawer Problem</h2>
-
-<p>Every IKEA veteran knows the frustration of a drawer that won’t slide properly. Universities have the same problem: departments that don’t fit together, services that can’t communicate, and processes that jam under pressure.</p>
-
-<p>The difference is that with flatpack furniture, you can take it apart and reassemble it correctly. Universities prefer to live with the stuck drawer for decades.</p>
-
-<h2 id="the-assembly-instructions-universities-need">The Assembly Instructions Universities Need</h2>
-
-<ol>
-  <li>
-    <p><strong>Standardized Interfaces:</strong> Like USB ports, university systems should connect easily with minimal adaptation.</p>
-  </li>
-  <li>
-    <p><strong>Plug-and-Play Partnerships:</strong> Collaborations should be as simple as connecting two IKEA units with the standard fixtures.</p>
-  </li>
-  <li>
-    <p><strong>User-Friendly Manuals:</strong> University processes should be comprehensible to people who didn’t design them.</p>
-  </li>
-  <li>
-    <p><strong>Quality Control:</strong> Regular checks to ensure all components are working as intended.</p>
-  </li>
-</ol>
-
-<h2 id="why-this-matters">Why This Matters</h2>
-
-<p>The current model forces universities to choose between:</p>
-<ul>
-  <li>Maintaining expensive, underused specialized functions</li>
-  <li>Outsourcing everything to private companies</li>
-  <li>Going without essential services</li>
-</ul>
-
-<p>A modular approach offers a third option: sharing high-quality services across multiple institutions while maintaining institutional identity.</p>
-
-<h2 id="the-swedish-paradox">The Swedish Paradox</h2>
-
-<p>IKEA succeeds by combining standardization with personalization. You get standard components but arrange them to suit your space and needs. Universities could learn from this: shared back-office functions combined with distinctive academic missions.</p>
-
-<h2 id="objections-and-allen-keys">Objections and Allen Keys</h2>
-
-<p><strong>“But universities aren’t furniture!”</strong> True, but they are organizations, and organizations benefit from thoughtful design principles.</p>
-
-<p><strong>“Academic freedom requires independence!”</strong> Shared administrative services don’t threaten academic freedom any more than shared electricity providers threaten your choice of reading lamp.</p>
-
-<p><strong>“This will create bland uniformity!”</strong> IKEA somehow manages to supply millions of homes while allowing individual expression. Universities could do the same.</p>
-
-<h2 id="implementation-some-assembly-required">Implementation: Some Assembly Required</h2>
-
-<p>The transition wouldn’t happen overnight, but universities could start with:</p>
-
-<ul>
-  <li>Pilot shared service programs</li>
-  <li>Standardized interfaces between systems</li>
-  <li>Modular degree program design</li>
-  <li>Cross-institutional staff mobility</li>
-</ul>
-
-<h2 id="conclusion-instructions-included">Conclusion: Instructions Included</h2>
-
-<p>The university sector’s problems aren’t unsolvable—they’re assembly problems. The pieces exist; they just need to be put together more thoughtfully.</p>
-
-<p>And unlike actual IKEA furniture, universities don’t come with a little bag of spare screws. They have to create their own.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="university-structure" /><category term="organizational-design" /><category term="university-organization" /><category term="modular-design" /><category term="institutional-efficiency" /><category term="academic-structure" /><category term="organizational-flexibility" /><summary type="html"><![CDATA[Universities are built like medieval cathedrals when they should be assembled like flatpack furniture. Modular, efficient, and possible to rebuild when you inevitably lose the instructions.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4001/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg" /><media:content medium="image" url="http://localhost:4001/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p>The next time someone mentions rightsizing, ask them to translate. You might be surprised by what you find lurking beneath the jargon.</p>]]></content><author><name>Justin O'Brien</name></author><category term="higher-education" /><category term="corporate-language" /><category term="management" /><category term="rightsizing" /><category term="corporate-jargon" /><category term="university-management" /><category term="redundancies" /><category term="business-speak" /><category term="euphemisms" /><summary type="html"><![CDATA[When 'rightsizing' becomes the euphemism du jour for mass redundancies, you know corporate-speak has officially jumped the shark. Let's decode the jargon that's chloroforming common sense.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
