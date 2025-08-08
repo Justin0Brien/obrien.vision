@@ -1,0 +1,277 @@
+---
+layout: default
+---
+
+<article class="illusion">
+  <header class="illusion-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.featured %}
+      <span class="featured-badge">Featured Illusion</span>
+    {% endif %}
+    <div class="illusion-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
+      {% if page.illusion_type %}
+        <span class="illusion-type">{{ page.illusion_type }}</span>
+      {% endif %}
+    </div>
+    {% if page.description %}
+      <p class="illusion-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  {% if page.warning %}
+  <div class="warning-notice">
+    <strong>⚠️ Warning:</strong> {{ page.warning }}
+  </div>
+  {% endif %}
+
+  <div class="illusion-container">
+    {% if page.iframe_src %}
+      <iframe src="{{ page.iframe_src | relative_url }}" 
+              width="{{ page.iframe_width | default: '100%' }}" 
+              height="{{ page.iframe_height | default: '600' }}" 
+              frameborder="0" 
+              class="illusion-iframe">
+      </iframe>
+    {% endif %}
+
+    {% if page.images %}
+    <div class="illusion-gallery">
+      {% for image in page.images %}
+        <div class="illusion-image">
+          <img src="{{ image.src | relative_url }}" 
+               alt="{{ image.alt | default: page.title }}"
+               {% if image.interactive %}onclick="toggleIllusionEffect(this)"{% endif %}>
+          {% if image.caption %}
+            <p class="image-caption">{{ image.caption }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="illusion-content">
+      {{ content }}
+    </div>
+  </div>
+
+  {% if page.controls %}
+  <div class="illusion-controls">
+    <h3>Interactive Controls</h3>
+    <div class="controls-container">
+      {% for control in page.controls %}
+        {% case control.type %}
+        {% when 'slider' %}
+          <div class="control-group">
+            <label for="{{ control.id }}">{{ control.label }}</label>
+            <input type="range" 
+                   id="{{ control.id }}" 
+                   min="{{ control.min | default: 0 }}" 
+                   max="{{ control.max | default: 100 }}" 
+                   value="{{ control.default | default: 50 }}"
+                   oninput="{{ control.callback }}(this.value)">
+            <span class="control-value" id="{{ control.id }}-value">{{ control.default | default: 50 }}</span>
+          </div>
+        {% when 'button' %}
+          <button class="control-button" onclick="{{ control.callback }}()">{{ control.label }}</button>
+        {% when 'checkbox' %}
+          <div class="control-group">
+            <label>
+              <input type="checkbox" 
+                     id="{{ control.id }}" 
+                     {% if control.default %}checked{% endif %}
+                     onchange="{{ control.callback }}(this.checked)">
+              {{ control.label }}
+            </label>
+          </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if page.explanation %}
+  <div class="illusion-explanation">
+    <h3>How It Works</h3>
+    <div class="explanation-content">
+      {{ page.explanation }}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if page.tags %}
+  <div class="illusion-tags">
+    {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+
+<style>
+.illusion-header {
+  margin-bottom: 2rem;
+}
+
+.featured-badge {
+  background: #dc3545;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.illusion-meta {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.illusion-type {
+  background: #ffc107;
+  color: #212529;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.illusion-description {
+  font-size: 1.125rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.warning-notice {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.illusion-container {
+  margin: 2rem 0;
+}
+
+.illusion-iframe {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.illusion-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.illusion-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.illusion-image img:hover {
+  transform: scale(1.02);
+}
+
+.image-caption {
+  font-size: 0.875rem;
+  color: #666;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.illusion-controls {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+}
+
+.controls-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 500;
+  color: #333;
+}
+
+.control-group input[type="range"] {
+  width: 100%;
+}
+
+.control-value {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.control-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.control-button:hover {
+  background: #0056b3;
+}
+
+.illusion-explanation {
+  background: #e7f3ff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
+  border-left: 4px solid #007bff;
+}
+
+.illusion-tags {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.tag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .illusion-iframe {
+    height: 400px;
+  }
+  
+  .controls-container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+function toggleIllusionEffect(img) {
+  img.style.filter = img.style.filter ? '' : 'invert(1)';
+}
+</script>

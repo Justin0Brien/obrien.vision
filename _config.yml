@@ -46,6 +46,12 @@ collections:
   projects:
     output: true
     permalink: /:collection/:name/
+  visualizations:
+    output: true
+    permalink: /:collection/:name/
+  illusions:
+    output: true
+    permalink: /:collection/:name/
 
 # Defaults
 defaults:
@@ -60,6 +66,18 @@ defaults:
       type: "projects"
     values:
       layout: "project"
+  - scope:
+      path: ""
+      type: "visualizations"
+    values:
+      layout: "visualization"
+      author: "Justin O'Brien"
+  - scope:
+      path: ""
+      type: "illusions"
+    values:
+      layout: "illusion"
+      author: "Justin O'Brien"
 
 # Image processing
 minimagick:

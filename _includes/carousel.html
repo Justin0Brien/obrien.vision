@@ -1,0 +1,41 @@
+<!-- Image Carousel Include
+Usage: {% include carousel.html images=page.carousel_images autoplay=true controls=true %}
+
+Parameters:
+- images: Array of image objects with src, alt, caption
+- autoplay: Enable autoplay (default: false)
+- controls: Show navigation controls (default: true)
+- dots: Show dot indicators (default: true)
+- interval: Autoplay interval in ms (default: 5000)
+- transition: Transition type - 'slide' or 'fade' (default: 'slide')
+-->
+
+{% assign carousel_id = include.id | default: "carousel-" | append: include.images.size | append: "-" | append: "now" | date: "%s" %}
+{% assign autoplay = include.autoplay | default: false %}
+{% assign controls = include.controls | default: true %}
+{% assign dots = include.dots | default: true %}
+{% assign interval = include.interval | default: 5000 %}
+{% assign transition = include.transition | default: "slide" %}
+
+<div class="image-carousel-container" id="{{ carousel_id }}"
+     data-carousel='{"autoplay": {{ autoplay }}, "controls": {{ controls }}, "dots": {{ dots }}, "interval": {{ interval }}, "transition": "{{ transition }}"}'>
+  
+  {% for image in include.images %}
+    <div class="carousel-slide">
+      <img src="{{ image.src | relative_url }}" 
+           alt="{{ image.alt | default: image.caption }}">
+      {% if image.caption %}
+        <div class="carousel-caption">{{ image.caption }}</div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  // Initialize this specific carousel
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof ImageCarousel !== 'undefined') {
+      new ImageCarousel('#{{ carousel_id }}');
+    }
+  });
+</script>

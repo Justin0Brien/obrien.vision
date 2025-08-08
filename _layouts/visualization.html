@@ -1,0 +1,180 @@
+---
+layout: default
+---
+
+<article class="visualization">
+  <header class="visualization-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.featured %}
+      <span class="featured-badge">Featured Visualization</span>
+    {% endif %}
+    <div class="visualization-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
+      {% if page.status %}
+        <span class="status status-{{ page.status }}">{{ page.status | capitalize }}</span>
+      {% endif %}
+    </div>
+    {% if page.description %}
+      <p class="visualization-description">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  {% if page.technologies %}
+  <div class="tech-stack">
+    <h3>Technologies Used</h3>
+    <ul class="tech-list">
+      {% for tech in page.technologies %}
+        <li class="tech-item">{{ tech }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  {% if page.d3_version %}
+  <div class="d3-info">
+    <p><strong>D3.js Version:</strong> {{ page.d3_version }}</p>
+  </div>
+  {% endif %}
+
+  <div class="visualization-container">
+    {% if page.iframe_src %}
+      <iframe src="{{ page.iframe_src | relative_url }}" 
+              width="{{ page.iframe_width | default: '100%' }}" 
+              height="{{ page.iframe_height | default: '600' }}" 
+              frameborder="0" 
+              class="visualization-iframe">
+      </iframe>
+    {% endif %}
+    
+    <div class="visualization-content">
+      {{ content }}
+    </div>
+  </div>
+
+  {% if page.data_source or page.repository %}
+  <div class="visualization-links">
+    {% if page.data_source %}
+      <a href="{{ page.data_source }}" class="btn btn-secondary" target="_blank">View Data Source</a>
+    {% endif %}
+    {% if page.repository %}
+      <a href="{{ page.repository }}" class="btn btn-secondary" target="_blank">View Code</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if page.tags %}
+  <div class="visualization-tags">
+    {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+
+<style>
+.visualization-header {
+  margin-bottom: 2rem;
+}
+
+.featured-badge {
+  background: #28a745;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.visualization-meta {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.visualization-description {
+  font-size: 1.125rem;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.tech-stack {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.tech-item {
+  background: #007bff;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+}
+
+.d3-info {
+  background: #e7f3ff;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #007bff;
+}
+
+.visualization-container {
+  margin: 2rem 0;
+}
+
+.visualization-iframe {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.visualization-links {
+  margin: 2rem 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.visualization-tags {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.tag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .visualization-iframe {
+    height: 400px;
+  }
+}
+</style>

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rotating Snakes – Generator</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --ink: #111;
+    --panel: #ffffff;
+    --accent: #3b82f6;
+  }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  .wrap { display: grid; grid-template-columns: 340px 1fr; gap: 16px; padding: 16px; height: 100%; box-sizing: border-box; }
+  .controls {
+    background: var(--panel); border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    overflow: auto;
+  }
+  fieldset { border: 1px solid #e5e7eb; border-radius: 8px; margin: 0 0 14px; padding: 10px 12px; }
+  legend { padding: 0 6px; font-weight: 600; color: #374151; }
+  label { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; margin: 8px 0; }
+  input[type="range"] { width: 180px; }
+  input[type="color"] { width: 48px; height: 28px; padding: 0; border: none; background: none; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button {
+    background: var(--accent); color: white; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer;
+  }
+  button.secondary { background: #e5e7eb; color: #111; }
+  canvas { width: 100%; height: 100%; display: block; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .hint { font-size: 13px; color: #4b5563; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Layout</legend>
+      <label>Number of rings <input id="rings" type="range" min="1" max="8" value="4" /><span id="ringsVal">4</span></label>
+      <label>Units per ring (snake “tiles”) <input id="units" type="range" min="8" max="96" step="2" value="36" /><span id="unitsVal">36</span></label>
+      <label>Ring thickness (px) <input id="thick" type="range" min="8" max="80" value="34" /><span id="thickVal">34</span></label>
+      <label>Gap between rings (px) <input id="gap" type="range" min="2" max="32" value="10" /><span id="gapVal">10</span></label>
+      <label>Inner radius (px) <input id="inner" type="range" min="20" max="220" value="90" /><span id="innerVal">90</span></label>
+      <label>Curvy edge amplitude (px) <input id="amp" type="range" min="0" max="24" value="10" /><span id="ampVal">10</span></label>
+      <label>Curvy edge frequency <input id="freq" type="range" min="1" max="10" value="4" /><span id="freqVal">4</span></label>
+      <label>Alternate ring direction <input id="altDir" type="checkbox" checked /></label>
+      <label>Thin separators (boost edges) <input id="seps" type="checkbox" checked /></label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Luminance sequence (per snake, tangential order)</legend>
+      <div class="hint">Classic order: <strong>Black → Dark → White → Light</strong>. Order matters.</div>
+      <label>Step 1 (B) <input id="c1" type="color" value="#000000" /></label>
+      <label>Step 2 (Dark) <input id="c2" type="color" value="#555555" /></label>
+      <label>Step 3 (White) <input id="c3" type="color" value="#ffffff" /></label>
+      <label>Step 4 (Light) <input id="c4" type="color" value="#bbbbbb" /></label>
+      <label>Reverse order <input id="rev" type="checkbox" /></label>
+      <div class="row">
+        <button id="classic">Classic mono</button>
+        <button id="tint" class="secondary">Tinted demo</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Extras</legend>
+      <label>Global scale (%) <input id="scale" type="range" min="50" max="160" value="100" /><span id="scaleVal">100%</span></label>
+      <label>Subtle flicker boost (0.8 Hz) <input id="flick" type="checkbox" /></label>
+      <div class="row">
+        <button id="randomise" class="secondary">Randomise</button>
+        <button id="export">Export PNG</button>
+        <button id="reset" class="secondary">Reset</button>
+      </div>
+      <p class="hint">Tips: view slightly off-centre, blink, or move your eyes across the rings. The image is static; any motion you see is your visual system being “helpful”.</p>
+    </fieldset>
+  </div>
+
+  <canvas id="cv"></canvas>
+</div>
+
+<script>
+(() => {
+  const el = id => document.getElementById(id);
+  const cv = el('cv');
+  const ctx = cv.getContext('2d');
+
+  const controls = {
+    rings: el('rings'),
+    units: el('units'),
+    thick: el('thick'),
+    gap: el('gap'),
+    inner: el('inner'),
+    amp: el('amp'),
+    freq: el('freq'),
+    altDir: el('altDir'),
+    seps: el('seps'),
+    c1: el('c1'),
+    c2: el('c2'),
+    c3: el('c3'),
+    c4: el('c4'),
+    rev: el('rev'),
+    classic: el('classic'),
+    tint: el('tint'),
+    scale: el('scale'),
+    flick: el('flick'),
+    randomise: el('randomise'),
+    export: el('export'),
+    reset: el('reset'),
+  };
+
+  const spans = {
+    rings: el('ringsVal'),
+    units: el('unitsVal'),
+    thick: el('thickVal'),
+    gap: el('gapVal'),
+    inner: el('innerVal'),
+    amp: el('ampVal'),
+    freq: el('freqVal'),
+    scale: el('scaleVal')
+  };
+
+  function fitCanvas() {
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width * dpr);
+    cv.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function h2rgb(hex) {
+    const v = hex.replace('#','');
+    const n = parseInt(v,16);
+    return `rgb(${(n>>16)&255}, ${(n>>8)&255}, ${n&255})`;
+  }
+
+  function updateLabels() {
+    spans.rings.textContent = controls.rings.value;
+    spans.units.textContent = controls.units.value;
+    spans.thick.textContent = controls.thick.value;
+    spans.gap.textContent = controls.gap.value;
+    spans.inner.textContent = controls.inner.value;
+    spans.amp.textContent = controls.amp.value;
+    spans.freq.textContent = controls.freq.value;
+    spans.scale.textContent = controls.scale.value + '%';
+  }
+
+  function getColours() {
+    const seq = [controls.c1.value, controls.c2.value, controls.c3.value, controls.c4.value];
+    return controls.rev.checked ? seq.slice().reverse() : seq;
+  }
+
+  // Core renderer: draws “snake” rings with curved edges and the asymmetric luminance sequence
+  function draw() {
+    updateLabels();
+    const W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.save();
+    ctx.translate(W/2, H/2);
+
+    const scale = parseInt(controls.scale.value,10)/100;
+    ctx.scale(scale, scale);
+
+    const rings = parseInt(controls.rings.value,10);
+    const units = parseInt(controls.units.value,10);
+    const thick = parseInt(controls.thick.value,10);
+    const gap = parseInt(controls.gap.value,10);
+    const inner = parseInt(controls.inner.value,10);
+    const amp = parseInt(controls.amp.value,10);
+    const freq = parseInt(controls.freq.value,10);
+
+    const colours = getColours();
+    const unitAngle = (Math.PI * 2) / units; // each unit contains 4 luminance steps tangentially
+    const stepAngle = unitAngle / 4;         // B → D → W → L
+
+    // optional thin separators to sharpen local contrast
+    const drawSep = controls.seps.checked;
+
+    for (let r = 0; r < rings; r++) {
+      const rInner = inner + r * (thick + gap);
+      const rOuter = rInner + thick;
+
+      // Offset phase alternates direction of perceived rotation between rings (by flipping the luminance order tangentially)
+      const ringPhase = controls.altDir.checked && (r % 2 === 1) ? stepAngle * 2 : 0;
+
+      for (let u = 0; u < units; u++) {
+        const base = u * unitAngle + ringPhase;
+
+        for (let s = 0; s < 4; s++) {
+          const θ1 = base + s * stepAngle;
+          const θ2 = θ1 + stepAngle;
+
+          // Build a curved wedge with sinusoidal inner/outer edges so each tile looks “scale-like”
+          curvedPatch(ctx, rInner, rOuter, θ1, θ2, amp, freq, colours[s]);
+
+          // Optional tiny separator (sub-pixel on HiDPI) to emphasise contrast edges
+          if (drawSep) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+            ctx.lineWidth = 0.6;
+            arcEdge(ctx, rInner, rOuter, θ2, amp, freq);
+            ctx.restore();
+          }
+        }
+      }
+    }
+
+    ctx.restore();
+  }
+
+  // Draw the trailing edge separator for a tile
+  function arcEdge(ctx, rIn, rOut, theta, amp, freq) {
+    const steps = 18;
+    ctx.beginPath();
+    for (let i=0;i<=steps;i++) {
+      const t = theta;
+      const k = i/steps;
+      const rr = rIn + (rOut - rIn) * k + amp * Math.sin(freq * t + (k* Math.PI*2 / 3));
+      const x = rr * Math.cos(t);
+      const y = rr * Math.sin(t);
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+
+  // Curved wedge tile with sinusoidal modulation on both edges (phase-shift keeps thickness stable)
+  function curvedPatch(ctx, rIn, rOut, a1, a2, amp, freq, fill) {
+    const steps = Math.max(8, Math.floor((a2 - a1) * 64)); // density proportional to angle
+    const phaseShift = Math.PI / 2; // keeps inner/outer modulation slightly out of phase -> curved “scale” edge
+    ctx.beginPath();
+    for (let i=0;i<=steps;i++) {
+      const t = a1 + (a2 - a1) * (i/steps);
+      const ri = rIn + amp * Math.sin(freq * t);
+      const x = ri * Math.cos(t), y = ri * Math.sin(t);
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    for (let i=steps;i>=0;i--) {
+      const t = a1 + (a2 - a1) * (i/steps);
+      const ro = rOut + amp * Math.sin(freq * t + phaseShift);
+      const x = ro * Math.cos(t), y = ro * Math.sin(t);
+      ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.fill();
+  }
+
+  // UI wiring
+  function onAllInputs(fn) {
+    document.querySelectorAll('input').forEach(inp => {
+      const ev = (inp.type === 'range' || inp.type === 'color' || inp.type === 'checkbox') ? 'input' : 'change';
+      inp.addEventListener(ev, fn, { passive: true });
+    });
+    window.addEventListener('resize', () => { fitCanvas(); draw(); }, { passive: true });
+  }
+
+  // Presets
+  controls.classic.addEventListener('click', () => {
+    controls.c1.value = '#000000';
+    controls.c2.value = '#555555';
+    controls.c3.value = '#ffffff';
+    controls.c4.value = '#bbbbbb';
+    controls.rev.checked = false;
+    draw();
+  });
+
+  controls.tint.addEventListener('click', () => {
+    // Keeps relative luminance-ish ordering while being colourful
+    controls.c1.value = '#181818'; // near-black
+    controls.c2.value = '#2255aa'; // darkish blue
+    controls.c3.value = '#ffeeee'; // near-white
+    controls.c4.value = '#ffb366'; // light warm
+    controls.rev.checked = false;
+    draw();
+  });
+
+  controls.randomise.addEventListener('click', () => {
+    controls.units.value = (Math.floor(Math.random()*24)+24) * 1;
+    controls.rings.value = Math.floor(Math.random()*5)+3;
+    controls.thick.value = Math.floor(Math.random()*40)+24;
+    controls.gap.value = Math.floor(Math.random()*18)+6;
+    controls.inner.value = Math.floor(Math.random()*140)+60;
+    controls.amp.value = Math.floor(Math.random()*16)+4;
+    controls.freq.value = Math.floor(Math.random()*6)+3;
+    draw();
+  });
+
+  controls.export.addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.download = 'rotating-snakes.png';
+    a.href = cv.toDataURL('image/png');
+    a.click();
+  });
+
+  controls.reset.addEventListener('click', () => {
+    controls.rings.value = 4;
+    controls.units.value = 36;
+    controls.thick.value = 34;
+    controls.gap.value = 10;
+    controls.inner.value = 90;
+    controls.amp.value = 10;
+    controls.freq.value = 4;
+    controls.altDir.checked = true;
+    controls.seps.checked = true;
+    controls.c1.value = '#000000';
+    controls.c2.value = '#555555';
+    controls.c3.value = '#ffffff';
+    controls.c4.value = '#bbbbbb';
+    controls.rev.checked = false;
+    controls.scale.value = 100;
+    controls.flick.checked = false;
+    draw();
+  });
+
+  // Bind live updates
+  onAllInputs(() => draw());
+
+  // Optional subtle flicker to boost the illusion (off by default)
+  let flickerT = 0;
+  function animate() {
+    if (controls.flick.checked) {
+      flickerT += 0.016; // ~60fps
+      const k = 0.08 * Math.sin(2 * Math.PI * 0.8 * flickerT); // 0.8 Hz
+      // Temporarily brighten step 3 and dim step 2 a touch
+      const base = [controls.c1.value, controls.c2.value, controls.c3.value, controls.c4.value].map(hexToRgb);
+      const tweaked = [
+        base[0],
+        adjustRgb(base[1], 1 + k),
+        adjustRgb(base[2], 1 - k),
+        base[3]
+      ].map(rgbToCss);
+
+      // Draw with tweaked colours without touching inputs
+      drawWithColours(tweaked);
+    } else {
+      draw();
+    }
+    requestAnimationFrame(animate);
+  }
+
+  function drawWithColours(seq) {
+    // temporary draw using provided colours
+    const W = cv.width, H = cv.height;
+    ctx.clearRect(0,0,cv.width,cv.height);
+    ctx.save();
+    ctx.translate(W/2, H/2);
+    const scale = parseInt(controls.scale.value,10)/100;
+    ctx.scale(scale, scale);
+
+    const rings = parseInt(controls.rings.value,10);
+    const units = parseInt(controls.units.value,10);
+    const thick = parseInt(controls.thick.value,10);
+    const gap = parseInt(controls.gap.value,10);
+    const inner = parseInt(controls.inner.value,10);
+    const amp = parseInt(controls.amp.value,10);
+    const freq = parseInt(controls.freq.value,10);
+
+    const unitAngle = (Math.PI * 2) / units;
+    const stepAngle = unitAngle / 4;
+    const drawSep = controls.seps.checked;
+
+    for (let r = 0; r < rings; r++) {
+      const rInner = inner + r * (thick + gap);
+      const rOuter = rInner + thick;
+      const ringPhase = controls.altDir.checked && (r % 2 === 1) ? stepAngle * 2 : 0;
+
+      for (let u = 0; u < units; u++) {
+        const base = u * unitAngle + ringPhase;
+        for (let s = 0; s < 4; s++) {
+          const θ1 = base + s * stepAngle;
+          const θ2 = θ1 + stepAngle;
+          curvedPatch(ctx, rInner, rOuter, θ1, θ2, amp, freq, seq[controls.rev.checked ? 3 - s : s]);
+          if (drawSep) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+            ctx.lineWidth = 0.6;
+            arcEdge(ctx, rInner, rOuter, θ2, amp, freq);
+            ctx.restore();
+          }
+        }
+      }
+    }
+    ctx.restore();
+  }
+
+  // Colour helpers
+  function hexToRgb(hex) {
+    const v = hex.replace('#',''); const n = parseInt(v,16);
+    return {r:(n>>16)&255, g:(n>>8)&255, b:n&255};
+  }
+  function rgbToCss(o){ return `rgb(${o.r|0},${o.g|0},${o.b|0})`; }
+  function clamp(v){ return Math.max(0, Math.min(255, v)); }
+  function adjustRgb(o, k){ return { r: clamp(o.r*k), g: clamp(o.g*k), b: clamp(o.b*k) }; }
+
+  // Boot
+  fitCanvas();
+  updateLabels();
+  draw();
+  requestAnimationFrame(animate);
+})();
+</script>
+</body>
+</html>

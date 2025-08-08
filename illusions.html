@@ -1,0 +1,496 @@
+---
+layout: default
+title: "Visual Illusions"
+permalink: /illusions/
+description: "Explore fascinating optical illusions, perceptual phenomena, and interactive demonstrations that reveal how our visual system processes the world."
+---
+
+<div class="illusions-landing">
+  <header class="page-header">
+    <h1>Visual Illusions</h1>
+    <p class="lead">Discover the fascinating world of optical illusions and perceptual phenomena. These interactive demonstrations reveal the hidden workings of human vision and the surprising ways our brains interpret visual information.</p>
+  </header>
+
+  <div class="safety-notice">
+    <div class="notice-content">
+      <h3>⚠️ Important Safety Information</h3>
+      <p>Some illusions may cause dizziness, eye strain, or discomfort. Please:</p>
+      <ul>
+        <li>Avoid viewing if you have epilepsy or seizure disorders</li>
+        <li>Take regular breaks during extended viewing</li>
+        <li>Stop immediately if you feel unwell</li>
+        <li>Supervise children when viewing interactive illusions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="featured-illusion">
+    <h2>Featured Illusion</h2>
+    {% assign featured = site.illusions | where: "featured", true | first %}
+    {% unless featured %}
+      {% assign featured = site.illusions | last %}
+    {% endunless %}
+    
+    {% if featured %}
+      <div class="featured-card">
+        <div class="featured-content">
+          <h3><a href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h3>
+          <p>{{ featured.excerpt | strip_html | truncate: 200 }}</p>
+          
+          <div class="illusion-meta">
+            <div class="difficulty">
+              <strong>Difficulty:</strong> 
+              <span class="difficulty-badge {{ featured.difficulty | downcase }}">{{ featured.difficulty }}</span>
+            </div>
+            {% if featured.duration %}
+              <div class="duration">
+                <strong>Duration:</strong> {{ featured.duration }}
+              </div>
+            {% endif %}
+          </div>
+          
+          {% if featured.warning %}
+            <div class="warning-badge">
+              ⚠️ {{ featured.warning }}
+            </div>
+          {% endif %}
+          
+          <div class="card-actions">
+            <a href="{{ featured.url | relative_url }}" class="btn btn-primary">Experience Illusion</a>
+          </div>
+        </div>
+        
+        {% if featured.carousel_images.first %}
+          <div class="featured-image">
+            <img src="{{ featured.carousel_images.first.src | relative_url }}" 
+                 alt="{{ featured.carousel_images.first.alt }}"
+                 loading="lazy">
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="illusion-categories">
+    <h2>Types of Illusions</h2>
+    <div class="category-grid">
+      <div class="category-card motion">
+        <div class="category-icon">🌀</div>
+        <h3>Motion Illusions</h3>
+        <p>Stationary images that appear to move, or moving patterns that create unexpected motion effects.</p>
+        <a href="#motion" class="category-link">Explore Motion →</a>
+      </div>
+      
+      <div class="category-card color">
+        <div class="category-icon">🎨</div>
+        <h3>Color & Brightness</h3>
+        <p>Illusions that demonstrate how context affects our perception of color and brightness.</p>
+        <a href="#color" class="category-link">View Color →</a>
+      </div>
+      
+      <div class="category-card geometric">
+        <div class="category-icon">📐</div>
+        <h3>Geometric</h3>
+        <p>Lines, shapes, and angles that appear different from their actual measurements.</p>
+        <a href="#geometric" class="category-link">See Geometric →</a>
+      </div>
+      
+      <div class="category-card ambiguous">
+        <div class="category-icon">🔄</div>
+        <h3>Ambiguous Figures</h3>
+        <p>Images that can be interpreted in multiple ways, revealing the active nature of perception.</p>
+        <a href="#ambiguous" class="category-link">Browse Ambiguous →</a>
+      </div>
+      
+      <div class="category-card aftereffect">
+        <div class="category-icon">👁️</div>
+        <h3>Aftereffects</h3>
+        <p>Temporary changes in perception following prolonged exposure to specific stimuli.</p>
+        <a href="#aftereffect" class="category-link">Try Aftereffects →</a>
+      </div>
+      
+      <div class="category-card cognitive">
+        <div class="category-icon">🧠</div>
+        <h3>Cognitive</h3>
+        <p>High-level illusions involving recognition, attention, and visual processing strategies.</p>
+        <a href="#cognitive" class="category-link">Explore Cognitive →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="all-illusions">
+    <h2>All Illusions</h2>
+    <div class="filter-controls">
+      <label for="difficulty-filter">Filter by Difficulty:</label>
+      <select id="difficulty-filter">
+        <option value="">All Difficulties</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
+    
+    <div class="illusions-grid">
+      {% for illusion in site.illusions reversed %}
+        <article class="illusion-card" data-difficulty="{{ illusion.difficulty | downcase }}">
+          <div class="illusion-card-content">
+            <h3><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h3>
+            <p class="illusion-excerpt">{{ illusion.excerpt | strip_html | truncate: 120 }}</p>
+            
+            <div class="illusion-meta">
+              <div class="difficulty">
+                <span class="difficulty-badge {{ illusion.difficulty | downcase }}">{{ illusion.difficulty }}</span>
+              </div>
+              {% if illusion.duration %}
+                <div class="duration">{{ illusion.duration }}</div>
+              {% endif %}
+              <time datetime="{{ illusion.date | date_to_xmlschema }}">{{ illusion.date | date: "%B %Y" }}</time>
+            </div>
+            
+            {% if illusion.categories %}
+              <div class="categories">
+                {% for category in illusion.categories limit: 2 %}
+                  <span class="category-tag">{{ category }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+            
+            {% if illusion.warning %}
+              <div class="warning-notice">
+                ⚠️ {{ illusion.warning }}
+              </div>
+            {% endif %}
+            
+            <div class="illusion-actions">
+              <a href="{{ illusion.url | relative_url }}" class="btn btn-primary">Try Illusion</a>
+            </div>
+          </div>
+          
+          {% if illusion.carousel_images.first %}
+            <div class="illusion-card-image">
+              <img src="{{ illusion.carousel_images.first.src | relative_url }}" 
+                   alt="{{ illusion.carousel_images.first.alt }}"
+                   loading="lazy">
+            </div>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="science-section">
+    <h2>The Science Behind Illusions</h2>
+    <div class="science-grid">
+      <div class="science-card">
+        <h4>Neural Processing</h4>
+        <p>How specialized cells in the visual cortex respond to different features like edges, motion, and color.</p>
+      </div>
+      <div class="science-card">
+        <h4>Adaptation</h4>
+        <p>The temporary changes in neural sensitivity that occur after prolonged exposure to stimuli.</p>
+      </div>
+      <div class="science-card">
+        <h4>Context Effects</h4>
+        <p>How surrounding information influences our perception of colors, sizes, and shapes.</p>
+      </div>
+      <div class="science-card">
+        <h4>Top-down Processing</h4>
+        <p>The role of expectations, memory, and prior knowledge in shaping what we see.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.illusions-landing {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lead {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.safety-notice {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.safety-notice h3 {
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.safety-notice ul {
+  margin: 0.5rem 0 0 1.5rem;
+  color: #7f1d1d;
+}
+
+.featured-illusion {
+  margin-bottom: 4rem;
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  border: 1px solid #e0e6ed;
+}
+
+.featured-content {
+  padding: 2rem;
+}
+
+.featured-content h3 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.featured-content h3 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.featured-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.illusion-meta {
+  margin: 1rem 0;
+}
+
+.difficulty-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.difficulty-badge.easy {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.difficulty-badge.medium {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.difficulty-badge.hard {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.warning-badge {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin: 1rem 0;
+  border: 1px solid #fecaca;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.category-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid #e0e6ed;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.category-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.category-link {
+  color: #ff6b6b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.filter-controls {
+  margin-bottom: 2rem;
+}
+
+.filter-controls select {
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-left: 0.5rem;
+}
+
+.illusions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.illusion-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border: 1px solid #e0e6ed;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.illusion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.illusion-card-content {
+  padding: 1.5rem;
+}
+
+.illusion-card-image img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.categories {
+  margin: 1rem 0;
+}
+
+.category-tag {
+  display: inline-block;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  margin: 0.25rem 0.5rem 0.25rem 0;
+}
+
+.warning-notice {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin: 1rem 0;
+  border: 1px solid #fecaca;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: #ff6b6b;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #ff5252;
+}
+
+.science-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.science-card {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.science-card h4 {
+  margin-bottom: 0.5rem;
+  color: #2d3748;
+}
+
+.science-card p {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .featured-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .illusions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const difficultyFilter = document.getElementById('difficulty-filter');
+  const illusionCards = document.querySelectorAll('.illusion-card');
+  
+  difficultyFilter.addEventListener('change', function() {
+    const selectedDifficulty = this.value;
+    
+    illusionCards.forEach(card => {
+      if (selectedDifficulty === '' || card.dataset.difficulty === selectedDifficulty) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
