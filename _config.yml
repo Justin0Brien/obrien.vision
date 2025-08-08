@@ -15,6 +15,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-minimagick
+  - jekyll-admin
 
 # Jekyll settings
 permalink: /:year/:month/:day/:title/
@@ -68,3 +69,13 @@ minimagick:
     resize: "300x200^"
     gravity: "center"
     extent: "300x200"
+
+# Jekyll Admin configuration
+jekyll_admin:
+  hidden_links:
+    - posts
+    - pages
+    - staticfiles
+    - datafiles
+    - configuration
+  homepage: "posts"

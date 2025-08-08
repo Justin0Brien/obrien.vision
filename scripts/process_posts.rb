@@ -13,16 +13,22 @@ class PostProcessor
   end
 
   def process_all
+    puts "🔍 Starting process_all in directory: #{@source_dir}"
+    
     unless Dir.exist?(@source_dir)
       puts "❌ Source directory #{@source_dir} doesn't exist"
       puts "💡 Create it with: mkdir -p #{@source_dir}"
       return
     end
     
+    puts "🔍 Looking for markdown files in: #{@source_dir}"
+    
     md_files = Dir.glob(File.join(@source_dir, '*.md')).reject do |file|
       filename = File.basename(file, '.md').downcase
-      filename.include?('readme') || filename.include?('usage')
+      filename.include?('readme') || filename.include?('usage') || filename.start_with?('.')
     end
+    
+    puts "📁 Found #{md_files.length} files: #{md_files.map{|f| File.basename(f)}}"
     
     if md_files.empty?
       puts "📝 No markdown files found in #{@source_dir}"
@@ -31,6 +37,7 @@ class PostProcessor
     end
     
     md_files.each do |md_file|
+      puts "\n🔄 Processing: #{File.basename(md_file)}"
       process_post_bundle(md_file)
     end
   end
@@ -77,6 +84,9 @@ class PostProcessor
     puts "✅ Created: #{post_filename}"
     puts "📁 Images: #{processed_images.length} processed"
     puts "📂 Location: #{image_output_dir}"
+  rescue StandardError => e
+    puts "❌ Error processing #{filename}: #{e.message}"
+    puts "🔍 Backtrace: #{e.backtrace.first(3).join('\n')}"
   end
 
   def find_images(source_dir)
@@ -93,7 +103,7 @@ class PostProcessor
       original_name = File.basename(img_file, File.extname(img_file))
       ext = File.extname(img_file).downcase
       
-      # Determine image name (hero for first image, or keep original name)
+      # Determine image name (hero for first image, or sanitized original name)
       if index == 0 && !original_name.downcase.include?('hero')
         base_name = 'hero'
       else
@@ -116,7 +126,8 @@ class PostProcessor
       process_single_image(img_file, thumb_output, { type: 'thumb', max_width: 400 })
       
       processed << {
-        original: original_name,
+        original: File.basename(img_file), # Store full original filename with extension
+        original_basename: original_name,  # Store just the basename
         web_path: web_path,
         thumb_path: thumb_path,
         base_name: base_name,
@@ -170,11 +181,42 @@ class PostProcessor
   def update_body_with_images(body, processed_images)
     return body if processed_images.empty?
     
-    # Add hero image at the top if not already present
+    # Replace image references in the body with correct paths
+    processed_images.each do |img|
+      # Handle various image reference patterns
+      original_patterns = [
+        img[:original],                    # Full filename: "IMG_0565_Eye Login Logo.jpg"
+        img[:original_basename],           # Just basename: "IMG_0565_Eye Login Logo"
+        URI.encode_www_form_component(img[:original]),         # URL encoded
+        URI.encode_www_form_component(img[:original_basename]) # URL encoded basename
+      ]
+      
+      original_patterns.compact.uniq.each do |pattern|
+        # Replace markdown image references - handle both with and without alt text
+        body = body.gsub(/!\[([^\]]*)\]\(#{Regexp.escape(pattern)}\)/) do |match|
+          alt_text = $1.empty? ? img[:base_name].humanize : $1
+          "![#{alt_text}](#{img[:web_path]})"
+        end
+        
+        # Also handle URL-encoded patterns in markdown
+        encoded_pattern = pattern.gsub(' ', '%20')
+        body = body.gsub(/!\[([^\]]*)\]\(#{Regexp.escape(encoded_pattern)}\)/) do |match|
+          alt_text = $1.empty? ? img[:base_name].humanize : $1
+          "![#{alt_text}](#{img[:web_path]})"
+        end
+        
+        # Replace HTML img tags
+        body = body.gsub(/<img[^>]*src=["']#{Regexp.escape(pattern)}["'][^>]*>/i) do |match|
+          "<img src=\"#{img[:web_path]}\" alt=\"#{img[:base_name].humanize}\" loading=\"lazy\">"
+        end
+      end
+    end
+    
+    # Add hero image at the top if not already present and no images found in content
     hero_image = processed_images.find { |img| img[:is_hero] } || processed_images.first
     
-    unless body.include?('![') || body.include?('<img')
-      hero_markdown = "\n![#{hero_image[:base_name].humanize}](#{hero_image[:web_path]})\n\n"
+    unless body.match(/!\[[^\]]*\]\([^)]+\)/) || body.include?('<img')
+      hero_markdown = "![#{hero_image[:base_name].humanize}](#{hero_image[:web_path]})\n\n"
       body = hero_markdown + body
     end
     
@@ -182,15 +224,20 @@ class PostProcessor
   end
 
   def parse_frontmatter(content)
-    if content =~ /\A(---\s*\n.*?\n?)^((---|\.\.\.)\s*$\n?)/m
+    # Look for frontmatter between --- delimiters
+    if content =~ /\A---\r?\n(.*?)\r?\n---\r?\n(.*)\z/m
       begin
-        frontmatter = YAML.load($1) || {}
+        frontmatter_text = $1
+        body = $2
+        frontmatter = YAML.load(frontmatter_text) || {}
       rescue YAML::SyntaxError => e
         puts "⚠️  YAML parsing error: #{e.message}"
+        puts "⚠️  Frontmatter content: #{frontmatter_text.inspect}"
         frontmatter = {}
+        body = content
       end
-      body = content[($1.size + $2.size)..-1]
     else
+      puts "⚠️  No frontmatter delimiters found, treating entire content as body"
       frontmatter = {}
       body = content
     end
@@ -200,9 +247,43 @@ class PostProcessor
   def write_processed_post(filepath, frontmatter, body)
     File.open(filepath, 'w') do |file|
       file.write("---\n")
-      file.write(YAML.dump(frontmatter))
+      
+      # Write frontmatter fields in a specific order, ensuring clean output
+      ordered_fields = %w[layout title date categories tags excerpt author image thumbnail]
+      
+      ordered_fields.each do |key|
+        value = frontmatter[key]
+        next unless value
+        next if value.to_s.strip.empty?
+        
+        case value
+        when Array
+          next if value.empty?
+          file.write("#{key}:\n")
+          value.each { |item| file.write("- #{item}\n") }
+        when String
+          clean_value = value.strip
+          next if clean_value.empty?
+          # Use single quotes for strings, escape internal single quotes
+          if clean_value.include?("'")
+            file.write("#{key}: \"#{clean_value}\"\n")
+          else
+            file.write("#{key}: '#{clean_value}'\n")
+          end
+        else
+          file.write("#{key}: #{value}\n")
+        end
+      end
+      
       file.write("---\n")
-      file.write(body)
+      
+      # Write the body with proper spacing
+      clean_body = body.strip
+      if clean_body.length > 0
+        file.write("\n#{clean_body}\n")
+      else
+        file.write("\n")
+      end
     end
   end
 
@@ -220,9 +301,10 @@ class PostProcessor
 
   def sanitize_filename(filename)
     filename.downcase
-            .gsub(/[^\w\s_-]+/, '')
-            .gsub(/(^|\b\s)\s+(\s|\b$)/, '\1\2')
-            .gsub(/\s+/, '-')
+            .gsub(/[^\w\s_-]+/, '') # Remove special characters
+            .gsub(/\s+/, '-')       # Replace spaces with hyphens
+            .gsub(/-+/, '-')        # Replace multiple hyphens with single
+            .gsub(/^-+|-+$/, '')    # Remove leading/trailing hyphens
   end
 end
 

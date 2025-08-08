@@ -17,6 +17,7 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   gem "jekyll-seo-tag"
   gem "jekyll-minimagick"
+  gem "jekyll-admin"
 end
 
 # Required for serving
