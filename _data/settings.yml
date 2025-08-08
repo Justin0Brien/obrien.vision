@@ -1,0 +1,37 @@
+# Site-wide settings that can be managed through Jekyll Admin
+site_title: "Justin O'Brien"
+site_description: "Data Visualization • Analysis • Insights"
+site_keywords: "data visualization, economic analysis, career transitions, employment data, research"
+
+# SEO settings
+seo:
+  type: "Person"
+  name: "Justin O'Brien"
+  description: "Data visualization specialist and economic researcher"
+  image: "/assets/images/og-image.jpg"
+
+# Analytics (when you're ready to add them)
+analytics:
+  google_analytics: ""
+  google_tag_manager: ""
+
+# Comments system (if you want to add later)
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: ""
+
+# Blog settings
+blog:
+  posts_per_page: 10
+  excerpt_length: 160
+  show_author: true
+  show_date: true
+  show_tags: true
+  show_categories: true
+
+# Contact form settings
+contact:
+  email: "justin@obrien.vision"
+  subject_prefix: "[obrien.vision] "
+  success_message: "Thanks for your message! I'll get back to you soon."

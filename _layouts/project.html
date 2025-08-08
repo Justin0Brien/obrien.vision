@@ -1,0 +1,145 @@
+---
+layout: default
+---
+
+<article class="project">
+  <header class="project-header">
+    <h1>{{ page.title }}</h1>
+    {% if page.featured %}
+      <span class="featured-badge">Featured Project</span>
+    {% endif %}
+    <div class="project-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
+      {% if page.status %}
+        <span class="status status-{{ page.status }}">{{ page.status | capitalize }}</span>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.technologies %}
+  <div class="tech-stack">
+    <h3>Technologies Used</h3>
+    <ul class="tech-list">
+      {% for tech in page.technologies %}
+        <li class="tech-item">{{ tech }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <div class="project-content">
+    {{ content }}
+  </div>
+
+  {% if page.repository or page.demo_url %}
+  <div class="project-links">
+    {% if page.demo_url %}
+      <a href="{{ page.demo_url }}" class="btn btn-primary" target="_blank">View Demo</a>
+    {% endif %}
+    {% if page.repository %}
+      <a href="{{ page.repository }}" class="btn btn-secondary" target="_blank">View Code</a>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if page.tags %}
+  <div class="project-tags">
+    {% for tag in page.tags %}
+      <span class="tag">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+</article>
+
+<style>
+.project-header {
+  margin-bottom: 2rem;
+}
+
+.featured-badge {
+  background: #28a745;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.project-meta {
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-left: 1rem;
+}
+
+.status-active { background: #d4edda; color: #155724; }
+.status-completed { background: #d1ecf1; color: #0c5460; }
+.status-archived { background: #f8d7da; color: #721c24; }
+
+.tech-stack {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.tech-item {
+  background: #007bff;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+}
+
+.project-links {
+  margin: 2rem 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.project-tags {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.tag {
+  background: #e9ecef;
+  color: #495057;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+}
+</style>

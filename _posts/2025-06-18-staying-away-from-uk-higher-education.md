@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Why I'm Staying Away from UK Higher Education—For Now"
 date: 2025-06-18
 categories: [higher-education, academia, career]

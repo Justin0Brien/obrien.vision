@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "How to Murder a University: A Guide to Institutional Death"
 date: 2025-07-30
 categories: [higher-education, university-governance, insolvency]

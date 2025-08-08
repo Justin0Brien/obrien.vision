@@ -72,10 +72,104 @@ minimagick:
 
 # Jekyll Admin configuration
 jekyll_admin:
-  hidden_links:
-    - posts
-    - pages
-    - staticfiles
-    - datafiles
-    - configuration
+  # Enable all main sections
+  hidden_links: []
+  
+  # Set homepage to posts since that's your main content
   homepage: "posts"
+  
+  # Optimize editor for your Markdown workflow
+  editor:
+    enable: true
+    preview: true
+    toolbar: true
+    # Markdown-focused settings
+    markdown:
+      enable: true
+      syntax_highlighting: true
+      auto_save: true
+      line_numbers: true
+    
+  # Collection settings - enable management for projects
+  collections:
+    projects:
+      output: true
+      metadata:
+        title: "Projects"
+        description: "Portfolio and project pages"
+        
+  # File upload settings - align with your existing structure
+  uploads:
+    # Allow common file types for your blog
+    allowed_file_types: ["jpg", "jpeg", "png", "gif", "pdf", "svg", "webp", "md"]
+    # Set maximum file size (in MB)
+    max_file_size: 10
+    # Match your existing image structure
+    default_path: "/assets/images/posts"
+    # Enable subdirectory creation for date-based organization
+    organize_uploads: true
+    
+  # Post settings optimized for your workflow
+  posts:
+    # Show drafts in admin interface
+    show_drafts: true
+    # Enable post categories management
+    categories: true
+    # Enable tags management  
+    tags: true
+    # Default frontmatter for new posts
+    default_frontmatter:
+      layout: "post"
+      author: "Justin O'Brien"
+      categories: ["blog"]
+      tags: []
+      excerpt: ""
+      image: ""
+      thumbnail: ""
+    # Auto-generate excerpts if not provided
+    auto_excerpt: true
+    excerpt_length: 160
+    
+  # Page settings
+  pages:
+    # Show all pages
+    show_all: true
+    # Default frontmatter for new pages
+    default_frontmatter:
+      layout: "default"
+      title: ""
+      permalink: ""
+    
+  # Enable static file management (for assets)
+  static_files:
+    enable: true
+    # Allow management of these directories
+    collections:
+      - "assets"
+      - "_includes" 
+      - "_layouts"
+    # File organization
+    show_thumbnails: true
+    sort_by: "date"
+      
+  # Data file management
+  data:
+    enable: true
+    # Show all data files for easy editing
+    show_all: true
+    
+  # Configuration editing through admin
+  configuration:
+    enable: true
+    # Allow editing of these config sections
+    editable_sections:
+      - "site"
+      - "plugins" 
+      - "collections"
+      - "defaults"
+      - "minimagick"
+      - "jekyll_admin"
+    # Prevent editing sensitive sections
+    protected_sections:
+      - "safe"
+      - "gems"

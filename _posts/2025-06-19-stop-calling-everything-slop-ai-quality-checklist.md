@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Stop Calling Everything 'Slop': Build a Smarter AI Quality Checklist"
 date: 2025-06-19
 categories: [artificial-intelligence, quality-control, content-creation]

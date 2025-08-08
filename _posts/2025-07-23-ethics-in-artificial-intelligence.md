@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Ethics in Artificial Intelligence: Yes, There Is a Problem"
 date: 2025-07-23
 categories: [artificial-intelligence, ethics, technology]

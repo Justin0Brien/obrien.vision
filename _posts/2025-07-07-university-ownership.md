@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)"
 date: 2025-07-07
 categories: [higher-education, governance, policy]

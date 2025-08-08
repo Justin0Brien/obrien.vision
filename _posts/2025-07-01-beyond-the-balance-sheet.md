@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Beyond the Balance Sheet: Why UK Universities Need a Busyness Model"
 date: 2025-07-01
 categories: [higher-education, university-strategy, public-value]

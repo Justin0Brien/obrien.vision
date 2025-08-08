@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Flatpacks Not Ivory Towers: Why Universities Should Be Built Like IKEA Furniture"
 date: 2025-07-10
 categories: [higher-education, university-structure, organizational-design]

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Fixing Universities: A Collective Approach to Financial Crisis"
 date: 2025-08-01
 categories: [higher-education, university-finance, collaboration]

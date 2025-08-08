@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Why Can't We Be Friends? The University Collaboration Paradox"
 date: 2025-07-20
 categories: [higher-education, collaboration, university-partnerships]

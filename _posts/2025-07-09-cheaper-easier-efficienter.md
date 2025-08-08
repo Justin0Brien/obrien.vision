@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Cheaper, Easier, Efficienter? The Curious Tale of UK Universities and Private Contractors"
 date: 2025-07-09
 categories: [higher-education, privatisation, outsourcing]

@@ -1,0 +1,19 @@
+# Navigation menu for the site
+main:
+  - name: "Home"
+    url: "/"
+  - name: "Blog"
+    url: "/blog/"
+  - name: "About"
+    url: "/about/"
+  - name: "Contact"
+    url: "/contact/"
+
+# Footer navigation
+footer:
+  - name: "Privacy Policy"
+    url: "/privacy/"
+  - name: "Terms of Service"
+    url: "/terms/"
+  - name: "RSS Feed"
+    url: "/feed.xml"

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Governmental Shrugs: When Car Factories Matter More Than Universities"
 date: 2025-07-25
 categories: [higher-education, government-policy, economic-priorities]

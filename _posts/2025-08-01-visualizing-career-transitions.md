@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Visualizing Career Transitions: The Story Behind the Sankey Diagram"
 date: 2025-08-01
 categories: [data-visualization, employment]

@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "The Rightsizing Rant: When Corporate Jargon Eats Reality"
 date: 2025-07-15
 categories: [higher-education, corporate-language, management]

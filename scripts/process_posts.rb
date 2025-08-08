@@ -161,12 +161,12 @@ class PostProcessor
     
     hero_image = processed_images.find { |img| img[:is_hero] } || processed_images.first
     
-    # Set main image and thumbnail
+    # Set main image and thumbnail paths compatible with Jekyll Admin
     frontmatter['image'] = hero_image[:web_path]
     frontmatter['thumbnail'] = hero_image[:thumb_path]
     
-    # Ensure other required frontmatter
-    frontmatter['layout'] ||= 'post'
+    # Ensure proper layout for posts
+    frontmatter['layout'] = 'post'
     frontmatter['author'] ||= 'Justin O\'Brien'
     
     # Add categories if missing

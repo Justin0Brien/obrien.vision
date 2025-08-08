@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Flatpacks, Not Ivory Towers: A Blueprint for Community-First Campuses"
 date: 2025-07-03
 categories: [higher-education, management, organizational-design]

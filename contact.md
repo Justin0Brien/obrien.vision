@@ -1,7 +1,7 @@
 ---
-layout: default
 title: Contact
-permalink: /contact/
+layout: default
+permalink: "/contact/"
 ---
 
 # Get in Touch
@@ -10,27 +10,19 @@ I'm always interested in discussing data visualization projects, employment rese
 
 ## Professional Inquiries
 
-For business or research collaborations, please email me with:
-- A brief description of your project or organization
-- The type of analysis or visualization you're looking for
-- Timeline and any specific requirements
 
-**Email**: [your-email@example.com](mailto:your-email@example.com)
+**Email**: [justin@obrien.vision](mailto:justin@obrien.vision)
 
 ## Social & Professional Networks
 
-**LinkedIn**: [Connect with me professionally](https://linkedin.com/in/your-linkedin-username)  
-**GitHub**: [View my code and projects](https://github.com/your-github-username)
+**LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/justin08rien)  
+**GitHub**: [View my code and projects](https://github.com/Justin0Brien)
 
 ## Areas of Interest
 
 I'm particularly keen to work on projects involving:
 
-- Employment and labor market analysis
-- Career transition research
-- Economic impact assessments
-- Interactive data visualizations
-- Policy research and evidence synthesis
+
 
 ## Response Time
 

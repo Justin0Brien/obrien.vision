@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Why Can't We Be Friends? Universities and the £1.5 Billion Collaboration Challenge"
 date: 2025-07-10
 categories: [higher-education, collaboration, procurement]

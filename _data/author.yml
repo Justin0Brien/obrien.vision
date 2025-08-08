@@ -1,0 +1,21 @@
+# Author information
+name: "Justin O'Brien"
+email: "justin@obrien.vision"
+bio: "Data Visualization • Analysis • Insights. Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research."
+avatar: "/assets/images/author-avatar.jpg"
+
+# Social media links
+social:
+  github: "Justin0Brien"
+  linkedin: "justin-obrien-data"
+  twitter: "justin_obrien_"
+  email: "justin@obrien.vision"
+
+# Professional info
+location: "United Kingdom"
+company: "Independent Researcher"
+specialties:
+  - "Data Visualization"
+  - "Economic Analysis"
+  - "Career Transition Research"
+  - "Interactive Dashboards"

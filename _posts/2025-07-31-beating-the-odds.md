@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Beating The Odds: Four Months in Mid-Life Employment Limbo"
 date: 2025-07-31
 categories: [employment, career, redundancy]
