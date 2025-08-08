@@ -1,0 +1,70 @@
+---
+layout: default
+title: "Images"
+permalink: /images/
+description: "Browse image galleries across the site."
+---
+
+<div class="images-landing">
+  <header class="page-header">
+    <h1>Images</h1>
+    <p class="lead">Explore galleries and image sets from visualizations, illusions, and projects.</p>
+  </header>
+
+  {% comment %}
+    Example usage: list featured galleries if any front matter defines them.
+    Otherwise, show helpful instructions.
+  {% endcomment %}
+
+  <section>
+    <h2>How to add a gallery</h2>
+    <ol>
+      <li>Add images under <code>/assets/images/...</code></li>
+      <li>In any page/post front matter, define <code>gallery_images</code> as an array</li>
+      <li>Insert the gallery include: <code>{% include gallery.html images=page.gallery_images %}</code></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Recent Illusions with Galleries</h2>
+    <div class="image-grid">
+  {% assign items = site.illusions | where_exp: "i","i.gallery_images and i.gallery_images.first" | slice: 0, 6 %}
+      {% for item in items %}
+        <article class="image-card">
+          <a href="{{ item.url | relative_url }}">
+            {% if item.gallery_images and item.gallery_images.first %}
+              <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
+            {% endif %}
+            <h3>{{ item.title }}</h3>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2>Recent DataViz with Galleries</h2>
+    <div class="image-grid">
+  {% assign items = site.visualizations | where_exp: "v","v.gallery_images and v.gallery_images.first" | slice: 0, 6 %}
+      {% for item in items %}
+        <article class="image-card">
+          <a href="{{ item.url | relative_url }}">
+            {% if item.gallery_images and item.gallery_images.first %}
+              <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
+            {% endif %}
+            <h3>{{ item.title }}</h3>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<style>
+.images-landing { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+.page-header { text-align: center; margin-bottom: 2rem; }
+.image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.image-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+.image-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+.image-card h3 { margin: .75rem 1rem 1rem; font-size: 1rem; color: #111827; }
+</style>

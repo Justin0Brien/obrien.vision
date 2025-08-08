@@ -1,42 +1,10 @@
-<!-- Image Gallery Include
-Usage: {% include gallery.html images=page.gallery_images lightbox=true captions=true %}
-
-Parameters:
-- images: Array of image objects with src, alt, caption
-- lightbox: Enable lightbox functionality (default: true)
-- captions: Show captions on hover (default: true)
-- lazy: Enable lazy loading (default: true)
-- columns: CSS grid columns (default: auto-fit)
--->
-
-{% assign gallery_id = include.id | default: "gallery-" | append: include.images.size | append: "-" | append: "now" | date: "%s" %}
-{% assign lightbox = include.lightbox | default: true %}
-{% assign captions = include.captions | default: true %}
-{% assign lazy = include.lazy | default: true %}
-{% assign columns = include.columns | default: "auto" %}
-
-<div class="image-gallery-container" id="{{ gallery_id }}"
-     data-gallery='{"lightbox": {{ lightbox }}, "captions": {{ captions }}, "lazy": {{ lazy }}, "columns": "{{ columns }}"}'>
-  
+<!-- Simple Gallery Include -->
+<div class="gallery-container">
   {% for image in include.images %}
-    {% if lazy %}
-      <img data-src="{{ image.src | relative_url }}" 
-           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23f8f9fa'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%23666'%3ELoading...%3C/text%3E%3C/svg%3E"
-           alt="{{ image.alt | default: image.caption }}"
-           {% if image.caption %}title="{{ image.caption }}"{% endif %}>
-    {% else %}
+    <div class="gallery-item">
       <img src="{{ image.src | relative_url }}" 
-           alt="{{ image.alt | default: image.caption }}"
+           alt="{{ image.alt | default: image.caption | default: 'Gallery image' }}"
            {% if image.caption %}title="{{ image.caption }}"{% endif %}>
-    {% endif %}
+    </div>
   {% endfor %}
 </div>
-
-<script>
-  // Initialize this specific gallery
-  document.addEventListener('DOMContentLoaded', function() {
-    if (typeof ImageGallery !== 'undefined') {
-      new ImageGallery('#{{ gallery_id }}');
-    }
-  });
-</script>

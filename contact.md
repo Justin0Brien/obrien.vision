@@ -15,8 +15,8 @@ I'm always interested in discussing data visualization projects, employment rese
 
 ## Social & Professional Networks
 
-**LinkedIn**: [Connect with me professionally](https://www.linkedin.com/in/justin08rien)  
-**GitHub**: [View my code and projects](https://github.com/Justin0Brien)
+**LinkedIn**: [linkedin.com/in/justin08rien](https://www.linkedin.com/in/justin08rien)  
+**GitHub**: [github.com/Justin0Brien](https://github.com/Justin0Brien)
 
 ## Areas of Interest
 
