@@ -6,132 +6,17 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 ---
 
 <div class="illusions-landing">
-  <header class="page-header">
-    <h1>Visual Illusions</h1>
-    <p class="lead">Discover the fascinating world of optical illusions and perceptual phenomena. These interactive demonstrations reveal the hidden workings of human vision and the surprising ways our brains interpret visual information.</p>
-  </header>
+  
 
-  <div class="safety-notice">
-    <div class="notice-content">
-      <h3>⚠️ Important Safety Information</h3>
-      <p>Some illusions may cause dizziness, eye strain, or discomfort. Please:</p>
-      <ul>
-        <li>Avoid viewing if you have epilepsy or seizure disorders</li>
-        <li>Take regular breaks during extended viewing</li>
-        <li>Stop immediately if you feel unwell</li>
-        <li>Supervise children when viewing interactive illusions</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="featured-illusion">
-    <h2>Featured Illusion</h2>
-    {% assign featured = site.illusions | where: "featured", true | first %}
-    {% unless featured %}
-      {% assign featured = site.illusions | last %}
-    {% endunless %}
-    
-    {% if featured %}
-      <div class="featured-card">
-        <div class="featured-content">
-          <h3><a href="{{ featured.url | relative_url }}">{{ featured.title }}</a></h3>
-          <p>{{ featured.excerpt | strip_html | truncate: 200 }}</p>
-          
-          <div class="illusion-meta">
-            <div class="difficulty">
-              <strong>Difficulty:</strong> 
-              <span class="difficulty-badge {{ featured.difficulty | downcase }}">{{ featured.difficulty }}</span>
-            </div>
-            {% if featured.duration %}
-              <div class="duration">
-                <strong>Duration:</strong> {{ featured.duration }}
-              </div>
-            {% endif %}
-          </div>
-          
-          {% if featured.warning %}
-            <div class="warning-badge">
-              ⚠️ {{ featured.warning }}
-            </div>
-          {% endif %}
-          
-          <div class="card-actions">
-            <a href="{{ featured.url | relative_url }}" class="btn btn-primary">Experience Illusion</a>
-          </div>
-        </div>
-        
-        {% if featured.carousel_images.first %}
-          <div class="featured-image">
-            <img src="{{ featured.carousel_images.first.src | relative_url }}" 
-                 alt="{{ featured.carousel_images.first.alt }}"
-                 loading="lazy">
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-  </div>
-
-  <div class="illusion-categories">
-    <h2>Types of Illusions</h2>
-    <div class="category-grid">
-      <div class="category-card motion">
-        <div class="category-icon">🌀</div>
-        <h3>Motion Illusions</h3>
-        <p>Stationary images that appear to move, or moving patterns that create unexpected motion effects.</p>
-        <a href="#motion" class="category-link">Explore Motion →</a>
-      </div>
-      
-      <div class="category-card color">
-        <div class="category-icon">🎨</div>
-        <h3>Color & Brightness</h3>
-        <p>Illusions that demonstrate how context affects our perception of color and brightness.</p>
-        <a href="#color" class="category-link">View Color →</a>
-      </div>
-      
-      <div class="category-card geometric">
-        <div class="category-icon">📐</div>
-        <h3>Geometric</h3>
-        <p>Lines, shapes, and angles that appear different from their actual measurements.</p>
-        <a href="#geometric" class="category-link">See Geometric →</a>
-      </div>
-      
-      <div class="category-card ambiguous">
-        <div class="category-icon">🔄</div>
-        <h3>Ambiguous Figures</h3>
-        <p>Images that can be interpreted in multiple ways, revealing the active nature of perception.</p>
-        <a href="#ambiguous" class="category-link">Browse Ambiguous →</a>
-      </div>
-      
-      <div class="category-card aftereffect">
-        <div class="category-icon">👁️</div>
-        <h3>Aftereffects</h3>
-        <p>Temporary changes in perception following prolonged exposure to specific stimuli.</p>
-        <a href="#aftereffect" class="category-link">Try Aftereffects →</a>
-      </div>
-      
-      <div class="category-card cognitive">
-        <div class="category-icon">🧠</div>
-        <h3>Cognitive</h3>
-        <p>High-level illusions involving recognition, attention, and visual processing strategies.</p>
-        <a href="#cognitive" class="category-link">Explore Cognitive →</a>
-      </div>
-    </div>
-  </div>
 
   <div class="all-illusions">
-    <h2>All Illusions</h2>
-    <div class="filter-controls">
-      <label for="difficulty-filter">Filter by Difficulty:</label>
-      <select id="difficulty-filter">
-        <option value="">All Difficulties</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
-    </div>
-    
     <div class="illusions-grid">
-      {% for illusion in site.illusions reversed %}
+      {% assign illusions_only = site.illusions | where: "layout", "illusion" %}
+      {% assign allowed_slugs = "rotating-snake,hermann-grid,checker-shadow" | split: "," %}
+      {% for illusion in illusions_only reversed %}
+        {% unless allowed_slugs contains illusion.slug %}
+          {% continue %}
+        {% endunless %}
         <article class="illusion-card" data-difficulty="{{ illusion.difficulty | downcase }}">
           <div class="illusion-card-content">
             <h3><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h3>
@@ -178,30 +63,37 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
     </div>
   </div>
 
-  <div class="science-section">
-    <h2>The Science Behind Illusions</h2>
-    <div class="science-grid">
-      <div class="science-card">
-        <h4>Neural Processing</h4>
-        <p>How specialized cells in the visual cortex respond to different features like edges, motion, and color.</p>
-      </div>
-      <div class="science-card">
-        <h4>Adaptation</h4>
-        <p>The temporary changes in neural sensitivity that occur after prolonged exposure to stimuli.</p>
-      </div>
-      <div class="science-card">
-        <h4>Context Effects</h4>
-        <p>How surrounding information influences our perception of colors, sizes, and shapes.</p>
-      </div>
-      <div class="science-card">
-        <h4>Top-down Processing</h4>
-        <p>The role of expectations, memory, and prior knowledge in shaping what we see.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 <style>
+.illusions-landing {
+  /* light theme defaults */
+  --card-bg: #ffffff;
+  --card-border: #e0e6ed;
+  --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  --text-primary: #1f2937; /* slate-800 */
+  --text-secondary: #4b5563; /* gray-600 */
+  --tag-bg: #f1f5f9; /* slate-100 */
+  --tag-fg: #475569; /* slate-600 */
+  --btn-primary-bg: #ff6b6b;
+  --btn-primary-bg-hover: #ff5252;
+}
+
+@media (prefers-color-scheme: dark) {
+  .illusions-landing {
+    --card-bg: #0f172a; /* slate-900ish */
+    --card-border: #243047; /* darker border */
+    --card-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    --text-primary: #e5e7eb; /* gray-200 */
+    --text-secondary: #cbd5e1; /* slate-300 */
+    --tag-bg: #1f2937; /* gray-800 */
+    --tag-fg: #e5e7eb; /* gray-200 */
+    --btn-primary-bg: #ff6b6b;
+    --btn-primary-bg-hover: #ff7b7b;
+  }
+  .illusions-landing .lead { color: var(--text-secondary); }
+}
 .illusions-landing {
   max-width: 1200px;
   margin: 0 auto;
@@ -224,7 +116,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 
 .lead {
   font-size: 1.25rem;
-  color: #666;
+  color: var(--text-secondary);
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.6;
@@ -319,38 +211,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
   border: 1px solid #fecaca;
 }
 
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 4rem;
-}
-
-.category-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  border: 1px solid #e0e6ed;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-align: center;
-}
-
-.category-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-}
-
-.category-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.category-link {
-  color: #ff6b6b;
-  text-decoration: none;
-  font-weight: 500;
-}
+/* Category styles removed with section */
 
 .filter-controls {
   margin-bottom: 2rem;
@@ -371,10 +232,10 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 }
 
 .illusion-card {
-  background: white;
+  background: var(--card-bg);
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  border: 1px solid #e0e6ed;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -386,6 +247,16 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 
 .illusion-card-content {
   padding: 1.5rem;
+  color: var(--text-primary);
+}
+
+.illusion-card-content a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.illusion-card-content a:hover {
+  text-decoration: underline;
 }
 
 .illusion-card-image img {
@@ -400,8 +271,8 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 
 .category-tag {
   display: inline-block;
-  background: #f1f5f9;
-  color: #475569;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -429,12 +300,12 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 }
 
 .btn-primary {
-  background: #ff6b6b;
+  background: var(--btn-primary-bg);
   color: white;
 }
 
 .btn-primary:hover {
-  background: #ff5252;
+  background: var(--btn-primary-bg-hover);
 }
 
 .science-grid {
@@ -443,23 +314,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
   gap: 1.5rem;
 }
 
-.science-card {
-  background: #f8fafc;
-  padding: 1.5rem;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-}
-
-.science-card h4 {
-  margin-bottom: 0.5rem;
-  color: #2d3748;
-}
-
-.science-card p {
-  font-size: 0.875rem;
-  color: #666;
-  margin: 0;
-}
+/* Science section removed */
 
 @media (max-width: 768px) {
   .featured-card {
@@ -478,19 +333,6 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const difficultyFilter = document.getElementById('difficulty-filter');
-  const illusionCards = document.querySelectorAll('.illusion-card');
-  
-  difficultyFilter.addEventListener('change', function() {
-    const selectedDifficulty = this.value;
-    
-    illusionCards.forEach(card => {
-      if (selectedDifficulty === '' || card.dataset.difficulty === selectedDifficulty) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
+  // No interactive filters; page lists only the selected illusions
 });
 </script>

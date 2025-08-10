@@ -1,0 +1,320 @@
+layout: null
+permalink: /illusions/hermann-grid.html
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Interactive Hermann Grid (all controls working)</title>
+<style>
+  :root{
+    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
+    --soft:#e5e7eb; --soft2:#d1d5db;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns: 560px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
+  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
+  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
+  legend{padding:0 6px; font-weight:650; color:#374151}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .hint{font-size:13px;color:#4b5563}
+  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .ctl{ display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0; }
+  .ctl input[type="range"]{width:100%}
+  .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
+  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer; }
+  .btn:hover{background:var(--soft2)}
+  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Grid</legend>
+      <div class="ctl"><span>Cells per row/column</span><input id="cells" type="range" min="3" max="20" value="8"><span id="cellsVal" class="value">8</span></div>
+      <div class="ctl"><span>Square size (px)</span><input id="sq" type="range" min="18" max="120" value="64"><span id="sqVal" class="value">64</span></div>
+      <div class="ctl"><span>Street width (px)</span><input id="street" type="range" min="6" max="40" value="22"><span id="streetVal" class="value">22</span></div>
+      <div class="ctl"><span>Corner rounding (px)</span><input id="round" type="range" min="0" max="24" value="0"><span id="roundVal" class="value">0</span></div>
+      <div class="ctl"><span>Square darkness</span><input id="dark" type="range" min="0" max="100" value="100"><span id="darkVal" class="value">100%</span></div>
+      <div class="ctl"><span>Invert colours</span><input id="invert" type="checkbox"><span class="value" aria-hidden="true"></span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Extras</legend>
+      <div class="ctl"><span>Blur (defocus, px)</span><input id="blur" type="range" min="0" max="4" step="0.2" value="0"><span id="blurVal" class="value">0.0</span></div>
+      <div class="ctl"><span>Show “scintillating” dots</span><input id="dots" type="checkbox"><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Dot radius (px)</span><input id="dotR" type="range" min="2" max="14" value="6"><span id="dotRVal" class="value">6</span></div>
+      <div class="hint">Tip: look slightly away from a junction, or move your eyes. Grey smudges should pop in the periphery. Rounding the corners weakens the effect.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Parameter presets</legend>
+      <div id="paramPresets" class="row presets"></div>
+      <div class="hint">These snap the controls to combinations that reliably produce a strong (or deliberately weak) Hermann Grid.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Export</legend>
+      <div class="row">
+        <button id="exportPng" class="btn">Export PNG</button>
+        <button id="exportSvg" class="btn">Export SVG</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <canvas id="cv" aria-label="Hermann Grid canvas"></canvas>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cv = $('cv'); const ctx = cv.getContext('2d');
+
+  const ctl = {
+    cells:$('cells'), sq:$('sq'), street:$('street'), round:$('round'),
+    dark:$('dark'), invert:$('invert'),
+    blur:$('blur'), dots:$('dots'), dotR:$('dotR')
+  };
+  const labels = {
+    cells:$('cellsVal'), sq:$('sqVal'), street:$('streetVal'), round:$('roundVal'),
+    dark:$('darkVal'), blur:$('blurVal'), dotR:$('dotRVal')
+  };
+
+  /* ---------- canvas sizing ---------- */
+  function fitCanvas(){
+    const dpr = Math.max(1, window.devicePixelRatio||1);
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width*dpr);
+    cv.height = Math.round(rect.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  /* ---------- helpers ---------- */
+  function shadeFromDarkness(pct){
+    // 0..100; 100 = black, 0 = very light grey (not pure white, to leave some contrast when inverted)
+    const v = Math.round(255 * (1 - pct/100) * 0.7);
+    const hex = v.toString(16).padStart(2,'0');
+    return `#${hex}${hex}${hex}`;
+  }
+  function clamp(v,a,b){ return Math.min(b, Math.max(a, v)); }
+
+  /* ---------- drawing ---------- */
+  function draw(){
+    // labels
+    labels.cells.textContent = ctl.cells.value;
+    labels.sq.textContent    = ctl.sq.value;
+    labels.street.textContent= ctl.street.value;
+    labels.round.textContent = ctl.round.value;
+    labels.dark.textContent  = ctl.dark.value + '%';
+    labels.blur.textContent  = (+ctl.blur.value).toFixed(1);
+    labels.dotR.textContent  = ctl.dotR.value;
+
+    // blur filter on canvas element (preview only; not used in exports)
+    cv.style.filter = ctl.blur.value > 0 ? `blur(${ctl.blur.value}px)` : 'none';
+
+    const N       = +ctl.cells.value;
+    const S       = +ctl.sq.value;      // square size
+    const W       = +ctl.street.value;  // street width
+    const R       = +ctl.round.value;   // corner radius
+    const DOTS    = ctl.dots.checked;
+    const DOTR    = +ctl.dotR.value;
+
+    const darkHex = shadeFromDarkness(+ctl.dark.value);
+    const sqCol   = ctl.invert.checked ? '#ffffff' : darkHex;
+    const bgCol   = ctl.invert.checked ? darkHex : '#ffffff';
+
+    const totalW = N*S + (N-1)*W;
+    const totalH = totalW;
+    const Wc = cv.width, Hc = cv.height;
+
+    ctx.clearRect(0,0,Wc,Hc);
+    ctx.save();
+    ctx.translate(Wc/2, Hc/2);
+
+    // background
+    ctx.fillStyle = bgCol;
+    ctx.fillRect(-Wc/2, -Hc/2, Wc, Hc);
+
+    // draw squares
+    ctx.fillStyle = sqCol;
+    const startX = -totalW/2, startY = -totalH/2;
+    for (let r=0; r<N; r++){
+      for (let c=0; c<N; c++){
+        const x = startX + c*(S+W);
+        const y = startY + r*(S+W);
+        roundRect(ctx, x, y, S, S, clamp(R, 0, S/2));
+        ctx.fill();
+      }
+    }
+
+    // optional scintillating dots at intersections (centre of “streets”)
+    if (DOTS){
+      ctx.fillStyle = ctl.invert.checked ? darkHex : '#ffffff';
+      for (let r=0; r<N-1; r++){
+        for (let c=0; c<N-1; c++){
+          const cx = startX + (c+1)*S + c*W + W/2;
+          const cy = startY + (r+1)*S + r*W + W/2;
+          ctx.beginPath();
+          ctx.arc(cx, cy, DOTR, 0, Math.PI*2);
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+    }
+
+    ctx.restore();
+  }
+
+  function roundRect(ctx, x, y, w, h, r){
+    const rr = Math.min(r, w/2, h/2);
+    ctx.beginPath();
+    ctx.moveTo(x+rr, y);
+    ctx.lineTo(x+w-rr, y);
+    ctx.quadraticCurveTo(x+w, y, x+w, y+rr);
+    ctx.lineTo(x+w, y+h-rr);
+    ctx.quadraticCurveTo(x+w, y+h, x+w-rr, y+h);
+    ctx.lineTo(x+rr, y+h);
+    ctx.quadraticCurveTo(x, y+h, x, y+h-rr);
+    ctx.lineTo(x, y+rr);
+    ctx.quadraticCurveTo(x, y, x+rr, y);
+    ctx.closePath();
+  }
+
+  /* ---------- presets ---------- */
+  const paramPresets = [
+    { id:'classicStrong', name:'Classic (strong)',
+      cells:8, sq:64, street:22, round:0, dark:100, invert:false, blur:0.0, dots:false, dotR:6 },
+    { id:'widerStreets',  name:'Wide streets',
+      cells:7, sq:60, street:28, round:0, dark:100, invert:false, blur:0.0, dots:false, dotR:6 },
+    { id:'roundedWeak',   name:'Rounded (weak)',
+      cells:8, sq:64, street:22, round:16, dark:100, invert:false, blur:0.0, dots:false, dotR:6 },
+    { id:'denseSmall',    name:'Dense & small',
+      cells:12, sq:36, street:16, round:0, dark:100, invert:false, blur:0.0, dots:false, dotR:5 },
+    { id:'lowContrast',   name:'Lower contrast',
+      cells:8, sq:64, street:22, round:0, dark:65, invert:false, blur:0.0, dots:false, dotR:6 },
+    { id:'inverted',      name:'Inverted',
+      cells:8, sq:64, street:22, round:0, dark:100, invert:true,  blur:0.0, dots:false, dotR:6 },
+    { id:'scintOverlay',  name:'Scintillating overlay',
+      cells:9, sq:52, street:18, round:0, dark:100, invert:false, blur:0.0, dots:true,  dotR:6 },
+  ];
+  const presetRow = $('paramPresets');
+
+  function applyPreset(p){
+    ctl.cells.value = p.cells; ctl.sq.value = p.sq; ctl.street.value = p.street; ctl.round.value = p.round;
+    ctl.dark.value  = p.dark;  ctl.invert.checked = !!p.invert;
+    ctl.blur.value  = p.blur;  ctl.dots.checked  = !!p.dots; ctl.dotR.value = p.dotR;
+    markActivePreset(p.id);
+    draw();
+  }
+  function buildPresetButtons(){
+    paramPresets.forEach(p=>{
+      const b = document.createElement('button');
+      b.className = 'btn';
+      b.textContent = p.name;
+      b.dataset.pid = p.id;
+      b.type = 'button';
+      b.addEventListener('click', ()=> applyPreset(p));
+      presetRow.appendChild(b);
+    });
+    markActivePreset('classicStrong');
+  }
+  function markActivePreset(id){
+    [...presetRow.querySelectorAll('button')].forEach(b=>{
+      const on = b.dataset.pid === id;
+      b.classList.toggle('active', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  /* ---------- export ---------- */
+  $('exportPng').addEventListener('click', ()=>{
+    // Temporarily disable blur for a crisp export
+    const oldFilter = cv.style.filter;
+    cv.style.filter = 'none';
+    const a=document.createElement('a');
+    a.download='hermann-grid.png';
+    a.href=cv.toDataURL('image/png');
+    a.click();
+    cv.style.filter = oldFilter;
+  });
+
+  $('exportSvg').addEventListener('click', ()=>{
+    const rect = cv.getBoundingClientRect();
+    const W = Math.round(rect.width), H = Math.round(rect.height);
+
+    const N       = +ctl.cells.value;
+    const S       = +ctl.sq.value;
+    const Wstreet = +ctl.street.value;
+    const R       = +ctl.round.value;
+    const DOTS    = ctl.dots.checked;
+    const DOTR    = +ctl.dotR.value;
+
+    const darkHex = shadeFromDarkness(+ctl.dark.value);
+    const sqCol   = ctl.invert.checked ? '#ffffff' : darkHex;
+    const bgCol   = ctl.invert.checked ? darkHex : '#ffffff';
+
+    const totalW = N*S + (N-1)*Wstreet;
+    const totalH = totalW;
+    const startX = (W - totalW)/2, startY = (H - totalH)/2;
+
+    const parts = [];
+    parts.push(`<rect x="0" y="0" width="${W}" height="${H}" fill="${bgCol}"/>`);
+    for (let r=0; r<N; r++){
+      for (let c=0; c<N; c++){
+        const x = startX + c*(S+Wstreet);
+        const y = startY + r*(S+Wstreet);
+        const rx = Math.min(R, S/2);
+        parts.push(`<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${S}" height="${S}" rx="${rx}" ry="${rx}" fill="${sqCol}"/>`);
+      }
+    }
+    if (DOTS){
+      const dotFill = ctl.invert.checked ? darkHex : '#ffffff';
+      for (let r=0; r<N-1; r++){
+        for (let c=0; c<N-1; c++){
+          const cx = startX + (c+1)*S + c*Wstreet + Wstreet/2;
+          const cy = startY + (r+1)*S + r*Wstreet + Wstreet/2;
+          parts.push(`<circle cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="${DOTR}" fill="${dotFill}"/>`);
+        }
+      }
+    }
+
+    const svg =
+`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  ${parts.join('\n  ')}
+</svg>`;
+
+    const blob=new Blob([svg], {type:'image/svg+xml'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='hermann-grid.svg'; a.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 2000);
+  });
+
+  $('reset').addEventListener('click', ()=> applyPreset(paramPresets[0]));
+
+  /* ---------- wire up controls (THIS WAS THE BUG) ---------- */
+  function bindControls(){
+    Object.values(ctl).forEach(input=>{
+      const ev = (input.type === 'checkbox') ? 'change' : 'input';
+      input.addEventListener(ev, ()=>{
+        markActivePreset('');   // you’re off a preset now
+        draw();                 // <- redraw with the new value
+      }, {passive:true});
+    });
+  }
+
+  /* ---------- boot ---------- */
+  function init(){
+    fitCanvas();
+    window.addEventListener('resize', ()=>{fitCanvas(); draw();}, {passive:true});
+    buildPresetButtons();
+    bindControls();            // <- ensure controls actually drive redraws
+    applyPreset(paramPresets[0]);
+  }
+  init();
+})();
+</script>
+</body>
+</html>

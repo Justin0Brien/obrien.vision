@@ -27,7 +27,7 @@ layout: default
 
   <div class="illusion-container">
     {% if page.iframe_src %}
-      <iframe src="{{ page.iframe_src | relative_url }}" 
+  <iframe src="{{ page.iframe_src | relative_url }}" 
               width="{{ page.iframe_width | default: '100%' }}" 
               height="{{ page.iframe_height | default: '600' }}" 
               frameborder="0" 
@@ -109,6 +109,24 @@ layout: default
 </article>
 
 <style>
+body.illusion-page { background-color: #ffffff; }
+.illusion,
+.illusion p,
+.illusion li,
+.illusion h1,
+.illusion h2,
+.illusion h3,
+.illusion h4,
+.illusion h5,
+.illusion h6 {
+  color: #111827; /* High-contrast ink */
+}
+.illusion a {
+  color: #1d4ed8; /* Accessible link blue */
+  text-decoration: underline;
+}
+.illusion a:hover { color: #1e40af; }
+.illusion hr { border-color: #e5e7eb; }
 .illusion-header {
   margin-bottom: 2rem;
 }
@@ -160,6 +178,7 @@ layout: default
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   width: 100%;
+  background: #fff;
 }
 
 .illusion-gallery {

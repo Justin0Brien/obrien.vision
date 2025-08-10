@@ -1,9 +1,12 @@
+layout: null
+permalink: /illusions/rotating-snake.html
+---
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Rotating Snakes — Generator (colour + parameter presets, SVG export)</title>
+<title>Rotating Snakes — Working Colour Presets + SVG export</title>
 <style>
   :root{
     --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
@@ -17,16 +20,12 @@
   .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .hint{font-size:13px;color:#4b5563}
   canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  /* One-line control rows */
   .ctl{ display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0; }
   .ctl input[type="range"]{width:100%}
   .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
   input[type="color"]{width:64px;height:28px;padding:0;border:none;background:none}
   .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer; }
   .btn:hover{background:var(--soft2)}
-  .btn.primary{background:var(--accent); color:#fff}
-  .btn.primary:hover{background:var(--accent-strong)}
-  .presets .btn{position:relative}
   .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
   .section-label{font-weight:600; margin:6px 0 4px}
 </style>
@@ -41,7 +40,7 @@
       <div class="ctl"><span>Ring thickness (px)</span><input id="thick" type="range" min="8" max="80" value="34"><span id="thickVal" class="value">34</span></div>
       <div class="ctl"><span>Gap between rings (px)</span><input id="gap" type="range" min="2" max="32" value="10"><span id="gapVal" class="value">10</span></div>
       <div class="ctl"><span>Inner radius (px)</span><input id="inner" type="range" min="20" max="260" value="110"><span id="innerVal" class="value">110</span></div>
-      <div class="ctl"><span>Curvy edge amplitude (px)</span><input id="amp" type="range" min="0" max="24" value="10"><span id="ampVal" class="value">10</span></div>
+      <div class="ctl"><span>Curvy edge amplitude (px)</span><input id="amp" type="range" min="0" max="24" value="12"><span id="ampVal" class="value">12</span></div>
       <div class="ctl"><span>Curvy edge frequency</span><input id="freq" type="range" min="1" max="10" value="4"><span id="freqVal" class="value">4</span></div>
       <div class="ctl"><span>Alternate ring direction</span><input id="altDir" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
       <div class="ctl"><span>Thin separators (boost edges)</span><input id="seps" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
@@ -49,22 +48,22 @@
 
     <fieldset>
       <legend>Colours</legend>
-      <div class="hint">Keep tangential order as <strong>Black → Dark → White → Light</strong> (or luminance equivalents). Reversing flips perceived rotation.</div>
+      <div class="hint">Order matters (tangentially): <strong>Black → Dark → White → Light</strong>. Reversing flips perceived rotation.</div>
       <div class="ctl"><span>Step 1 (Black)</span><input id="c1" type="color" value="#000000"><span class="value" data-for="c1">#000000</span></div>
-      <div class="ctl"><span>Step 2 (Dark)</span><input id="c2" type="color" value="#555555"><span class="value" data-for="c2">#555555</span></div>
+      <div class="ctl"><span>Step 2 (Dark)</span><input id="c2" type="color" value="#2a49d1"><span class="value" data-for="c2">#2a49d1</span></div>
       <div class="ctl"><span>Step 3 (White)</span><input id="c3" type="color" value="#ffffff"><span class="value" data-for="c3">#ffffff</span></div>
-      <div class="ctl"><span>Step 4 (Light)</span><input id="c4" type="color" value="#bbbbbb"><span class="value" data-for="c4">#bbbbbb</span></div>
+      <div class="ctl"><span>Step 4 (Light)</span><input id="c4" type="color" value="#9fbaff"><span class="value" data-for="c4">#9fbaff</span></div>
       <div class="ctl"><span>Reverse order</span><input id="rev" type="checkbox"><span class="value" aria-hidden="true"></span></div>
 
       <div class="section-label">Colour presets</div>
       <div id="presetRow" class="row presets"></div>
-      <div class="hint">Presets are tinted from a calibrated greyscale and automatically checked so the luminance differences stay strong enough for the effect.</div>
+      <div class="hint">Presets use fixed, high-contrast palettes to keep the illusion strong.</div>
     </fieldset>
 
     <fieldset>
       <legend>Parameter presets</legend>
       <div id="paramPresetRow" class="row presets"></div>
-      <p class="hint">These set rings, tile count, thickness, gaps and edge modulation to known-good combinations.</p>
+      <p class="hint">Snap to known-good slider settings.</p>
     </fieldset>
 
     <fieldset>
@@ -77,7 +76,6 @@
         <button id="randomise" class="btn">Randomise</button>
         <button id="reset" class="btn">Reset</button>
       </div>
-      <p class="hint">Tip: look slightly off-centre, blink, or gently move your eyes across the rings. The image is static; any motion is your visual system doing its party trick.</p>
     </fieldset>
   </div>
 
@@ -119,44 +117,32 @@
   function hexToRgb(hex){ const n=parseInt(hex.slice(1),16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
   function rgbToHex(o){return '#'+[o.r,o.g,o.b].map(v=>v.toString(16).padStart(2,'0')).join('');}
   function clamp(v,a=0,b=255){return Math.min(b,Math.max(a,v));}
-  function mixRgb(a,b,t){return {r:clamp(a.r+(b.r-a.r)*t), g:clamp(a.g+(b.g-a.g)*t), b:clamp(a.b+(b.b-a.b)*t)};}
-  function relLuma(rgb){ // sRGB relative luminance
-    const lin = c => { c/=255; return c<=0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); };
-    const R=lin(rgb.r), G=lin(rgb.g), B=lin(rgb.b);
-    return 0.2126*R+0.7152*G+0.0722*B;
-  }
+  function relLuma(rgb){ const lin=c=>{c/=255;return c<=0.04045?c/12.92:Math.pow((c+0.055)/1.055,2.4)}; const R=lin(rgb.r),G=lin(rgb.g),B=lin(rgb.b); return 0.2126*R+0.7152*G+0.0722*B; }
 
-  /* ---------- colour presets ---------- */
-  const baseGrey = ['#000000','#555555','#ffffff','#bbbbbb']; // B < D < W & L (we enforce B < D < L < W in checks)
-  function makeTintPreset(tintHex, amt){
-    const T = hexToRgb(tintHex);
-    return baseGrey.map(h => rgbToHex(mixRgb(hexToRgb(h), T, amt)));
-  }
-  function makeTintPresetGuarded(tintHex){
-    const tries = [0.4, 0.35, 0.3, 0.25, 0.2];
-    for (const a of tries){
-      const seq = makeTintPreset(tintHex, a);
-      if (isSeqMonotonic(seq)) return seq;
-    }
-    return baseGrey.slice(); // fall back to safe greys
-  }
+  /* ---------- fixed high-contrast colour presets ---------- */
+  // Each: [Black, Dark(coloured), White, Light(coloured)] — chosen so luminance order is Black < Dark < Light < White
   const colourPresets = [
-    {id:'classic', name:'Classic Mono', seq: baseGrey.slice()},
-    {id:'royal',   name:'Royal Blue',   tint:'#2a6df0'},
-    {id:'teal',    name:'Teal',         tint:'#1f9e93'},
-    {id:'auberg',  name:'Aubergine',    tint:'#7a2b8f'},
-    {id:'forest',  name:'Forest',       tint:'#2c6e2f'},
-    {id:'gold',    name:'Gold',         tint:'#caa13a'},
-    {id:'magenta', name:'Magenta/Green',tint:'#c2287d'},
-    {id:'slate',   name:'Slate',        tint:'#445066'}
+    { id:'classic', name:'Classic Mono', seq:['#000000','#555555','#ffffff','#bbbbbb'] },
+    { id:'royal',   name:'Royal Blue',   seq:['#000000','#2a49d1','#ffffff','#9fbaff'] },
+    { id:'teal',    name:'Teal',         seq:['#000000','#0c6a6a','#ffffff','#7fd8d3'] },
+    { id:'auberg',  name:'Aubergine',    seq:['#000000','#5a1f7a','#ffffff','#c7a2e8'] },
+    { id:'forest',  name:'Forest',       seq:['#000000','#245d2a','#ffffff','#a8e6a2'] },
+    { id:'gold',    name:'Gold',         seq:['#000000','#7a5a14','#ffffff','#f4d27a'] },
+    { id:'magenta', name:'Magenta/Mint', seq:['#000000','#7a1b5a','#ffffff','#b7f7c0'] },
+    { id:'slate',   name:'Slate',        seq:['#000000','#384055','#ffffff','#aab3c9'] }
   ];
-  function seqForColourPreset(p){ return p.seq ? p.seq.slice() : makeTintPresetGuarded(p.tint); }
+  function isSeqMonotonic(seq){
+    const y = seq.map(h => relLuma(hexToRgb(h)));
+    return (y[0] < y[1]-0.05) && (y[1] < y[3]-0.05) && (y[3] < y[2]-0.05);
+  }
 
   const presetRow = $('presetRow');
-  let activeColourPreset = 'classic';
+  let activeColourPreset = '';
 
   function applyColourSeq(seq){
-    ctl.c1.value = seq[0]; ctl.c2.value = seq[1]; ctl.c3.value = seq[2]; ctl.c4.value = seq[3];
+    // Safety: keep only sequences with the right luminance ordering
+    const s = isSeqMonotonic(seq) ? seq : colourPresets[0].seq;
+    ctl.c1.value = s[0]; ctl.c2.value = s[1]; ctl.c3.value = s[2]; ctl.c4.value = s[3];
     updateColourLabels();
     draw();
   }
@@ -171,40 +157,31 @@
   function buildColourPresetButtons(){
     colourPresets.forEach(p=>{
       const b = document.createElement('button');
-      b.className = 'btn'; b.textContent = p.name; b.dataset.pid = p.id; b.type = 'button'; b.setAttribute('aria-pressed','false');
+      b.className = 'btn';
+      b.textContent = p.name;
+      b.dataset.pid = p.id;
+      b.type = 'button';
+      b.setAttribute('aria-pressed','false');
       b.addEventListener('click', ()=>{
-        const seq = seqForColourPreset(p);
-        // safety check: enforce luminance ordering B < D < L < W; if not, revert
-        const ok = isSeqMonotonic(seq);
-        applyColourSeq(ok ? seq : baseGrey.slice());
+        applyColourSeq(p.seq);
         setActiveColourPreset(p.id);
       });
       presetRow.appendChild(b);
     });
-    // default
-    applyColourSeq(colourPresets[0].seq);
-    setActiveColourPreset('classic');
-  }
-  function isSeqMonotonic(seq){
-    const y = seq.map(h => relLuma(hexToRgb(h)));
-    // Expect y0<y1<y3<y2 (B < D < L < W). We place White as step 3 and Light as step 4.
-    return (y[0] < y[1] - 0.05) && (y[1] < y[3] - 0.05) && (y[3] < y[2] - 0.05);
+    // Default to Royal Blue (clear visual change from grey)
+    applyColourSeq(colourPresets[1].seq);
+    setActiveColourPreset('royal');
   }
 
-  // When the user manually edits a colour, clear active preset highlight (they’re off-preset now)
+  // Manual colour tweaks clear preset highlight (you’re off-preset now)
   [ctl.c1, ctl.c2, ctl.c3, ctl.c4].forEach(inp=>{
-    inp.addEventListener('input', ()=>{
-      updateColourLabels();
-      setActiveColourPreset(''); // no active
-      draw();
-    }, {passive:true});
+    inp.addEventListener('input', ()=>{ updateColourLabels(); setActiveColourPreset(''); draw(); }, {passive:true});
   });
-
   function updateColourLabels(){
-    colourValueSpans.c1.textContent = ctl.c1.value.toLowerCase();
-    colourValueSpans.c2.textContent = ctl.c2.value.toLowerCase();
-    colourValueSpans.c3.textContent = ctl.c3.value.toLowerCase();
-    colourValueSpans.c4.textContent = ctl.c4.value.toLowerCase();
+    document.querySelector('.value[data-for="c1"]').textContent = ctl.c1.value.toLowerCase();
+    document.querySelector('.value[data-for="c2"]').textContent = ctl.c2.value.toLowerCase();
+    document.querySelector('.value[data-for="c3"]').textContent = ctl.c3.value.toLowerCase();
+    document.querySelector('.value[data-for="c4"]').textContent = ctl.c4.value.toLowerCase();
   }
 
   function getSeq(){
@@ -214,27 +191,13 @@
 
   /* ---------- parameter presets ---------- */
   const paramPresetRow = $('paramPresetRow');
-  let activeParamPreset = 'classicStrong';
   const paramPresets = [
-    { id:'classicStrong', name:'Classic (strong)',
-      rings:4, units:36, thick:34, gap:10, inner:110, amp:12, freq:4, altDir:true, seps:true },
-    { id:'denseMosaic', name:'Dense mosaic',
-      rings:6, units:64, thick:22, gap:6, inner:90, amp:10, freq:6, altDir:true, seps:true },
-    { id:'boldWide', name:'Bold wide',
-      rings:3, units:28, thick:48, gap:14, inner:130, amp:12, freq:3, altDir:true, seps:true },
-    { id:'fineSubtle', name:'Fine subtle',
-      rings:5, units:80, thick:16, gap:6, inner:100, amp:8, freq:5, altDir:true, seps:true },
-    { id:'compactPunchy', name:'Compact punchy',
-      rings:5, units:40, thick:26, gap:8, inner:70, amp:12, freq:5, altDir:true, seps:true }
+    { id:'classicStrong', name:'Classic (strong)', rings:4, units:36, thick:34, gap:10, inner:110, amp:12, freq:4, altDir:true, seps:true },
+    { id:'denseMosaic',   name:'Dense mosaic',    rings:6, units:64, thick:22, gap:6,  inner:90,  amp:10, freq:6, altDir:true, seps:true },
+    { id:'boldWide',      name:'Bold wide',       rings:3, units:28, thick:48, gap:14, inner:130, amp:12, freq:3, altDir:true, seps:true },
+    { id:'fineSubtle',    name:'Fine subtle',     rings:5, units:80, thick:16, gap:6,  inner:100, amp:8,  freq:5, altDir:true, seps:true },
+    { id:'compactPunchy', name:'Compact punchy',  rings:5, units:40, thick:26, gap:8,  inner:70,  amp:12, freq:5, altDir:true, seps:true }
   ];
-  function setActiveParamPreset(id){
-    activeParamPreset = id;
-    [...paramPresetRow.querySelectorAll('button')].forEach(b=>{
-      const on = b.dataset.pid === id;
-      b.classList.toggle('active', on);
-      b.setAttribute('aria-pressed', on ? 'true' : 'false');
-    });
-  }
   function applyParamPreset(p){
     ctl.rings.value=p.rings; ctl.units.value=p.units; ctl.thick.value=p.thick; ctl.gap.value=p.gap;
     ctl.inner.value=p.inner; ctl.amp.value=p.amp; ctl.freq.value=p.freq;
@@ -244,22 +207,17 @@
   function buildParamPresetButtons(){
     paramPresets.forEach(p=>{
       const b = document.createElement('button');
-      b.className='btn'; b.textContent=p.name; b.dataset.pid=p.id; b.type='button'; b.setAttribute('aria-pressed','false');
-      b.addEventListener('click', ()=>{ applyParamPreset(p); setActiveParamPreset(p.id); });
+      b.className = 'btn';
+      b.textContent = p.name;
+      b.dataset.pid = p.id;
+      b.type = 'button';
+      b.addEventListener('click', ()=> applyParamPreset(p));
       paramPresetRow.appendChild(b);
     });
     applyParamPreset(paramPresets[0]);
-    setActiveParamPreset(paramPresets[0].id);
   }
 
-  // If user tweaks layout sliders afterwards, clear param-preset highlight
-  ['rings','units','thick','gap','inner','amp','freq','altDir','seps'].forEach(k=>{
-    const el = ctl[k];
-    const ev = (el.type==='checkbox') ? 'change' : 'input';
-    el.addEventListener(ev, ()=> setActiveParamPreset(''), {passive:true});
-  });
-
-  /* ---------- labels ---------- */
+  // Labels
   function updateLabels(){
     valSpans.rings.textContent = ctl.rings.value;
     valSpans.units.textContent = ctl.units.value;
@@ -311,7 +269,6 @@
     }
     ctx.stroke();
   }
-
   function curvedPatch(ctx,rIn,rOut,a1,a2,amp,freq,fill){
     const steps=Math.max(8, Math.floor((a2-a1)*64));
     const phase= Math.PI/2;
@@ -332,7 +289,7 @@
     ctx.fillStyle=fill; ctx.fill();
   }
 
-  /* ---------- export PNG ---------- */
+  /* ---------- Export PNG ---------- */
   $('exportPng').addEventListener('click', ()=>{
     const a=document.createElement('a');
     a.download='rotating-snakes.png';
@@ -340,7 +297,7 @@
     a.click();
   });
 
-  /* ---------- export SVG ---------- */
+  /* ---------- Export SVG ---------- */
   $('exportSvg').addEventListener('click', ()=>{
     const rect = cv.getBoundingClientRect();
     const W = Math.round(rect.width), H = Math.round(rect.height);
@@ -416,17 +373,17 @@
 
   /* ---------- random & reset ---------- */
   $('randomise').addEventListener('click', ()=>{
-    // pick a random parameter preset + random colour preset
-    const pp = paramPresets[Math.floor(Math.random()*paramPresets.length)];
+    // random colour + parameter preset
     const cp = colourPresets[Math.floor(Math.random()*colourPresets.length)];
-    applyParamPreset(pp); setActiveParamPreset(pp.id);
-    const seq = seqForColourPreset(cp); applyColourSeq(seq); setActiveColourPreset(cp.id);
+    applyColourSeq(cp.seq); setActiveColourPreset(cp.id);
+    const pp = ['classicStrong','denseMosaic','boldWide','fineSubtle','compactPunchy'];
+    const chosen = pp[Math.floor(Math.random()*pp.length)];
+    applyParamPreset(paramPresets.find(p=>p.id===chosen));
   });
 
   $('reset').addEventListener('click', ()=>{
-    // reset colours to classic + parameter classic
-    applyColourSeq(baseGrey.slice()); setActiveColourPreset('classic');
-    applyParamPreset(paramPresets[0]); setActiveParamPreset(paramPresets[0].id);
+    applyColourSeq(colourPresets[1].seq); setActiveColourPreset('royal'); // visible default
+    applyParamPreset(paramPresets[0]);
     ctl.rev.checked=false; ctl.scale.value=100; ctl.flick.checked=false;
     updateLabels(); draw();
   });
@@ -437,8 +394,7 @@
       const ev = (inp.type==='range'||inp.type==='color'||inp.type==='checkbox') ? 'input' : 'change';
       inp.addEventListener(ev, ()=>{
         if (inp === ctl.scale) valSpans.scale.textContent = ctl.scale.value + '%';
-        if (inp === ctl.rev) draw();
-        else if (inp.type==='range') { updateLabels(); draw(); }
+        draw();
       }, {passive:true});
     });
     window.addEventListener('resize', ()=>{fitCanvas(); draw();}, {passive:true});
@@ -449,9 +405,9 @@
     if (ctl.flick.checked){
       tFlick += 0.016;
       const k = 0.08 * Math.sin(2*Math.PI*0.8*tFlick);
-      // Draw with a subtle contrast wobble between steps 2 & 3
       const base=[ctl.c1.value, ctl.c2.value, ctl.c3.value, ctl.c4.value].map(hexToRgb);
-      const wobble=[ base[0],
+      const wobble=[
+        base[0],
         {r:clamp(base[1].r*(1+k)), g:clamp(base[1].g*(1+k)), b:clamp(base[1].b*(1+k))},
         {r:clamp(base[2].r*(1-k)), g:clamp(base[2].g*(1-k)), b:clamp(base[2].b*(1-k))},
         base[3]

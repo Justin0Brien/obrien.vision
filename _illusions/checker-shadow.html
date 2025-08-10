@@ -1,0 +1,621 @@
+---
+layout: null
+permalink: /illusions/checker-shadow.html
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Adelson Checker–Shadow — interactive, draggable, with reveal</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8; --soft:#e5e7eb; --soft2:#d1d5db;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns: 560px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
+  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
+  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
+  legend{padding:0 6px; font-weight:650; color:#374151}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .ctl{display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0}
+  .ctl input[type="range"]{width:100%}
+  .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
+  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
+  .btn:hover{background:var(--soft2)}
+  .presets .btn.active{background:var(--accent); color:#fff}
+  .hint{font-size:13px;color:#4b5563}
+  .badge{display:inline-block; padding:2px 6px; border-radius:6px; font-size:12px; background:#eef2ff; color:#3730a3; margin-left:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Board</legend>
+      <div class="ctl"><span>Squares per side</span><input id="n" type="range" min="6" max="16" value="8"><span id="nVal" class="value">8</span></div>
+      <div class="ctl"><span>Square size (px)</span><input id="size" type="range" min="30" max="120" value="70"><span id="sizeVal" class="value">70</span></div>
+      <div class="ctl"><span>Board margin (px)</span><input id="margin" type="range" min="20" max="120" value="60"><span id="marginVal" class="value">60</span></div>
+      <div class="ctl"><span>Dark square lightness</span><input id="Ldark" type="range" min="5" max="60" value="35"><span id="LdarkVal" class="value">35%</span></div>
+      <div class="ctl"><span>Light square lightness</span><input id="Llight" type="range" min="40" max="95" value="70"><span id="LlightVal" class="value">70%</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Shadow & light</legend>
+      <div class="ctl"><span>Shadow strength (multiplier)</span><input id="shadow" type="range" min="20" max="95" value="50"><span id="shadowVal" class="value">0.50×</span></div>
+      <div class="ctl"><span>Shadow softness (px)</span><input id="soft" type="range" min="5" max="120" value="60"><span id="softVal" class="value">60</span></div>
+      <div class="ctl"><span>Shadow width (px)</span><input id="shWidth" type="range" min="60" max="420" value="260"><span id="shWidthVal" class="value">260</span></div>
+      <div class="ctl"><span>Shadow length (px)</span><input id="shLength" type="range" min="150" max="900" value="560"><span id="shLengthVal" class="value">560</span></div>
+      <div class="ctl"><span>Light angle (°)</span><input id="angle" type="range" min="-180" max="180" value="30"><span id="angleVal" class="value">30°</span></div>
+      <div class="ctl"><span>Show cylinder (drag me)</span><input id="showCyl" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Cylinder radius (px)</span><input id="cylR" type="range" min="30" max="140" value="80"><span id="cylRVal" class="value">80</span></div>
+      <div class="row">
+        <button id="animate" class="btn">Animate light</button>
+        <button id="stopAnim" class="btn">Stop</button>
+      </div>
+      <div class="hint">Tip: drag the cylinder on the canvas; the shadow updates. The illusion is strongest when a “light” square lies under shadow next to a “dark” square in the light.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Labels, reveal & proof</legend>
+      <div class="ctl"><span>Show labels A & B</span><input id="showLabels" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Lock equality (A shade = B shade)</span><input id="lockEq" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Context fade (reveal)</span><input id="fade" type="range" min="0" max="100" value="0"><span id="fadeVal" class="value">0%</span></div>
+      <div class="row">
+        <button id="bridge" class="btn">Draw bridging strip</button>
+        <button id="clearBridge" class="btn">Clear strip</button>
+        <span class="badge">Prove they’re identical</span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Presets & export</legend>
+      <div class="row">
+        <button class="btn" id="presetClassic">Classic setup</button>
+        <button class="btn" id="presetWide">Wide soft shadow</button>
+        <button class="btn" id="presetDramatic">Dramatic contrast</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="exportPng" class="btn">Export PNG</button>
+        <button id="exportSvg" class="btn">Export SVG</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <canvas id="cv" aria-label="Adelson Checker–Shadow canvas"></canvas>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cv = $('cv');
+  const ctx = cv.getContext('2d');
+
+  // Controls
+  const ctl = {
+    n: $('n'), size:$('size'), margin:$('margin'),
+    Ldark:$('Ldark'), Llight:$('Llight'),
+    shadow:$('shadow'), soft:$('soft'), shWidth:$('shWidth'), shLength:$('shLength'),
+    angle:$('angle'), showCyl:$('showCyl'), cylR:$('cylR'),
+    showLabels:$('showLabels'), lockEq:$('lockEq'), fade:$('fade')
+  };
+  const lab = {
+    n:$('nVal'), size:$('sizeVal'), margin:$('marginVal'),
+    Ldark:$('LdarkVal'), Llight:$('LlightVal'),
+    shadow:$('shadowVal'), soft:$('softVal'), shWidth:$('shWidthVal'), shLength:$('shLengthVal'),
+    angle:$('angleVal'), cylR:$('cylRVal'), fade:$('fadeVal')
+  };
+
+  // State
+  const state = {
+    // Canvas
+    dpr: 1,
+    // Cylinder & shadow
+    cylX: 0, cylY: 0,
+    anim: null,
+    // A/B labels on alternating tiles
+    A: { r: 1, c: 2 }, // dark tile in light
+    B: { r: 2, c: 3 }, // light tile under shadow
+    bridgeOn: false
+  };
+
+  /* ----------------- utilities ----------------- */
+  function fitCanvas(){
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    state.dpr = dpr;
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width * dpr);
+    cv.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function L_to_rgb(L){ // greyscale from 0..100% (sRGB approx)
+    const v = Math.round(255 * (L/100));
+    const h = v.toString(16).padStart(2,'0');
+    return `#${h}${h}${h}`;
+  }
+
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function clamp(v,a,b){ return Math.min(b, Math.max(a, v)); }
+
+  // Signed distance to a capsule (rounded rectangle) centred at (0,0), along +x of length L and radius R
+  function sdCapsuleLocal(x,y,L,R){
+    // Map to central rectangle of half-length h = L/2
+    const h = L/2;
+    const qx = Math.abs(x) - h;
+    const qy = y;
+    const ax = Math.max(qx, 0);
+    const ay = Math.max(Math.abs(qy) - R, 0);
+    const outside = Math.hypot(ax, ay);
+    const inside = Math.min(Math.max(qx, Math.abs(qy) - R), 0);
+    return outside + inside; // negative inside
+  }
+
+  // Shadow factor at world coords (x,y)
+  function shadowAt(x,y, cx,cy, angleRad, width, length, softPx, strength){
+    // Transform to shadow-local coords (capsule along +x)
+    const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
+    const lx =  (x - cx) * cos + (y - cy) * sin;
+    const ly = -(x - cx) * sin + (y - cy) * cos;
+    const d = sdCapsuleLocal(lx, ly, length, width/2);
+    // Soft edge with smoothstep
+    const t = clamp(0.5 - d / Math.max(1, softPx), 0, 1); // 1 inside core, 0 outside, with softness
+    // Map to multiplier: 1 outside → strength inside
+    return lerp(1.0, strength, t);
+  }
+
+  // Convert tile (r,c) to centre world coords
+  function tileCentre(r, c, board){
+    const x = board.x0 + c * (board.size) + board.size/2;
+    const y = board.y0 + r * (board.size) + board.size/2;
+    return {x,y};
+  }
+
+  // Determine if a tile is "light" or "dark" by parity
+  function isLight(r,c){ return ((r + c) % 2) === 1; }
+
+  /* ----------------- drawing ----------------- */
+  function draw(){
+    const W = cv.width / state.dpr, H = cv.height / state.dpr;
+    ctx.clearRect(0,0,W,H);
+
+    // Labels
+    lab.n.textContent = ctl.n.value;
+    lab.size.textContent = ctl.size.value;
+    lab.margin.textContent = ctl.margin.value;
+    lab.Ldark.textContent = ctl.Ldark.value + '%';
+    lab.Llight.textContent = ctl.Llight.value + '%';
+    lab.shadow.textContent = (ctl.shadow.value/100).toFixed(2) + '×';
+    lab.soft.textContent = ctl.soft.value;
+    lab.shWidth.textContent = ctl.shWidth.value;
+    lab.shLength.textContent = ctl.shLength.value;
+    lab.angle.textContent = ctl.angle.value + '°';
+    lab.cylR.textContent = ctl.cylR.value;
+    lab.fade.textContent = ctl.fade.value + '%';
+
+    // Board geometry
+    const n = +ctl.n.value;
+    const size = +ctl.size.value;
+    const margin = +ctl.margin.value;
+    const boardW = n * size;
+    const boardH = boardW;
+    const cxBoard = W/2, cyBoard = H/2;
+    const x0 = cxBoard - boardW/2;
+    const y0 = cyBoard - boardH/2;
+    const board = { x0, y0, size, n };
+
+    // Place cylinder default if first draw
+    if (state.cylX === 0 && state.cylY === 0){
+      state.cylX = x0 + size*1.2;
+      state.cylY = y0 + size*1.6;
+    }
+
+    // Shadow parameters
+    const angleRad = (+ctl.angle.value) * Math.PI/180;
+    const shWidth = +ctl.shWidth.value;
+    const shLength = +ctl.shLength.value;
+    const softPx = +ctl.soft.value;
+    const strength = (+ctl.shadow.value)/100;
+    const cylR = +ctl.cylR.value;
+
+    // Fade (context reveal)
+    const fadeK = (+ctl.fade.value)/100; // 0..1
+
+    // Draw background (context)
+    ctx.save();
+    ctx.globalAlpha = 1 - fadeK;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0,0,W,H);
+
+    // Soft drop shadow under cylinder (cosmetic)
+    if (ctl.showCyl.checked){
+      ctx.save();
+      ctx.translate(state.cylX, state.cylY);
+      ctx.rotate(angleRad);
+      const grad = ctx.createRadialGradient(cylR*0.2, cylR*0.6, cylR*0.2, 0, 0, cylR*1.8);
+      grad.addColorStop(0, 'rgba(0,0,0,0.18)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, cylR*0.8, cylR*1.1, cylR*0.6, 0, 0, Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Draw checkerboard with multiplicative shadow applied per tile
+    const Ld = +ctl.Ldark.value;
+    let Ll = +ctl.Llight.value;
+
+    // If lock equality: set dark = light * shadow(B) so A & B match in physical luminance
+    if (ctl.lockEq.checked){
+      const BC = tileCentre(state.B.r, state.B.c, board);
+      const sB = shadowAt(BC.x, BC.y, state.cylX, state.cylY, angleRad, shWidth, shLength, softPx, strength);
+      // ensure Ld stays in sensible bounds
+      const newLd = clamp(Ll * sB, 5, 60);
+      // push dark slider toward equality (without fighting the UI): draw with newLd, reflect readout
+      // (we don't change the slider position; we just render with the computed equal dark)
+      lab.Ldark.textContent = newLd.toFixed(1) + '%';
+      drawCheckerboard(board, Ll, newLd, {angleRad, shWidth, shLength, softPx, strength});
+    } else {
+      drawCheckerboard(board, Ll, Ld, {angleRad, shWidth, shLength, softPx, strength});
+    }
+
+    // Cylinder (on top of board)
+    if (ctl.showCyl.checked){
+      drawCylinder(state.cylX, state.cylY, cylR, angleRad);
+    }
+
+    // Shadow capsule (for fun, faint overlay of the umbra)
+    ctx.save();
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.globalAlpha = 0.06 * (1 - fadeK);
+    ctx.translate(state.cylX, state.cylY);
+    ctx.rotate(angleRad);
+    ctx.fillStyle = '#000';
+    roundedCapsule(ctx, 0, 0, shLength, shWidth, shWidth/2);
+    ctx.fill();
+    ctx.restore();
+
+    // Labels & bridge
+    if (ctl.showLabels.checked){
+      drawLabels(board, fadeK);
+    }
+    if (state.bridgeOn){
+      drawBridge(board, fadeK);
+    }
+
+    ctx.restore(); // end of context fade
+
+    // Foreground white overlay to implement fade (“reveal”)
+    if (fadeK > 0){
+      ctx.save();
+      ctx.globalAlpha = fadeK;
+      // Paint only board area with flat mid-grey that matches both A & B
+      const AC = tileCentre(state.A.r, state.A.c, board);
+      const BC = tileCentre(state.B.r, state.B.c, board);
+      const params = {angleRad, shWidth, shLength, softPx, strength};
+      const LA = physicalLuminanceAt(state.A.r, state.A.c, board, params);
+      const LB = physicalLuminanceAt(state.B.r, state.B.c, board, params);
+      const mid = (LA + LB)/2;
+      ctx.fillStyle = L_to_rgb(mid);
+      ctx.fillRect(x0 - margin, y0 - margin, boardW + 2*margin, boardH + 2*margin);
+      ctx.restore();
+      // Redraw A/B labels on top
+      if (ctl.showLabels.checked){
+        drawLabels(board, 0);
+        if (state.bridgeOn) drawBridge(board, 0);
+      }
+    }
+  }
+
+  function drawCheckerboard(board, Ll, Ld, sh){
+    const { x0, y0, size, n } = board;
+    for (let r=0; r<n; r++){
+      for (let c=0; c<n; c++){
+        const light = isLight(r,c);
+        // base lightness
+        let L = light ? Ll : Ld;
+        const centre = tileCentre(r,c, board);
+        const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
+        L = clamp(L * s, 0, 100);
+        ctx.fillStyle = L_to_rgb(L);
+        ctx.fillRect(x0 + c*size, y0 + r*size, size, size);
+      }
+    }
+    // board border
+    ctx.save();
+    ctx.strokeStyle = '#999';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x0, y0, n*size, n*size);
+    ctx.restore();
+  }
+
+  function drawCylinder(x,y, R, angleRad){
+    ctx.save();
+    ctx.translate(x,y);
+    // Body gradient
+    const grad = ctx.createLinearGradient(-R, 0, R, 0);
+    grad.addColorStop(0.0, '#bbbbbb');
+    grad.addColorStop(0.45,'#f2f2f2');
+    grad.addColorStop(0.55,'#cfcfcf');
+    grad.addColorStop(1.0, '#9a9a9a');
+    ctx.fillStyle = grad;
+    ctx.strokeStyle = '#888';
+    ctx.lineWidth = 1;
+
+    // Cylinder body
+    ctx.beginPath();
+    ctx.ellipse(0, 0, R, R*0.35, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Top rim (gives the “object casting shadow” cue)
+    ctx.beginPath();
+    ctx.ellipse(0, -R*0.25, R*0.9, R*0.25, 0, 0, Math.PI*2);
+    ctx.fillStyle = '#e9e9e9';
+    ctx.fill();
+    ctx.stroke();
+
+    // Shiny highlight
+    ctx.beginPath();
+    ctx.ellipse(-R*0.45, -R*0.05, R*0.25, R*0.12, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.fill();
+
+    ctx.restore();
+  }
+
+  function roundedCapsule(ctx, x, y, length, width, r){
+    ctx.beginPath();
+    const L = length, W = width, R = r;
+    ctx.moveTo(x - L/2, y - W/2 + R);
+    ctx.arcTo(x - L/2, y - W/2, x - L/2 + R, y - W/2, R);
+    ctx.lineTo(x + L/2 - R, y - W/2);
+    ctx.arcTo(x + L/2, y - W/2, x + L/2, y - W/2 + R, R);
+    ctx.lineTo(x + L/2, y + W/2 - R);
+    ctx.arcTo(x + L/2, y + W/2, x + L/2 - R, y + W/2, R);
+    ctx.lineTo(x - L/2 + R, y + W/2);
+    ctx.arcTo(x - L/2, y + W/2, x - L/2, y + W/2 - R, R);
+    ctx.closePath();
+  }
+
+  function drawLabels(board, fadeK){
+    const {size} = board;
+    const AC = tileCentre(state.A.r, state.A.c, board);
+    const BC = tileCentre(state.B.r, state.B.c, board);
+    labelAt('A', AC.x, AC.y, size, fadeK);
+    labelAt('B', BC.x, BC.y, size, fadeK);
+  }
+
+  function labelAt(text, x, y, size, fadeK){
+    ctx.save();
+    ctx.font = `bold ${Math.round(size*0.5)}px ui-sans-serif, system-ui, Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(0,0,0,'+(0.85*(1-fadeK))+')';
+    ctx.strokeStyle = 'rgba(255,255,255,'+(0.9*(1-fadeK))+')';
+    ctx.lineWidth = Math.max(1, size*0.08);
+    ctx.strokeText(text, x, y);
+    ctx.fillText(text, x, y);
+    ctx.restore();
+  }
+
+  function drawBridge(board, fadeK){
+    const AC = tileCentre(state.A.r, state.A.c, board);
+    const BC = tileCentre(state.B.r, state.B.c, board);
+    // Take physical luminance at A (same as B when equality is locked) and paint a strip between
+    const params = {
+      angleRad:(+ctl.angle.value)*Math.PI/180,
+      shWidth:+ctl.shWidth.value, shLength:+ctl.shLength.value,
+      softPx:+ctl.soft.value, strength:(+ctl.shadow.value)/100
+    };
+    const LA = physicalLuminanceAt(state.A.r, state.A.c, board, params);
+    ctx.save();
+    ctx.globalAlpha = 0.95*(1-fadeK);
+    ctx.strokeStyle = L_to_rgb(LA);
+    ctx.lineWidth = Math.max(10, board.size*0.2);
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(AC.x, AC.y);
+    ctx.lineTo(BC.x, BC.y);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function physicalLuminanceAt(r,c, board, sh){
+    // Return the greyscale lightness (0..100) actually drawn at that tile
+    const Ld = +ctl.Ldark.value;
+    const Ll = +ctl.Llight.value;
+    let base = isLight(r,c) ? Ll : Ld;
+    const centre = tileCentre(r,c, board);
+    const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
+    if (ctl.lockEq.checked && r===state.A.r && c===state.A.c){
+      // A is dark in light; under lock we adapted Ld via draw, but here just return dark square in light (no shadow assumed)
+      // Better: compute from actual rendering path; we mirror what draw() did: A is dark tile; s for A location:
+      const sA = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
+      // In typical classic setup A is outside shadow -> sA~1, but we keep general:
+      return clamp((isLight(r,c)?Ll:Ld) * sA, 0, 100);
+    }
+    return clamp(base * s, 0, 100);
+  }
+
+  /* ----------------- interaction ----------------- */
+  function bindInputs(){
+    // Sliders/checkboxes trigger redraw
+    Object.values(ctl).forEach(input=>{
+      const ev = (input.type==='checkbox')?'change':'input';
+      input.addEventListener(ev, ()=>{ draw(); }, {passive:true});
+    });
+
+    // Presets
+    $('presetClassic').addEventListener('click', ()=>{
+      ctl.n.value=8; ctl.size.value=70; ctl.margin.value=60;
+      ctl.Ldark.value=35; ctl.Llight.value=70;
+      ctl.shadow.value=50; ctl.soft.value=60; ctl.shWidth.value=260; ctl.shLength.value=560;
+      ctl.angle.value=30; ctl.cylR.value=80; ctl.showCyl.checked=true;
+      state.cylX = (cv.width/state.dpr)/2 - 120; state.cylY = (cv.height/state.dpr)/2 + 20;
+      ctl.showLabels.checked=true; ctl.lockEq.checked=true; ctl.fade.value=0;
+      state.A={r:1,c:2}; state.B={r:2,c:3}; state.bridgeOn=false;
+      draw();
+    });
+    $('presetWide').addEventListener('click', ()=>{
+      ctl.shadow.value=60; ctl.soft.value=100; ctl.shWidth.value=360; ctl.shLength.value=760; ctl.angle.value=20; draw();
+    });
+    $('presetDramatic').addEventListener('click', ()=>{
+      ctl.Ldark.value=30; ctl.Llight.value=80; ctl.shadow.value=45; ctl.soft.value=40; ctl.shWidth.value=220; ctl.shLength.value=620; ctl.angle.value=45; draw();
+    });
+
+    // Bridge toggle
+    $('bridge').addEventListener('click', ()=>{ state.bridgeOn = true; draw(); });
+    $('clearBridge').addEventListener('click', ()=>{ state.bridgeOn = false; draw(); });
+
+    // Animate light
+    $('animate').addEventListener('click', ()=>{
+      if (state.anim) return;
+      let t= (+ctl.angle.value) * Math.PI/180;
+      const step = ()=>{
+        if (!state.anim) return;
+        t += 0.01;
+        ctl.angle.value = Math.round((t*180/Math.PI + 180)%360 - 180);
+        draw();
+        state.anim = requestAnimationFrame(step);
+      };
+      state.anim = requestAnimationFrame(step);
+    });
+    $('stopAnim').addEventListener('click', ()=>{
+      if (state.anim){ cancelAnimationFrame(state.anim); state.anim=null; }
+    });
+
+    // Reset
+    $('reset').addEventListener('click', ()=>{
+      Object.assign(ctl, ctl); // no-op, just clarity
+      $('presetClassic').click();
+    });
+
+    // Export PNG
+    $('exportPng').addEventListener('click', ()=>{
+      const a=document.createElement('a');
+      a.download='checker-shadow.png';
+      a.href=cv.toDataURL('image/png');
+      a.click();
+    });
+
+    // Export SVG (vector board + labels + cylinder + shadow outline + bridge; shadow soft edges not exported)
+    $('exportSvg').addEventListener('click', ()=>{
+      const rect = cv.getBoundingClientRect();
+      const W = Math.round(rect.width), H = Math.round(rect.height);
+      const n = +ctl.n.value, size=+ctl.size.value, margin=+ctl.margin.value;
+      const boardW = n*size, boardH = boardW;
+      const x0 = W/2 - boardW/2, y0 = H/2 - boardH/2;
+      const Ld = +ctl.Ldark.value, Ll = +ctl.Llight.value;
+      const angleRad = (+ctl.angle.value)*Math.PI/180;
+      const shWidth=+ctl.shWidth.value, shLength=+ctl.shLength.value;
+      const cylR=+ctl.cylR.value;
+
+      const parts = [];
+      parts.push(`<rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>`);
+      // Checkerboard (no soft shadow in SVG export; this is a “flat reveal” for publication)
+      for(let r=0;r<n;r++){
+        for(let c=0;c<n;c++){
+          const L = isLight(r,c) ? Ll : Ld;
+          const col = L_to_rgb(L);
+          parts.push(`<rect x="${x0 + c*size}" y="${y0 + r*size}" width="${size}" height="${size}" fill="${col}" />`);
+        }
+      }
+      // Cylinder
+      if (ctl.showCyl.checked){
+        parts.push(`<circle cx="${state.cylX.toFixed(2)}" cy="${state.cylY.toFixed(2)}" r="${cylR}" fill="#cfcfcf" stroke="#888"/>`);
+      }
+      // Shadow outline capsule
+      const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
+      const cx = state.cylX, cy = state.cylY;
+      // Simple rotated rect with rounded ends
+      const x = cx, y = cy, L = shLength, Wd = shWidth;
+      const path = capsulePathSvg(x, y, L, Wd, angleRad);
+      parts.push(`<path d="${path}" fill="none" stroke="rgba(0,0,0,0.12)" />`);
+
+      // Labels
+      if (ctl.showLabels.checked){
+        const AC = tileCentre(state.A.r, state.A.c, {x0,y0,size,n});
+        const BC = tileCentre(state.B.r, state.B.c, {x0,y0,size,n});
+        parts.push(`<text x="${AC.x}" y="${AC.y}" font-family="Arial,Segoe UI,system-ui" font-size="${Math.round(size*0.5)}" text-anchor="middle" dominant-baseline="middle" fill="#000">A</text>`);
+        parts.push(`<text x="${BC.x}" y="${BC.y}" font-family="Arial,Segoe UI,system-ui" font-size="${Math.round(size*0.5)}" text-anchor="middle" dominant-baseline="middle" fill="#000">B</text>`);
+        if (state.bridgeOn){
+          parts.push(`<line x1="${AC.x}" y1="${AC.y}" x2="${BC.x}" y2="${BC.y}" stroke="${L_to_rgb(Ll)}" stroke-width="${Math.max(10, size*0.2)}" stroke-linecap="round" />`);
+        }
+      }
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${parts.join('\n')}</svg>`;
+      const blob=new Blob([svg], {type:'image/svg+xml'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='checker-shadow.svg'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 2000);
+    });
+
+    function capsulePathSvg(cx, cy, L, W, ang){
+      // Return a simple rounded-rectangle path rotated by ang
+      const r = W/2;
+      const p = [
+        [-L/2, -W/2 + r], [-L/2, -W/2], [-L/2 + r, -W/2],
+        [ L/2 - r, -W/2], [ L/2, -W/2], [ L/2, -W/2 + r],
+        [ L/2,  W/2 - r], [ L/2,  W/2], [ L/2 - r,  W/2],
+        [-L/2 + r,  W/2], [-L/2,  W/2], [-L/2,  W/2 - r]
+      ];
+      const cos = Math.cos(ang), sin = Math.sin(ang);
+      const rot = (px,py)=>[ cx + px*cos - py*sin, cy + px*sin + py*cos ];
+      const A = p.map(([px,py])=>rot(px,py));
+      // Build a crude path (no true arcs to keep it short)
+      return `M ${A[0][0]} ${A[0][1]} L ${A[2][0]} ${A[2][1]} L ${A[3][0]} ${A[3][1]} L ${A[5][0]} ${A[5][1]} L ${A[6][0]} ${A[6][1]} L ${A[8][0]} ${A[8][1]} L ${A[9][0]} ${A[9][1]} L ${A[11][0]} ${A[11][1]} Z`;
+    }
+
+    // Drag cylinder
+    let dragging = false;
+    cv.addEventListener('mousedown', (e)=>{
+      const pt = clientToCanvas(e);
+      if (hitCylinder(pt.x, pt.y)){
+        dragging = true;
+      }
+    });
+    cv.addEventListener('mousemove', (e)=>{
+      if (!dragging) return;
+      const pt = clientToCanvas(e);
+      state.cylX = pt.x; state.cylY = pt.y;
+      draw();
+    });
+    window.addEventListener('mouseup', ()=> dragging=false);
+    cv.addEventListener('touchstart', (e)=>{
+      const t = e.touches[0]; const pt = clientToCanvas(t);
+      if (hitCylinder(pt.x, pt.y)) dragging=true;
+    }, {passive:true});
+    cv.addEventListener('touchmove', (e)=>{
+      if (!dragging) return;
+      const t = e.touches[0]; const pt = clientToCanvas(t);
+      state.cylX = pt.x; state.cylY = pt.y; draw();
+    }, {passive:true});
+    window.addEventListener('touchend', ()=> dragging=false, {passive:true});
+
+    function clientToCanvas(e){
+      const rect = cv.getBoundingClientRect();
+      return { x: (e.clientX - rect.left), y: (e.clientY - rect.top) };
+    }
+    function hitCylinder(x,y){
+      const dx = x - state.cylX, dy = y - state.cylY;
+      return Math.hypot(dx,dy) <= (+ctl.cylR.value) * 1.1;
+    }
+  }
+
+  /* ----------------- boot ----------------- */
+  function init(){
+    fitCanvas();
+    window.addEventListener('resize', ()=>{ fitCanvas(); draw(); }, {passive:true});
+    bindInputs();
+    // Default to classic preset
+    $('presetClassic').click();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
