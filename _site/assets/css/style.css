@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@400;700&display=swap");
 /* ======================================== COLOR SCHEMES ======================================== */
 :root { /* Light mode (default) */ --text: #05061f; --background: #e0e4fa; --primary: #6069c7; --secondary: #b6832f; --accent: #d62489; }
@@ -15,9 +16,9 @@ body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line
 
 h1, h2, h3, h4, h5 { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
 
-h1 { font-size: 4.210rem; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
 
-h2 { font-size: 3.158rem; }
+h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; margin-top: 3rem; margin-bottom: 1.25rem; }
 
 h3 { font-size: 2.369rem; }
 
@@ -28,7 +29,7 @@ h5 { font-size: 1.333rem; }
 small { font-size: 0.750rem; }
 
 /* ======================================== LAYOUT ======================================== */
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+.container { max-width: 720px; margin: 0 auto; padding: 4rem 2rem; }
 
 /* ======================================== NAVIGATION ======================================== */
 .main-navigation { background-color: var(--background); border-bottom: 2px solid var(--primary); padding: 1rem 0; }
@@ -75,6 +76,16 @@ small { font-size: 0.750rem; }
 
 /* ======================================== MAIN CONTENT ======================================== */
 main { padding: 2rem 0; }
+
+/* Intro paragraph immediately after top-level heading */
+main h1 + p { font-size: 1.125rem; line-height: 1.6; max-width: 600px; margin-bottom: 4rem; color: #adb5bd; }
+
+/* Default body text sizing for content areas */
+main p, main li, main a { font-size: 1.125rem; line-height: 1.7; }
+
+a { color: var(--primary); text-decoration: none; transition: color 0.2s ease-in-out; }
+
+a:hover { color: var(--accent); }
 
 .home { background-color: var(--background); color: var(--text); }
 
@@ -133,6 +144,7 @@ a:hover { color: var(--accent); }
 
 .site-name-secondary { font-weight: 400; color: var(--secondary); opacity: 0.9; }
 
+/* Contact-page scoped overrides removed — now defaults apply site-wide */
 /* ======================================== FOOTER ======================================== */
 footer { background-color: var(--primary); color: var(--background); padding: 3rem 0 2rem 0; margin-top: 4rem; text-align: center; }
 

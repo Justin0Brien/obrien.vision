@@ -2,55 +2,21 @@
 title: Contact
 layout: default
 permalink: "/contact/"
+description: Get in touch with Dr Justin O’Brien about AI, psychology, and vision research, data visualisation, and collaboration.
 ---
 
 # Get in Touch
 
-I'm always interested in discussing data visualization projects, employment research collaborations, or potential consulting opportunities.
-
-## Professional Inquiries
-
-
-**Email**: [justin@obrien.vision](mailto:justin@obrien.vision)
-
-## Social & Professional Networks
-
-**LinkedIn**: [linkedin.com/in/justin08rien](https://www.linkedin.com/in/justin08rien)  
-**GitHub**: [github.com/Justin0Brien](https://github.com/Justin0Brien)
-
-## Areas of Interest
-
-I'm particularly keen to work on projects involving:
-
-
-
-## Response Time
-
-I typically respond to professional inquiries within 2-3 business days. For urgent matters, please indicate this in your subject line.
-
----
-
-*Looking forward to hearing from you and exploring how data can drive insights and positive change.*
-
----
-title: Contact
-layout: default
-permalink: "/contact/"
-description: Get in touch with Dr Justin O’Brien about AI, psychology, and vision research, data visualisation, and collaboration.
----
-
-# Contact
-
 If you’re exploring a project in **AI**, **psychology**, or **vision science**—or you’ve simply got a question about my work—I’d be glad to hear from you.
 
-## How to reach me
+## Professional inquiries
 
 **Email**: [justin@obrien.vision](mailto:justin@obrien.vision)
 
+## Social & professional networks
+
 **LinkedIn**: [linkedin.com/in/justin08rien](https://www.linkedin.com/in/justin08rien)  
 **GitHub**: [github.com/Justin0Brien](https://github.com/Justin0Brien)
-
----
 
 ## What I work on
 

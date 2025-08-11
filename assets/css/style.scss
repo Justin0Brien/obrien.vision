@@ -67,8 +67,17 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 1rem;
 }
 
-h1 { font-size: 4.210rem; }
-h2 { font-size: 3.158rem; }
+h1 {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
 h3 { font-size: 2.369rem; }
 h4 { font-size: 1.777rem; }
 h5 { font-size: 1.333rem; }
@@ -79,9 +88,9 @@ small { font-size: 0.750rem; }
    ======================================== */
 
 .container {
-  max-width: 900px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 4rem 2rem;
 }
 
 /* ========================================
@@ -226,6 +235,33 @@ small { font-size: 0.750rem; }
 
 main {
   padding: 2rem 0;
+}
+
+/* Intro paragraph immediately after top-level heading */
+main h1 + p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 4rem;
+  color: #adb5bd;
+}
+
+/* Default body text sizing for content areas */
+main p,
+main li,
+main a {
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--accent);
 }
 
 .home {
@@ -398,6 +434,8 @@ a:hover {
   color: var(--secondary);
   opacity: 0.9;
 }
+
+/* Contact-page scoped overrides removed — now defaults apply site-wide */
 
 /* ========================================
    FOOTER

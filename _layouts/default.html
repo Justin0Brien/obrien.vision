@@ -19,7 +19,7 @@
   <![endif]-->
   {% include head-custom.html %}
 </head>
-<body class="{{ page.layout }}-page">
+<body class="{{ page.layout }}-page{% if page.url == '/contact/' or page.permalink == '/contact/' %} contact-page{% endif %}">
   <div class="wrapper">
     <!-- Main Navigation -->
     <nav class="main-navigation">
