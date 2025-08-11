@@ -17,7 +17,42 @@ An interactive Sankey diagram visualizing employment outcomes for professionals 
 
 ## Local Development
 
-### Prerequisites
+This project is configured for rbenv so local runs are seamless and match GitHub Pages’ constraints.
+
+Quick start (macOS):
+
+1) One-time bootstrap
+
+	- Install Homebrew if needed: <https://brew.sh>
+	- Run the project setup script:
+
+```bash
+./bin/setup
+```
+
+1) Start the dev server
+
+```bash
+./start-dev.sh
+```
+
+Details:
+
+- .ruby-version pins Ruby to 3.2.4 for this repo (rbenv auto-switches).
+- Gems install to vendor/bundle (no sudo; no global pollution).
+- GitHub Pages compatibility is ensured via the github-pages gem in Gemfile. If you need custom plugins, use a GitHub Actions build instead of Pages’ default.
+
+### asdf users
+
+This repo also includes a `.tool-versions` file. If you use asdf:
+
+```bash
+asdf plugin add ruby || true
+asdf install
+bundle config set path 'vendor/bundle'
+bundle install
+./start-dev.sh
+```
 
 - Ruby (version 2.7 or higher)
 - Bundler gem
@@ -36,7 +71,7 @@ This site is configured for GitHub Pages deployment. Simply push to the main bra
 
 ## Content Structure
 
-```
+```text
 ├── _config.yml          # Jekyll configuration
 ├── _layouts/            # Page layouts
 ├── _posts/              # Blog posts
@@ -61,6 +96,7 @@ This site is configured for GitHub Pages deployment. Simply push to the main bra
 ## Data Sources
 
 Visualizations and analysis incorporate data from:
+
 - Office for National Statistics (ONS)
 - Labour Force Survey
 - Ageing Better reports

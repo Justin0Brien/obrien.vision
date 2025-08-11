@@ -1,0 +1,72 @@
+# Local-only Jekyll configuration
+# This file is merged with _config.yml when serving locally to enable admin features.
+
+plugins:
+  - jekyll-admin
+
+jekyll_admin:
+  hidden_links: []
+  homepage: "posts"
+  editor:
+    enable: true
+    preview: true
+    toolbar: true
+    markdown:
+      enable: true
+      syntax_highlighting: true
+      auto_save: true
+      line_numbers: true
+  collections:
+    projects:
+      output: true
+      metadata:
+        title: "Projects"
+        description: "Portfolio and project pages"
+  uploads:
+    allowed_file_types: ["jpg", "jpeg", "png", "gif", "pdf", "svg", "webp", "md"]
+    max_file_size: 10
+    default_path: "/assets/images/posts"
+    organize_uploads: true
+  posts:
+    show_drafts: true
+    categories: true
+    tags: true
+    default_frontmatter:
+      layout: "post"
+      author: "Justin O'Brien"
+      categories: ["blog"]
+      tags: []
+      excerpt: ""
+      image: ""
+      thumbnail: ""
+    auto_excerpt: true
+    excerpt_length: 160
+  pages:
+    show_all: true
+    default_frontmatter:
+      layout: "default"
+      title: ""
+      permalink: ""
+  static_files:
+    enable: true
+    collections:
+      - "assets"
+      - "_includes"
+      - "_layouts"
+    show_thumbnails: true
+    sort_by: "date"
+  data:
+    enable: true
+    show_all: true
+  configuration:
+    enable: true
+    editable_sections:
+      - "site"
+      - "plugins"
+      - "collections"
+      - "defaults"
+      - "minimagick"
+      - "jekyll_admin"
+    protected_sections:
+      - "safe"
+      - "gems"

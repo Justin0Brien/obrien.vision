@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Motion Aftereffect (Waterfall) — Interactive Lab</title>
+<style>
+  :root{
+    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
+    --soft:#e5e7eb; --soft2:#d1d5db;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns: 620px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
+  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
+  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
+  legend{padding:0 6px; font-weight:650; color:#374151}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .hint{font-size:13px;color:#4b5563}
+  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  /* one-line control rows: label | slider/input | value */
+  .ctl{ display:grid; grid-template-columns: 1fr 320px 80px; gap:10px; align-items:center; margin:8px 0; }
+  .ctl input[type="range"], .ctl select{width:100%}
+  .value{justify-self:end; min-width:80px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
+  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
+  .btn:hover{background:var(--soft2)}
+  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
+
+  .overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none}
+  .overlay .bubble{background:rgba(0,0,0,0.65); color:#fff; padding:10px 14px; border-radius:10px; font-weight:600; letter-spacing:.3px}
+  .progress{height:8px;border-radius:6px;background:#e5e7eb; overflow:hidden}
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,#2563eb);width:0%}
+  .badge{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:8px;padding:2px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Adapt stimulus (moving)</legend>
+      <div class="ctl"><span>Type</span>
+        <select id="adaptType">
+          <option value="gratingH">Drifting grating (→/←)</option>
+          <option value="gratingV">Drifting grating (↑/↓)</option>
+          <option value="rotation">Dot field rotation (CW/CCW)</option>
+          <option value="radial">Dot field expansion/contraction</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Direction</span>
+        <select id="direction">
+          <option value="forward">Forward (e.g., →, CW, expand)</option>
+          <option value="reverse">Reverse (e.g., ←, CCW, contract)</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Adaptation time (s)</span><input id="adaptTime" type="range" min="2" max="30" value="12"><span id="adaptTimeVal" class="value">12</span></div>
+      <div class="ctl"><span>Speed (a.u.)</span><input id="speed" type="range" min="0.1" max="8" step="0.1" value="2.5"><span id="speedVal" class="value">2.5</span></div>
+      <div class="ctl"><span>Spatial frequency (cycles)</span><input id="sf" type="range" min="2" max="40" value="12"><span id="sfVal" class="value">12</span></div>
+      <div class="ctl"><span>Contrast</span><input id="contrast" type="range" min="5" max="100" value="90"><span id="contrastVal" class="value">90%</span></div>
+      <div class="ctl"><span>Dot count (for dot fields)</span><input id="dots" type="range" min="100" max="2000" step="50" value="800"><span id="dotsVal" class="value">800</span></div>
+      <div class="ctl"><span>Fixation cross</span><input id="fixation" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Test stimulus (static)</legend>
+      <div class="ctl"><span>Type</span>
+        <select id="testType">
+          <option value="gratingH">Stationary grating (horizontal)</option>
+          <option value="gratingV">Stationary grating (vertical)</option>
+          <option value="rings">Stationary radial rings</option>
+          <option value="noise">Static noise</option>
+          <option value="blank">Blank mid‑grey</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Test contrast</span><input id="testContrast" type="range" min="5" max="100" value="70"><span id="testContrastVal" class="value">70%</span></div>
+      <div class="ctl"><span>Show during adaptation</span><input id="ghostTest" type="checkbox"><span class="value" aria-hidden="true"></span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Run</legend>
+      <div class="row">
+        <button id="start" class="btn">Start adapting</button>
+        <button id="topup" class="btn">Top‑up 2 s</button>
+        <button id="toTest" class="btn">Go to test</button>
+        <button id="stop" class="btn">Stop</button>
+      </div>
+      <div class="ctl"><span>State</span>
+        <div class="progress"><i id="prog" style="width:0%"></i></div>
+        <span id="stateTxt" class="value badge">idle</span>
+      </div>
+      <div class="hint">Keep your eyes on the **fixation cross** during adaptation. When the timer ends, the moving pattern will freeze and you should see **illusory motion in the opposite direction** on the static test.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Presets</legend>
+      <div id="presetRow" class="row presets"></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Export</legend>
+      <div class="row">
+        <button id="exportPng" class="btn">Export PNG</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <div style="position:relative">
+    <canvas id="cv" aria-label="MAE canvas"></canvas>
+    <div class="overlay" id="overlay" aria-hidden="true" style="display:none"><div class="bubble" id="overlayTxt">Fixate the +</div></div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cv = $('cv'), ctx = cv.getContext('2d');
+
+  const ctl = {
+    adaptType:$('adaptType'), direction:$('direction'), adaptTime:$('adaptTime'), speed:$('speed'), sf:$('sf'), contrast:$('contrast'), dots:$('dots'), fixation:$('fixation'),
+    testType:$('testType'), testContrast:$('testContrast'), ghostTest:$('ghostTest')
+  };
+  const lab = { adaptTime:$('adaptTimeVal'), speed:$('speedVal'), sf:$('sfVal'), contrast:$('contrastVal'), dots:$('dotsVal'), testContrast:$('testContrastVal') };
+  const prog = $('prog'), stateTxt = $('stateTxt'), overlay = $('overlay'), overlayTxt = $('overlayTxt');
+
+  const state = {
+    mode:'idle', // 'adapt' | 'test' | 'idle'
+    t0: 0, t: 0,
+    phase: 0, // for grating
+    rot: 0, // rotation angle
+    dots: [],
+    timerEnd: 0,
+  };
+
+  function fitCanvas(){
+    const dpr = Math.max(1, window.devicePixelRatio||1);
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width*dpr);
+    cv.height = Math.round(rect.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  /* ---------- helpers ---------- */
+  function greyFromContrast(base, c){
+    // base is 0..1 mid-grey 0.5; c is 0..100
+    const k = c/100; const lo = 0.5 - 0.5*k, hi = 0.5 + 0.5*k;
+    return {lo:lo, hi:hi};
+  }
+  function toHex01(v){ const x = Math.round(Math.min(1,Math.max(0,v))*255); const h=x.toString(16).padStart(2,'0'); return `#${h}${h}${h}`; }
+
+  /* ---------- patterns ---------- */
+  function drawGrating(dir, phase, cycles, contrast, ghost=0){
+    const W=cv.width, H=cv.height; const g=greyFromContrast(0.5, contrast); const lo=toHex01(g.lo), hi=toHex01(g.hi);
+    const isH = (dir==='H');
+    const len = isH? W : H; const period = len/Math.max(1,cycles);
+    ctx.save(); ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = hi; ctx.strokeStyle = hi;
+    const shift = ((phase%period)+period)%period; // 0..period
+    if (isH){
+      for (let x=-period+shift; x<W; x+=period){ ctx.fillRect(x,0,period/2,H); }
+    } else {
+      for (let y=-period+shift; y<H; y+=period){ ctx.fillRect(0,y,W,period/2); }
+    }
+    // if ghost test requested, faintly show the static test overlay
+    if (ghost>0) drawTestStim(ctl.testType.value, +ctl.testContrast.value, ghost);
+    // fixation
+    if (ctl.fixation.checked) drawFixation();
+    ctx.restore();
+  }
+
+  function ensureDots(n){
+    const W=cv.width, H=cv.height; const cx=W/2, cy=H/2; const need=n - state.dots.length; if (need<=0) return;
+    for (let i=0;i<need;i++){
+      const r = Math.random()*Math.min(W,H)*0.48; const ang = Math.random()*Math.PI*2;
+      state.dots.push({r, ang});
+    }
+  }
+
+  function drawRotatingDots(clockwise, speed, contrast){
+    const W=cv.width, H=cv.height; const cx=W/2, cy=H/2; const g=greyFromContrast(0.5, contrast); const lo=toHex01(g.lo), hi=toHex01(g.hi);
+    ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+    ensureDots(+ctl.dots.value);
+    const s = (clockwise? 1:-1) * speed * 0.015; // radians per frame-ish
+    state.rot += s;
+    ctx.fillStyle = hi;
+    for (const d of state.dots){
+      const a = d.ang + state.rot; const x = cx + Math.cos(a)*d.r; const y = cy + Math.sin(a)*d.r;
+      ctx.beginPath(); ctx.arc(x,y,2.2,0,Math.PI*2); ctx.fill();
+    }
+    if (ctl.ghostTest.checked) drawTestStim(ctl.testType.value, +ctl.testContrast.value, 0.12);
+    if (ctl.fixation.checked) drawFixation();
+  }
+
+  function drawRadialDots(expand, speed, contrast){
+    const W=cv.width, H=cv.height; const cx=W/2, cy=H/2; const g=greyFromContrast(0.5, contrast); const hi=toHex01(g.hi);
+    ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+    ensureDots(+ctl.dots.value);
+    const v = (expand? 1:-1) * speed * 0.45; // px per frame-ish
+    const Rmax = Math.min(W,H)*0.5; const Rmin = 6;
+    ctx.fillStyle = hi;
+    for (const d of state.dots){
+      d.r += v;
+      if (d.r>Rmax) d.r = Rmin;
+      if (d.r<Rmin) d.r = Rmax;
+      const x = cx + Math.cos(d.ang)*d.r; const y = cy + Math.sin(d.ang)*d.r;
+      ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill();
+    }
+    if (ctl.ghostTest.checked) drawTestStim(ctl.testType.value, +ctl.testContrast.value, 0.12);
+    if (ctl.fixation.checked) drawFixation();
+  }
+
+  function drawFixation(){
+    const W=cv.width, H=cv.height; const cx=W/2, cy=H/2;
+    ctx.save(); ctx.strokeStyle='#111'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(cx-10,cy); ctx.lineTo(cx+10,cy); ctx.moveTo(cx,cy-10); ctx.lineTo(cx,cy+10); ctx.stroke(); ctx.restore();
+  }
+
+  /* ---------- test stimuli (static) ---------- */
+  function drawTestStim(type, contrast, ghostAlpha=0){
+    const W=cv.width, H=cv.height; const g=greyFromContrast(0.5, contrast); const lo=toHex01(g.lo), hi=toHex01(g.hi);
+    if (ghostAlpha>0) { ctx.save(); ctx.globalAlpha = ghostAlpha; }
+    if (type==='blank'){
+      ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+    } else if (type==='gratingH'){
+      ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+      const cycles = +ctl.sf.value; const len=W; const period=len/Math.max(1,cycles);
+      ctx.fillStyle=hi; for (let x=0;x<W;x+=period){ ctx.fillRect(x,0,period/2,H); }
+    } else if (type==='gratingV'){
+      ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+      const cycles = +ctl.sf.value; const len=H; const period=len/Math.max(1,cycles);
+      ctx.fillStyle=hi; for (let y=0;y<H;y+=period){ ctx.fillRect(0,y,W,period/2); }
+    } else if (type==='rings'){
+      ctx.fillStyle = toHex01(0.5); ctx.fillRect(0,0,W,H);
+      const cx=W/2, cy=H/2; const Rmax=Math.min(W,H)*0.5; const n=+ctl.sf.value*0.8; ctx.strokeStyle=hi; ctx.lineWidth=2;
+      for (let i=1;i<=n;i++){ const r=i*Rmax/n; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke(); }
+    } else if (type==='noise'){
+      const d = ctx.createImageData(W,H); const k = (contrast/100);
+      for (let i=0;i<d.data.length;i+=4){ const v = Math.round((0.5 + (Math.random()*2-1)*0.5*k)*255); d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255; }
+      ctx.putImageData(d,0,0);
+    }
+    if (ghostAlpha>0) { if (ctl.fixation.checked) drawFixation(); ctx.restore(); }
+  }
+
+  /* ---------- run loop ---------- */
+  let raf=null, last=0;
+  function loop(ts){
+    if (!last) last=ts; const dt = Math.min(1/30,(ts-last)/1000); last=ts; // cap dt
+    state.t += dt;
+
+    // labels
+    lab.adaptTime.textContent = ctl.adaptTime.value;
+    lab.speed.textContent = ctl.speed.value;
+    lab.sf.textContent = ctl.sf.value;
+    lab.contrast.textContent = ctl.contrast.value+'%';
+    lab.dots.textContent = ctl.dots.value;
+    lab.testContrast.textContent = ctl.testContrast.value+'%';
+
+    const mode = state.mode;
+    if (mode==='adapt'){
+      overlay.style.display='flex'; overlayTxt.textContent='Fixate the +';
+      const leftTo = Math.max(0, state.timerEnd - performance.now());
+      const frac = 1 - (leftTo / (+ctl.adaptTime.value*1000));
+      prog.style.width = Math.max(0, Math.min(100, frac*100)) + '%';
+      stateTxt.textContent = 'adapting';
+
+      const sp = +ctl.speed.value; const dirF = (ctl.direction.value==='forward')? 1 : -1;
+      if (ctl.adaptType.value==='gratingH'){
+        state.phase += dirF * sp * 4 * dt;
+        drawGrating('H', state.phase * (cv.width/Math.max(1,+ctl.sf.value)), +ctl.sf.value, +ctl.contrast.value, ctl.ghostTest.checked? 0.12:0);
+      } else if (ctl.adaptType.value==='gratingV'){
+        state.phase += dirF * sp * 4 * dt;
+        drawGrating('V', state.phase * (cv.height/Math.max(1,+ctl.sf.value)), +ctl.sf.value, +ctl.contrast.value, ctl.ghostTest.checked? 0.12:0);
+      } else if (ctl.adaptType.value==='rotation'){
+        drawRotatingDots(dirF>0, +ctl.speed.value, +ctl.contrast.value);
+      } else if (ctl.adaptType.value==='radial'){
+        drawRadialDots(dirF>0, +ctl.speed.value, +ctl.contrast.value);
+      }
+
+      if (leftTo <= 0){ toTest(); }
+    }
+    else if (mode==='test'){
+      overlay.style.display='flex'; overlayTxt.textContent='Now the static test should drift opposite';
+      prog.style.width = '100%'; stateTxt.textContent = 'test';
+      drawTestStim(ctl.testType.value, +ctl.testContrast.value, 0);
+      if (ctl.fixation.checked) drawFixation();
+    } else {
+      overlay.style.display='none'; prog.style.width='0%'; stateTxt.textContent='idle';
+      drawTestStim('blank', 50, 0); if (ctl.fixation.checked) drawFixation();
+    }
+
+    raf = requestAnimationFrame(loop);
+  }
+
+  /* ---------- controls ---------- */
+  function startAdapt(extra=0){
+    state.mode='adapt'; state.t=0; last=0; state.phase=0; state.rot=0; if (extra===0) state.dots=[];
+    const ms = (+ctl.adaptTime.value + extra)*1000; state.timerEnd = performance.now() + ms;
+  }
+  function toTest(){ state.mode='test'; }
+  function stopAll(){ state.mode='idle'; }
+
+  $('start').addEventListener('click', ()=> startAdapt(0));
+  $('topup').addEventListener('click', ()=> startAdapt(-(+ctl.adaptTime.value) + 2)); // 2 s top-up
+  $('toTest').addEventListener('click', ()=> toTest());
+  $('stop').addEventListener('click', ()=> stopAll());
+  $('reset').addEventListener('click', ()=>{ stopAll(); ctl.adaptType.value='gratingV'; ctl.direction.value='forward'; ctl.adaptTime.value=12; ctl.speed.value=2.5; ctl.sf.value=12; ctl.contrast.value=90; ctl.testType.value='gratingV'; ctl.testContrast.value=70; ctl.dots.value=800; ctl.fixation.checked=true; ctl.ghostTest.checked=false; drawTestStim('blank', 50, 0); });
+
+  // export PNG
+  $('exportPng').addEventListener('click', ()=>{ const a=document.createElement('a'); a.download='mae.png'; a.href=cv.toDataURL('image/png'); a.click(); });
+
+  // presets
+  const presets = [
+    {id:'classic', name:'Classic waterfall', apply(){
+      ctl.adaptType.value='gratingV'; ctl.direction.value='forward'; // downward motion
+      ctl.testType.value='gratingV'; ctl.sf.value=14; ctl.speed.value=2.2; ctl.contrast.value=95; ctl.testContrast.value=70; ctl.adaptTime.value=12; ctl.ghostTest.checked=false; ctl.fixation.checked=true;
+    }},
+    {id:'rotation', name:'Strong rotation', apply(){
+      ctl.adaptType.value='rotation'; ctl.direction.value='forward'; ctl.speed.value=3.2; ctl.contrast.value=95; ctl.adaptTime.value=15; ctl.testType.value='rings'; ctl.testContrast.value=80; ctl.sf.value=14;
+    }},
+    {id:'radial', name:'Strong expansion', apply(){
+      ctl.adaptType.value='radial'; ctl.direction.value='forward'; ctl.speed.value=2.8; ctl.contrast.value=90; ctl.dots.value=1200; ctl.adaptTime.value=12; ctl.testType.value='rings'; ctl.testContrast.value=80; ctl.sf.value=12;
+    }},
+    {id:'weak', name:'Weak (low contrast)', apply(){
+      ctl.adaptType.value='gratingH'; ctl.direction.value='forward'; ctl.speed.value=1.0; ctl.contrast.value=25; ctl.adaptTime.value=6; ctl.testType.value='gratingH'; ctl.testContrast.value=40; ctl.sf.value=10;
+    }},
+    {id:'noMAE', name:'No MAE (no adaptation)', apply(){
+      stopAll(); ctl.testType.value='gratingV'; ctl.testContrast.value=70; ctl.sf.value=12; overlay.style.display='none';
+    }},
+  ];
+
+  const presetRow = $('presetRow');
+  presets.forEach(p=>{ const b=document.createElement('button'); b.className='btn'; b.textContent=p.name; b.addEventListener('click', ()=>{ p.apply(); drawTestStim('blank',50,0); }); presetRow.appendChild(b); });
+
+  // wire labels
+  function bind(){
+    document.querySelectorAll('input,select').forEach(inp=>{
+      const ev = (inp.tagName==='SELECT'||inp.type==='checkbox') ? 'change' : 'input';
+      inp.addEventListener(ev, ()=>{ lab.adaptTime.textContent=ctl.adaptTime.value; lab.speed.textContent=ctl.speed.value; lab.sf.textContent=ctl.sf.value; lab.contrast.textContent=ctl.contrast.value+'%'; lab.dots.textContent=ctl.dots.value; lab.testContrast.textContent=ctl.testContrast.value+'%'; }, {passive:true});
+    });
+  }
+
+  function init(){
+    fitCanvas(); window.addEventListener('resize', ()=>{ fitCanvas(); }, {passive:true}); bind(); presets[0].apply(); drawTestStim('blank',50,0); raf=requestAnimationFrame(loop);
+  }
+  init();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Project bootstrap using rbenv
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew is required. Install from https://brew.sh" >&2
+  exit 1
+fi
+
+# Install rbenv and ruby-build
+brew list rbenv >/dev/null 2>&1 || brew install rbenv
+brew list ruby-build >/dev/null 2>&1 || brew install ruby-build
+
+# Initialize rbenv
+# shellcheck disable=SC1090
+eval "$(rbenv init -)"
+
+# Use or install the requested Ruby
+RV="$(cat .ruby-version 2>/dev/null || echo 3.2.4)"
+echo "Ensuring Ruby ${RV}…"
+rbenv install -s "$RV"
+rbenv local "$RV"
+
+# Modern RubyGems and bundler
+if ! command -v gem >/dev/null 2>&1; then
+  echo "gem not found; ensure Ruby is on PATH" >&2
+  exit 1
+fi
+
+gem update --system 3.2.3 || true
+gem install bundler --no-document
+
+# Vendor bundle
+bundle config set path 'vendor/bundle'
+
+# Install gems
+bundle install
+
+echo "Setup complete. Start the dev server with: ./start-dev.sh"
