@@ -1,0 +1,447 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Müller–Lyer Illusion — Interactive Lab</title>
+<style>
+  :root{
+    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
+    --soft:#e5e7eb; --soft2:#d1d5db;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns: 620px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
+  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
+  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
+  legend{padding:0 6px; font-weight:650; color:#374151}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .hint{font-size:13px;color:#4b5563}
+  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  /* one-line control rows: label | slider/input | value */
+  .ctl{ display:grid; grid-template-columns: 1fr 320px 80px; gap:10px; align-items:center; margin:8px 0; }
+  .ctl input[type="range"], .ctl select{width:100%}
+  .value{justify-self:end; min-width:80px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
+  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
+  .btn:hover{background:var(--soft2)}
+  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
+  .badge{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:8px;padding:2px 8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Pair presets</legend>
+      <div id="pairPresets" class="row presets"></div>
+      <div class="hint">Presets configure the <em>top</em> and <em>bottom</em> figures together for classic, extreme, neutral and explanatory conditions.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Global</legend>
+      <div class="ctl"><span>Canvas margin (px)</span><input id="margin" type="range" min="10" max="160" value="80"><span id="marginVal" class="value">80</span></div>
+      <div class="ctl"><span>Line colour</span>
+        <select id="colour">
+          <option value="#111111" selected>Black</option>
+          <option value="#0057ff">Blue</option>
+          <option value="#ff0055">Magenta</option>
+          <option value="#00a56a">Teal</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Background stripes (assimilation)</span>
+        <select id="bgStripes">
+          <option value="none" selected>None</option>
+          <option value="parallel">Parallel to shafts</option>
+          <option value="orthogonal">Orthogonal to shafts</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Stripes contrast</span><input id="bgContrast" type="range" min="0" max="100" value="20"><span id="bgContrastVal" class="value">20%</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Underlay (Gregory perspective test)</legend>
+      <div class="ctl"><span>Underlay type</span>
+        <select id="underlay">
+          <option value="none" selected>None</option>
+          <option value="inside">Inside room corner</option>
+          <option value="outside">Outside building corner</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Underlay strength (opacity)</span><input id="uAlpha" type="range" min="0" max="100" value="40"><span id="uAlphaVal" class="value">40%</span></div>
+      <div class="ctl"><span>Perspective (vanishing) amount</span><input id="uPersp" type="range" min="0" max="100" value="60"><span id="uPerspVal" class="value">60%</span></div>
+      <div class="hint">Swap between an <strong>inside corner</strong> and an <strong>outside (building) corner</strong> to see whether 3‑D interpretation modulates the illusion for you, as proposed by Richard Gregory.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Top figure</legend>
+      <div class="ctl"><span>Configuration</span>
+        <select id="topType">
+          <option value="in">Wings‑in (arrowheads)</option>
+          <option value="out">Wings‑out (tails)</option>
+          <option value="caps">T‑caps (90°)</option>
+          <option value="circles">Circular end‑caps</option>
+          <option value="none">No ends (plain line)</option>
+          <option value="feather">Feathered (multiple fins)</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Shaft length (px)</span><input id="topLen" type="range" min="60" max="800" value="420"><span id="topLenVal" class="value">420</span></div>
+      <div class="ctl"><span>Shaft thickness (px)</span><input id="topThick" type="range" min="1" max="20" value="4"><span id="topThickVal" class="value">4</span></div>
+      <div class="ctl"><span>Wing angle (°)</span><input id="topAng" type="range" min="15" max="165" value="45"><span id="topAngVal" class="value">45°</span></div>
+      <div class="ctl"><span>Wing length (px)</span><input id="topWing" type="range" min="6" max="120" value="60"><span id="topWingVal" class="value">60</span></div>
+      <div class="ctl"><span>Wing thickness (px)</span><input id="topWingTh" type="range" min="1" max="16" value="3"><span id="topWingThVal" class="value">3</span></div>
+      <div class="ctl"><span>Feather fins (count)</span><input id="topFeatherN" type="range" min="2" max="8" value="4"><span id="topFeatherNVal" class="value">4</span></div>
+      <div class="ctl"><span>Feather spacing (px)</span><input id="topFeatherDx" type="range" min="4" max="30" value="12"><span id="topFeatherDxVal" class="value">12</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Bottom figure</legend>
+      <div class="ctl"><span>Configuration</span>
+        <select id="botType">
+          <option value="out">Wings‑out (tails)</option>
+          <option value="in">Wings‑in (arrowheads)</option>
+          <option value="caps">T‑caps (90°)</option>
+          <option value="circles">Circular end‑caps</option>
+          <option value="none">No ends (plain line)</option>
+          <option value="feather">Feathered (multiple fins)</option>
+        </select>
+        <span class="value" aria-hidden="true"></span>
+      </div>
+      <div class="ctl"><span>Shaft length (px)</span><input id="botLen" type="range" min="60" max="800" value="420"><span id="botLenVal" class="value">420</span></div>
+      <div class="ctl"><span>Shaft thickness (px)</span><input id="botThick" type="range" min="1" max="20" value="4"><span id="botThickVal" class="value">4</span></div>
+      <div class="ctl"><span>Wing angle (°)</span><input id="botAng" type="range" min="15" max="165" value="135"><span id="botAngVal" class="value">135°</span></div>
+      <div class="ctl"><span>Wing length (px)</span><input id="botWing" type="range" min="6" max="120" value="60"><span id="botWingVal" class="value">60</span></div>
+      <div class="ctl"><span>Wing thickness (px)</span><input id="botWingTh" type="range" min="1" max="16" value="3"><span id="botWingThVal" class="value">3</span></div>
+      <div class="ctl"><span>Feather fins (count)</span><input id="botFeatherN" type="range" min="2" max="8" value="4"><span id="botFeatherNVal" class="value">4</span></div>
+      <div class="ctl"><span>Feather spacing (px)</span><input id="botFeatherDx" type="range" min="4" max="30" value="12"><span id="botFeatherDxVal" class="value">12</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Psychophysics mode</legend>
+      <div class="ctl"><span>Lock lengths equal</span><input id="lockEq" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Length offset (top − bottom, px)</span><input id="delta" type="range" min="-200" max="200" value="0"><span id="deltaVal" class="value">0</span></div>
+      <div class="hint">Set <em>Lock lengths</em> on, then adjust <strong>Length offset</strong> until the two lines <em>look</em> equal to you: that difference is your approximate <strong>PSE</strong> (point of subjective equality).</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Overlays & export</legend>
+      <div class="ctl"><span>Show measuring ticks</span><input id="ticks" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Show central bisection marks</span><input id="bisection" type="checkbox"><span class="value" aria-hidden="true"></span></div>
+      <div class="row">
+        <button id="exportPng" class="btn">Export PNG</button>
+        <button id="exportSvg" class="btn">Export SVG</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Illusion strength (heuristic)</legend>
+      <div class="row"><span class="badge" id="scoreTxt">—</span><span id="why" class="hint"></span></div>
+    </fieldset>
+  </div>
+
+  <canvas id="cv" aria-label="Müller–Lyer illusion canvas"></canvas>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cv = $('cv'); const ctx = cv.getContext('2d');
+
+  const ctl = {
+    // global
+    margin: $('margin'), colour:$('colour'), bgStripes:$('bgStripes'), bgContrast:$('bgContrast'),
+    // underlay
+    underlay:$('underlay'), uAlpha:$('uAlpha'), uPersp:$('uPersp'),
+    // top
+    topType:$('topType'), topLen:$('topLen'), topThick:$('topThick'), topAng:$('topAng'), topWing:$('topWing'), topWingTh:$('topWingTh'), topFeatherN:$('topFeatherN'), topFeatherDx:$('topFeatherDx'),
+    // bottom
+    botType:$('botType'), botLen:$('botLen'), botThick:$('botThick'), botAng:$('botAng'), botWing:$('botWing'), botWingTh:$('botWingTh'), botFeatherN:$('botFeatherN'), botFeatherDx:$('botFeatherDx'),
+    // psychophysics
+    lockEq:$('lockEq'), delta:$('delta'),
+    // overlays
+    ticks:$('ticks'), bisection:$('bisection')
+  };
+  const lab = {
+    margin:$('marginVal'), bgContrast:$('bgContrastVal'),
+    topLen:$('topLenVal'), topThick:$('topThickVal'), topAng:$('topAngVal'), topWing:$('topWingVal'), topWingTh:$('topWingThVal'), topFeatherN:$('topFeatherNVal'), topFeatherDx:$('topFeatherDxVal'),
+    botLen:$('botLenVal'), botThick:$('botThickVal'), botAng:$('botAngVal'), botWing:$('botWingVal'), botWingTh:$('botWingThVal'), botFeatherN:$('botFeatherNVal'), botFeatherDx:$('botFeatherDxVal'),
+    uAlpha:$('uAlphaVal'), uPersp:$('uPerspVal'), delta:$('deltaVal')
+  };
+  const scoreTxt = $('scoreTxt'), why = $('why');
+  const pairPresetsEl = $('pairPresets');
+
+  function fitCanvas(){
+    const dpr = Math.max(1, window.devicePixelRatio||1);
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width*dpr);
+    cv.height = Math.round(rect.height*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  /* ---------- drawing primitives ---------- */
+  function drawStripes(W,H,mode,contrast){
+    if (mode==='none' || contrast<=0) return;
+    const k = contrast/100; // 0..1
+    const step = 16; // px
+    ctx.save();
+    ctx.globalAlpha = 0.25*k;
+    ctx.fillStyle = '#000';
+    if (mode==='parallel'){
+      for (let x=0; x<W; x+=step*2){ ctx.fillRect(x,0,step,H);}    
+    } else {
+      for (let y=0; y<H; y+=step*2){ ctx.fillRect(0,y,W,step);}    
+    }
+    ctx.restore();
+  }
+
+  function drawUnderlay(W,H,type,alpha,persp){
+    if (type==='none' || alpha<=0) return;
+    const a = alpha/100, p = persp/100; // 0..1
+    ctx.save(); ctx.globalAlpha = 0.5*a;
+    // simple two-wall + floor or two-wall convex corner
+    const cx=W/2, cy=H/2; const span = Math.min(W,H)*0.8;
+    const h = cy; // horizon
+    const vshift = (p*0.25*H);
+    const vx1 = cx - span*(0.5+p*0.3), vx2 = cx + span*(0.5+p*0.3);
+    if (type==='inside'){
+      // three trapezoids: left wall, right wall, floor
+      ctx.fillStyle = '#e7ecf7';
+      ctx.beginPath(); ctx.moveTo(0,h-vshift); ctx.lineTo(cx, h); ctx.lineTo(cx, H); ctx.lineTo(0,H); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#f1f4fb';
+      ctx.beginPath(); ctx.moveTo(W,h-vshift); ctx.lineTo(cx, h); ctx.lineTo(cx, H); ctx.lineTo(W,H); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#dfe6f3';
+      ctx.beginPath(); ctx.moveTo(0,H); ctx.lineTo(W,H); ctx.lineTo(cx, h); ctx.lineTo(cx, h); ctx.closePath(); ctx.fill();
+      // corner line
+      ctx.strokeStyle = 'rgba(0,0,0,0.15)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,H); ctx.stroke();
+    } else if (type==='outside'){
+      // convex column (building corner) with two faces
+      const colW = span*(0.12+0.18*p);
+      ctx.fillStyle = '#e7ecf7'; ctx.fillRect(cx-colW/2,0,colW,H);
+      ctx.fillStyle = '#f1f4fb'; ctx.fillRect(0,0,cx-colW/2,H);
+      ctx.fillStyle = '#dfe6f3'; ctx.fillRect(cx+colW/2,0,W-(cx+colW/2),H);
+      ctx.strokeStyle='rgba(0,0,0,0.15)'; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(cx-colW/2,0); ctx.lineTo(cx-colW/2,H); ctx.stroke(); ctx.beginPath(); ctx.moveTo(cx+colW/2,0); ctx.lineTo(cx+colW/2,H); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function drawTicks(x1,y, x2, colour){
+    ctx.save(); ctx.strokeStyle = colour; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(x1,y-12); ctx.lineTo(x1,y+12); ctx.moveTo(x2,y-12); ctx.lineTo(x2,y+12); ctx.stroke(); ctx.restore();
+  }
+  function drawBisection(x1,y, x2, colour){
+    const xm = (x1+x2)/2; ctx.save(); ctx.strokeStyle=colour; ctx.lineWidth=1; ctx.setLineDash([6,6]);
+    ctx.beginPath(); ctx.moveTo(xm,y-18); ctx.lineTo(xm,y+18); ctx.stroke(); ctx.restore();
+  }
+
+  function drawShaft(x1,y,x2,th,colour){ ctx.save(); ctx.strokeStyle = colour; ctx.lineWidth=th; ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y); ctx.stroke(); ctx.restore(); }
+
+  function drawWing(endx, y, dir, type, angDeg, len, th, colour, featherN=4, featherDx=10){
+    // dir: -1 for left end, +1 for right end. angDeg measured away from shaft direction.
+    ctx.save(); ctx.strokeStyle = colour; ctx.lineWidth = th; ctx.lineCap='butt';
+    if (type==='none') { ctx.restore(); return; }
+    if (type==='circles'){
+      ctx.beginPath(); ctx.arc(endx, y, Math.max(2, th*1.3), 0, Math.PI*2); ctx.stroke(); ctx.restore(); return;
+    }
+    const baseAng = 0; // shaft is horizontal
+    let a = angDeg*Math.PI/180;
+    if (type==='caps'){ a = Math.PI/2; }
+    function lineAt(offset){
+      // offset along shaft (positive inside the shaft), used for feathering
+      const ex = endx + dir*offset;
+      const a1 = baseAng + (dir>0? Math.PI - a : a);
+      const a2 = baseAng + (dir>0? Math.PI + a : -a);
+      const x1 = ex + Math.cos(a1)*len, y1 = y + Math.sin(a1)*len;
+      const x2 = ex + Math.cos(a2)*len, y2 = y + Math.sin(a2)*len;
+      ctx.beginPath(); ctx.moveTo(ex,y); ctx.lineTo(x1,y1); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ex,y); ctx.lineTo(x2,y2); ctx.stroke();
+    }
+    if (type==='feather'){
+      for (let i=0;i<featherN;i++) lineAt(i*featherDx);
+    } else {
+      lineAt(0);
+    }
+    ctx.restore();
+  }
+
+  function drawFigure(cx, y, len, thick, type, ang, wingLen, wingTh, colour, featherN, featherDx, showTicks, showBisect){
+    const x1 = cx - len/2, x2 = cx + len/2;
+    drawShaft(x1,y,x2, thick, colour);
+    drawWing(x1, y, -1, type, ang, wingLen, wingTh, colour, featherN, featherDx);
+    drawWing(x2, y, +1, type, ang, wingLen, wingTh, colour, featherN, featherDx);
+    if (showTicks) drawTicks(x1,y,x2, colour);
+    if (showBisect) drawBisection(x1,y,x2, colour);
+    return {x1,x2};
+  }
+
+  /* ---------- illusion score (rough) ---------- */
+  function illusionScore(params){
+    const {typeTop, typeBot, angTop, angBot, wingTop, wingBot, thickTop, thickBot, bg, underlay} = params;
+    function fType(t){ return (t==='in'||t==='out') ? 1 : (t==='feather'?0.9:(t==='caps'?0.3:(t==='none'||t==='circles'?0:0.2))); }
+    function fAng(a){ const d = Math.abs(90 - a)/90; return Math.min(1, 0.25 + d); } // away from 90° boosts
+    function fWing(w){ return Math.min(1, w/60); }
+    function fThick(t){ return Math.max(0.5, 1 - (t-4)/24); }
+    function fBg(b){ return b==='none'?1:0.9; }
+    function fU(u){ return u==='none'?1:1.05; } // underlay can slightly boost via interpretation
+    const sTop = fType(typeTop)*fAng(angTop)*fWing(wingTop)*fThick(thickTop);
+    const sBot = fType(typeBot)*fAng(angBot)*fWing(wingBot)*fThick(thickBot);
+    const s = 100 * 0.5*(sTop+sBot) * fBg(bg) * fU(underlay);
+    return Math.max(0, Math.min(100, s));
+  }
+  function whyText(p){
+    const bits=[];
+    if (!(p.typeTop==='in'||p.typeTop==='out'||p.typeBot==='in'||p.typeBot==='out')) bits.push('ends are non‑directional');
+    if (Math.abs(p.angTop-90)<8 && Math.abs(p.angBot-90)<8) bits.push('wing angles near 90°');
+    if (p.wingTop<12 && p.wingBot<12) bits.push('very short wings');
+    if (p.thickTop>10 && p.thickBot>10) bits.push('very heavy shafts');
+    if (bits.length===0) return 'Strong: directional wings, angles far from 90°, moderate wing length.';
+    return 'Weakeners: ' + bits.join('; ') + '.';
+  }
+
+  /* ---------- presets ---------- */
+  const pairPresets = [
+    { id:'classic', name:'Classic (in vs out, equal length)', apply(){
+        ctl.topType.value='in'; ctl.botType.value='out';
+        ctl.topLen.value=420; ctl.botLen.value=420; ctl.lockEq.checked=true; ctl.delta.value=0;
+        ctl.topAng.value=45; ctl.botAng.value=135; ctl.topWing.value=60; ctl.botWing.value=60; ctl.topThick.value=4; ctl.botThick.value=4; ctl.topWingTh.value=3; ctl.botWingTh.value=3;
+        ctl.topFeatherN.value=4; ctl.botFeatherN.value=4; ctl.topFeatherDx.value=12; ctl.botFeatherDx.value=12;
+        ctl.bgStripes.value='none'; ctl.underlay.value='none';
+      }
+    },
+    { id:'extreme', name:'Extreme (long wings, steep angles)', apply(){
+        ctl.topType.value='in'; ctl.botType.value='out';
+        ctl.topLen.value=480; ctl.botLen.value=480; ctl.lockEq.checked=true; ctl.delta.value=0;
+        ctl.topAng.value=25; ctl.botAng.value=155; ctl.topWing.value=110; ctl.botWing.value=110; ctl.topThick.value=3; ctl.botThick.value=3; ctl.topWingTh.value=2; ctl.botWingTh.value=2;
+        ctl.bgStripes.value='parallel'; ctl.bgContrast.value=25; ctl.underlay.value='none';
+      }
+    },
+    { id:'feather', name:'Feathered (many fins, strong)', apply(){
+        ctl.topType.value='feather'; ctl.botType.value='feather';
+        ctl.topLen.value=440; ctl.botLen.value=440; ctl.lockEq.checked=true; ctl.delta.value=0;
+        ctl.topAng.value=35; ctl.botAng.value=145; ctl.topWing.value=70; ctl.botWing.value=70;
+        ctl.topFeatherN.value=6; ctl.botFeatherN.value=6; ctl.topFeatherDx.value=10; ctl.botFeatherDx.value=10; ctl.topThick.value=4; ctl.botThick.value=4;
+      }
+    },
+    { id:'caps', name:'T‑caps (near neutral)', apply(){
+        ctl.topType.value='caps'; ctl.botType.value='caps'; ctl.topAng.value=90; ctl.botAng.value=90; ctl.topWing.value=50; ctl.botWing.value=50; ctl.topThick.value=5; ctl.botThick.value=5; ctl.lockEq.checked=true; ctl.delta.value=0;
+      }
+    },
+    { id:'plain', name:'No illusion (plain lines)', apply(){
+        ctl.topType.value='none'; ctl.botType.value='none'; ctl.topLen.value=420; ctl.botLen.value=420; ctl.lockEq.checked=true; ctl.delta.value=0; ctl.topThick.value=5; ctl.botThick.value=5;
+      }
+    },
+    { id:'circles', name:'No illusion (circular end‑caps)', apply(){
+        ctl.topType.value='circles'; ctl.botType.value='circles'; ctl.topLen.value=420; ctl.botLen.value=420; ctl.lockEq.checked=true; ctl.delta.value=0; ctl.topThick.value=5; ctl.botThick.value=5;
+      }
+    },
+    { id:'gregory_inside', name:'Gregory: inside room corner', apply(){
+        ctl.underlay.value='inside'; ctl.uAlpha.value=50; ctl.uPersp.value=70; ctl.topType.value='in'; ctl.botType.value='out'; ctl.lockEq.checked=true; ctl.delta.value=0;
+      }
+    },
+    { id:'gregory_outside', name:'Gregory: outside building corner', apply(){
+        ctl.underlay.value='outside'; ctl.uAlpha.value=50; ctl.uPersp.value=70; ctl.topType.value='in'; ctl.botType.value='out'; ctl.lockEq.checked=true; ctl.delta.value=0;
+      }
+    },
+    { id:'bisection', name:'Bisection marks on (explanatory)', apply(){
+        ctl.bisection.checked=true; ctl.ticks.checked=true; ctl.topType.value='in'; ctl.botType.value='out';
+      }
+    }
+  ];
+
+  function buildPairPresetButtons(){
+    pairPresets.forEach(p=>{
+      const b=document.createElement('button'); b.className='btn'; b.textContent=p.name; b.addEventListener('click', ()=>{ p.apply(); draw(); }); pairPresetsEl.appendChild(b);
+    });
+  }
+
+  /* ---------- SVG export helpers ---------- */
+  function svgEsc(s){ return String(s).replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+  function draw(){
+    // labels
+    lab.margin.textContent = ctl.margin.value; lab.bgContrast.textContent = ctl.bgContrast.value + '%';
+    lab.topLen.textContent = ctl.topLen.value; lab.topThick.textContent=ctl.topThick.value; lab.topAng.textContent=ctl.topAng.value+'°'; lab.topWing.textContent=ctl.topWing.value; lab.topWingTh.textContent=ctl.topWingTh.value; lab.topFeatherN.textContent=ctl.topFeatherN.value; lab.topFeatherDx.textContent=ctl.topFeatherDx.value;
+    lab.botLen.textContent = ctl.botLen.value; lab.botThick.textContent=ctl.botThick.value; lab.botAng.textContent=ctl.botAng.value+'°'; lab.botWing.textContent=ctl.botWing.value; lab.botWingTh.textContent=ctl.botWingTh.value; lab.botFeatherN.textContent=ctl.botFeatherN.value; lab.botFeatherDx.textContent=ctl.botFeatherDx.value;
+    lab.uAlpha.textContent = ctl.uAlpha.value + '%'; lab.uPersp.textContent = ctl.uPersp.value + '%'; lab.delta.textContent = ctl.delta.value;
+
+    const W=cv.width, H=cv.height; ctx.clearRect(0,0,W,H);
+
+    // background assimilation stripes
+    drawStripes(W,H, ctl.bgStripes.value, +ctl.bgContrast.value);
+
+    // underlay
+    drawUnderlay(W,H, ctl.underlay.value, +ctl.uAlpha.value, +ctl.uPersp.value);
+
+    // positions
+    const margin = +ctl.margin.value;
+    const cx = W/2; const topY = Math.max(margin, H*0.35), botY = Math.min(H-margin, H*0.65);
+
+    // lock lengths or apply delta
+    let topLen = +ctl.topLen.value, botLen = +ctl.botLen.value;
+    if (ctl.lockEq.checked){ botLen = topLen; topLen += +ctl.delta.value; } else { /* independent */ }
+
+    const colour = ctl.colour.value;
+
+    // draw top figure
+    drawFigure(cx, topY, topLen, +ctl.topThick.value, ctl.topType.value, +ctl.topAng.value, +ctl.topWing.value, +ctl.topWingTh.value, colour, +ctl.topFeatherN.value, +ctl.topFeatherDx.value, ctl.ticks.checked, ctl.bisection.checked);
+
+    // draw bottom figure
+    drawFigure(cx, botY, botLen, +ctl.botThick.value, ctl.botType.value, +ctl.botAng.value, +ctl.botWing.value, +ctl.botWingTh.value, colour, +ctl.botFeatherN.value, +ctl.botFeatherDx.value, ctl.ticks.checked, ctl.bisection.checked);
+
+    // score
+    const s = illusionScore({ typeTop:ctl.topType.value, typeBot:ctl.botType.value, angTop:+ctl.topAng.value, angBot:+ctl.botAng.value, wingTop:+ctl.topWing.value, wingBot:+ctl.botWing.value, thickTop:+ctl.topThick.value, thickBot:+ctl.botThick.value, bg:ctl.bgStripes.value, underlay:ctl.underlay.value });
+    scoreTxt.textContent = s.toFixed(0) + '/100';
+    why.textContent = whyText({typeTop:ctl.topType.value, typeBot:ctl.botType.value, angTop:+ctl.topAng.value, angBot:+ctl.botAng.value, wingTop:+ctl.topWing.value, wingBot:+ctl.botWing.value, thickTop:+ctl.topThick.value, thickBot:+ctl.botThick.value});
+  }
+
+  // Export PNG
+  $('exportPng').addEventListener('click', ()=>{
+    const a=document.createElement('a'); a.download='muller-lyer.png'; a.href=cv.toDataURL('image/png'); a.click();
+  });
+
+  // Export SVG (vector of current scene sans underlay gradients/stripes)
+  $('exportSvg').addEventListener('click', ()=>{
+    const rect = cv.getBoundingClientRect(); const W=Math.round(rect.width), H=Math.round(rect.height);
+    const margin = +ctl.margin.value; const cx=W/2; const topY=Math.max(margin, H*0.35), botY=Math.min(H-margin, H*0.65);
+    let topLen=+ctl.topLen.value, botLen=+ctl.botLen.value; if (ctl.lockEq.checked){ botLen=topLen; topLen+= +ctl.delta.value; }
+    const colour = ctl.colour.value;
+    function wingPath(endx,y,dir,type,ang,len){
+      if (type==='none') return '';
+      if (type==='circles') return `<circle cx="${endx.toFixed(2)}" cy="${y.toFixed(2)}" r="${Math.max(2, +ctl.topWingTh.value*1.3)}" fill="none" stroke="${svgEsc(colour)}"/>`;
+      const a=(type==='caps'?90:ang)*Math.PI/180; const a1 = (dir>0? Math.PI - a : a), a2 = (dir>0? Math.PI + a : -a);
+      const x1=endx + Math.cos(a1)*len, y1=y + Math.sin(a1)*len; const x2=endx + Math.cos(a2)*len, y2=y + Math.sin(a2)*len;
+      return `<path d="M ${endx.toFixed(2)} ${y.toFixed(2)} L ${x1.toFixed(2)} ${y1.toFixed(2)} M ${endx.toFixed(2)} ${y.toFixed(2)} L ${x2.toFixed(2)} ${y2.toFixed(2)}" stroke="${svgEsc(colour)}" fill="none"/>`;
+    }
+    function fig(y, len, type, ang, wing, thick){
+      const x1=cx-len/2, x2=cx+len/2; return [
+        `<line x1="${x1.toFixed(2)}" y1="${y.toFixed(2)}" x2="${x2.toFixed(2)}" y2="${y.toFixed(2)}" stroke="${svgEsc(colour)}" stroke-width="${thick}"/>`,
+        wingPath(x1,y,-1,type,ang,wing), wingPath(x2,y,+1,type,ang,wing)
+      ].join('\n');
+    }
+    const parts=[`<rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>`, fig(topY, topLen, ctl.topType.value, +ctl.topAng.value, +ctl.topWing.value, +ctl.topThick.value), fig(botY, botLen, ctl.botType.value, +ctl.botAng.value, +ctl.botWing.value, +ctl.botThick.value)];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">\n${parts.join('\n')}\n</svg>`;
+    const blob=new Blob([svg],{type:'image/svg+xml'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='muller-lyer.svg'; a.click(); setTimeout(()=>URL.revokeObjectURL(url),2000);
+  });
+
+  $('reset').addEventListener('click', ()=>{ pairPresets[0].apply(); draw(); });
+
+  function bindInputs(){
+    document.querySelectorAll('input,select').forEach(inp=>{
+      const ev = (inp.tagName==='SELECT'||inp.type==='checkbox')?'change':'input';
+      inp.addEventListener(ev, draw, {passive:true});
+    });
+    window.addEventListener('resize', ()=>{ fitCanvas(); draw(); }, {passive:true});
+  }
+
+  function init(){
+    fitCanvas(); buildPairPresetButtons(); bindInputs(); pairPresets[0].apply(); draw();
+  }
+  init();
+})();
+</script>
+</body>
+</html>

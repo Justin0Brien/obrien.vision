@@ -154,16 +154,27 @@ permalink: /illusions/checker-shadow.html
   }
 
   // Shadow factor at world coords (x,y)
-  function shadowAt(x,y, cx,cy, angleRad, width, length, softPx, strength){
-    // Transform to shadow-local coords (capsule along +x)
+  // 'angleRad' here is the SHADOW direction (i.e., opposite of light direction)
+  // Cast shadow is a one-sided capsule that starts at the back rim of the cylinder (anchored to radius)
+  function shadowAt(x,y, cx,cy, angleRad, width, length, softPx, strength, cylR=0){
+    // Transform to shadow-local coords (x along shadow direction)
     const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
     const lx =  (x - cx) * cos + (y - cy) * sin;
     const ly = -(x - cx) * sin + (y - cy) * cos;
-    const d = sdCapsuleLocal(lx, ly, length, width/2);
-    // Soft edge with smoothstep
-    const t = clamp(0.5 - d / Math.max(1, softPx), 0, 1); // 1 inside core, 0 outside, with softness
-    // Map to multiplier: 1 outside → strength inside
-    return lerp(1.0, strength, t);
+    // Build a capsule whose extent is [cylR, cylR+length] along +x, width as provided
+    const L = Math.max(1, length);
+    const W = Math.max(1, width);
+    const centerX = cylR + L/2; // center so that near edge sits at x = cylR
+    const d = sdCapsuleLocal(lx - centerX, ly, L, W/2);
+    // Points in front of the cylinder (lx < cylR) are not in shadow; push distance positive
+    const dClipped = (lx < cylR) ? Math.abs(cylR - lx) + Math.max(0, Math.abs(ly) - W/2) : d;
+    // Edge softness
+    const tEdge = clamp(0.5 - dClipped / Math.max(1, softPx), 0, 1);
+    // Distance falloff (farther from cylinder → lighter)
+    const dist01 = clamp((lx - cylR) / L, 0, 1);
+    const strengthFar = 0.82; // slightly lighter far away for realism
+    const localStrength = lerp(strength, strengthFar, dist01);
+    return lerp(1.0, localStrength, tEdge);
   }
 
   // Convert tile (r,c) to centre world coords
@@ -213,7 +224,9 @@ permalink: /illusions/checker-shadow.html
     }
 
     // Shadow parameters
-    const angleRad = (+ctl.angle.value) * Math.PI/180;
+  // Light vs shadow: UI controls the LIGHT angle; the SHADOW points opposite
+  const lightAngle = (+ctl.angle.value) * Math.PI/180;
+  const shadowAngle = lightAngle + Math.PI; // cast direction
     const shWidth = +ctl.shWidth.value;
     const shLength = +ctl.shLength.value;
     const softPx = +ctl.soft.value;
@@ -229,20 +242,7 @@ permalink: /illusions/checker-shadow.html
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0,0,W,H);
 
-    // Soft drop shadow under cylinder (cosmetic)
-    if (ctl.showCyl.checked){
-      ctx.save();
-      ctx.translate(state.cylX, state.cylY);
-      ctx.rotate(angleRad);
-      const grad = ctx.createRadialGradient(cylR*0.2, cylR*0.6, cylR*0.2, 0, 0, cylR*1.8);
-      grad.addColorStop(0, 'rgba(0,0,0,0.18)');
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.ellipse(0, cylR*0.8, cylR*1.1, cylR*0.6, 0, 0, Math.PI*2);
-      ctx.fill();
-      ctx.restore();
-    }
+  // (moved) contact shadow ring is drawn after the board so it’s visible
 
     // Draw checkerboard with multiplicative shadow applied per tile
     const Ld = +ctl.Ldark.value;
@@ -250,33 +250,50 @@ permalink: /illusions/checker-shadow.html
 
     // If lock equality: set dark = light * shadow(B) so A & B match in physical luminance
     if (ctl.lockEq.checked){
-      const BC = tileCentre(state.B.r, state.B.c, board);
-      const sB = shadowAt(BC.x, BC.y, state.cylX, state.cylY, angleRad, shWidth, shLength, softPx, strength);
+  const BC = tileCentre(state.B.r, state.B.c, board);
+  const sB = shadowAt(BC.x, BC.y, state.cylX, state.cylY, shadowAngle, shWidth, shLength, softPx, strength, cylR);
       // ensure Ld stays in sensible bounds
       const newLd = clamp(Ll * sB, 5, 60);
       // push dark slider toward equality (without fighting the UI): draw with newLd, reflect readout
       // (we don't change the slider position; we just render with the computed equal dark)
       lab.Ldark.textContent = newLd.toFixed(1) + '%';
-      drawCheckerboard(board, Ll, newLd, {angleRad, shWidth, shLength, softPx, strength});
+  drawCheckerboard(board, Ll, newLd, {angleRad: shadowAngle, shWidth, shLength, softPx, strength});
     } else {
-      drawCheckerboard(board, Ll, Ld, {angleRad, shWidth, shLength, softPx, strength});
+  drawCheckerboard(board, Ll, Ld, {angleRad: shadowAngle, shWidth, shLength, softPx, strength});
     }
 
-    // Cylinder (on top of board)
+    // Cylinder base contact shadow on the board (multiply)
     if (ctl.showCyl.checked){
-      drawCylinder(state.cylX, state.cylY, cylR, angleRad);
+      ctx.save();
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.globalAlpha = 0.28 * (1 - fadeK);
+      ctx.translate(state.cylX, state.cylY);
+      const ringR = cylR * 0.9;
+      const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, ringR);
+      grd.addColorStop(0, 'rgba(0,0,0,0.4)');
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ringR * 1.5, ringR * 0.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Cylinder (on top of board and contact shadow)
+    if (ctl.showCyl.checked){
+      drawCylinder(state.cylX, state.cylY, cylR, lightAngle);
     }
 
     // Shadow capsule (for fun, faint overlay of the umbra)
-    ctx.save();
-    ctx.globalCompositeOperation = 'multiply';
-    ctx.globalAlpha = 0.06 * (1 - fadeK);
-    ctx.translate(state.cylX, state.cylY);
-    ctx.rotate(angleRad);
-    ctx.fillStyle = '#000';
-    roundedCapsule(ctx, 0, 0, shLength, shWidth, shWidth/2);
-    ctx.fill();
-    ctx.restore();
+  ctx.save();
+  ctx.globalCompositeOperation = 'multiply';
+  ctx.globalAlpha = 0.08 * (1 - fadeK);
+  ctx.translate(state.cylX, state.cylY);
+  ctx.rotate(shadowAngle);
+  ctx.fillStyle = '#000';
+  roundedHalfCapsule(ctx, cylR, 0, shLength, shWidth, shWidth/2);
+  ctx.fill();
+  ctx.restore();
 
     // Labels & bridge
     if (ctl.showLabels.checked){
@@ -295,7 +312,7 @@ permalink: /illusions/checker-shadow.html
       // Paint only board area with flat mid-grey that matches both A & B
       const AC = tileCentre(state.A.r, state.A.c, board);
       const BC = tileCentre(state.B.r, state.B.c, board);
-      const params = {angleRad, shWidth, shLength, softPx, strength};
+  const params = {angleRad: shadowAngle, shWidth, shLength, softPx, strength};
       const LA = physicalLuminanceAt(state.A.r, state.A.c, board, params);
       const LB = physicalLuminanceAt(state.B.r, state.B.c, board, params);
       const mid = (LA + LB)/2;
@@ -318,7 +335,7 @@ permalink: /illusions/checker-shadow.html
         // base lightness
         let L = light ? Ll : Ld;
         const centre = tileCentre(r,c, board);
-        const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
+  const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength, +ctl.cylR.value);
         L = clamp(L * s, 0, 100);
         ctx.fillStyle = L_to_rgb(L);
         ctx.fillRect(x0 + c*size, y0 + r*size, size, size);
@@ -332,37 +349,62 @@ permalink: /illusions/checker-shadow.html
     ctx.restore();
   }
 
-  function drawCylinder(x,y, R, angleRad){
+  function drawCylinder(x,y, R, lightAngle){
+    // Draw a shaded cylinder with lighting aligned to lightAngle.
+    // y is the base; the top sits at y - H.
+    const H = Math.max(48, R * 1.6);
     ctx.save();
-    ctx.translate(x,y);
-    // Body gradient
-    const grad = ctx.createLinearGradient(-R, 0, R, 0);
-    grad.addColorStop(0.0, '#bbbbbb');
-    grad.addColorStop(0.45,'#f2f2f2');
-    grad.addColorStop(0.55,'#cfcfcf');
-    grad.addColorStop(1.0, '#9a9a9a');
-    ctx.fillStyle = grad;
-    ctx.strokeStyle = '#888';
+    ctx.translate(x, y);
+
+    // ---- Body gradient: create in a rotated frame so it truly faces the light.
+    ctx.save();
+    ctx.rotate(lightAngle); // rotate only for gradient creation
+    const bodyGrad = ctx.createLinearGradient(-R, 0, R, 0);
+    bodyGrad.addColorStop(0.00, '#0c4d1f');
+    bodyGrad.addColorStop(0.25, '#1f7f3d');
+    bodyGrad.addColorStop(0.50, '#2ea44f');
+    bodyGrad.addColorStop(0.75, '#1f7f3d');
+    bodyGrad.addColorStop(1.00, '#0b4120');
+    ctx.restore();
+
+    // Body
+    ctx.fillStyle = bodyGrad;
+    ctx.strokeStyle = '#0b4a22';
     ctx.lineWidth = 1;
-
-    // Cylinder body
     ctx.beginPath();
-    ctx.ellipse(0, 0, R, R*0.35, 0, 0, Math.PI*2);
+    ctx.rect(-R, -H, 2*R, H);
     ctx.fill();
     ctx.stroke();
 
-    // Top rim (gives the “object casting shadow” cue)
+    // ---- Top ellipse with radial shading towards the light
+    const lx = Math.cos(lightAngle), ly = Math.sin(lightAngle);
+    const topGrad = ctx.createRadialGradient(lx*R*0.25, -H + ly*R*0.10, R*0.18, 0, -H, R*1.05);
+    topGrad.addColorStop(0, '#6bda90');
+    topGrad.addColorStop(1, '#1b6734');
+    ctx.fillStyle = topGrad;
     ctx.beginPath();
-    ctx.ellipse(0, -R*0.25, R*0.9, R*0.25, 0, 0, Math.PI*2);
-    ctx.fillStyle = '#e9e9e9';
+    ctx.ellipse(0, -H, R, R*0.35, 0, 0, Math.PI*2);
     ctx.fill();
     ctx.stroke();
 
-    // Shiny highlight
+    // ---- Soft contact rim at the base (very subtle)
+    ctx.save();
+    ctx.globalAlpha = 0.18;
     ctx.beginPath();
-    ctx.ellipse(-R*0.45, -R*0.05, R*0.25, R*0.12, 0, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.ellipse(0, 0, R*1.04, R*0.36, 0, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.stroke();
+    ctx.restore();
+
+    // ---- Specular streak on the body, aligned to light
+    ctx.save();
+    ctx.rotate(lightAngle);
+    ctx.translate(-R*0.55, -H*0.55);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, R*0.18, R*0.08, 0, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(255,255,255,0.25)';
     ctx.fill();
+    ctx.restore();
 
     ctx.restore();
   }
@@ -378,6 +420,23 @@ permalink: /illusions/checker-shadow.html
     ctx.arcTo(x + L/2, y + W/2, x + L/2 - R, y + W/2, R);
     ctx.lineTo(x - L/2 + R, y + W/2);
     ctx.arcTo(x - L/2, y + W/2, x - L/2, y + W/2 - R, R);
+    ctx.closePath();
+  }
+
+  function roundedHalfCapsule(ctx, startX, y, length, width, r){
+    // Capsule that starts at startX and extends to startX + length along +x
+    const L = length, W = width, R = r;
+    const x0 = startX, x1 = startX + L;
+    ctx.beginPath();
+    // Near semicircle at x0
+    ctx.moveTo(x0, y - W/2 + R);
+    ctx.arcTo(x0, y - W/2, x0 + R, y - W/2, R);
+    ctx.lineTo(x1 - R, y - W/2);
+    ctx.arcTo(x1, y - W/2, x1, y - W/2 + R, R);
+    ctx.lineTo(x1, y + W/2 - R);
+    ctx.arcTo(x1, y + W/2, x1 - R, y + W/2, R);
+    ctx.lineTo(x0 + R, y + W/2);
+    ctx.arcTo(x0, y + W/2, x0, y + W/2 - R, R);
     ctx.closePath();
   }
 
@@ -407,7 +466,7 @@ permalink: /illusions/checker-shadow.html
     const BC = tileCentre(state.B.r, state.B.c, board);
     // Take physical luminance at A (same as B when equality is locked) and paint a strip between
     const params = {
-      angleRad:(+ctl.angle.value)*Math.PI/180,
+  angleRad:(+ctl.angle.value)*Math.PI/180 + Math.PI,
       shWidth:+ctl.shWidth.value, shLength:+ctl.shLength.value,
       softPx:+ctl.soft.value, strength:(+ctl.shadow.value)/100
     };
@@ -430,13 +489,13 @@ permalink: /illusions/checker-shadow.html
     const Ll = +ctl.Llight.value;
     let base = isLight(r,c) ? Ll : Ld;
     const centre = tileCentre(r,c, board);
-    const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
-    if (ctl.lockEq.checked && r===state.A.r && c===state.A.c){
-      // A is dark in light; under lock we adapted Ld via draw, but here just return dark square in light (no shadow assumed)
-      // Better: compute from actual rendering path; we mirror what draw() did: A is dark tile; s for A location:
-      const sA = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength);
-      // In typical classic setup A is outside shadow -> sA~1, but we keep general:
-      return clamp((isLight(r,c)?Ll:Ld) * sA, 0, 100);
+  const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength, +ctl.cylR.value);
+    if (ctl.lockEq.checked){
+      // Under lock, dark square lightness is chosen so that B(light under shadow) == A(dark in light)
+      const BC = tileCentre(state.B.r, state.B.c, board);
+      const sB = shadowAt(BC.x, BC.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength, +ctl.cylR.value);
+      const newLd = clamp(Ll * sB, 5, 60);
+      base = isLight(r,c) ? Ll : newLd;
     }
     return clamp(base * s, 0, 100);
   }
@@ -453,7 +512,7 @@ permalink: /illusions/checker-shadow.html
     $('presetClassic').addEventListener('click', ()=>{
       ctl.n.value=8; ctl.size.value=70; ctl.margin.value=60;
       ctl.Ldark.value=35; ctl.Llight.value=70;
-      ctl.shadow.value=50; ctl.soft.value=60; ctl.shWidth.value=260; ctl.shLength.value=560;
+  ctl.shadow.value=50; ctl.soft.value=60; ctl.shWidth.value=Math.round(+ctl.cylR.value*2.0); ctl.shLength.value=560;
       ctl.angle.value=30; ctl.cylR.value=80; ctl.showCyl.checked=true;
       state.cylX = (cv.width/state.dpr)/2 - 120; state.cylY = (cv.height/state.dpr)/2 + 20;
       ctl.showLabels.checked=true; ctl.lockEq.checked=true; ctl.fade.value=0;
@@ -510,9 +569,10 @@ permalink: /illusions/checker-shadow.html
       const boardW = n*size, boardH = boardW;
       const x0 = W/2 - boardW/2, y0 = H/2 - boardH/2;
       const Ld = +ctl.Ldark.value, Ll = +ctl.Llight.value;
-      const angleRad = (+ctl.angle.value)*Math.PI/180;
-      const shWidth=+ctl.shWidth.value, shLength=+ctl.shLength.value;
-      const cylR=+ctl.cylR.value;
+  const angleRadLight = (+ctl.angle.value)*Math.PI/180;
+  const angleRadShadow = angleRadLight + Math.PI;
+  const shWidth=+ctl.shWidth.value, shLength=+ctl.shLength.value;
+  const cylR=+ctl.cylR.value;
 
       const parts = [];
       parts.push(`<rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>`);
@@ -524,16 +584,15 @@ permalink: /illusions/checker-shadow.html
           parts.push(`<rect x="${x0 + c*size}" y="${y0 + r*size}" width="${size}" height="${size}" fill="${col}" />`);
         }
       }
-      // Cylinder
+      // Cylinder (SVG approximation: body rectangle with top ellipse)
       if (ctl.showCyl.checked){
-        parts.push(`<circle cx="${state.cylX.toFixed(2)}" cy="${state.cylY.toFixed(2)}" r="${cylR}" fill="#cfcfcf" stroke="#888"/>`);
+        const H = (cylR * 1.6).toFixed(2);
+        parts.push(`<rect x="${(state.cylX - cylR).toFixed(2)}" y="${(state.cylY - H).toFixed(2)}" width="${(cylR*2).toFixed(2)}" height="${H}" fill="#2ea44f" stroke="#0b4a22"/>`);
+        parts.push(`<ellipse cx="${state.cylX.toFixed(2)}" cy="${(state.cylY - H).toFixed(2)}" rx="${cylR.toFixed(2)}" ry="${(cylR*0.35).toFixed(2)}" fill="#2ea44f" stroke="#0b4a22"/>`);
       }
-      // Shadow outline capsule
-      const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
+      // Shadow outline half-capsule anchored to cylinder back rim
       const cx = state.cylX, cy = state.cylY;
-      // Simple rotated rect with rounded ends
-      const x = cx, y = cy, L = shLength, Wd = shWidth;
-      const path = capsulePathSvg(x, y, L, Wd, angleRad);
+      const path = halfCapsulePathSvg(cx, cy, cylR, shLength, shWidth, angleRadShadow);
       parts.push(`<path d="${path}" fill="none" stroke="rgba(0,0,0,0.12)" />`);
 
       // Labels
@@ -554,19 +613,18 @@ permalink: /illusions/checker-shadow.html
       setTimeout(()=>URL.revokeObjectURL(url), 2000);
     });
 
-    function capsulePathSvg(cx, cy, L, W, ang){
-      // Return a simple rounded-rectangle path rotated by ang
+    function halfCapsulePathSvg(cx, cy, R, L, W, ang){
+      // Half-capsule from x=R to x=R+L rotated by ang
       const r = W/2;
       const p = [
-        [-L/2, -W/2 + r], [-L/2, -W/2], [-L/2 + r, -W/2],
-        [ L/2 - r, -W/2], [ L/2, -W/2], [ L/2, -W/2 + r],
-        [ L/2,  W/2 - r], [ L/2,  W/2], [ L/2 - r,  W/2],
-        [-L/2 + r,  W/2], [-L/2,  W/2], [-L/2,  W/2 - r]
+        [R, -W/2 + r], [R, -W/2], [R + r, -W/2],
+        [R + L - r, -W/2], [R + L, -W/2], [R + L, -W/2 + r],
+        [R + L,  W/2 - r], [R + L,  W/2], [R + L - r,  W/2],
+        [R + r,  W/2], [R,  W/2], [R,  W/2 - r]
       ];
       const cos = Math.cos(ang), sin = Math.sin(ang);
       const rot = (px,py)=>[ cx + px*cos - py*sin, cy + px*sin + py*cos ];
       const A = p.map(([px,py])=>rot(px,py));
-      // Build a crude path (no true arcs to keep it short)
       return `M ${A[0][0]} ${A[0][1]} L ${A[2][0]} ${A[2][1]} L ${A[3][0]} ${A[3][1]} L ${A[5][0]} ${A[5][1]} L ${A[6][0]} ${A[6][1]} L ${A[8][0]} ${A[8][1]} L ${A[9][0]} ${A[9][1]} L ${A[11][0]} ${A[11][1]} Z`;
     }
 
