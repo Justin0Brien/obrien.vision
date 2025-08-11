@@ -28,16 +28,16 @@ description: "Browse image galleries across the site."
   <section>
     <h2>Recent Illusions with Galleries</h2>
     <div class="image-grid">
-  {% assign items = site.illusions | where: "gallery_images" | slice: 0, 6 %}
+  {% assign items = site.illusions | slice: 0, 12 %}
       {% for item in items %}
+        {% if item.gallery_images and item.gallery_images.first %}
         <article class="image-card">
           <a href="{{ item.url | relative_url }}">
-            {% if item.gallery_images and item.gallery_images.first %}
-              <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
-            {% endif %}
+            <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
             <h3>{{ item.title }}</h3>
           </a>
         </article>
+        {% endif %}
       {% endfor %}
     </div>
   </section>
@@ -45,16 +45,16 @@ description: "Browse image galleries across the site."
   <section>
     <h2>Recent DataViz with Galleries</h2>
     <div class="image-grid">
-  {% assign items = site.visualizations | where: "gallery_images" | slice: 0, 6 %}
+  {% assign items = site.visualizations | slice: 0, 12 %}
       {% for item in items %}
+        {% if item.gallery_images and item.gallery_images.first %}
         <article class="image-card">
           <a href="{{ item.url | relative_url }}">
-            {% if item.gallery_images and item.gallery_images.first %}
-              <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
-            {% endif %}
+            <img src="{{ item.gallery_images.first.src | relative_url }}" alt="{{ item.gallery_images.first.alt | default: item.title }}" loading="lazy">
             <h3>{{ item.title }}</h3>
           </a>
         </article>
+        {% endif %}
       {% endfor %}
     </div>
   </section>
