@@ -28,7 +28,7 @@ description: "Browse image galleries across the site."
   <section>
     <h2>Recent Illusions with Galleries</h2>
     <div class="image-grid">
-  {% assign items = site.illusions | where_exp: "i","i.gallery_images and i.gallery_images.first" | slice: 0, 6 %}
+  {% assign items = site.illusions | where: "gallery_images" | slice: 0, 6 %}
       {% for item in items %}
         <article class="image-card">
           <a href="{{ item.url | relative_url }}">
@@ -45,7 +45,7 @@ description: "Browse image galleries across the site."
   <section>
     <h2>Recent DataViz with Galleries</h2>
     <div class="image-grid">
-  {% assign items = site.visualizations | where_exp: "v","v.gallery_images and v.gallery_images.first" | slice: 0, 6 %}
+  {% assign items = site.visualizations | where: "gallery_images" | slice: 0, 6 %}
       {% for item in items %}
         <article class="image-card">
           <a href="{{ item.url | relative_url }}">
