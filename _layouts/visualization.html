@@ -37,8 +37,9 @@ layout: default
   {% endif %}
 
   <div class="visualization-container">
-    {% if page.iframe_src %}
-      <iframe src="{{ page.iframe_src | relative_url }}" 
+    {% assign embed_src = page.iframe_src | default: page.iframe_url %}
+    {% if embed_src %}
+      <iframe src="{{ embed_src | relative_url }}" 
               width="{{ page.iframe_width | default: '100%' }}" 
               height="{{ page.iframe_height | default: '600' }}" 
               frameborder="0" 

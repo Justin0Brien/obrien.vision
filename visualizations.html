@@ -8,7 +8,8 @@ description: "Interactive data visualizations, charts, and analytical dashboards
 <div class="visualization-landing">
   <header class="page-header">
     <h1>Data Visualizations</h1>
-    <p class="lead">Explore interactive data stories, analytical dashboards, and experimental visualizations that transform complex data into compelling visual narratives.</p>
+  <p class="lead">Explore interactive data stories, analytical dashboards, and experimental visualizations that transform complex data into compelling visual narratives.</p>
+  <p class="lead" style="margin-top:.5rem">Total projects: {{ site.visualizations | size }}</p>
   </header>
 
   <div class="featured-visualization">
@@ -78,7 +79,10 @@ description: "Interactive data visualizations, charts, and analytical dashboards
   <div class="all-visualizations">
     <h2>All Visualizations</h2>
     <div class="visualization-grid">
-      {% for viz in site.visualizations reversed %}
+  {% assign all_viz = site.visualizations %}
+  {% assign viz_count = site.visualizations | size %}
+  {% unless viz_count == 0 %}
+  {% for viz in all_viz reversed %}
         <article class="viz-card">
           <div class="viz-card-content">
             <h3><a href="{{ viz.url | relative_url }}">{{ viz.title }}</a></h3>
@@ -89,8 +93,11 @@ description: "Interactive data visualizations, charts, and analytical dashboards
                 {% for tech in viz.technologies limit: 3 %}
                   <span class="tech-tag">{{ tech }}</span>
                 {% endfor %}
-                {% if viz.technologies.size > 3 %}
-                  <span class="tech-tag">+{{ viz.technologies.size | minus: 3 }} more</span>
+                {% assign extra_count = viz.technologies.size | minus: 3 %}
+                {% if extra_count %}
+                  {% unless extra_count == 0 %}
+                    <span class="tech-tag">+{{ extra_count }} more</span>
+                  {% endunless %}
                 {% endif %}
               </div>
             {% endif %}
@@ -119,6 +126,17 @@ description: "Interactive data visualizations, charts, and analytical dashboards
           {% endif %}
         </article>
       {% endfor %}
+  {% else %}
+        <p>No visualizations found yet. Add Markdown files under <code>_visualizations/</code> to populate this page.</p>
+  {% endunless %}
+    </div>
+    <div class="visualizations-fallback-list">
+      <h3>List of Visualizations</h3>
+      <ul>
+        {% for viz in site.visualizations %}
+          <li><a href="{{ viz.url | relative_url }}">{{ viz.title }}</a></li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 
