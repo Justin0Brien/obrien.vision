@@ -85,33 +85,9 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 </div>
 
 <style>
-.illusions-landing {
-  /* light theme defaults */
-  --card-bg: #ffffff;
-  --card-border: #e0e6ed;
-  --card-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  --text-primary: #1f2937; /* slate-800 */
-  --text-secondary: #4b5563; /* gray-600 */
-  --tag-bg: #f1f5f9; /* slate-100 */
-  --tag-fg: #475569; /* slate-600 */
-  --btn-primary-bg: #ff6b6b;
-  --btn-primary-bg-hover: #ff5252;
-}
-
-@media (prefers-color-scheme: dark) {
-  .illusions-landing {
-    --card-bg: #0f172a; /* slate-900ish */
-    --card-border: #243047; /* darker border */
-    --card-shadow: 0 2px 12px rgba(0,0,0,0.4);
-    --text-primary: #e5e7eb; /* gray-200 */
-    --text-secondary: #cbd5e1; /* slate-300 */
-    --tag-bg: #1f2937; /* gray-800 */
-    --tag-fg: #e5e7eb; /* gray-200 */
-    --btn-primary-bg: #ff6b6b;
-    --btn-primary-bg-hover: #ff7b7b;
-  }
-  .illusions-landing .lead { color: var(--text-secondary); }
-}
+/* Illusions landing now uses global surface + tag variables */
+.illusions-landing { --card-bg: var(--surface); --card-border: var(--surface-border); --card-shadow: var(--surface-shadow); --text-primary: var(--text); }
+.illusions-landing .lead { color: var(--text-secondary); }
 .illusions-landing {
   max-width: 1200px;
   margin: 0 auto;
@@ -249,14 +225,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
   margin-bottom: 4rem;
 }
 
-.illusion-card {
-  background: var(--card-bg);
-  border-radius: 8px;
-  box-shadow: var(--card-shadow);
-  border: 1px solid var(--card-border);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+.illusion-card { background: var(--card-bg); border-radius: 12px; box-shadow: var(--card-shadow); border:1px solid var(--card-border); overflow:hidden; transition: transform .2s ease, box-shadow .2s ease; }
 
 .illusion-card:hover {
   transform: translateY(-3px) scale(1.01);

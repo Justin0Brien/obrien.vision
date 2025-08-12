@@ -1,7 +1,7 @@
 ---
 ---
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@400;700&display=swap");
+/* Fonts temporarily: Google Fonts import removed to fix parsing; consider linking in <head> instead. */
 
 /* ========================================
    COLOR SCHEMES
@@ -14,6 +14,16 @@
   --primary: #6069c7;
   --secondary: #b6832f;
   --accent: #d62489;
+  /* Surfaces */
+  --surface: #ffffff;
+  --surface-border: rgba(0,0,0,0.08);
+  --surface-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  /* Secondary text & tag helpers */
+  --text-secondary: #4b5563;
+  --tag-bg: #f1f5f9;
+  --tag-fg: #475569;
+  --btn-primary-bg: #ff6b6b;
+  --btn-primary-bg-hover: #ff5252;
 }
 
 /* Dark mode */
@@ -24,6 +34,14 @@
     --primary: #38409f;
     --secondary: #d09c49;
     --accent: #da288d;
+  --surface: #0f172a;
+  --surface-border: #243047;
+  --surface-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  --text-secondary: #cbd5e1;
+  --tag-bg: #1f2937;
+  --tag-fg: #e5e7eb;
+  --btn-primary-bg: #ff6b6b;
+  --btn-primary-bg-hover: #ff7b7b;
   }
 }
 
@@ -34,6 +52,14 @@
   --primary: #38409f;
   --secondary: #d09c49;
   --accent: #da288d;
+  --surface: #0f172a;
+  --surface-border: #243047;
+  --surface-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  --text-secondary: #cbd5e1;
+  --tag-bg: #1f2937;
+  --tag-fg: #e5e7eb;
+  --btn-primary-bg: #ff6b6b;
+  --btn-primary-bg-hover: #ff7b7b;
 }
 
 /* Manual light theme */
@@ -43,6 +69,14 @@
   --primary: #6069c7;
   --secondary: #b6832f;
   --accent: #d62489;
+  --surface: #ffffff;
+  --surface-border: rgba(0,0,0,0.08);
+  --surface-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  --text-secondary: #4b5563;
+  --tag-bg: #f1f5f9;
+  --tag-fg: #475569;
+  --btn-primary-bg: #ff6b6b;
+  --btn-primary-bg-hover: #ff5252;
 }
 
 /* ========================================
@@ -88,10 +122,101 @@ small { font-size: 0.750rem; }
    ======================================== */
 
 .container {
-  max-width: 720px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
+
+/* ========================================
+   RESPONSIVE GRID UTILITIES
+   - Up to 3 columns, never exceed
+   - Mobile: 1 column; medium: 2; large: 3
+   ======================================== */
+/* .site-grid reserved hook (intentionally left without declarations) */
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 2rem clamp(1rem, 2vw, 2.25rem);
+  align-items: stretch;
+}
+
+@supports (grid-template-columns: subgrid) {
+  /* placeholder for future enhancement */
+}
+
+/* cap columns to 3 by constraining max width of the grid container */
+.grid-cards.max-3 {
+  --_card-min: 320px;
+  grid-template-columns: repeat(auto-fill, minmax(var(--_card-min), 1fr));
+}
+
+@media (min-width: 0px) {
+  .grid-cards.max-3 { max-width: 100%; }
+}
+@media (min-width: 1100px) {
+  .grid-cards.max-3 { max-width: calc(3 * 360px + 2 * 2rem); }
+}
+
+  /* Utility: full-width image inside card header */
+  .card > .post-thumbnail img { border-radius:0; }
+
+/* Card primitive (reuse illusion card look) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  box-shadow: var(--surface-shadow);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.12); }
+.card__body { padding: 1.25rem 1.4rem 1.5rem; flex: 1; }
+.card__title { margin: 0 0 .5rem; font-size: 1.25rem; line-height:1.3; }
+.card__title a { color: inherit; text-decoration:none; }
+.card__title a:hover { text-decoration:underline; }
+.card__meta { font-size:.75rem; letter-spacing:.5px; text-transform:uppercase; opacity:.65; margin-bottom:.75rem; }
+.card__excerpt { font-size:.95rem; line-height:1.5; margin:0 0 1rem; }
+.card__actions { margin-top:auto; }
+.card__actions .btn { font-size:.85rem; }
+
+/* Card automatically adapts via CSS variables */
+
+/* Blog list convert to grid */
+.post-list { 
+  display:grid; 
+  gap:2rem 2rem; 
+  grid-template-columns: repeat(auto-fill, minmax(320px,1fr));
+  max-width:100%;
+}
+@media (min-width:1200px){
+  .post-list { max-width: calc(3 * 360px + 2 * 2rem); margin-inline:auto; }
+}
+
+/* Transform .post-preview into card style */
+.post-preview {
+  background: var(--surface);
+  border:1px solid var(--surface-border);
+  border-radius:12px;
+  padding:0; /* we'll manage inner spacing in body */
+  display:flex; flex-direction:column; gap:0;
+  box-shadow: var(--surface-shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
+  margin:0;
+  overflow:hidden;
+}
+.post-preview:hover { transform: translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,0.12);} 
+.post-preview .post-content { padding:1.1rem 1.25rem 1.4rem; display:flex; flex-direction:column; gap:.75rem; }
+.post-preview h2 { font-size:1.25rem; margin:0; }
+.post-preview h2 a { text-decoration:none; color:inherit; }
+.post-preview h2 a:hover { text-decoration:underline; }
+.post-preview .post-excerpt { font-size:.95rem; line-height:1.5; }
+.post-preview .read-more { font-size:.85rem; font-weight:600; }
+
+/* Post preview inherits dark mode via variables */
 
 /* ========================================
    NAVIGATION
@@ -353,39 +478,11 @@ a:hover {
    POST LAYOUT
    ======================================== */
 
-.post-preview {
-  display: flex;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
+/* Full-width thumbnail at top of post cards */
+.post-thumbnail img { width:100%; height:200px; object-fit:cover; display:block; }
+.post-thumbnail { line-height:0; }
 
-.post-thumbnail {
-  flex-shrink: 0;
-}
-
-.post-thumbnail img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.post-content {
-  flex: 1;
-}
-
-.post-content h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.4rem;
-}
-
-.post-content h3 a {
-  color: var(--text);
-}
-
-.post-content h3 a:hover {
-  color: var(--primary);
-}
+/* Links already styled globally (removed duplicate specific rules) */
 
 /* ========================================
    MOBILE RESPONSIVE
