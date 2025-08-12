@@ -1,4 +1,15 @@
 
+---
+layout: illusion
+title: "Müller–Lyer Illusion"
+permalink: /illusions/muller-lyer/
+difficulty: "Medium"
+categories: [geometric, size-contrast]
+iframe_src: "/assets/demos/illusions/muller-lyer.html"
+iframe_width: "100%"
+iframe_height: "760"
+description: "Interactive Müller–Lyer illusion lab: adjust wing angle/length, feathering, context and perspective underlays; includes psychophysics mode."
+---
 
 # Müller–Lyer illusion — interactive guide
 

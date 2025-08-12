@@ -1,3 +1,15 @@
+---
+layout: illusion
+title: "Café Wall Illusion"
+permalink: /illusions/cafe-wall/
+difficulty: "Easy"
+categories: [geometric, tilt]
+iframe_src: "/assets/demos/illusions/cafe-wall.html"
+iframe_width: "100%"
+iframe_height: "760"
+description: "Interactive Café Wall illusion demo with adjustable grid, mortar and offset parameters to explore illusion strength."
+---
+
 # The Café Wall illusion — a clear, layered explainer
 
 ## What you see

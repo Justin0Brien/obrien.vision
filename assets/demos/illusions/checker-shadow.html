@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Adelson Checker–Shadow — interactive, draggable, with reveal</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8; --soft:#e5e7eb; --soft2:#d1d5db;
+  }
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  .wrap{display:grid;grid-template-columns: 560px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
+  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
+  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
+  legend{padding:0 6px; font-weight:650; color:#374151}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .ctl{display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0}
+  .ctl input[type="range"]{width:100%}
+  .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
+  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
+  .btn:hover{background:var(--soft2)}
+  .presets .btn.active{background:var(--accent); color:#fff}
+  .hint{font-size:13px;color:#4b5563}
+  .badge{display:inline-block; padding:2px 6px; border-radius:6px; font-size:12px; background:#eef2ff; color:#3730a3; margin-left:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <fieldset>
+      <legend>Board</legend>
+      <div class="ctl"><span>Squares per side</span><input id="n" type="range" min="6" max="16" value="8"><span id="nVal" class="value">8</span></div>
+      <div class="ctl"><span>Square size (px)</span><input id="size" type="range" min="30" max="120" value="70"><span id="sizeVal" class="value">70</span></div>
+      <div class="ctl"><span>Board margin (px)</span><input id="margin" type="range" min="20" max="120" value="60"><span id="marginVal" class="value">60</span></div>
+      <div class="ctl"><span>Dark square lightness</span><input id="Ldark" type="range" min="5" max="60" value="35"><span id="LdarkVal" class="value">35%</span></div>
+      <div class="ctl"><span>Light square lightness</span><input id="Llight" type="range" min="40" max="95" value="70"><span id="LlightVal" class="value">70%</span></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Shadow & light</legend>
+      <div class="ctl"><span>Shadow strength (multiplier)</span><input id="shadow" type="range" min="20" max="95" value="50"><span id="shadowVal" class="value">0.50×</span></div>
+      <div class="ctl"><span>Shadow softness (px)</span><input id="soft" type="range" min="5" max="120" value="60"><span id="softVal" class="value">60</span></div>
+      <div class="ctl"><span>Shadow width (px)</span><input id="shWidth" type="range" min="60" max="420" value="260"><span id="shWidthVal" class="value">260</span></div>
+      <div class="ctl"><span>Shadow length (px)</span><input id="shLength" type="range" min="150" max="900" value="560"><span id="shLengthVal" class="value">560</span></div>
+      <div class="ctl"><span>Light angle (°)</span><input id="angle" type="range" min="-180" max="180" value="30"><span id="angleVal" class="value">30°</span></div>
+      <div class="ctl"><span>Show cylinder (drag me)</span><input id="showCyl" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Cylinder radius (px)</span><input id="cylR" type="range" min="30" max="140" value="80"><span id="cylRVal" class="value">80</span></div>
+      <div class="row">
+        <button id="animate" class="btn">Animate light</button>
+        <button id="stopAnim" class="btn">Stop</button>
+      </div>
+      <div class="hint">Tip: drag the cylinder on the canvas; the shadow updates. The illusion is strongest when a “light” square lies under shadow next to a “dark” square in the light.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Labels, reveal & proof</legend>
+      <div class="ctl"><span>Show labels A & B</span><input id="showLabels" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Lock equality (A shade = B shade)</span><input id="lockEq" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
+      <div class="ctl"><span>Context fade (reveal)</span><input id="fade" type="range" min="0" max="100" value="0"><span id="fadeVal" class="value">0%</span></div>
+      <div class="row">
+        <button id="bridge" class="btn">Draw bridging strip</button>
+        <button id="clearBridge" class="btn">Clear strip</button>
+        <span class="badge">Prove they’re identical</span>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Presets & export</legend>
+      <div class="row">
+        <button class="btn" id="presetClassic">Classic setup</button>
+        <button class="btn" id="presetWide">Wide soft shadow</button>
+        <button class="btn" id="presetDramatic">Dramatic contrast</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="exportPng" class="btn">Export PNG</button>
+        <button id="exportSvg" class="btn">Export SVG</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <canvas id="cv" aria-label="Adelson Checker–Shadow canvas"></canvas>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const cv = $('cv');
+  const ctx = cv.getContext('2d');
+
+  // Controls
+  const ctl = {
+    n: $('n'), size:$('size'), margin:$('margin'),
+    Ldark:$('Ldark'), Llight:$('Llight'),
+    shadow:$('shadow'), soft:$('soft'), shWidth:$('shWidth'), shLength:$('shLength'),
+    angle:$('angle'), showCyl:$('showCyl'), cylR:$('cylR'),
+    showLabels:$('showLabels'), lockEq:$('lockEq'), fade:$('fade')
+  };
+  const lab = {
+    n:$('nVal'), size:$('sizeVal'), margin:$('marginVal'),
+    Ldark:$('LdarkVal'), Llight:$('LlightVal'),
+    shadow:$('shadowVal'), soft:$('softVal'), shWidth:$('shWidthVal'), shLength:$('shLengthVal'),
+    angle:$('angleVal'), cylR:$('cylRVal'), fade:$('fadeVal')
+  };
+
+  // State
+  const state = {
+    // Canvas
+    dpr: 1,
+    // Cylinder & shadow
+    cylX: 0, cylY: 0,
+    anim: null,
+    // A/B labels on alternating tiles
+    A: { r: 1, c: 2 }, // dark tile in light
+    B: { r: 2, c: 3 }, // light tile under shadow
+    bridgeOn: false
+  };
+
+  /* ----------------- utilities ----------------- */
+  function fitCanvas(){
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    state.dpr = dpr;
+    const rect = cv.getBoundingClientRect();
+    cv.width = Math.round(rect.width * dpr);
+    cv.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function L_to_rgb(L){ // greyscale from 0..100% (sRGB approx)
+    const v = Math.round(255 * (L/100));
+    const h = v.toString(16).padStart(2,'0');
+    return `#${h}${h}${h}`;
+  }
+
+  function lerp(a,b,t){ return a + (b-a)*t; }
+  function clamp(v,a,b){ return Math.min(b, Math.max(a, v)); }
+
+  // Signed distance to a capsule (rounded rectangle) centred at (0,0), along +x of length L and radius R
+  function sdCapsuleLocal(x,y,L,R){
+    // Map to central rectangle of half-length h = L/2
+    const h = L/2;
+    const qx = Math.abs(x) - h;
+    const qy = y;
+    const ax = Math.max(qx, 0);
+    const ay = Math.max(Math.abs(qy) - R, 0);
+    const outside = Math.hypot(ax, ay);
+    const inside = Math.min(Math.max(qx, Math.abs(qy) - R), 0);
+    return outside + inside; // negative inside
+  }
+
+  // Shadow factor at world coords (x,y)
+  // 'angleRad' here is the SHADOW direction (i.e., opposite of light direction)
+  // Cast shadow is a one-sided capsule that starts at the back rim of the cylinder (anchored to radius)
+  function shadowAt(x,y, cx,cy, angleRad, width, length, softPx, strength, cylR=0){
+    // Transform to shadow-local coords (x along shadow direction)
+    const cos = Math.cos(angleRad), sin = Math.sin(angleRad);
+    const lx =  (x - cx) * cos + (y - cy) * sin;
+    const ly = -(x - cx) * sin + (y - cy) * cos;
+    // Build a capsule whose extent is [cylR, cylR+length] along +x, width as provided
+    const L = Math.max(1, length);
+    const W = Math.max(1, width);
+    const centerX = cylR + L/2; // center so that near edge sits at x = cylR
+    const d = sdCapsuleLocal(lx - centerX, ly, L, W/2);
+    // Points in front of the cylinder (lx < cylR) are not in shadow; push distance positive
+    const dClipped = (lx < cylR) ? Math.abs(cylR - lx) + Math.max(0, Math.abs(ly) - W/2) : d;
+    // Edge softness
+    const tEdge = clamp(0.5 - dClipped / Math.max(1, softPx), 0, 1);
+    // Distance falloff (farther from cylinder → lighter)
+    const dist01 = clamp((lx - cylR) / L, 0, 1);
+    const strengthFar = 0.82; // slightly lighter far away for realism
+    const localStrength = lerp(strength, strengthFar, dist01);
+    return lerp(1.0, localStrength, tEdge);
+  }
+
+  // Convert tile (r,c) to centre world coords
+  function tileCentre(r, c, board){
+    const x = board.x0 + c * (board.size) + board.size/2;
+    const y = board.y0 + r * (board.size) + board.size/2;
+    return {x,y};
+  }
+
+  // Determine if a tile is "light" or "dark" by parity
+  function isLight(r,c){ return ((r + c) % 2) === 1; }
+
+  /* ----------------- drawing ----------------- */
+  function draw(){
+    const W = cv.width / state.dpr, H = cv.height / state.dpr;
+    ctx.clearRect(0,0,W,H);
+
+    // Labels
+    lab.n.textContent = ctl.n.value;
+    lab.size.textContent = ctl.size.value;
+    lab.margin.textContent = ctl.margin.value;
+    lab.Ldark.textContent = ctl.Ldark.value + '%';
+    lab.Llight.textContent = ctl.Llight.value + '%';
+    lab.shadow.textContent = (ctl.shadow.value/100).toFixed(2) + '×';
+    lab.soft.textContent = ctl.soft.value;
+    lab.shWidth.textContent = ctl.shWidth.value;
+    lab.shLength.textContent = ctl.shLength.value;
+    lab.angle.textContent = ctl.angle.value + '°';
+    lab.cylR.textContent = ctl.cylR.value;
+    lab.fade.textContent = ctl.fade.value + '%';
+
+    // Board geometry
+    const n = +ctl.n.value;
+    const size = +ctl.size.value;
+    const margin = +ctl.margin.value;
+    const boardW = n * size;
+    const boardH = boardW;
+    const cxBoard = W/2, cyBoard = H/2;
+    const x0 = cxBoard - boardW/2;
+    const y0 = cyBoard - boardH/2;
+    const board = { x0, y0, size, n };
+
+    // Place cylinder default if first draw
+    if (state.cylX === 0 && state.cylY === 0){
+      state.cylX = x0 + size*1.2;
+      state.cylY = y0 + size*1.6;
+    }
+
+    // Shadow parameters
+  // Light vs shadow: UI controls the LIGHT angle; the SHADOW points opposite
+  const lightAngle = (+ctl.angle.value) * Math.PI/180;
+  const shadowAngle = lightAngle + Math.PI; // cast direction
+    const shWidth = +ctl.shWidth.value;
+    const shLength = +ctl.shLength.value;
+    const softPx = +ctl.soft.value;
+    const strength = (+ctl.shadow.value)/100;
+    const cylR = +ctl.cylR.value;
+
+    // Fade (context reveal)
+    const fadeK = (+ctl.fade.value)/100; // 0..1
+
+    // Draw background (context)
+    ctx.save();
+    ctx.globalAlpha = 1 - fadeK;
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0,0,W,H);
+
+  // (moved) contact shadow ring is drawn after the board so it’s visible
+
+    // Draw checkerboard with multiplicative shadow applied per tile
+    const Ld = +ctl.Ldark.value;
+    let Ll = +ctl.Llight.value;
+
+    // If lock equality: set dark = light * shadow(B) so A & B match in physical luminance
+    if (ctl.lockEq.checked){
+  const BC = tileCentre(state.B.r, state.B.c, board);
+  const sB = shadowAt(BC.x, BC.y, state.cylX, state.cylY, shadowAngle, shWidth, shLength, softPx, strength, cylR);
+      // ensure Ld stays in sensible bounds
+      const newLd = clamp(Ll * sB, 5, 60);
+      // push dark slider toward equality (without fighting the UI): draw with newLd, reflect readout
+      // (we don't change the slider position; we just render with the computed equal dark)
+      lab.Ldark.textContent = newLd.toFixed(1) + '%';
+  drawCheckerboard(board, Ll, newLd, {angleRad: shadowAngle, shWidth, shLength, softPx, strength});
+    } else {
+  drawCheckerboard(board, Ll, Ld, {angleRad: shadowAngle, shWidth, shLength, softPx, strength});
+    }
+
+    // Cylinder base contact shadow on the board (multiply)
+    if (ctl.showCyl.checked){
+      ctx.save();
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.globalAlpha = 0.28 * (1 - fadeK);
+      ctx.translate(state.cylX, state.cylY);
+      const ringR = cylR * 0.9;
+      const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, ringR);
+      grd.addColorStop(0, 'rgba(0,0,0,0.4)');
+      grd.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grd;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, ringR * 1.5, ringR * 0.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Cylinder (on top of board and contact shadow)
+    if (ctl.showCyl.checked){
+      drawCylinder(state.cylX, state.cylY, cylR, lightAngle);
+    }
+
+    // Shadow capsule (for fun, faint overlay of the umbra)
+  ctx.save();
+  ctx.globalCompositeOperation = 'multiply';
+  ctx.globalAlpha = 0.08 * (1 - fadeK);
+  ctx.translate(state.cylX, state.cylY);
+  ctx.rotate(shadowAngle);
+  ctx.fillStyle = '#000';
+  roundedHalfCapsule(ctx, cylR, 0, shLength, shWidth, shWidth/2);
+  ctx.fill();
+  ctx.restore();
+
+    // Labels & bridge
+    if (ctl.showLabels.checked){
+      drawLabels(board, fadeK);
+    }
+    if (state.bridgeOn){
+      drawBridge(board, fadeK);
+    }
+
+    ctx.restore(); // end of context fade
+
+    // Foreground white overlay to implement fade (“reveal”)
+    if (fadeK > 0){
+      ctx.save();
+      ctx.globalAlpha = fadeK;
+      // Paint only board area with flat mid-grey that matches both A & B
+      const AC = tileCentre(state.A.r, state.A.c, board);
+      const BC = tileCentre(state.B.r, state.B.c, board);
+  const params = {angleRad: shadowAngle, shWidth, shLength, softPx, strength};
+      const LA = physicalLuminanceAt(state.A.r, state.A.c, board, params);
+      const LB = physicalLuminanceAt(state.B.r, state.B.c, board, params);
+      const mid = (LA + LB)/2;
+      ctx.fillStyle = L_to_rgb(mid);
+      ctx.fillRect(x0 - margin, y0 - margin, boardW + 2*margin, boardH + 2*margin);
+      ctx.restore();
+      // Redraw A/B labels on top
+      if (ctl.showLabels.checked){
+        drawLabels(board, 0);
+        if (state.bridgeOn) drawBridge(board, 0);
+      }
+    }
+  }
+
+  function drawCheckerboard(board, Ll, Ld, sh){
+    const { x0, y0, size, n } = board;
+    for (let r=0; r<n; r++){
+      for (let c=0; c<n; c++){
+        const light = isLight(r,c);
+        // base lightness
+        let L = light ? Ll : Ld;
+        const centre = tileCentre(r,c, board);
+  const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength, +ctl.cylR.value);
+        L = clamp(L * s, 0, 100);
+        ctx.fillStyle = L_to_rgb(L);
+        ctx.fillRect(x0 + c*size, y0 + r*size, size, size);
+      }
+    }
+    // board border
+    ctx.save();
+    ctx.strokeStyle = '#999';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x0, y0, n*size, n*size);
+    ctx.restore();
+  }
+
+  function drawCylinder(x,y, R, lightAngle){
+    // Draw a shaded cylinder with lighting aligned to lightAngle.
+    // y is the base; the top sits at y - H.
+    const H = Math.max(48, R * 1.6);
+    ctx.save();
+    ctx.translate(x, y);
+
+    // ---- Body gradient: create in a rotated frame so it truly faces the light.
+    ctx.save();
+    ctx.rotate(lightAngle); // rotate only for gradient creation
+    const bodyGrad = ctx.createLinearGradient(-R, 0, R, 0);
+    bodyGrad.addColorStop(0.00, '#0c4d1f');
+    bodyGrad.addColorStop(0.25, '#1f7f3d');
+    bodyGrad.addColorStop(0.50, '#2ea44f');
+    bodyGrad.addColorStop(0.75, '#1f7f3d');
+    bodyGrad.addColorStop(1.00, '#0b4120');
+    ctx.restore();
+
+    // Body
+    ctx.fillStyle = bodyGrad;
+    ctx.strokeStyle = '#0b4a22';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.rect(-R, -H, 2*R, H);
+    ctx.fill();
+    ctx.stroke();
+
+    // ---- Top ellipse with radial shading towards the light
+    const lx = Math.cos(lightAngle), ly = Math.sin(lightAngle);
+    const topGrad = ctx.createRadialGradient(lx*R*0.25, -H + ly*R*0.10, R*0.18, 0, -H, R*1.05);
+    topGrad.addColorStop(0, '#6bda90');
+    topGrad.addColorStop(1, '#1b6734');
+    ctx.fillStyle = topGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, -H, R, R*0.35, 0, 0, Math.PI*2);
+    ctx.fill();
+    ctx.stroke();
+
+    // ---- Soft contact rim at the base (very subtle)
+    ctx.save();
+    ctx.globalAlpha = 0.18;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, R*1.04, R*0.36, 0, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.stroke();
+    ctx.restore();
+
+    // ---- Specular streak on the body, aligned to light
+    ctx.save();
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.moveTo(-R*0.7, -H*0.9);
+    ctx.lineTo(-R*0.3, -H*0.1);
+    ctx.lineTo(-R*0.2, -H*0.1);
+    ctx.lineTo(-R*0.6, -H*0.9);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    ctx.restore();
+  }
+
+  function roundedHalfCapsule(ctx, x0, y0, L, W, R){
+    ctx.beginPath();
+    ctx.moveTo(x0, y0 - W/2);
+    ctx.lineTo(x0 + L, y0 - W/2);
+    ctx.arc(x0 + L, y0, W/2, -Math.PI/2, Math.PI/2);
+    ctx.lineTo(x0, y0 + W/2);
+    ctx.closePath();
+  }
+
+  function drawLabels(board, fadeK){
+    const A = tileCentre(state.A.r, state.A.c, board);
+    const B = tileCentre(state.B.r, state.B.c, board);
+    ctx.save();
+    ctx.fillStyle = 'rgba(0,0,0,' + (0.75 * (1 - fadeK)) + ')';
+    ctx.font = 'bold 18px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('A', A.x, A.y);
+    ctx.fillText('B', B.x, B.y);
+    ctx.restore();
+  }
+
+  function drawBridge(board, fadeK){
+    const A = tileCentre(state.A.r, state.A.c, board);
+    const B = tileCentre(state.B.r, state.B.c, board);
+    ctx.save();
+    ctx.globalCompositeOperation = 'difference';
+    ctx.strokeStyle = 'rgba(255,255,255,' + (0.85 * (1 - fadeK)) + ')';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(A.x, A.y);
+    ctx.lineTo(B.x, B.y);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function physicalLuminanceAt(r,c, board, sh){
+    const Ll = +ctl.Llight.value, Ld = +ctl.Ldark.value;
+    const light = isLight(r,c);
+    let L = light ? Ll : Ld;
+    const centre = tileCentre(r,c, board);
+    const s = shadowAt(centre.x, centre.y, state.cylX, state.cylY, sh.angleRad, sh.shWidth, sh.shLength, sh.softPx, sh.strength, +ctl.cylR.value);
+    return clamp(L * s, 0, 100);
+  }
+
+  /* ----------------- interaction ----------------- */
+  let dragging = false;
+  let dragDX = 0, dragDY = 0;
+  cv.addEventListener('mousedown', (e)=>{
+    const rect = cv.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const dx = x - state.cylX;
+    const dy = y - state.cylY;
+    const R = +ctl.cylR.value;
+    if (Math.hypot(dx,dy) <= R*1.2){ dragging = true; dragDX = dx; dragDY = dy; }
+  });
+  window.addEventListener('mouseup', ()=> dragging=false);
+  window.addEventListener('mousemove', (e)=>{
+    if (!dragging) return;
+    const rect = cv.getBoundingClientRect();
+    state.cylX = e.clientX - rect.left - dragDX;
+    state.cylY = e.clientY - rect.top - dragDY;
+    draw();
+  });
+
+  // Buttons
+  $('animate').addEventListener('click', ()=>{
+    if (state.anim) return;
+    let t=0; state.anim = setInterval(()=>{
+      ctl.angle.value = (Math.sin(t/20) * 60).toFixed(1);
+      t+=1; draw();
+    }, 30);
+  });
+  $('stopAnim').addEventListener('click', ()=>{ if(state.anim){ clearInterval(state.anim); state.anim=null; } });
+
+  $('bridge').addEventListener('click', ()=>{ state.bridgeOn=true; draw(); });
+  $('clearBridge').addEventListener('click', ()=>{ state.bridgeOn=false; draw(); });
+
+  $('reset').addEventListener('click', ()=>{
+    Object.assign(ctl, { n:$('n'), size:$('size'), margin:$('margin'), Ldark:$('Ldark'), Llight:$('Llight'), shadow:$('shadow'), soft:$('soft'), shWidth:$('shWidth'), shLength:$('shLength'), angle:$('angle'), showCyl:$('showCyl'), cylR:$('cylR'), showLabels:$('showLabels'), lockEq:$('lockEq'), fade:$('fade') });
+    $('n').value=8; $('size').value=70; $('margin').value=60; $('Ldark').value=35; $('Llight').value=70; $('shadow').value=50; $('soft').value=60; $('shWidth').value=260; $('shLength').value=560; $('angle').value=30; $('showCyl').checked=true; $('cylR').value=80; $('showLabels').checked=true; $('lockEq').checked=true; $('fade').value=0;
+    state.cylX = 0; state.cylY = 0; state.bridgeOn=false;
+    draw();
+  });
+
+  // Input bindings
+  document.querySelectorAll('input').forEach(inp=>{
+    inp.addEventListener('input', draw, {passive:true});
+  });
+
+  // Initial
+  function init(){
+    fitCanvas();
+    window.addEventListener('resize', fitCanvas, {passive:true});
+    draw();
+  }
+  init();
+})();
+</script>
+</body>
+</html>

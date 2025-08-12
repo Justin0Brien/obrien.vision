@@ -1,8 +1,3 @@
----
-layout: null
-permalink: /illusions/rotating-snake.html
-robots: noindex
----
 <!doctype html>
 <html lang="en">
 <head>
@@ -399,56 +394,19 @@ robots: noindex
         draw();
       }, {passive:true});
     });
-    window.addEventListener('resize', ()=>{fitCanvas(); draw();}, {passive:true});
   }
 
-  let tFlick=0;
-  function animate(){
-    if (ctl.flick.checked){
-      tFlick += 0.016;
-      const k = 0.08 * Math.sin(2*Math.PI*0.8*tFlick);
-      const base=[ctl.c1.value, ctl.c2.value, ctl.c3.value, ctl.c4.value].map(hexToRgb);
-      const wobble=[
-        base[0],
-        {r:clamp(base[1].r*(1+k)), g:clamp(base[1].g*(1+k)), b:clamp(base[1].b*(1+k))},
-        {r:clamp(base[2].r*(1-k)), g:clamp(base[2].g*(1-k)), b:clamp(base[2].b*(1-k))},
-        base[3]
-      ].map(rgbToHex);
-      tempDraw(wobble);
-    } else {
-      draw();
-    }
-    requestAnimationFrame(animate);
-  }
-  function tempDraw(seq){
-    const W=cv.width, H=cv.height;
-    ctx.clearRect(0,0,W,H);
-    ctx.save(); ctx.translate(W/2,H/2);
-    const scale = +ctl.scale.value/100; ctx.scale(scale,scale);
-    const rings=+ctl.rings.value, units=+ctl.units.value, thick=+ctl.thick.value;
-    const gap=+ctl.gap.value, inner=+ctl.inner.value, amp=+ctl.amp.value, freq=+ctl.freq.value;
-    const unitA=(Math.PI*2)/units, stepA=unitA/4, drawSep=ctl.seps.checked;
-    for(let r=0;r<rings;r++){
-      const rIn=inner+r*(thick+gap), rOut=rIn+thick, phase = ctl.altDir.checked && (r%2===1) ? stepA*2 : 0;
-      for(let u=0;u<units;u++){
-        const base=u*unitA + phase;
-        for(let s=0;s<4;s++){
-          const a1=base+s*stepA, a2=a1+stepA;
-          const idx = ctl.rev.checked ? (3-s) : s;
-          curvedPatch(ctx,rIn,rOut,a1,a2,amp,freq,seq[idx]);
-          if (drawSep){ ctx.save(); ctx.strokeStyle='rgba(0,0,0,.75)'; ctx.lineWidth=0.6; arcEdge(ctx,rIn,rOut,a2,amp,freq); ctx.restore(); }
-        }
-      }
-    }
-    ctx.restore();
+  function tick(){
+    draw();
   }
 
-  /* ---------- boot ---------- */
   function init(){
-    fitCanvas(); updateLabels(); updateColourLabels(); bindInputs();
+    fitCanvas();
+    window.addEventListener('resize', fitCanvas, {passive:true});
     buildColourPresetButtons();
     buildParamPresetButtons();
-    draw(); requestAnimationFrame(animate);
+    bindInputs();
+    draw();
   }
   init();
 })();

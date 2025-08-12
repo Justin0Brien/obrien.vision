@@ -1,3 +1,15 @@
+---
+layout: illusion
+title: "Motion Aftereffect (Waterfall)"
+permalink: /illusions/motion-aftereffect/
+difficulty: "Medium"
+categories: [motion, adaptation]
+iframe_src: "/assets/demos/illusions/mae.html"
+iframe_width: "100%"
+iframe_height: "760"
+description: "Interactive motion aftereffect lab: adapt to motion (gratings, rotation, radial), then test; includes presets and top-up adaptation."
+warning: "Extended high-contrast motion may cause visual fatigue—take breaks."
+---
 
 # Motion Aftereffect (Waterfall) — interactive guide
 

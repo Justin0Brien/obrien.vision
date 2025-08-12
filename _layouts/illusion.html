@@ -26,8 +26,9 @@ layout: default
   {% endif %}
 
   <div class="illusion-container">
-    {% if page.iframe_src %}
-  <iframe src="{{ page.iframe_src | relative_url }}" 
+    {% assign embed_src = page.iframe_src | default: page.iframe_url %}
+    {% if embed_src %}
+  <iframe src="{{ embed_src | relative_url }}" 
               width="{{ page.iframe_width | default: '100%' }}" 
               height="{{ page.iframe_height | default: '600' }}" 
               frameborder="0" 
@@ -109,7 +110,8 @@ layout: default
 </article>
 
 <style>
-body.illusion-page { background-color: #ffffff; }
+/* Respect theme variables */
+body.illusion-page { background-color: var(--background); }
 .illusion,
 .illusion p,
 .illusion li,
@@ -119,14 +121,15 @@ body.illusion-page { background-color: #ffffff; }
 .illusion h4,
 .illusion h5,
 .illusion h6 {
-  color: #111827; /* High-contrast ink */
+  color: var(--text);
 }
 .illusion a {
-  color: #1d4ed8; /* Accessible link blue */
-  text-decoration: underline;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
 }
-.illusion a:hover { color: #1e40af; }
-.illusion hr { border-color: #e5e7eb; }
+.illusion a:hover { color: var(--accent); }
+.illusion hr { border-color: rgba(0,0,0,0.1); }
 .illusion-header {
   margin-bottom: 2rem;
 }
@@ -161,9 +164,9 @@ body.illusion-page { background-color: #ffffff; }
 }
 
 .warning-notice {
-  background: #fff3cd;
-  border: 1px solid #ffeaa7;
-  color: #856404;
+  background: rgba(255, 193, 7, 0.15);
+  border: 1px solid rgba(255, 193, 7, 0.35);
+  color: var(--text);
   padding: 1rem;
   border-radius: 0.25rem;
   margin-bottom: 1.5rem;
@@ -174,11 +177,11 @@ body.illusion-page { background-color: #ffffff; }
 }
 
 .illusion-iframe {
-  border: 1px solid #dee2e6;
-  border-radius: 0.5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
   margin-bottom: 1rem;
   width: 100%;
-  background: #fff;
+  background: var(--background);
 }
 
 .illusion-gallery {
@@ -208,7 +211,7 @@ body.illusion-page { background-color: #ffffff; }
 }
 
 .illusion-controls {
-  background: #f8f9fa;
+  background: rgba(0,0,0,0.04);
   padding: 1.5rem;
   border-radius: 0.5rem;
   margin: 2rem 0;
@@ -256,11 +259,11 @@ body.illusion-page { background-color: #ffffff; }
 }
 
 .illusion-explanation {
-  background: #e7f3ff;
+  background: rgba(37, 99, 235, 0.12);
   padding: 1.5rem;
   border-radius: 0.5rem;
   margin: 2rem 0;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid var(--primary);
 }
 
 .illusion-tags {

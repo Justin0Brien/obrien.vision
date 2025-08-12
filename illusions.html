@@ -14,7 +14,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 
   <div class="all-illusions">
     <div class="illusions-grid">
-  {% assign illusions_only = site.illusions %}
+  {% assign illusions_only = site.illusions | where: "layout", "illusion" %}
   {% assign illusions_count = site.illusions | size %}
   {% unless illusions_count == 0 %}
   {% for illusion in illusions_only reversed %}
@@ -52,13 +52,15 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
             </div>
           </div>
           
-          {% if illusion.carousel_images.first %}
-            <div class="illusion-card-image">
-              <img src="{{ illusion.carousel_images.first.src | relative_url }}" 
-                   alt="{{ illusion.carousel_images.first.alt }}"
-                   loading="lazy">
-            </div>
-          {% endif %}
+          <div class="illusion-card-image">
+            {% if illusion.thumbnail %}
+              <img src="{{ illusion.thumbnail | relative_url }}" alt="{{ illusion.title }} thumbnail" loading="lazy">
+            {% elsif illusion.carousel_images and illusion.carousel_images.first %}
+              <img src="{{ illusion.carousel_images.first.src | relative_url }}" alt="{{ illusion.carousel_images.first.alt | default: illusion.title }}" loading="lazy">
+            {% else %}
+              <img src="{{ '/assets/images/placeholders/illusion-thumb.svg' | relative_url }}" alt="{{ illusion.title }} thumbnail placeholder" loading="lazy">
+            {% endif %}
+          </div>
         </article>
       {% endfor %}
   {% else %}
@@ -257,8 +259,8 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
 }
 
 .illusion-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
 }
 
 .illusion-card-content {

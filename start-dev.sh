@@ -39,7 +39,60 @@ export BUNDLE_WITHOUT=""
 echo "Installing gem dependencies…"
 bundle install
 
-echo "Starting Jekyll server on http://localhost:4000"
+# --- Port & process handling -------------------------------------------------
+
+BASE_PORT=${PORT:-4000}
+LR_PORT=${LIVERELOAD_PORT:-35729}
+
+auto_kill_port() {
+    local port=$1
+    # list PIDs listening on the port
+    local pids
+    pids=$(lsof -nP -iTCP:"$port" -sTCP:LISTEN 2>/dev/null | awk 'NR>1 {print $2}' | sort -u || true)
+    [[ -z "$pids" ]] && return 0
+    for pid in $pids; do
+        # only kill if it's a jekyll process (command line contains 'jekyll')
+        if ps -p "$pid" -o command= | grep -qi "jekyll"; then
+            echo "Killing existing Jekyll process PID $pid on port $port" >&2
+            kill "$pid" 2>/dev/null || true
+        else
+            echo "Port $port is in use by non-Jekyll PID $pid; not killing. (Set PORT to another value or free it manually.)" >&2
+            return 1
+        fi
+    done
+    # wait until freed
+    local waited=0
+    while lsof -nP -iTCP:"$port" -sTCP:LISTEN >/dev/null 2>&1; do
+        sleep 0.2; waited=$((waited+1));
+        if (( waited > 25 )); then
+            echo "Timed out waiting for port $port to free." >&2
+            return 1
+        fi
+    done
+    return 0
+}
+
+if [[ "${KEEP_OLD:-0}" != "1" ]]; then
+    auto_kill_port "$BASE_PORT" || exit 1
+    auto_kill_port "$LR_PORT" || true # ok if fails; we'll disable livereload if busy
+else
+    echo "KEEP_OLD=1 set: not killing existing processes; script may fail if port busy." >&2
+fi
+
+LR_ARGS=(--livereload --livereload-port "$LR_PORT")
+if lsof -nP -iTCP:"$LR_PORT" -sTCP:LISTEN >/dev/null 2>&1 && [[ "${KEEP_OLD:-0}" == "1" ]]; then
+    echo "Livereload port $LR_PORT occupied; disabling livereload." >&2
+    LR_ARGS=()
+fi
+if [[ "${NO_LIVERELOAD:-0}" == "1" ]]; then
+    echo "NO_LIVERELOAD=1 set: disabling livereload." >&2
+    LR_ARGS=()
+fi
+
+echo "Starting Jekyll server on http://localhost:${BASE_PORT}"
 echo "Press Ctrl+C to stop the server"
 echo
-bundle exec jekyll serve --host 0.0.0.0 --livereload --config _config.yml,_config.local.yml
+
+JEKYLL_CMD=(bundle exec jekyll serve --host 0.0.0.0 --port "$BASE_PORT" "${LR_ARGS[@]}" --config _config.yml,_config.local.yml)
+echo "> ${JEKYLL_CMD[*]}"
+"${JEKYLL_CMD[@]}"

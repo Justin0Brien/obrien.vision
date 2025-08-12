@@ -5,7 +5,7 @@ permalink: /illusions/checker-shadow/
 difficulty: "Medium"
 categories: [lightness, context]
 duration: "2–3 minutes"
-iframe_src: "/illusions/checker-shadow.html"
+iframe_src: "/assets/demos/illusions/checker-shadow.html"
 iframe_width: "100%"
 iframe_height: "680"
 description: "Interactive Checker–Shadow demo with a clear, layered explanation and reveal controls."
