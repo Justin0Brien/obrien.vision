@@ -4,8 +4,6 @@ title: Blog
 permalink: /blog/
 ---
 
-# Latest Posts
-
 {% if site.posts.size > 0 %}
   <div class="post-list">
     {% for post in site.posts %}
