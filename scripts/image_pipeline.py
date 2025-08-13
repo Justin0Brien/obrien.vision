@@ -6,7 +6,7 @@ from datetime import datetime
 from typing import Optional
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileCreatedEvent, FileModifiedEvent
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from blind_watermark import WaterMark
 
 """Image ingestion & processing watchdog.
@@ -112,6 +112,94 @@ def embed_invisible_watermark(src_path: pathlib.Path, out_path: pathlib.Path):
     bwm.read_wm(WM_TEXT, mode='str')
     bwm.embed(str(out_path))
 
+def add_visible_watermark(src_path: pathlib.Path, out_path: pathlib.Path):
+    """Add a visible copyright watermark to the bottom-left corner of the image.
+    
+    Uses a semi-transparent approach with both shadow and outline effects
+    to ensure readability on any background (black, white, or noisy).
+    """
+    with Image.open(src_path) as im:
+        im.load()
+        if im.mode not in ("RGB", "RGBA"):
+            im = im.convert("RGBA")
+        else:
+            im = im.convert("RGBA")
+        
+        # Create a transparent overlay for drawing
+        overlay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+        draw = ImageDraw.Draw(overlay)
+        
+        # Watermark text
+        current_year = datetime.now().year
+        watermark_text = f"© {current_year} Justin O'Brien"
+        
+        # Calculate font size based on image dimensions (aim for ~1.5% of image width)
+        base_font_size = max(12, int(im.width * 0.015))
+        
+        # Try to load a good font, fall back to default if not available
+        font = None
+        font_candidates = [
+            "/System/Library/Fonts/Helvetica.ttc",  # macOS
+            "/System/Library/Fonts/Arial.ttf",      # macOS
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",  # Linux
+            "/Windows/Fonts/arial.ttf",             # Windows
+        ]
+        
+        for font_path in font_candidates:
+            try:
+                if pathlib.Path(font_path).exists():
+                    font = ImageFont.truetype(font_path, base_font_size)
+                    break
+            except Exception:
+                continue
+        
+        # Fall back to default font if no TrueType font found
+        if font is None:
+            try:
+                font = ImageFont.load_default()
+            except Exception:
+                font = ImageFont.load_default()
+        
+        # Get text dimensions
+        bbox = draw.textbbox((0, 0), watermark_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+        
+        # Position: bottom-left with some margin
+        margin = max(10, int(im.width * 0.01))  # 1% margin or minimum 10px
+        x = margin
+        y = im.height - text_height - margin
+        
+        # Draw shadow/outline effect for better visibility
+        # This creates a subtle dark outline that helps on light backgrounds
+        shadow_offset = max(1, int(base_font_size * 0.05))
+        outline_color = (0, 0, 0, 128)  # Semi-transparent black
+        
+        # Draw outline by drawing text in multiple positions
+        for dx in [-shadow_offset, 0, shadow_offset]:
+            for dy in [-shadow_offset, 0, shadow_offset]:
+                if dx != 0 or dy != 0:  # Skip the center position
+                    draw.text((x + dx, y + dy), watermark_text, 
+                             font=font, fill=outline_color)
+        
+        # Draw the main text in semi-transparent white
+        main_color = (255, 255, 255, 128)  # Semi-transparent white
+        draw.text((x, y), watermark_text, font=font, fill=main_color)
+        
+        # Composite the overlay onto the original image
+        watermarked = Image.alpha_composite(im, overlay)
+        
+        # Convert back to RGB if needed (for JPEG compatibility)
+        if watermarked.mode == "RGBA":
+            # Create white background for final image
+            final_im = Image.new("RGB", watermarked.size, (255, 255, 255))
+            final_im.paste(watermarked, mask=watermarked.split()[-1])  # Use alpha channel as mask
+            watermarked = final_im
+        
+        # Save the watermarked image
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        watermarked.save(out_path, format="PNG", compress_level=6)
+
 def to_webp(in_path: pathlib.Path, out_path: pathlib.Path, quality: int):
     with Image.open(in_path) as im:
         im.load()
@@ -169,6 +257,7 @@ def process_image(src_file: pathlib.Path):
     stem = unique_stem(web_safe_slug(src_file.stem), OUTPUT_DIR)
     tmp_src = TMP_DIR / f"{stem}-src.png"
     tmp_wm  = TMP_DIR / f"{stem}-wm.png"
+    tmp_visible = TMP_DIR / f"{stem}-visible.png"
 
     try: normalise_to_png(src_file, tmp_src)
     except Exception as e:
@@ -179,14 +268,19 @@ def process_image(src_file: pathlib.Path):
         print(f"Watermark failed (continuing): {e}", file=sys.stderr)
         shutil.copy2(tmp_src, tmp_wm)
 
+    try: add_visible_watermark(tmp_wm, tmp_visible)
+    except Exception as e:
+        print(f"Visible watermark failed (continuing): {e}", file=sys.stderr)
+        shutil.copy2(tmp_wm, tmp_visible)
+
     out_full  = OUTPUT_DIR / f"{stem}.webp"
     out_512   = OUTPUT_DIR / f"{stem}-512w.webp"
     out_thumb = OUTPUT_DIR / f"{stem}-256w.webp"
 
     try:
-        to_webp(tmp_wm, out_full, quality=WEBP_QUALITY_ORIGINAL)
-        resize_to_width(tmp_wm, out_512, width=RESIZED_WIDTH, quality=WEBP_QUALITY_RESIZED)
-        resize_to_width(tmp_wm, out_thumb, width=THUMB_WIDTH,  quality=WEBP_QUALITY_RESIZED)
+        to_webp(tmp_visible, out_full, quality=WEBP_QUALITY_ORIGINAL)
+        resize_to_width(tmp_visible, out_512, width=RESIZED_WIDTH, quality=WEBP_QUALITY_RESIZED)
+        resize_to_width(tmp_visible, out_thumb, width=THUMB_WIDTH,  quality=WEBP_QUALITY_RESIZED)
     except Exception as e:
         print(f"WebP write failed: {e}", file=sys.stderr); return
 
@@ -204,7 +298,7 @@ def process_image(src_file: pathlib.Path):
     with open(OUTPUT_DIR / f"{stem}.json", "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
-    for p in (tmp_src, tmp_wm):
+    for p in (tmp_src, tmp_wm, tmp_visible):
         try: p.unlink()
         except Exception: pass
 
