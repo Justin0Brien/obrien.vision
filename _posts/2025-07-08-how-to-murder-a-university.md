@@ -6,7 +6,8 @@ categories: [higher-education, university-governance, insolvency]
 tags: [university-closure, OfS-regulation, insolvency-law, student-protection, UK-universities, institutional-failure]
 excerpt: "A UK university cannot simply press CTRL-ALT-DELETE and vanish. Here's what actually happens when institutions reach the end of the financial road."
 author: Justin O'Brien
-# image: "/assets/images/posts/2025-07-08-how-to-murder-a-university/hero-university-closure.jpg"
+image: "/assets/images/posts/2025-07-08-how-to-murder-a-university/How-to-Murder-a-University.jpeg"
+thumbnail: "/assets/images/posts/2025-07-08-how-to-murder-a-university/How-to-Murder-a-University.jpeg"
 ---
 
 ![Empty university lecture hall with ominous shadows](/assets/images/posts/2025-07-08-how-to-murder-a-university/How-to-Murder-a-University.jpeg)
