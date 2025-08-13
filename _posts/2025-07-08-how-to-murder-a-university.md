@@ -9,7 +9,7 @@ author: Justin O'Brien
 # image: "/assets/images/posts/2025-07-08-how-to-murder-a-university/hero-university-closure.jpg"
 ---
 
-<!-- ![Empty university lecture hall with ominous shadows](/assets/images/posts/2025-07-30-how-to-murder-university/hero-university-closure.jpg) -->
+![Empty university lecture hall with ominous shadows](/assets/images/posts/2025-07-08-how-to-murder-university/How-to-Murder-a-University.jpeg)
 
 In recent posts I've already skipped indelicately through Britain's higher-education money-pit, tutted at missed savings, and poked the soggy bits of management. "Cheer up," I promised. So naturally it's time to talk about death.
 Not yours, happily, but the demise of an entire university – a topic so bleak it makes actuarial tables look frisky.
