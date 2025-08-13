@@ -1,0 +1,4 @@
+# Python helper script dependencies
+Pillow>=10.0.0
+watchdog>=4.0.0
+blind-watermark>=0.3.0

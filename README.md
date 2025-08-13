@@ -42,6 +42,31 @@ Details:
 - Gems install to vendor/bundle (no sudo; no global pollution).
 - GitHub Pages compatibility is ensured via the github-pages gem in Gemfile. If you need custom plugins, use a GitHub Actions build instead of Pages’ default.
 
+### Python helper scripts (image pipeline)
+
+Some asset tasks are automated with Python (e.g. `scripts/image_pipeline.py`) to watch `uploads/new` for images and emit optimized WebP + metadata into `assets/images`.
+
+Bootstrap / update the virtual environment:
+
+```bash
+./scripts/setup_python_env.sh 3.11
+```
+
+Run the image pipeline watcher:
+
+```bash
+./scripts/run_image_pipeline.sh
+```
+
+Manual activation (alternative):
+
+```bash
+source .venv/bin/activate
+python scripts/image_pipeline.py
+```
+
+Dependencies live in `requirements.txt`.
+
 ### asdf users
 
 This repo also includes a `.tool-versions` file. If you use asdf:
