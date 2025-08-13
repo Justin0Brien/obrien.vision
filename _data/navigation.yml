@@ -17,6 +17,8 @@ main:
 
 # Footer navigation
 footer:
+  - name: "Image Rights"
+    url: "/rights/"
   - name: "Privacy Policy"
     url: "/privacy/"
   - name: "Terms of Service"
