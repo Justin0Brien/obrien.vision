@@ -69,12 +69,15 @@
             <a href="{{ item.url | relative_url }}">{{ item.name }}</a>
             {% unless forloop.last %}<span class="footer-sep">|</span>{% endunless %}
           {% endfor %}
+    <span class="footer-sep">|</span>
+    <a href="#" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</a>
         </div>
         <p class="footer-brand">&copy; {{ "now" | date: "%Y" }} <span class="site-name-secondary">Justin O'Brien</span>. All rights reserved.</p>
         <p>Data visualization and analysis insights for modern employment dynamics.</p>
       </div>
     </footer>
   </div>
+  <script defer src="{{ '/assets/consent.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
 </body>

@@ -51,6 +51,9 @@ collections:
   illusions:
     output: true
     permalink: /:collection/:name/
+  gallery:
+    output: true
+    permalink: /images/:name/
 
 # Defaults
 defaults:
@@ -76,6 +79,12 @@ defaults:
       type: "illusions"
     values:
       layout: "illusion"
+      author: "Justin O'Brien"
+  - scope:
+      path: ""
+      type: "gallery"
+    values:
+      layout: "gallery-item"
       author: "Justin O'Brien"
 
 # Image processing

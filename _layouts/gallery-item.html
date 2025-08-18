@@ -1,0 +1,158 @@
+---
+layout: default
+---
+
+<div class="gallery-item-page">
+  <header class="gallery-header">
+    <nav class="gallery-nav">
+      <a href="/images/" class="back-link">← Back to Gallery</a>
+    </nav>
+    <h1>{{ page.title }}</h1>
+  </header>
+
+  <div class="gallery-content">
+    <div class="gallery-image-container">
+      <img src="/assets/images/gallery/{{ page.image_filename }}" alt="{{ page.title }}" class="gallery-main-image">
+      
+      {% if page.caption %}
+        <div class="image-caption">
+          {{ page.caption | markdownify }}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="gallery-metadata">
+      {% if page.description %}
+        <div class="gallery-description">
+          {{ page.description | markdownify }}
+        </div>
+      {% endif %}
+
+      <div class="gallery-details">
+        {% if page.date %}
+          <p><strong>Created:</strong> {{ page.date | date: "%B %d, %Y" }}</p>
+        {% endif %}
+        
+        {% if page.camera %}
+          <p><strong>Camera:</strong> {{ page.camera }}</p>
+        {% endif %}
+        
+        {% if page.location %}
+          <p><strong>Location:</strong> {{ page.location }}</p>
+        {% endif %}
+        
+        {% if page.tags and page.tags.size > 0 %}
+          <div class="gallery-tags">
+            <strong>Tags:</strong>
+            {% for tag in page.tags %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if page.technical_notes %}
+        <div class="technical-notes">
+          <h3>Technical Notes</h3>
+          {{ page.technical_notes | markdownify }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+.gallery-item-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.gallery-header {
+  margin-bottom: 2rem;
+}
+
+.gallery-nav {
+  margin-bottom: 1rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.gallery-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .gallery-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.gallery-main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: var(--surface-shadow);
+}
+
+.image-caption {
+  margin-top: 1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.gallery-metadata {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 2rem;
+}
+
+.gallery-description {
+  margin-bottom: 2rem;
+}
+
+.gallery-details p {
+  margin-bottom: 0.5rem;
+}
+
+.gallery-tags {
+  margin-top: 1rem;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.technical-notes {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+.technical-notes h3 {
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+</style>

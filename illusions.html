@@ -5,17 +5,18 @@ permalink: /illusions/
 description: "Explore fascinating optical illusions, perceptual phenomena, and interactive demonstrations that reveal how our visual system processes the world."
 ---
 
+{% assign illusions_only = site.illusions | where: "layout", "illusion" %}
+
 <div class="illusions-landing">
   <header class="page-header">
     <h1>{{ page.title }}</h1>
-    <p class="lead">A curated set of classic visual illusions. Showing {{ site.illusions | size }} item(s).</p>
+    <p class="lead">A curated set of classic visual illusions. Showing {{ illusions_only | size }} item(s).</p>
   </header>
 
 
   <div class="all-illusions">
     <div class="illusions-grid">
-  {% assign illusions_only = site.illusions | where: "layout", "illusion" %}
-  {% assign illusions_count = site.illusions | size %}
+  {% assign illusions_count = illusions_only | size %}
   {% unless illusions_count == 0 %}
   {% for illusion in illusions_only reversed %}
         <article class="illusion-card" data-difficulty="{{ illusion.difficulty | downcase }}">
@@ -75,7 +76,7 @@ description: "Explore fascinating optical illusions, perceptual phenomena, and i
   <div class="illusions-fallback-list">
     <h2>Illusions List</h2>
     <ul>
-      {% for illusion in site.illusions %}
+      {% for illusion in illusions_only %}
         <li><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></li>
       {% endfor %}
     </ul>
