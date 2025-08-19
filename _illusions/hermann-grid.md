@@ -4,8 +4,9 @@ title: "Hermann Grid"
 permalink: /illusions/hermann-grid/
 difficulty: "Easy"
 categories: [geometric, lightness]
+thumbnail: "/assets/images/hermann-grid-2-256w.webp"
 duration: "2–3 minutes"
-iframe_src: "/assets/demos/illusions/hermann-grid.html"
+iframe_src: "/illusions/hermann-grid.html"
 iframe_width: "100%"
 iframe_height: "680"
 description: "Interactive Hermann Grid demo with an accessible explanation and parameters."

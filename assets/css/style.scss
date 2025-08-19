@@ -14,6 +14,9 @@
   --primary: #6069c7;
   --secondary: #b6832f;
   --accent: #d62489;
+  /* Links */
+  --link: var(--primary);
+  --link-hover: var(--accent);
   /* Surfaces */
   --surface: #ffffff;
   --surface-border: rgba(0,0,0,0.08);
@@ -31,9 +34,12 @@
   :root {
     --text: #e1e2fa;
     --background: #050920;
-    --primary: #38409f;
+  --primary: #38409f; /* brand primary (kept for accents, not direct links) */
     --secondary: #d09c49;
     --accent: #da288d;
+  /* High-contrast links for dark backgrounds */
+  --link: #8ab4ff;        /* accessible blue on dark */
+  --link-hover: #b3c7ff;  /* slightly lighter on hover */
   --surface: #0f172a;
   --surface-border: #243047;
   --surface-shadow: 0 2px 12px rgba(0,0,0,0.4);
@@ -52,6 +58,9 @@
   --primary: #38409f;
   --secondary: #d09c49;
   --accent: #da288d;
+  /* Match prefers-color-scheme: dark */
+  --link: #8ab4ff;
+  --link-hover: #b3c7ff;
   --surface: #0f172a;
   --surface-border: #243047;
   --surface-shadow: 0 2px 12px rgba(0,0,0,0.4);
@@ -69,6 +78,8 @@
   --primary: #6069c7;
   --secondary: #b6832f;
   --accent: #d62489;
+  --link: var(--primary);
+  --link-hover: var(--accent);
   --surface: #ffffff;
   --surface-border: rgba(0,0,0,0.08);
   --surface-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -380,13 +391,14 @@ main a {
 }
 
 a {
-  color: var(--primary);
+  color: var(--link);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-  color: var(--accent);
+  color: var(--link-hover);
+  text-decoration: underline;
 }
 
 .home {

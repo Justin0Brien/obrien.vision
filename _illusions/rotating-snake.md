@@ -4,9 +4,10 @@ title: "Rotating Snakes"
 permalink: /illusions/rotating-snake/
 difficulty: "Medium"
 categories: [motion, peripheral-drift-illusion]
+thumbnail: "/assets/images/rotating-snakes-256w.webp"
 warning: "Some viewers may experience visual discomfort. Take breaks."
 duration: "2–3 minutes"
-iframe_src: "/assets/demos/illusions/rotating-snake.html"
+iframe_src: "/illusions/rotating-snake.html"
 iframe_width: "100%"
 iframe_height: "680"
 description: "Interactive Rotating Snakes demo with a detailed explanation of the peripheral drift illusion."

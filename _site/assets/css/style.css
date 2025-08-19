@@ -1,15 +1,15 @@
 @charset "UTF-8";
 /* Fonts temporarily: Google Fonts import removed to fix parsing; consider linking in <head> instead. */
 /* ======================================== COLOR SCHEMES ======================================== */
-:root { /* Light mode (default) */ --text: #05061f; --background: #e0e4fa; --primary: #6069c7; --secondary: #b6832f; --accent: #d62489; /* Surfaces */ --surface: #ffffff; --surface-border: rgba(0,0,0,0.08); --surface-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Secondary text & tag helpers */ --text-secondary: #4b5563; --tag-bg: #f1f5f9; --tag-fg: #475569; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff5252; }
+:root { /* Light mode (default) */ --text: #05061f; --background: #e0e4fa; --primary: #6069c7; --secondary: #b6832f; --accent: #d62489; /* Links */ --link: var(--primary); --link-hover: var(--accent); /* Surfaces */ --surface: #ffffff; --surface-border: rgba(0,0,0,0.08); --surface-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Secondary text & tag helpers */ --text-secondary: #4b5563; --tag-bg: #f1f5f9; --tag-fg: #475569; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff5252; }
 
 /* Dark mode */
-@media (prefers-color-scheme: dark) { :root { --text: #e1e2fa; --background: #050920; --primary: #38409f; --secondary: #d09c49; --accent: #da288d; --surface: #0f172a; --surface-border: #243047; --surface-shadow: 0 2px 12px rgba(0,0,0,0.4); --text-secondary: #cbd5e1; --tag-bg: #1f2937; --tag-fg: #e5e7eb; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff7b7b; } }
+@media (prefers-color-scheme: dark) { :root { --text: #e1e2fa; --background: #050920; --primary: #38409f; /* brand primary (kept for accents, not direct links) */ --secondary: #d09c49; --accent: #da288d; /* High-contrast links for dark backgrounds */ --link: #8ab4ff; /* accessible blue on dark */ --link-hover: #b3c7ff; /* slightly lighter on hover */ --surface: #0f172a; --surface-border: #243047; --surface-shadow: 0 2px 12px rgba(0,0,0,0.4); --text-secondary: #cbd5e1; --tag-bg: #1f2937; --tag-fg: #e5e7eb; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff7b7b; } }
 /* Manual dark theme */
-[data-theme="dark"] { --text: #e1e2fa; --background: #050920; --primary: #38409f; --secondary: #d09c49; --accent: #da288d; --surface: #0f172a; --surface-border: #243047; --surface-shadow: 0 2px 12px rgba(0,0,0,0.4); --text-secondary: #cbd5e1; --tag-bg: #1f2937; --tag-fg: #e5e7eb; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff7b7b; }
+[data-theme="dark"] { --text: #e1e2fa; --background: #050920; --primary: #38409f; --secondary: #d09c49; --accent: #da288d; /* Match prefers-color-scheme: dark */ --link: #8ab4ff; --link-hover: #b3c7ff; --surface: #0f172a; --surface-border: #243047; --surface-shadow: 0 2px 12px rgba(0,0,0,0.4); --text-secondary: #cbd5e1; --tag-bg: #1f2937; --tag-fg: #e5e7eb; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff7b7b; }
 
 /* Manual light theme */
-[data-theme="light"] { --text: #05061f; --background: #e0e4fa; --primary: #6069c7; --secondary: #b6832f; --accent: #d62489; --surface: #ffffff; --surface-border: rgba(0,0,0,0.08); --surface-shadow: 0 2px 10px rgba(0,0,0,0.05); --text-secondary: #4b5563; --tag-bg: #f1f5f9; --tag-fg: #475569; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff5252; }
+[data-theme="light"] { --text: #05061f; --background: #e0e4fa; --primary: #6069c7; --secondary: #b6832f; --accent: #d62489; --link: var(--primary); --link-hover: var(--accent); --surface: #ffffff; --surface-border: rgba(0,0,0,0.08); --surface-shadow: 0 2px 10px rgba(0,0,0,0.05); --text-secondary: #4b5563; --tag-bg: #f1f5f9; --tag-fg: #475569; --btn-primary-bg: #ff6b6b; --btn-primary-bg-hover: #ff5252; }
 
 /* ======================================== TYPOGRAPHY ======================================== */
 body { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 16px; line-height: 1.6; margin: 0; padding: 0; background-color: var(--background); color: var(--text); }
@@ -140,9 +140,9 @@ main h1 + p { font-size: 1.125rem; line-height: 1.6; max-width: 600px; margin-bo
 /* Default body text sizing for content areas */
 main p, main li, main a { font-size: 1.125rem; line-height: 1.7; }
 
-a { color: var(--primary); text-decoration: none; transition: color 0.2s ease-in-out; }
+a { color: var(--link); text-decoration: none; transition: color 0.2s ease-in-out; }
 
-a:hover { color: var(--accent); }
+a:hover { color: var(--link-hover); text-decoration: underline; }
 
 .home { background-color: var(--background); color: var(--text); }
 
