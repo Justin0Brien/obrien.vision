@@ -1,0 +1,2 @@
+timestamp_iso,icmp_host,icmp_avg_ms,icmp_loss_pct,speedtest_server,speedtest_latency_ms,download_mbps,upload_mbps,action_taken,post_speedtest_latency_ms,post_download_mbps,post_upload_mbps,note
+2025-08-29T08:41:56,8.8.8.8,566.2,0,31173 Services AB (London),296.0,8.56,2.69,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]

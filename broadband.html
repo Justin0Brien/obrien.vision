@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Broadband Performance</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<style>
+    :root {
+        --bg1: #0d1b2a; --bg2: #1b263b; --fg: #e0e6ef; --grid: #2d3d55;
+        --down: #3fa9f5; --up: #6dd400; --ping: #ff5e5b; --mean: #ffbf00;
+        --panel: #132236cc;
+    }
+    
+    html, body {
+        margin: 0; height: 100%; 
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background: radial-gradient(circle at 30% 20%, var(--bg2), var(--bg1));
+        color: var(--fg);
+    }
+    
+    h1 { margin: 0.6rem 1rem; font-size: 1.05rem; font-weight: 600; letter-spacing: .5px; }
+    
+    #controls {
+        display: flex; flex-wrap: wrap; gap: .75rem; align-items: center;
+        background: var(--panel); padding: .6rem 1rem; backdrop-filter: blur(8px);
+    }
+    #controls label { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+    
+    #chart-wrap { position: relative; width: 100%; height: 55vh; min-height: 420px; padding: 0 .6rem 1rem; }
+    #secondary-charts { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0 .8rem 1.2rem; }
+    
+    .chart-panel {
+        flex: 1 1 480px; min-width: 340px; background: var(--panel);
+        border-radius: 12px; padding: .4rem .9rem .9rem; position: relative;
+    }
+    .chart-panel h2 { margin: .2rem 0 .4rem; font-size: 0.85rem; font-weight: 600; letter-spacing: .5px; }
+    
+    #hourly-chart-wrap, #hist-chart-wrap { position: relative; width: 100%; height: 340px; }
+    
+    #timeControls {
+        display: flex; flex-wrap: wrap; gap: .6rem; align-items: center;
+        padding: .4rem .7rem; background: #1d3044cc; border-radius: 8px;
+    }
+    #timeControls button { font-size: .6rem; padding: .35rem .6rem; }
+    
+    .dual-range {
+        position: relative; display: flex; align-items: center; gap: .7rem;
+        font-size: .55rem; min-width: 420px; max-width: 65vw;
+    }
+    .dual-range .edge-label {
+        font-variant-numeric: tabular-nums; opacity: .85; white-space: nowrap; font-size: .6rem;
+    }
+    .dual-range .slider-wrap { position: relative; flex: 1; height: 30px; display: block; }
+    .slider-wrap .track {
+        position: absolute; left: 0; right: 0; height: 4px;
+        background: linear-gradient(90deg, #2b425b, #3d5d7d);
+        border-radius: 2px; top: 50%; transform: translateY(-50%);
+    }
+    .slider-wrap .track .fill {
+        position: absolute; top: 0; bottom: 0; left: 0; width: 0%;
+        background: linear-gradient(90deg, var(--down), var(--up));
+        border-radius: 2px; mix-blend-mode: screen;
+    }
+    .dual-range input[type=range] {
+        -webkit-appearance: none; appearance: none; position: absolute;
+        left: 0; right: 0; width: 100%; height: 30px; margin: 0;
+        background: transparent; pointer-events: none;
+    }
+    .dual-range input[type=range]:focus { outline: none; }
+    .dual-range input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none; appearance: none; height: 16px; width: 16px;
+        border-radius: 50%; background: var(--down); cursor: ew-resize;
+        border: 2px solid #122; box-shadow: 0 0 0 2px #0006; pointer-events: auto;
+    }
+    .dual-range input[type=range]::-moz-range-thumb {
+        height: 16px; width: 16px; border-radius: 50%; background: var(--down);
+        cursor: ew-resize; border: 2px solid #122; box-shadow: 0 0 0 2px #0006; pointer-events: auto;
+    }
+    .dual-range input[type=range]::-webkit-slider-runnable-track { height: 4px; background: transparent; }
+    .dual-range input[type=range]::-moz-range-track { height: 4px; background: transparent; }
+    
+    svg { width: 100%; height: 100%; overflow: visible; font-size: 11px; }
+    .axis path, .axis line { stroke: var(--grid); shape-rendering: crispEdges; }
+    .tick text { fill: #b9c5d6; }
+    .grid line { stroke: var(--grid); stroke-opacity: .25; }
+    .spike { stroke-width: 1.5px; stroke-linecap: round; mix-blend-mode: screen; }
+    .dot { stroke: #fff; stroke-width: .6px; }
+    .series-hidden { opacity: 0.1; transition: opacity .35s; }
+    
+    .legend { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .legend-item {
+        cursor: pointer; user-select: none; display: flex; align-items: center; gap: .4rem;
+        padding: .25rem .55rem; border-radius: 20px; background: #24354ccc;
+        font-size: .65rem; letter-spacing: .05em;
+    }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 2px #0004; }
+    .legend-item.inactive { opacity: .35; filter: grayscale(.7); }
+    
+    .tooltip {
+        position: absolute; pointer-events: none; background: #0f2338f2; color: #fff;
+        font-size: .7rem; line-height: 1.2; padding: .45rem .6rem;
+        border: 1px solid #2d4b66; border-radius: 6px;
+        box-shadow: 0 4px 14px -3px #000e; backdrop-filter: blur(4px);
+    }
+    
+    .mean-line { stroke: var(--mean); stroke-dasharray: 4 5; stroke-width: 1.6px; opacity: .9; }
+    .mean-label { fill: var(--mean); font-size: .6rem; font-weight: 600; text-shadow: 0 0 4px #000; }
+    
+    #fileInput { display: none; }
+    button, .file-btn {
+        background: #244661; border: 1px solid #3b6b8b; color: #e6eef6;
+        padding: .45rem .85rem; border-radius: 6px; cursor: pointer; font-size: .7rem;
+    }
+    button:hover, .file-btn:hover { background: #2e5778; }
+    #status { font-size: .6rem; opacity: .75; }
+</style>
+</head>
+<body>
+<h1>Broadband Performance (Download / Upload Spikes & Ping)</h1>
+<div id="controls">
+    <div class="legend" id="legend"></div>
+    <label><input type="checkbox" id="autoReload" checked /> Auto-reload</label>
+    <label>Interval
+        <select id="reloadInterval">
+            <option value="60">60s</option>
+            <option value="120">2m</option>
+            <option value="300" selected>5m</option>
+            <option value="600">10m</option>
+        </select>
+    </label>
+    <button id="reloadBtn">Reload Now</button>
+    <label><input type="checkbox" id="showPing" /> Show Ping (pps)</label>
+    <label><input type="checkbox" id="logScale" /> Log Speed Scale</label>
+    <label class="file-btn">Load CSV<input type="file" id="fileInput" accept=".csv" /></label>
+        <span id="status">Idle</span>
+        <div id="timeControls">
+            <button id="rangeAll" type="button">All</button>
+            <button id="range24h" type="button">Last 24h</button>
+            <div class="dual-range" id="dualRange">
+                <span id="earliestLabel" class="edge-label">–</span>
+                <div class="slider-wrap">
+                    <div class="track"><div class="fill" id="progressFill"></div></div>
+                    <input type="range" id="startRange" min="0" max="0" value="0" />
+                    <input type="range" id="endRange" min="0" max="0" value="0" />
+                </div>
+                <span id="latestLabel" class="edge-label">–</span>
+            </div>
+        </div>
+</div>
+<div id="chart-wrap">
+    <svg id="chart"></svg>
+    <div id="tooltip" class="tooltip" style="opacity:0;"></div>
+</div>
+<div id="secondary-charts">
+    <div class="chart-panel">
+        <h2>Mean Download Speed by Hour of Day</h2>
+        <div id="hourly-chart-wrap"><svg id="hourlyChart"></svg></div>
+    </div>
+    <div class="chart-panel">
+        <h2>Download Speed Distribution</h2>
+        <div id="hist-chart-wrap"><svg id="histChart"></svg></div>
+    </div>
+</div>
+
+<script>
+class BroadbandChart {
+    constructor() {
+        this.csvPath = './ee_line_checker_log.csv';
+        this.data = [];
+        this.viewDomain = null;
+        this.hidden = { download: false, upload: false, ping: false };
+        this.lastLoadedFile = null;
+        this.initialRenderComplete = false;
+        this.reloadTimer = null;
+        this.config = {
+            margin: { top: 25, right: 70, bottom: 40, left: 65 },
+            colors: {
+                download: this.getCSS('--down'),
+                upload: this.getCSS('--up'),
+                ping: this.getCSS('--ping'),
+                mean: this.getCSS('--mean')
+            },
+            formatters: {
+                date: d3.timeFormat('%d %b'),
+                time: d3.timeFormat('%H:%M'),
+                edgeLabel: d3.timeFormat('%d %b %H:%M'),
+                tooltip: d3.timeFormat('%Y-%m-%d %H:%M:%S')
+            }
+        };
+        this.initializeElements();
+        this.initializeScales();
+        this.initializeGroups();
+        this.setupEventListeners();
+        this.setupResizeObserver();
+        this.init();
+    }
+    getCSS(variable) { return getComputedStyle(document.documentElement).getPropertyValue(variable).trim(); }
+    initializeElements() { this.svg = d3.select('#chart'); this.hourlySvg = d3.select('#hourlyChart'); this.histSvg = d3.select('#histChart'); this.tooltip = d3.select('#tooltip'); this.statusEl = d3.select('#status'); }
+    initializeScales() { this.xScale = d3.scaleTime(); this.yScaleLog = d3.scaleSymlog().constant(1); this.pingScale = d3.scaleLinear(); this.xOrig = null; }
+    initializeGroups() { const { margin } = this.config; this.gRoot = this.svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`); this.gGrid = this.gRoot.append('g'); this.gPlot = this.gRoot.append('g').attr('class', 'plot-area'); this.gSpikes = this.gPlot.append('g'); this.gDots = this.gPlot.append('g'); this.gPing = this.gPlot.append('g'); this.gPingMean = this.gPlot.append('g'); this.gMeans = this.gPlot.append('g'); this.gAxes = this.gRoot.append('g'); this.gOverlay = this.gRoot.append('g'); this.setupDefsAndClipping(); this.xAxis = this.gAxes.append('g').attr('class', 'axis x'); this.yAxis = this.gAxes.append('g').attr('class', 'axis y'); this.y2Axis = this.gAxes.append('g').attr('class', 'axis y2'); this.zoomBehavior = d3.zoom().scaleExtent([1, 100]).on('zoom', (event) => this.onZoom(event)); this.svg.call(this.zoomBehavior); }
+    setupDefsAndClipping() { const defs = this.svg.append('defs'); const grad = defs.append('linearGradient').attr('id', 'downGrad').attr('x1', '0').attr('x2', '0').attr('y1', '0').attr('y2', '1'); grad.append('stop').attr('offset', '0%').attr('stop-color', this.config.colors.download).attr('stop-opacity', 0.9); grad.append('stop').attr('offset', '100%').attr('stop-color', this.config.colors.download).attr('stop-opacity', 0.15); const clipPath = defs.append('clipPath').attr('id', 'plotClip'); this.clipRect = clipPath.append('rect').attr('x', 0).attr('y', 0); this.gPlot.attr('clip-path', 'url(#plotClip)'); }
+    getInnerSize() { const rect = this.svg.node().getBoundingClientRect(); const { margin } = this.config; return { w: rect.width - margin.left - margin.right, h: rect.height - margin.top - margin.bottom }; }
+    getSecondarySize(svg) { const rect = svg.node().getBoundingClientRect(); return { w: rect.width - 80, h: rect.height - 70, ml: 60, mt: 30 }; }
+    parseCSVRow(row) { try { const t = new Date(row.timestamp_iso); if (isNaN(t.getTime())) return null; const download = this.parseNumber(row.download_mbps); const upload = this.parseNumber(row.upload_mbps); const latencyMs = this.parseNumber(row.speedtest_latency_ms); const pingPps = latencyMs ? (1000 / latencyMs) : null; return { t, download, upload, latencyMs, pingPps }; } catch { return null; } }
+    parseNumber(value) { if (value === undefined || value === null || value === '') return null; const n = +value; return isFinite(n) ? n : null; }
+    async fetchData() { try { this.setStatus('Fetching…'); let text; if (this.lastLoadedFile) { text = await this.lastLoadedFile.text(); } else { const response = await fetch(`${this.csvPath}?nocache=${Date.now()}`); if (!response.ok) throw new Error(`${response.status} ${response.statusText}`); text = await response.text(); } const rows = d3.csvParse(text); this.data = rows.map(r => this.parseCSVRow(r)).filter(d => d); this.data.sort((a, b) => a.t - b.t); this.setStatus(`Loaded ${this.data.length} points`); if (this.data.length) { this.xOrig = d3.scaleTime().domain(d3.extent(this.data, d => d.t)).range([0, this.getInnerSize().w]); this.deferInitialDraw(); } } catch (e) { this.setStatus(`Fetch failed: ${e.message}`); } }
+    deferInitialDraw(attempt = 0) { const { w, h } = this.getInnerSize(); if (w < 40 || h < 40) { if (attempt < 12) { setTimeout(() => this.deferInitialDraw(attempt + 1), 100); return; } } this.drawAll(); this.initialRenderComplete = true; }
+    getCurrentSubset() { if (!this.data.length) return []; if (!this.viewDomain) return this.data; return this.data.filter(d => d.t >= this.viewDomain[0] && d.t <= this.viewDomain[1]); }
+    calculateDomain() { if (!this.data.length) return null; const domainFull = d3.extent(this.data, d => d.t); const domain = this.viewDomain ? [this.viewDomain[0], this.viewDomain[1]] : domainFull; let visible = this.data.filter(d => d.t >= domain[0] && d.t <= domain[1]); const withValues = visible.filter(d => d.download != null || d.upload != null || d.pingPps != null); if (withValues.length) { const firstVal = withValues[0].t; const lastVal = withValues[withValues.length - 1].t; if (lastVal - firstVal < domain[1] - domain[0]) { visible = this.data.filter(d => d.t >= firstVal && d.t <= lastVal); return { domain: [firstVal, lastVal], visible }; } } return { domain, visible }; }
+    calculateYScales(visible) { const speeds = [...visible.filter(d => d.download != null).map(d => d.download), ...visible.filter(d => d.upload != null).map(d => d.upload)]; const maxSpeed = d3.max(speeds) || 10; const minSpeedData = d3.min(speeds.filter(v => v > 0)) || 0; const useLog = document.getElementById('logScale').checked; const { h } = this.getInnerSize(); const pad = maxSpeed * 0.05; const linearMax = Math.max(1, maxSpeed + pad); const yLinear = d3.scaleLinear().range([h, 0]).domain([0, linearMax]); const logMin = Math.max(0.2, Math.min(1, minSpeedData * 0.6 || 1)); const yLog = this.yScaleLog.range([h, 0]).domain([logMin, maxSpeed * 1.08]); const pingVals = visible.filter(d => d.pingPps != null).map(d => d.pingPps); this.pingScale.range([h, 0]).domain([0, (d3.max(pingVals) || 1) * 1.2]); return useLog ? yLog : yLinear; }
+    draw() { if (!this.data.length) return; const { w, h } = this.getInnerSize(); if (w < 40 || h < 40) { if (!this.initialRenderComplete) setTimeout(() => this.drawAll(), 120); return; } this.clipRect.attr('width', w).attr('height', h); const { domain, visible } = this.calculateDomain(); this.xScale.range([0, w]).domain(domain); if (!visible.length) return; const Y = this.calculateYScales(visible); this.drawGrid(Y); this.drawSpikes(visible, Y); this.drawDots(visible, Y); this.drawPing(visible); this.drawMeans(visible, Y); this.drawAxes(domain, Y); this.addInteraction(); this.applyVisibility(); }
+    drawGrid(Y) { const { w, h } = this.getInnerSize(); const tickCount = Math.min(10, this.data.length / 4); const xGrid = d3.axisBottom(this.xScale).ticks(tickCount).tickSize(-h).tickFormat(''); const yGrid = d3.axisLeft(Y).ticks(8).tickSize(-w).tickFormat(''); this.gGrid.selectAll('.x-grid').data([0]).join('g').attr('class', 'grid x-grid').attr('transform', `translate(0,${h})`).call(xGrid); this.gGrid.selectAll('.y-grid').data([0]).join('g').attr('class', 'grid y-grid').call(yGrid); }
+    drawSpikes(visible, Y) { const { w } = this.getInnerSize(); const spikeWidth = Math.max(1, (w / visible.length) * 0.5); this.drawSpikeType('download', visible, Y, spikeWidth); this.drawSpikeType('upload', visible, Y, spikeWidth); }
+    drawSpikeType(type, visible, Y, spikeWidth) { const { h } = this.getInnerSize(); const filtered = visible.filter(d => d[type] != null); const color = this.config.colors[type]; const spikes = this.gSpikes.selectAll(`.spike.${type}`).data(filtered, d => d.t); spikes.join( enter => enter.append('line').attr('class', `spike ${type}`).attr('x1', d => this.xScale(d.t)).attr('x2', d => this.xScale(d.t)).attr('y1', h).attr('y2', h).attr('stroke', color).attr('stroke-width', spikeWidth).call(el => el.transition().duration(600).attr('y2', d => Y(d[type]))), update => update.attr('x1', d => this.xScale(d.t)).attr('x2', d => this.xScale(d.t)).transition().duration(400).attr('y2', d => Y(d[type])), exit => exit.transition().duration(250).attr('y2', h).remove() ); }
+    drawDots(visible, Y) { this.drawDotType('download', visible, Y, 2.8); this.drawDotType('upload', visible, Y, 2.6); }
+    drawDotType(type, visible, Y, radius) { const { h } = this.getInnerSize(); const filtered = visible.filter(d => d[type] != null); const color = this.config.colors[type]; const dots = this.gDots.selectAll(`.dot.${type}`).data(filtered, d => d.t); dots.join( enter => enter.append('circle').attr('class', `dot ${type}`).attr('r', radius).attr('cx', d => this.xScale(d.t)).attr('cy', h).attr('fill', color).call(el => el.transition().duration(600).attr('cy', d => Y(d[type]))), update => update.transition().duration(400).attr('cx', d => this.xScale(d.t)).attr('cy', d => Y(d[type])), exit => exit.transition().duration(200).attr('cy', h).remove() ); }
+    drawPing(visible) { const showPing = document.getElementById('showPing').checked; const pingData = visible.filter(d => d.pingPps != null); const linePing = d3.line().x(d => this.xScale(d.t)).y(d => this.pingScale(d.pingPps)).curve(d3.curveLinear); const pingPath = this.gPing.selectAll('path.ping').data(showPing ? [pingData] : []); pingPath.join( enter => enter.append('path').attr('class', 'ping').attr('fill', 'none').attr('stroke', this.config.colors.ping).attr('stroke-width', 1.6).attr('stroke-opacity', 0.9).attr('d', linePing), update => update.transition().duration(500).attr('d', linePing), exit => exit.remove() ); this.drawPingMean(showPing, pingData); }
+    drawPingMean(showPing, pingData) { const { w } = this.getInnerSize(); this.gPingMean.selectAll('*').remove(); if (showPing && pingData.length) { const meanPps = d3.mean(pingData, d => d.pingPps); if (meanPps) { this.gPingMean.append('line').attr('x1', 0).attr('x2', w).attr('y1', this.pingScale(meanPps)).attr('y2', this.pingScale(meanPps)).attr('stroke', this.config.colors.ping).attr('stroke-dasharray', '4 4').attr('stroke-width', 1.2).attr('opacity', 0.8); this.gPingMean.append('text').attr('x', w - 4).attr('y', this.pingScale(meanPps) - 4).attr('text-anchor', 'end').attr('fill', this.config.colors.ping).attr('font-size', '.6rem').text(`Mean Ping ${meanPps.toFixed(2)} pps`); } } }
+    drawMeans(visible, Y) { const { w } = this.getInnerSize(); this.gMeans.selectAll('*').remove(); const dFiltered = visible.filter(d => d.download != null); const uFiltered = visible.filter(d => d.upload != null); const dMean = dFiltered.length ? d3.mean(dFiltered, d => d.download) : null; const uMean = uFiltered.length ? d3.mean(uFiltered, d => d.upload) : null; if (dMean != null) { this.gMeans.append('line').attr('class', 'mean-line mean-down').attr('x1', 0).attr('x2', w).attr('y1', Y(dMean)).attr('y2', Y(dMean)); this.gMeans.append('text').attr('class', 'mean-label').attr('x', w - 4).attr('y', Y(dMean) - 4).attr('text-anchor', 'end').text(`Mean ↓ ${dMean.toFixed(1)} Mb/s`); } if (uMean != null) { this.gMeans.append('line').attr('class', 'mean-line mean-up').attr('x1', 0).attr('x2', w).attr('y1', Y(uMean)).attr('y2', Y(uMean)).attr('stroke-dasharray', '3 4').attr('stroke-opacity', .75); const yOffset = dMean && Math.abs(Y(uMean) - Y(dMean)) < 14 ? 14 : 0; this.gMeans.append('text').attr('class', 'mean-label').attr('x', w - 4).attr('y', Y(uMean) - 4 - yOffset).attr('text-anchor', 'end').text(`Mean ↑ ${uMean.toFixed(1)} Mb/s`); } }
+    drawAxes(domain, Y) { const { w, h } = this.getInnerSize(); const showPing = document.getElementById('showPing').checked; const useLog = document.getElementById('logScale').checked; const durationMs = domain[1] - domain[0]; let tickCount = Math.min(10, Math.max(3, Math.floor(this.data.length / 4))); if (durationMs > 3 * 24 * 3600 * 1000) tickCount = Math.min(12, Math.ceil(durationMs / (24 * 3600 * 1000))); const xAxisFn = d3.axisBottom(this.xScale).ticks(tickCount); this.xAxis.attr('transform', `translate(0,${h})`).call(xAxisFn); this.formatXAxisLabels(); this.yAxis.call(d3.axisLeft(Y).ticks(8)); this.yAxis.selectAll('.label').remove(); this.yAxis.append('text').attr('fill', '#cdd5e0').attr('x', 0).attr('y', -10).attr('text-anchor', 'start').attr('font-size', '.6rem').text(useLog ? 'Speed (Mb/s, symlog)' : 'Speed (Mb/s)'); if (showPing) { this.y2Axis.attr('transform', `translate(${w},0)`).call(d3.axisRight(this.pingScale).ticks(6)); this.y2Axis.selectAll('.label').remove(); this.y2Axis.append('text').attr('fill', this.config.colors.ping).attr('x', 0).attr('y', -10).attr('text-anchor', 'end').attr('font-size', '.6rem').text('Ping (pings/sec)'); } else { this.y2Axis.selectAll('*').remove(); } }
+    formatXAxisLabels() { const { formatters } = this.config; let lastDayKey = null; this.xAxis.selectAll('g.tick text').text(function(d) { const dayKey = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; if (dayKey !== lastDayKey) { lastDayKey = dayKey; return formatters.date(d); } return formatters.time(d); }); }
+    addInteraction() { const { w, h } = this.getInnerSize(); this.gOverlay.selectAll('rect.capture').data([0]).join('rect').attr('class', 'capture').attr('width', w).attr('height', h).attr('fill', 'transparent').style('cursor', 'crosshair').on('mousemove', (e) => this.onMouseMove(e)).on('mouseleave', () => this.tooltip.transition().duration(200).style('opacity', 0)); }
+    onMouseMove(event) { if (!this.data.length) return; const [mx] = d3.pointer(event); const domain = this.xScale.domain(); const targetTime = domain[0].getTime() + (domain[1].getTime() - domain[0].getTime()) * (mx / this.xScale.range()[1]); const idx = d3.bisector(d => d.t.getTime()).center(this.data, targetTime); const d = this.data[idx]; if (!d) return; this.tooltip.style('opacity', 1).style('left', (event.pageX + 15) + 'px').style('top', (event.pageY - 40) + 'px').html(`<strong>${this.config.formatters.tooltip(d.t)}</strong><br/>↓ ${this.formatValue(d.download)} Mb/s<br/>↑ ${this.formatValue(d.upload)} Mb/s<br/>Ping: ${this.formatValue(d.latencyMs)} ms (${d.pingPps ? d.pingPps.toFixed(2) : '–'} pps)`); }
+    formatValue(value) { return value == null || isNaN(value) ? '–' : (+value).toFixed(1); }
+    onZoom(event) { if (!this.data.length) return; const zx = event.transform.rescaleX(this.xOrig); this.viewDomain = zx.domain(); this.syncSlidersToDomain(); this.draw(); }
+    applyVisibility() { const showPing = document.getElementById('showPing').checked; this.gSpikes.selectAll('.spike.download').classed('series-hidden', this.hidden.download); this.gSpikes.selectAll('.spike.upload').classed('series-hidden', this.hidden.upload); this.gDots.selectAll('.dot.download').classed('series-hidden', this.hidden.download); this.gDots.selectAll('.dot.upload').classed('series-hidden', this.hidden.upload); this.gPing.selectAll('.ping').classed('series-hidden', this.hidden.ping || !showPing); const anySpeedVisible = !(this.hidden.download && this.hidden.upload); this.gMeans.classed('series-hidden', !anySpeedVisible); }
+    drawHourly() { const subset = this.getCurrentSubset(); const dl = subset.filter(d => d.download != null); const hours = d3.rollup(dl, v => d3.mean(v, d => d.download), d => d.t.getHours()); const ordered = d3.range(24).map(h => ({ hour: h, mean: hours.get(h) || 0 })); const { w, h, ml, mt } = this.getSecondarySize(this.hourlySvg); this.hourlySvg.selectAll('*').remove(); const g = this.hourlySvg.append('g').attr('transform', `translate(${ml},${mt})`); const x = d3.scaleBand().domain(ordered.map(d => d.hour)).range([0, w]).padding(0.12); const yMax = d3.max(ordered, d => d.mean) || 1; const y = d3.scaleLinear().domain([0, yMax]).nice().range([h, 0]); g.append('g').attr('class', 'axis x').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x).tickFormat(d => `${d}:00`)); g.append('g').attr('class', 'axis y').call(d3.axisLeft(y).ticks(6)); g.append('g').attr('class', 'grid').call(d3.axisLeft(y).ticks(6).tickSize(-w).tickFormat('')).selectAll('line').attr('stroke-opacity', 0.25); g.selectAll('rect.bar').data(ordered).join('rect').attr('class', 'bar').attr('x', d => x(d.hour)).attr('width', x.bandwidth()).attr('y', h).attr('height', 0).attr('fill', 'url(#downGrad)').transition().duration(400).attr('y', d => y(d.mean)).attr('height', d => h - y(d.mean)); const overallMean = d3.mean(dl, d => d.download); if (overallMean != null) { g.append('line').attr('x1', 0).attr('x2', w).attr('y1', y(overallMean)).attr('y2', y(overallMean)).attr('stroke', this.config.colors.mean).attr('stroke-dasharray', '4 4').attr('stroke-width', 1.2); g.append('text').attr('x', w - 4).attr('y', y(overallMean) - 4).attr('text-anchor', 'end').attr('fill', this.config.colors.mean).attr('font-size', '.6rem').text(`Mean (range) ${overallMean.toFixed(1)} Mb/s`); } }
+    drawHistogram() { const subset = this.getCurrentSubset(); const dlVals = subset.filter(d => d.download != null).map(d => d.download); if (!dlVals.length) { this.histSvg.selectAll('*').remove(); return; } const { w, h, ml, mt } = this.getSecondarySize(this.histSvg); this.histSvg.selectAll('*').remove(); const g = this.histSvg.append('g').attr('transform', `translate(${ml},${mt})`); const x = d3.scaleLinear().domain([0, d3.max(dlVals)]).nice().range([0, w]); const bins = d3.bin().domain(x.domain()).thresholds(30)(dlVals); const y = d3.scaleLinear().domain([0, d3.max(bins, b => b.length)]).nice().range([h, 0]); g.append('g').attr('class', 'axis x').attr('transform', `translate(0,${h})`).call(d3.axisBottom(x)); g.append('g').attr('class', 'axis y').call(d3.axisLeft(y).ticks(6)); g.append('g').attr('class', 'grid').call(d3.axisLeft(y).ticks(6).tickSize(-w).tickFormat('')).selectAll('line').attr('stroke-opacity', 0.25); g.selectAll('rect').data(bins).join('rect').attr('x', d => x(d.x0) + 1).attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 1)).attr('y', h).attr('height', 0).attr('fill', 'url(#downGrad)').transition().duration(400).attr('y', d => y(d.length)).attr('height', d => h - y(d.length)); this.drawKDE(g, dlVals, x, h); this.drawStatistics(g, dlVals, x, h); }
+    drawKDE(g, values, xScale, height) { const kde = this.kernelDensityEstimator(this.kernelEpanechnikov((xScale.domain()[1] - xScale.domain()[0]) / 40), xScale.ticks(120)); const density = kde(values); const yMaxDensity = d3.max(density, d => d[1]); const yDensity = d3.scaleLinear().domain([0, yMaxDensity]).range([height, 0]); const line = d3.line().curve(d3.curveBasis).x(d => xScale(d[0])).y(d => yDensity(d[1])); g.append('path').datum(density).attr('fill', 'none').attr('stroke', this.config.colors.download).attr('stroke-width', 1.8).attr('d', line).attr('opacity', 0.9); }
+    drawStatistics(g, values, xScale, height) { const mean = d3.mean(values); const median = d3.median(values); g.append('line').attr('x1', xScale(mean)).attr('x2', xScale(mean)).attr('y1', 0).attr('y2', height).attr('stroke', this.config.colors.mean).attr('stroke-dasharray', '4 4'); g.append('text').attr('x', xScale(mean) + 4).attr('y', 12).attr('fill', this.config.colors.mean).attr('font-size', '.6rem').text(`Mean (range) ${mean.toFixed(1)}`); g.append('line').attr('x1', xScale(median)).attr('x2', xScale(median)).attr('y1', 0).attr('y2', height).attr('stroke', this.config.colors.upload).attr('stroke-dasharray', '3 3'); g.append('text').attr('x', xScale(median) + 4).attr('y', 24).attr('fill', this.config.colors.upload).attr('font-size', '.6rem').text(`Median ${median.toFixed(1)}`); }
+    kernelDensityEstimator(kernel, X) { return function(V) { return X.map(x => [x, d3.mean(V, v => kernel(x - v))]); }; }
+    kernelEpanechnikov(k) { return function(v) { v /= k; return Math.abs(v) <= 1 ? 0.75 * (1 - v * v) / k : 0; }; }
+    drawAll() { this.draw(); this.drawHourly(); this.drawHistogram(); }
+    initSliders() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); const maxIndex = this.data.length - 1; startEl.min = endEl.min = 0; startEl.max = endEl.max = maxIndex; startEl.value = 0; endEl.value = maxIndex; this.updateSliderVisual(); this.updateEdgeLabels(); }
+    onSliderChange() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); let startIndex = +startEl.value; let endIndex = +endEl.value; if (startIndex > endIndex) { [startIndex, endIndex] = [endIndex, startIndex]; startEl.value = startIndex; endEl.value = endIndex; } this.viewDomain = [this.data[startIndex].t, this.data[endIndex].t]; this.drawAll(); }
+    updateSliderVisual() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); const maxIndex = (this.data.length - 1) || 1; const startPct = (+startEl.value) / maxIndex * 100; const endPct = (+endEl.value) / maxIndex * 100; const fill = document.getElementById('progressFill'); if (fill) { const left = Math.min(startPct, endPct); const right = Math.max(startPct, endPct); fill.style.left = left + '%'; fill.style.width = (right - left) + '%'; } const { formatters } = this.config; const startIndex = Math.min(+startEl.value, +endEl.value); const endIndex = Math.max(+startEl.value, +endEl.value); document.getElementById('earliestLabel').textContent = formatters.edgeLabel(this.data[startIndex].t); document.getElementById('latestLabel').textContent = formatters.edgeLabel(this.data[endIndex].t); }
+    updateEdgeLabels() { if (!this.data.length) return; const { formatters } = this.config; document.getElementById('earliestLabel').textContent = formatters.edgeLabel(this.data[0].t); document.getElementById('latestLabel').textContent = formatters.edgeLabel(this.data[this.data.length - 1].t); }
+    syncSlidersToDomain(resetIfFull = false) { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); if (!this.viewDomain || resetIfFull) { startEl.value = 0; endEl.value = this.data.length - 1; this.updateSliderVisual(); if (resetIfFull) this.updateEdgeLabels(); return; } const bisect = d3.bisector(d => d.t).left; const startIndex = Math.max(0, Math.min(this.data.length - 1, bisect(this.data, this.viewDomain[0]))); const endIndex = Math.max(0, Math.min(this.data.length - 1, bisect(this.data, this.viewDomain[1]))); startEl.value = Math.min(startIndex, endIndex); endEl.value = Math.max(startIndex, endIndex); this.updateSliderVisual(); }
+    onRangeAll() { if (!this.data.length) return; this.viewDomain = null; this.syncSlidersToDomain(true); this.drawAll(); }
+    onRange24h() { if (!this.data.length) return; const end = this.data[this.data.length - 1].t; const start = new Date(end.getTime() - 24 * 3600 * 1000); this.viewDomain = [start, end]; this.syncSlidersToDomain(); this.drawAll(); }
+    onFileLoad(event) { const file = event.target.files[0]; if (file) { this.lastLoadedFile = file; this.fetchData(); } }
+    setStatus(message) { this.statusEl.text(message); }
+    scheduleReload() { if (this.reloadTimer) { clearInterval(this.reloadTimer); this.reloadTimer = null; } if (!document.getElementById('autoReload').checked) return; const seconds = +document.getElementById('reloadInterval').value; this.reloadTimer = setInterval(() => this.fetchData(), seconds * 1000); }
+    setupEventListeners() { document.getElementById('reloadBtn').addEventListener('click', () => this.fetchData()); document.getElementById('rangeAll').addEventListener('click', () => this.onRangeAll()); document.getElementById('range24h').addEventListener('click', () => this.onRange24h()); document.getElementById('startRange').addEventListener('input', () => this.onSliderChange()); document.getElementById('endRange').addEventListener('input', () => this.onSliderChange()); document.getElementById('showPing').addEventListener('change', () => this.drawAll()); document.getElementById('logScale').addEventListener('change', () => this.drawAll()); document.getElementById('autoReload').addEventListener('change', () => this.scheduleReload()); document.getElementById('reloadInterval').addEventListener('change', () => this.scheduleReload()); document.getElementById('fileInput').addEventListener('change', (e) => this.onFileLoad(e)); this.setupLegend(); window.addEventListener('resize', () => this.drawAll()); }
+    setupLegend() { const legendItems = [{ key: 'download', label: 'Download' }, { key: 'upload', label: 'Upload' }, { key: 'ping', label: 'Ping' }]; const legend = d3.select('#legend').selectAll('.legend-item').data(legendItems).join('div').attr('class', 'legend-item').on('click', (event, d) => { this.hidden[d.key] = !this.hidden[d.key]; this.applyVisibility(); d3.select(event.currentTarget).classed('inactive', this.hidden[d.key]); }); legend.append('span').attr('class', 'legend-swatch').style('background', d => this.config.colors[d.key]); legend.append('span').text(d => d.label); }
+    setupResizeObserver() { const chartWrap = document.getElementById('chart-wrap'); if (window.ResizeObserver) { const observer = new ResizeObserver(() => { if (this.data.length && !this.initialRenderComplete) { this.drawAll(); this.initialRenderComplete = true; } }); observer.observe(chartWrap); } window.addEventListener('load', () => { if (this.data.length && !this.initialRenderComplete) { this.drawAll(); this.initialRenderComplete = true; } }); }
+    async init() { await this.fetchData(); this.initSliders(); this.scheduleReload(); }
+}
+document.addEventListener('DOMContentLoaded', () => { new BroadbandChart(); });
+</script>
+</body>
+</html>
