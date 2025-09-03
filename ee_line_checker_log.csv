@@ -2763,3 +2763,8 @@ timestamp_iso,icmp_host,icmp_avg_ms,icmp_loss_pct,speedtest_server,speedtest_lat
 2025-09-03T10:53:59,8.8.8.8,864.8,0,Structured Communications (London),280.7,8.36,2.31,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
 2025-09-03T10:59:57,8.8.8.8,678.2,0,,,,,NONE,,,,[Speedtest Failed]
 2025-09-03T11:05:08,8.8.8.8,496.7,0,YouFibre (London),11.9,49.79,8.92,NONE,,,,[OK]
+2025-09-03T11:10:42,8.8.8.8,9.8,0,Spitfire Network Services (London),11.3,46.19,3.05,NONE,,,,[OK]
+2025-09-03T11:16:14,8.8.8.8,721.1,0,Voneus Limited (London),18.0,2.91,6.98,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
+2025-09-03T11:21:54,8.8.8.8,417.3,0,Voneus Limited (London),64.5,28.53,4.23,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
+2025-09-03T11:27:37,8.8.8.8,720.3,0,Spitfire Network Services (London),609.7,7.71,2.07,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
+2025-09-03T11:33:38,8.8.8.8,896.1,0,,,,,NONE,,,,[Speedtest Failed]
