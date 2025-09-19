@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
 
-  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}" data-root-relative>
   <!--[if lt IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
   <![endif]-->
@@ -46,10 +46,10 @@
             <ul class="nav-links">
               {% assign menu = site.data.navigation.main %}
               {% for item in menu %}
-                {% assign is_contact = item.name | downcase | strip == 'contact' %}
-                <li class="nav-item{% if is_contact %} nav-item--cta{% endif %}">
+                {% assign normalized_name = item.name | downcase | strip %}
+                <li class="nav-item{% if normalized_name == 'contact' %} nav-item--cta{% endif %}">
                   <a href="{{ item.url | relative_url }}"
-                     class="nav-link{% if page.url == item.url %} active{% endif %}{% if is_contact %} nav-link--cta{% endif %}"
+                     class="nav-link{% if page.url == item.url %} active{% endif %}{% if normalized_name == 'contact' %} nav-link--cta{% endif %}"
                      {% if page.url == item.url %}aria-current="page"{% endif %}>
                     {{ item.name }}
                   </a>
@@ -108,6 +108,63 @@
       </div>
     </footer>
   </div>
+  <script>
+    (function() {
+      if (window.location.protocol !== 'file:') return;
+
+      var currentHref = window.location.href;
+      var currentDir = currentHref.replace(/[^\/]*$/, '');
+      var siteRoot = currentDir;
+      var siteIndex = currentDir.indexOf('/_site/');
+      if (siteIndex !== -1) {
+        siteRoot = currentDir.slice(0, siteIndex + 7);
+      }
+
+      function toAssetPath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        return siteRoot + value.replace(/^\/+/, '');
+      }
+
+      function toPagePath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        var page = value.replace(/^\/+/, '');
+        if (!page) {
+          page = 'index.html';
+        } else if (!/\.[\w]+$/.test(page)) {
+          if (!page.endsWith('/')) page += '/';
+          page += 'index.html';
+        }
+        return siteRoot + page;
+      }
+
+      document.querySelectorAll('link[href^="/"]').forEach(function(link) {
+        var newHref = toAssetPath(link.getAttribute('href'));
+        if (newHref) link.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('script[src^="/"]').forEach(function(script) {
+        var newSrc = toAssetPath(script.getAttribute('src'));
+        if (newSrc && script.getAttribute('src') !== newSrc) {
+          script.setAttribute('src', newSrc);
+        }
+      });
+
+      document.querySelectorAll('img[src^="/"]').forEach(function(img) {
+        var newSrc = toAssetPath(img.getAttribute('src'));
+        if (newSrc) img.setAttribute('src', newSrc);
+      });
+
+      document.querySelectorAll('a[href^="/"]').forEach(function(anchor) {
+        var newHref = toPagePath(anchor.getAttribute('href'));
+        if (newHref) anchor.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('iframe[src^="/"]').forEach(function(frame) {
+        var newSrc = toPagePath(frame.getAttribute('src'));
+        if (newSrc) frame.setAttribute('src', newSrc);
+      });
+    })();
+  </script>
   <script defer src="{{ '/assets/consent.js' | relative_url }}"></script>
   <script defer src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
   <script defer src="{{ '/assets/js/navigation.js' | relative_url }}"></script>

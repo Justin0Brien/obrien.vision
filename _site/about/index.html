@@ -6,14 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About</title>
   
+  <meta name="description" content="Data Visualization • Analysis • Insights.  Exploring employment dynamics, career transitions, and economic trends through interactive visualizations and evidence-based research.">
+  
+
   <!-- Favicon and Touch Icons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png">
   <link rel="icon" type="image/svg+xml" href="/assets/icons/icon-base.svg">
   <link rel="manifest" href="/site.webmanifest">
-  
-  <link rel="stylesheet" href="/assets/css/style.css?v=aa722692463b2426aee3561795adcd509ee50175">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+
+  <link rel="stylesheet" href="/assets/css/style.css?v=b4d0440323002bad4d0832a01050c380398deefc" data-root-relative>
   <!--[if lt IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
   <![endif]-->
@@ -30,80 +38,105 @@
 
 </head>
 <body class="default-page">
-  <div class="wrapper">
-    <!-- Main Navigation -->
-    <nav class="main-navigation">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <a href="http://0.0.0.0:4000/" class="nav-brand">
-            <span class="site-name-primary">obrien</span><span class="site-name-secondary">.vision</span>
-          </a>
-        </div>
-        
-        <!-- Mobile menu toggle -->
-        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-        
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
-          <ul class="nav-links">
-            
-            
-              <li class="nav-item">
+  <div class="site-wrapper">
+    <header class="site-header">
+      <div class="container">
+        <div class="nav-shell">
+          <div class="nav-brand">
+            <a href="/" class="brand-link" aria-label="obrien.vision home">
+              <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+            </a>
+          </div>
+          <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+          <div class="nav-menu" id="primary-navigation">
+            <ul class="nav-links">
+              
+              
                 
-                <a href="/" class="nav-link ">Home</a>
+                <li class="nav-item">
+                  <a href="/"
+                     class="nav-link"
+                     >
+                    Home
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/blog/"
+                     class="nav-link"
+                     >
+                    Blog
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/images/"
+                     class="nav-link"
+                     >
+                    Images
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/illusions/"
+                     class="nav-link"
+                     >
+                    Illusions
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/visualizations/"
+                     class="nav-link"
+                     >
+                    DataViz
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/about/"
+                     class="nav-link active"
+                     aria-current="page">
+                    About
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item nav-item--cta">
+                  <a href="/contact/"
+                     class="nav-link nav-link--cta"
+                     >
+                    Contact
+                  </a>
+                </li>
+              
+              <li class="nav-item nav-item--theme">
+                <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme" type="button">🌙</button>
               </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/blog/" class="nav-link ">Blog</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/images/" class="nav-link ">Images</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/illusions/" class="nav-link ">Illusions</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/visualizations/" class="nav-link ">DataViz</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/about/" class="nav-link active">About</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/contact/" class="nav-link ">Contact</a>
-              </li>
-            
-            <li class="nav-item">
-              <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme">🌙</button>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <main>
-      <div class="container site-grid">
+    <main class="site-main">
+      <div class="container content-container">
         <div class="grid-cards max-3 about-grid">
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h2 class="card__title">About — Justin O’Brien, PhD</h2>
 		<p><strong>Psychologist, vision scientist &amp; AI consultant</strong></p>
 		<p>I’m a cognitive scientist with 20+ years in academic research on visual perception and social cognition, formerly a Senior Lecturer in Psychology at Brunel University London. My research spanned face and expression recognition, ageing and emotion, and visual processing differences in conditions such as autism, using behavioural experiments, neuroimaging (fMRI/EEG) and computational tools like representational similarity analysis (RSA). <a href="https://www.brunel.ac.uk/people/justin-obrien/research">Brunel profile</a>.</p>
 	</div></article>
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h3 class="card__title">What I do now</h3>
 		<p>At <strong>OBrien.vision</strong>, I translate rigorous behavioural science into <strong>human-centred AI</strong> practice—evaluation protocols for computer-vision &amp; multimodal models, human-in-the-loop audits, and interpretable reporting.</p>
 		<h4 class="card__meta" style="margin-top:1rem;">Typical engagements</h4>
@@ -113,7 +146,7 @@
 			<li><strong>Decision support</strong>—roadmaps, guardrails &amp; exec-ready evidence.</li>
 		</ul>
 	</div></article>
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h3 class="card__title">Track record (selected)</h3>
 		<ul>
 			<li><strong>Autism &amp; facial motion</strong>: dynamic facial motion usage differences. <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0102173">PLOS ONE</a>.</li>
@@ -121,7 +154,7 @@
 			<li><strong>Concepts vs cues</strong>: disentangling low-level cues from emotion concepts.</li>
 		</ul>
 	&lt;/article&gt;
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h3 class="card__title">Credentials &amp; affiliations</h3>
 		<ul>
 			<li><strong>Senior Lecturer</strong>, Brunel University London (2002–2025).</li>
@@ -129,7 +162,7 @@
 			<li>Open-access outputs via BURA &amp; PLOS ONE.</li>
 		</ul>
 	</div></article>
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h3 class="card__title">How we can work together</h3>
 		<ul>
 			<li><strong>AI readiness &amp; risk reviews</strong></li>
@@ -139,7 +172,7 @@
 		</ul>
 		<p>Need a specific service sheet or speaking bio? Let me know.</p>
 	</div></article>
-	<article class="card"><div class="card__body">
+	<article class="card" data-reveal=""><div class="card__body">
 		<h3 class="card__title">Sources &amp; references</h3>
 		<p>Representative sources accessed Aug 2025: Brunel research pages, Google Scholar, open-access publications (PLOS, BURA). Links available on request.</p>
 	</div></article>
@@ -149,33 +182,123 @@
       </div>
     </main>
 
-    <footer>
-      <div class="container">
-        <div class="footer-links">
-          
-          
-            <a href="/rights/">Image Rights</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/privacy/">Privacy Policy</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/terms/">Terms of Service</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/feed.xml">RSS Feed</a>
-            
-          
-    <span class="footer-sep">|</span>
-    <a href="#" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</a>
+    <footer class="site-footer">
+      <div class="container footer-container">
+        <div class="footer-branding">
+          <a href="/" class="footer-logo" aria-label="obrien.vision home">
+            <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+          </a>
+          <p class="footer-tagline">Human perception research meets responsible AI evaluation and storytelling.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/justin08rien" class="footer-social" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Justin0Brien" class="footer-social" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
-        <p class="footer-brand">&copy; 2025 <span class="site-name-secondary">Justin O'Brien</span>. All rights reserved.</p>
-        <p>Data visualization and analysis insights for modern employment dynamics.</p>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Explore</h4>
+            <ul class="footer-list">
+              
+              <li><a href="/">Home</a></li>
+              
+              <li><a href="/blog/">Blog</a></li>
+              
+              <li><a href="/images/">Images</a></li>
+              
+              <li><a href="/illusions/">Illusions</a></li>
+              
+              <li><a href="/visualizations/">DataViz</a></li>
+              
+              <li><a href="/about/">About</a></li>
+              
+              <li><a href="/contact/">Contact</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Policies</h4>
+            <ul class="footer-list">
+              
+              
+              <li><a href="/rights/">Image Rights</a></li>
+              
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              
+              <li><a href="/terms/">Terms of Service</a></li>
+              
+              <li><a href="/feed.xml">RSS Feed</a></li>
+              
+              <li><button class="footer-link" type="button" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2025 Justin O'Brien. All rights reserved.</p>
       </div>
     </footer>
   </div>
+  <script>
+    (function() {
+      if (window.location.protocol !== 'file:') return;
+
+      var currentHref = window.location.href;
+      var currentDir = currentHref.replace(/[^\/]*$/, '');
+      var siteRoot = currentDir;
+      var siteIndex = currentDir.indexOf('/_site/');
+      if (siteIndex !== -1) {
+        siteRoot = currentDir.slice(0, siteIndex + 7);
+      }
+
+      function toAssetPath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        return siteRoot + value.replace(/^\/+/, '');
+      }
+
+      function toPagePath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        var page = value.replace(/^\/+/, '');
+        if (!page) {
+          page = 'index.html';
+        } else if (!/\.[\w]+$/.test(page)) {
+          if (!page.endsWith('/')) page += '/';
+          page += 'index.html';
+        }
+        return siteRoot + page;
+      }
+
+      document.querySelectorAll('link[href^="/"]').forEach(function(link) {
+        var newHref = toAssetPath(link.getAttribute('href'));
+        if (newHref) link.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('script[src^="/"]').forEach(function(script) {
+        var newSrc = toAssetPath(script.getAttribute('src'));
+        if (newSrc && script.getAttribute('src') !== newSrc) {
+          script.setAttribute('src', newSrc);
+        }
+      });
+
+      document.querySelectorAll('img[src^="/"]').forEach(function(img) {
+        var newSrc = toAssetPath(img.getAttribute('src'));
+        if (newSrc) img.setAttribute('src', newSrc);
+      });
+
+      document.querySelectorAll('a[href^="/"]').forEach(function(anchor) {
+        var newHref = toPagePath(anchor.getAttribute('href'));
+        if (newHref) anchor.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('iframe[src^="/"]').forEach(function(frame) {
+        var newSrc = toPagePath(frame.getAttribute('src'));
+        if (newSrc) frame.setAttribute('src', newSrc);
+      });
+    })();
+  </script>
   <script defer src="/assets/consent.js"></script>
-  <script src="/assets/js/theme-toggle.js"></script>
-  <script src="/assets/js/navigation.js"></script>
+  <script defer src="/assets/js/theme-toggle.js"></script>
+  <script defer src="/assets/js/navigation.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+  
 </body>
 </html>

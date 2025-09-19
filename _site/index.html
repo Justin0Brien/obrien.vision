@@ -6,14 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Home</title>
   
+  <meta name="description" content="Human-centred AI evaluation, perception research, and interactive data stories from Justin O’Brien, PhD.">
+  
+
   <!-- Favicon and Touch Icons -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-precomposed.png">
   <link rel="icon" type="image/svg+xml" href="/assets/icons/icon-base.svg">
   <link rel="manifest" href="/site.webmanifest">
-  
-  <link rel="stylesheet" href="/assets/css/style.css?v=aa722692463b2426aee3561795adcd509ee50175">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+
+  <link rel="stylesheet" href="/assets/css/style.css?v=b4d0440323002bad4d0832a01050c380398deefc" data-root-relative>
   <!--[if lt IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
   <![endif]-->
@@ -30,659 +38,490 @@
 
 </head>
 <body class="default-page">
-  <div class="wrapper">
-    <!-- Main Navigation -->
-    <nav class="main-navigation">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <a href="http://0.0.0.0:4000/" class="nav-brand">
-            <span class="site-name-primary">obrien</span><span class="site-name-secondary">.vision</span>
-          </a>
-        </div>
-        
-        <!-- Mobile menu toggle -->
-        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-        
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
-          <ul class="nav-links">
-            
-            
-              <li class="nav-item">
+  <div class="site-wrapper">
+    <header class="site-header">
+      <div class="container">
+        <div class="nav-shell">
+          <div class="nav-brand">
+            <a href="/" class="brand-link" aria-label="obrien.vision home">
+              <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+            </a>
+          </div>
+          <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+          <div class="nav-menu" id="primary-navigation">
+            <ul class="nav-links">
+              
+              
                 
-                <a href="/" class="nav-link active">Home</a>
+                <li class="nav-item">
+                  <a href="/"
+                     class="nav-link active"
+                     aria-current="page">
+                    Home
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/blog/"
+                     class="nav-link"
+                     >
+                    Blog
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/images/"
+                     class="nav-link"
+                     >
+                    Images
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/illusions/"
+                     class="nav-link"
+                     >
+                    Illusions
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/visualizations/"
+                     class="nav-link"
+                     >
+                    DataViz
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item">
+                  <a href="/about/"
+                     class="nav-link"
+                     >
+                    About
+                  </a>
+                </li>
+              
+                
+                <li class="nav-item nav-item--cta">
+                  <a href="/contact/"
+                     class="nav-link nav-link--cta"
+                     >
+                    Contact
+                  </a>
+                </li>
+              
+              <li class="nav-item nav-item--theme">
+                <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme" type="button">🌙</button>
               </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/blog/" class="nav-link ">Blog</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/images/" class="nav-link ">Images</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/illusions/" class="nav-link ">Illusions</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/visualizations/" class="nav-link ">DataViz</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/about/" class="nav-link ">About</a>
-              </li>
-            
-              <li class="nav-item">
-                <span class="nav-sep">|</span>
-                <a href="/contact/" class="nav-link ">Contact</a>
-              </li>
-            
-            <li class="nav-item">
-              <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme">🌙</button>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <main>
-      <div class="container site-grid">
-        <div class="home">
-  <header class="hero-section">
-    <h1 class="site-title">
-      <span class="site-name-secondary">Justin O'Brien, PhD</span>
-    </h1>
-    <p>I’m a psychologist and vision scientist who spent over three decades studying how people perceive faces and expressions across the lifespan and in neurodevelopmental conditions. I now help organisations design, test and deploy trustworthy AI—bringing human-factors methods, experimental design and explainable analyses to computer-vision and multimodal systems.</p>
-  </header>
+    <main class="site-main">
+      <div class="container content-container">
+        
 
-  <section class="all-posts">
+
+<div class="home">
+  <section class="hero hero--split" data-reveal>
+    <div class="hero__content" data-reveal>
+      <p class="hero__eyebrow">Vision science × trustworthy AI</p>
+      <h1 class="hero__title">Human perception expertise for responsible, explainable AI</h1>
+      <p class="hero__lede">I’m Justin O’Brien, PhD—psychologist, vision scientist, and evaluation consultant. I help teams level-up AI experiences with psychophysics-grade testing, human factors insight, and high-impact storytelling.</p>
+      <div class="hero__actions">
+        <a class="btn btn-primary" href="/contact/">Start a project</a>
+        <a class="btn btn-ghost" href="/visualizations/">Explore visualisations</a>
+      </div>
+      <ul class="hero__highlights">
+        <li>30+ years translating perception research into product decisions</li>
+        <li>Designing evaluation frameworks for vision, multimodal & LLM systems</li>
+        <li>Interactive illusions and data stories that make complex ideas stick</li>
+      </ul>
+    </div>
+    <div class="hero__visual" data-reveal>
+      <div class="hero__visual-inner">
+        <img src="/assets/images/hero.webp" alt="Justin O’Brien working on perception and AI visualisations" loading="lazy">
+        <div class="hero__badge">
+          <span class="hero__badge-title">Now booking</span>
+          <span class="hero__badge-text">Q1–Q2 2025 audits & experiments</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">How I partner</p>
+      <h2>Ways I help teams</h2>
+      <p class="section-lead">From lab-grade evaluation to interactive storytelling that aligns stakeholders.</p>
+    </div>
+    <div class="grid grid--cards grid--three">
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">AI & perception</p>
+        <h3 class="card__title">Evaluation blueprints</h3>
+        <p class="card__excerpt">Psychophysics-style testbeds, human-in-the-loop audits, and decision-ready reporting for vision and multimodal systems.</p>
+        <ul class="card__list">
+          <li>Stress-tests for bias, brittleness & UX failure modes</li>
+          <li>Explainable dashboards & experiment automation</li>
+          <li>Guardrails for ethical deployment</li>
+        </ul>
+      </article>
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">Data storytelling</p>
+        <h3 class="card__title">Visual analytics labs</h3>
+        <p class="card__excerpt">Custom dashboards, interactive narratives, and signal-finding workflows built with D3.js, Observable, and modern web stacks.</p>
+        <ul class="card__list">
+          <li>Rapid prototyping with real datasets</li>
+          <li>Executive-ready views & press assets</li>
+          <li>Embedded training for product teams</li>
+        </ul>
+      </article>
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">Learning & alignment</p>
+        <h3 class="card__title">Workshops & advisory</h3>
+        <p class="card__excerpt">Tailored sessions on perception science, experimental design, and audit methodology to align research, product, and policy stakeholders.</p>
+        <ul class="card__list">
+          <li>Hands-on measurement clinics</li>
+          <li>Executive briefings & roadmaps</li>
+          <li>Lab-to-product translation support</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="writing">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Latest writing</p>
+      <h2>Field notes & experiments</h2>
+      <a class="section-action" href="/blog/">View all posts</a>
+    </div>
     
-      <div class="post-list max-3-grid">
-      
-        <article class="post-preview card">
+      <div class="grid grid--cards grid--three">
+        
+        <article class="card post-card" data-reveal data-reveal-delay="0">
           
-            <div class="post-thumbnail">
-              <a href="/2025/08/01/fixing-universities/">
-                <img src="/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" alt="Fixing Universities: A Collective Approach to Financial Crisis" loading="lazy">
-              </a>
-            </div>
+          <div class="card__media">
+            <a href="/2025/08/01/fixing-universities/">
+              <img src="/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" alt="Fixing Universities: A Collective Approach to Financial Crisis" loading="lazy">
+            </a>
+          </div>
           
-          <div class="post-content card__body">
+          <div class="card__body">
+            <p class="card__meta">August 01, 2025</p>
             <h3 class="card__title"><a href="/2025/08/01/fixing-universities/">Fixing Universities: A Collective Approach to Financial Crisis</a></h3>
-            <p class="post-meta card__meta">August 01, 2025</p>
             <p class="card__excerpt">Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">UK-universities</span>
-                
-                  <span class="tag">funding-crisis</span>
-                
-                  <span class="tag">collective-procurement</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/08/01/fixing-universities/">Read more →</a></div>
+            <div class="card__actions">
+              <a class="btn btn-inline" href="/2025/08/01/fixing-universities/">Read →</a>
+            </div>
           </div>
         </article>
-      
-        <article class="post-preview card">
+        
+        <article class="card post-card" data-reveal data-reveal-delay="80">
           
-            <div class="post-thumbnail">
-              <a href="/2025/07/31/beating-the-odds/">
-                <img src="/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" alt="Beating The Odds: Four Months in Mid-Life Employment Limbo" loading="lazy">
-              </a>
-            </div>
+          <div class="card__media">
+            <a href="/2025/07/31/beating-the-odds/">
+              <img src="/assets/images/posts/2025-07-31-beating-the-odds/career-odds.jpg" alt="Beating The Odds: Four Months in Mid-Life Employment Limbo" loading="lazy">
+            </a>
+          </div>
           
-          <div class="post-content card__body">
+          <div class="card__body">
+            <p class="card__meta">July 31, 2025</p>
             <h3 class="card__title"><a href="/2025/07/31/beating-the-odds/">Beating The Odds: Four Months in Mid-Life Employment Limbo</a></h3>
-            <p class="post-meta card__meta">July 31, 2025</p>
-            <p class="card__excerpt">I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age employment limbo with a gym membership you no longer use and a...</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">job-search</span>
-                
-                  <span class="tag">over-50s</span>
-                
-                  <span class="tag">unemployment</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/31/beating-the-odds/">Read more →</a></div>
+            <p class="card__excerpt">I was made redundant 4 months ago today. Fast-forward four months: zero salary, zero job, and—rather paradoxically—a very busy diary. So what's it actually like, drifting through middle-age...</p>
+            <div class="card__actions">
+              <a class="btn btn-inline" href="/2025/07/31/beating-the-odds/">Read →</a>
+            </div>
           </div>
         </article>
-      
-        <article class="post-preview card">
+        
+        <article class="card post-card" data-reveal data-reveal-delay="160">
           
-            <div class="post-thumbnail">
-              <a href="/2025/07/28/beyond-the-balance-sheet/">
-                <img src="/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" alt="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" loading="lazy">
-              </a>
-            </div>
+          <div class="card__media">
+            <a href="/2025/07/28/beyond-the-balance-sheet/">
+              <img src="/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" alt="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" loading="lazy">
+            </a>
+          </div>
           
-          <div class="post-content card__body">
+          <div class="card__body">
+            <p class="card__meta">July 28, 2025</p>
             <h3 class="card__title"><a href="/2025/07/28/beyond-the-balance-sheet/">Beyond the Balance Sheet: Why UK Universities Need a Busyness Model</a></h3>
-            <p class="post-meta card__meta">July 28, 2025</p>
-            <p class="card__excerpt">Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-business-model</span>
-                
-                  <span class="tag">SROI</span>
-                
-                  <span class="tag">social-return-investment</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/28/beyond-the-balance-sheet/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/25/governmental-shrugs/">
-                <img src="/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" alt="Governmental Shrugs: When Car Factories Matter More Than Universities" loading="lazy">
-              </a>
+            <p class="card__excerpt">Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just...</p>
+            <div class="card__actions">
+              <a class="btn btn-inline" href="/2025/07/28/beyond-the-balance-sheet/">Read →</a>
             </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/25/governmental-shrugs/">Governmental Shrugs: When Car Factories Matter More Than Universities</a></h3>
-            <p class="post-meta card__meta">July 25, 2025</p>
-            <p class="card__excerpt">Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-funding</span>
-                
-                  <span class="tag">job-losses</span>
-                
-                  <span class="tag">government-response</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/25/governmental-shrugs/">Read more →</a></div>
           </div>
         </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/23/ethics-in-artificial-intelligence/">
-                <img src="/assets/images/posts/2025-07-23-ethics-in-artificial-intelligence/ai-ethics.jpg" alt="Ethics in Artificial Intelligence: Yes, There Is a Problem" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/23/ethics-in-artificial-intelligence/">Ethics in Artificial Intelligence: Yes, There Is a Problem</a></h3>
-            <p class="post-meta card__meta">July 23, 2025</p>
-            <p class="card__excerpt">Artificial intelligence has catapulted from the plaything of graduate students to the digital weather system that now soaks every corner of the economy. The upsides are dazzling; the downsides, well, they're the reason you're reading this article instead of a...</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">ai-ethics</span>
-                
-                  <span class="tag">machine-learning</span>
-                
-                  <span class="tag">bias</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/23/ethics-in-artificial-intelligence/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/20/why-cant-we-be-friends/">
-                <img src="/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" alt="Why Can't We Be Friends? The University Collaboration Paradox" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/20/why-cant-we-be-friends/">Why Can't We Be Friends? The University Collaboration Paradox</a></h3>
-            <p class="post-meta card__meta">July 20, 2025</p>
-            <p class="card__excerpt">Universities compete fiercely while claiming to collaborate generously. It's time to examine why the sector's most obvious solution—working together—remains frustratingly elusive.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-cooperation</span>
-                
-                  <span class="tag">collaboration</span>
-                
-                  <span class="tag">institutional-partnerships</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/20/why-cant-we-be-friends/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/15/rightsizing-rant/">
-                <img src="/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" alt="The Rightsizing Rant: When Corporate Jargon Eats Reality" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/15/rightsizing-rant/">The Rightsizing Rant: When Corporate Jargon Eats Reality</a></h3>
-            <p class="post-meta card__meta">July 15, 2025</p>
-            <p class="card__excerpt">When 'rightsizing' becomes the euphemism du jour for mass redundancies, you know corporate-speak has officially jumped the shark. Let's decode the jargon that's chloroforming common sense.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">rightsizing</span>
-                
-                  <span class="tag">corporate-jargon</span>
-                
-                  <span class="tag">university-management</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/15/rightsizing-rant/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/10/why-cant-we-be-friends/">
-                <img src="/assets/images/posts/2025-07-10-why-cant-we-be-friends/friends.jpg" alt="Why Can't We Be Friends? Universities and the £1.5 Billion Collaboration Challenge" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/10/why-cant-we-be-friends/">Why Can't We Be Friends? Universities and the £1.5 Billion Collaboration Challenge</a></h3>
-            <p class="post-meta card__meta">July 10, 2025</p>
-            <p class="card__excerpt">UK universities could save £1.5 billion through collaboration, but pyramid politics and cultural feudalism keep them competing over stationery while students foot the bill.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-cooperation</span>
-                
-                  <span class="tag">shared-services</span>
-                
-                  <span class="tag">UKUPC</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/10/why-cant-we-be-friends/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/10/flatpacks-not-ivory-towers/">
-                <img src="/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg" alt="Flatpacks Not Ivory Towers: Why Universities Should Be Built Like IKEA Furniture" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/10/flatpacks-not-ivory-towers/">Flatpacks Not Ivory Towers: Why Universities Should Be Built Like IKEA Furniture</a></h3>
-            <p class="post-meta card__meta">July 10, 2025</p>
-            <p class="card__excerpt">Universities are built like medieval cathedrals when they should be assembled like flatpack furniture. Modular, efficient, and possible to rebuild when you inevitably lose the instructions.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-organization</span>
-                
-                  <span class="tag">modular-design</span>
-                
-                  <span class="tag">institutional-efficiency</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/10/flatpacks-not-ivory-towers/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/09/cheaper-easier-efficienter/">
-                <img src="/assets/images/posts/2025-07-09-cheaper-easier-efficienter/privatisation.jpg" alt="Cheaper, Easier, Efficienter? The Curious Tale of UK Universities and Private Contractors" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/09/cheaper-easier-efficienter/">Cheaper, Easier, Efficienter? The Curious Tale of UK Universities and Private Contractors</a></h3>
-            <p class="post-meta card__meta">July 09, 2025</p>
-            <p class="card__excerpt">Fifteen years after ministers promised that private partnerships would revolutionise British higher education, we ask: who actually made any money? Spoiler alert: nobody ends up bathing in gold coins, but at least the catering's cheaper.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-outsourcing</span>
-                
-                  <span class="tag">private-sector-partnerships</span>
-                
-                  <span class="tag">cost-savings</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/09/cheaper-easier-efficienter/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/08/how-to-murder-a-university/">
-                <img src="/assets/images/posts/2025-07-08-how-to-murder-a-university/How-to-Murder-a-University.jpeg" alt="How to Murder a University: A Guide to Institutional Death" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/08/how-to-murder-a-university/">How to Murder a University: A Guide to Institutional Death</a></h3>
-            <p class="post-meta card__meta">July 08, 2025</p>
-            <p class="card__excerpt">A UK university cannot simply press CTRL-ALT-DELETE and vanish. Here's what actually happens when institutions reach the end of the financial road.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-closure</span>
-                
-                  <span class="tag">OfS-regulation</span>
-                
-                  <span class="tag">insolvency-law</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/08/how-to-murder-a-university/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/07/university-ownership/">
-                <img src="/assets/images/posts/2025-07-07-university-ownership/who-owns-a-university.jpg" alt="Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/07/university-ownership/">Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)</a></h3>
-            <p class="post-meta card__meta">July 07, 2025</p>
-            <p class="card__excerpt">Universities belong to exactly the same person who owns Stonehenge and the Shipping Forecast: nobody in particular and everyone in theory. They're magnificent, slightly aloof, and impossible to sell on eBay.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-ownership</span>
-                
-                  <span class="tag">charitable-status</span>
-                
-                  <span class="tag">royal-charter</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/07/university-ownership/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/05/university-ownership/">
-                <img src="/assets/images/posts/2025-07-07-university-ownership/who-owns-a-university.jpg" alt="Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/05/university-ownership/">Who Actually Owns a University (and Why Treating One Like a Corner Shop Is a Terrible Idea)</a></h3>
-            <p class="post-meta card__meta">July 05, 2025</p>
-            <p class="card__excerpt">Universities belong to exactly the same person who owns Stonehenge and the Shipping Forecast: nobody in particular and everyone in theory. They're magnificent, slightly aloof, and impossible to sell on eBay.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-ownership</span>
-                
-                  <span class="tag">charitable-status</span>
-                
-                  <span class="tag">royal-charter</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/05/university-ownership/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/03/flatpacks-not-ivory-towers/">
-                <img src="/assets/images/posts/2025-07-03-flatpacks-not-ivory-towers/house-of-cards.jpg" alt="Flatpacks, Not Ivory Towers: A Blueprint for Community-First Campuses" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/03/flatpacks-not-ivory-towers/">Flatpacks, Not Ivory Towers: A Blueprint for Community-First Campuses</a></h3>
-            <p class="post-meta card__meta">July 03, 2025</p>
-            <p class="card__excerpt">British universities have morphed into Versailles-sized palaces of PowerPoint where the managerial pyramid grows faster than academic staff. Time to flatten the hierarchy and trust the people who can actually spell phenomenology.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-governance</span>
-                
-                  <span class="tag">lean-management</span>
-                
-                  <span class="tag">hierarchy</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/03/flatpacks-not-ivory-towers/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/02/fixing-universities/">
-                <img src="/assets/images/posts/2025-07-02-fixing-universities/2025-08-01-fixing-universities/hero-university-finance.jpg" alt="Fixing Universities: A Collective Approach to Financial Crisis" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/02/fixing-universities/">Fixing Universities: A Collective Approach to Financial Crisis</a></h3>
-            <p class="post-meta card__meta">July 02, 2025</p>
-            <p class="card__excerpt">Universities in the UK are in financial trouble. Instead of individual cost-cutting that shrinks institutions, the sector could save billions through collective action and smarter revenue diversification.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">UK-universities</span>
-                
-                  <span class="tag">funding-crisis</span>
-                
-                  <span class="tag">collective-procurement</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/02/fixing-universities/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/07/01/beyond-the-balance-sheet/">
-                <img src="/assets/images/posts/2025-07-01-beyond-the-balance-sheet/busyness-banner.jpg" alt="Beyond the Balance Sheet: Why UK Universities Need a Busyness Model" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/07/01/beyond-the-balance-sheet/">Beyond the Balance Sheet: Why UK Universities Need a Busyness Model</a></h3>
-            <p class="post-meta card__meta">July 01, 2025</p>
-            <p class="card__excerpt">Calling a university's strategy its 'business model' is like calling the Royal Opera House a karaoke bar. Universities need a busyness model focused on public value, not just profit margins.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-business-model</span>
-                
-                  <span class="tag">SROI</span>
-                
-                  <span class="tag">social-return-investment</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/07/01/beyond-the-balance-sheet/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/06/30/governmental-shrugs/">
-                <img src="/assets/images/posts/2025-06-30-governmental-shrugs/UKHEvLotus.jpg" alt="Governmental Shrugs: When Car Factories Matter More Than Universities" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/06/30/governmental-shrugs/">Governmental Shrugs: When Car Factories Matter More Than Universities</a></h3>
-            <p class="post-meta card__meta">June 30, 2025</p>
-            <p class="card__excerpt">Westminster rushes to save 1,300 car jobs at Lotus but shrugs at 10,000 university redundancies. Apparently some independent organisations are more independent than others.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">university-funding</span>
-                
-                  <span class="tag">job-losses</span>
-                
-                  <span class="tag">government-response</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/06/30/governmental-shrugs/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/06/25/rightsizing-rant/">
-                <img src="/assets/images/posts/2025-06-25-rightsizing-rant/rightsizing.jpg" alt="When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About 'Rightsizing' in UK Universities" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/06/25/rightsizing-rant/">When Jargon Stops Clarifying and Starts Chloroforming the Truth: A Brief Rant About 'Rightsizing' in UK Universities</a></h3>
-            <p class="post-meta card__meta">June 25, 2025</p>
-            <p class="card__excerpt">67 UK universities have redundancy schemes running, but they're calling it 'rightsizing.' It's time to sack the euphemism and interrogate the plan.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">business-jargon</span>
-                
-                  <span class="tag">rightsizing</span>
-                
-                  <span class="tag">university-cuts</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/06/25/rightsizing-rant/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/">
-                <img src="/assets/images/posts/2025-06-19-stop-calling-everything-slop-ai-quality-checklist/jargon-blob-illustration.jpg" alt="Stop Calling Everything 'Slop': Build a Smarter AI Quality Checklist" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/">Stop Calling Everything 'Slop': Build a Smarter AI Quality Checklist</a></h3>
-            <p class="post-meta card__meta">June 19, 2025</p>
-            <p class="card__excerpt">The term 'AI slop' has become a lazy catch-all for any machine-assisted work. Here's a detailed taxonomy for more precise AI quality assessment—because clear language is the first step toward cleaner machine-made work.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">ai-ethics</span>
-                
-                  <span class="tag">machine-learning</span>
-                
-                  <span class="tag">content-quality</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/06/19/stop-calling-everything-slop-ai-quality-checklist/">Read more →</a></div>
-          </div>
-        </article>
-      
-        <article class="post-preview card">
-          
-            <div class="post-thumbnail">
-              <a href="/2025/06/18/staying-away-from-uk-higher-education/">
-                <img src="/assets/images/posts/2025-06-18-staying-away-from-uk-higher-education/2025-06-18/leaving-higher-education.jpg" alt="Why I'm Staying Away from UK Higher Education—For Now" loading="lazy">
-              </a>
-            </div>
-          
-          <div class="post-content card__body">
-            <h3 class="card__title"><a href="/2025/06/18/staying-away-from-uk-higher-education/">Why I'm Staying Away from UK Higher Education—For Now</a></h3>
-            <p class="post-meta card__meta">June 18, 2025</p>
-            <p class="card__excerpt">After spending most of my life inside universities, I find myself on the outside looking in—and I don't plan to go back any time soon. Here's why the current state of UK higher education is pushing talent away.</p>
-            
-              <p class="post-tags">
-                
-                  <span class="tag">universities</span>
-                
-                  <span class="tag">employment</span>
-                
-                  <span class="tag">academic-jobs</span>
-                
-              </p>
-            
-            <div class="card__actions"><a class="read-more btn btn-primary" href="/2025/06/18/staying-away-from-uk-higher-education/">Read more →</a></div>
-          </div>
-        </article>
-      
+        
       </div>
     
   </section>
+
+  
+  <section class="section" id="illusions">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Perception lab</p>
+      <h2>Optical illusions with layered explainers</h2>
+      <a class="section-action" href="/illusions/">Browse all illusions</a>
+    </div>
+    <div class="grid grid--cards grid--three">
+      
+      <article class="card collection-card" data-reveal data-reveal-delay="0">
+        
+        <div class="card__media">
+          <a href="/illusions/hermann-grid/">
+            <img src="/assets/images/hermann-grid-2-256w.webp" alt="Hermann Grid" loading="lazy">
+          </a>
+          
+          <span class="chip chip--floating">Easy</span>
+          
+        </div>
+        <div class="card__body">
+          <h3 class="card__title"><a href="/illusions/hermann-grid/">Hermann Grid</a></h3>
+          <p class="card__excerpt">The Hermann grid illusion — a clear, layered explainer
+
+</p>
+          <div class="card__actions">
+            <a class="btn btn-inline" href="/illusions/hermann-grid/">Try the demo →</a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card collection-card" data-reveal data-reveal-delay="80">
+        
+        <div class="card__media">
+          <a href="/illusions/checker-shadow/">
+            <img src="/assets/images/placeholders/illusion-thumb.svg" alt="Checker–Shadow" loading="lazy">
+          </a>
+          
+          <span class="chip chip--floating">Medium</span>
+          
+        </div>
+        <div class="card__body">
+          <h3 class="card__title"><a href="/illusions/checker-shadow/">Checker–Shadow</a></h3>
+          <p class="card__excerpt">The Checker–Shadow (Adelson) illusion — a clear, layered explainer
+
+</p>
+          <div class="card__actions">
+            <a class="btn btn-inline" href="/illusions/checker-shadow/">Try the demo →</a>
+          </div>
+        </div>
+      </article>
+      
+      <article class="card collection-card" data-reveal data-reveal-delay="160">
+        
+        <div class="card__media">
+          <a href="/illusions/cafe-wall/">
+            <img src="/assets/images/cafe-wall-256w.webp" alt="Café Wall Illusion" loading="lazy">
+          </a>
+          
+          <span class="chip chip--floating">Easy</span>
+          
+        </div>
+        <div class="card__body">
+          <h3 class="card__title"><a href="/illusions/cafe-wall/">Café Wall Illusion</a></h3>
+          <p class="card__excerpt">The Café Wall illusion
+
+</p>
+          <div class="card__actions">
+            <a class="btn btn-inline" href="/illusions/cafe-wall/">Try the demo →</a>
+          </div>
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+
+  
+  <section class="section" id="visualizations">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Data stories</p>
+      <h2>Visualisation lab experiments</h2>
+      <a class="section-action" href="/visualizations/">See the lab</a>
+    </div>
+    <div class="grid grid--cards grid--three">
+      
+      <article class="card collection-card" data-reveal data-reveal-delay="0">
+        
+        <div class="card__media">
+          <a href="/visualizations/2024-01-15-sales-dashboard/">
+            <img src="/assets/images/visualizations/dashboard-overview.png" alt="Sales Dashboard Overview" loading="lazy">
+          </a>
+          
+          <span class="chip chip--floating chip--accent">Interactive</span>
+          
+        </div>
+        
+        <div class="card__body">
+          <p class="card__meta">January 2024</p>
+          <h3 class="card__title"><a href="/visualizations/2024-01-15-sales-dashboard/">Interactive Data Dashboard</a></h3>
+          <p class="card__excerpt">Overview
+
+</p>
+          
+          <div class="card__tags">
+            
+            <span class="tag">D3.js</span>
+            
+            <span class="tag">JavaScript</span>
+            
+            <span class="tag">SVG</span>
+            
+          </div>
+          
+        </div>
+      </article>
+      
+    </div>
+  </section>
+  
+
+  <section class="section section--cta" data-reveal>
+    <div class="cta-panel">
+      <div class="cta-content">
+        <p class="section-eyebrow">Let’s build something rigorous</p>
+        <h2>Ready to stress-test your AI or tell the story right?</h2>
+        <p>I work with research, product, and policy teams to turn perception science into practical, auditable workflows. If you need a partner who speaks both experiment design and executive decision-making, let’s talk.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/contact/">Book an intro call</a>
+        <a class="btn btn-outline" href="/about/">About Justin</a>
+      </div>
+    </div>
+  </section>
 </div>
+
       </div>
     </main>
 
-    <footer>
-      <div class="container">
-        <div class="footer-links">
-          
-          
-            <a href="/rights/">Image Rights</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/privacy/">Privacy Policy</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/terms/">Terms of Service</a>
-            <span class="footer-sep">|</span>
-          
-            <a href="/feed.xml">RSS Feed</a>
-            
-          
-    <span class="footer-sep">|</span>
-    <a href="#" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</a>
+    <footer class="site-footer">
+      <div class="container footer-container">
+        <div class="footer-branding">
+          <a href="/" class="footer-logo" aria-label="obrien.vision home">
+            <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+          </a>
+          <p class="footer-tagline">Human perception research meets responsible AI evaluation and storytelling.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/justin08rien" class="footer-social" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Justin0Brien" class="footer-social" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
-        <p class="footer-brand">&copy; 2025 <span class="site-name-secondary">Justin O'Brien</span>. All rights reserved.</p>
-        <p>Data visualization and analysis insights for modern employment dynamics.</p>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Explore</h4>
+            <ul class="footer-list">
+              
+              <li><a href="/">Home</a></li>
+              
+              <li><a href="/blog/">Blog</a></li>
+              
+              <li><a href="/images/">Images</a></li>
+              
+              <li><a href="/illusions/">Illusions</a></li>
+              
+              <li><a href="/visualizations/">DataViz</a></li>
+              
+              <li><a href="/about/">About</a></li>
+              
+              <li><a href="/contact/">Contact</a></li>
+              
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Policies</h4>
+            <ul class="footer-list">
+              
+              
+              <li><a href="/rights/">Image Rights</a></li>
+              
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              
+              <li><a href="/terms/">Terms of Service</a></li>
+              
+              <li><a href="/feed.xml">RSS Feed</a></li>
+              
+              <li><button class="footer-link" type="button" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; 2025 Justin O'Brien. All rights reserved.</p>
       </div>
     </footer>
   </div>
+  <script>
+    (function() {
+      if (window.location.protocol !== 'file:') return;
+
+      var currentHref = window.location.href;
+      var currentDir = currentHref.replace(/[^\/]*$/, '');
+      var siteRoot = currentDir;
+      var siteIndex = currentDir.indexOf('/_site/');
+      if (siteIndex !== -1) {
+        siteRoot = currentDir.slice(0, siteIndex + 7);
+      }
+
+      function toAssetPath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        return siteRoot + value.replace(/^\/+/, '');
+      }
+
+      function toPagePath(value) {
+        if (!value || value.charAt(0) !== '/' || value.startsWith('//')) return value;
+        var page = value.replace(/^\/+/, '');
+        if (!page) {
+          page = 'index.html';
+        } else if (!/\.[\w]+$/.test(page)) {
+          if (!page.endsWith('/')) page += '/';
+          page += 'index.html';
+        }
+        return siteRoot + page;
+      }
+
+      document.querySelectorAll('link[href^="/"]').forEach(function(link) {
+        var newHref = toAssetPath(link.getAttribute('href'));
+        if (newHref) link.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('script[src^="/"]').forEach(function(script) {
+        var newSrc = toAssetPath(script.getAttribute('src'));
+        if (newSrc && script.getAttribute('src') !== newSrc) {
+          script.setAttribute('src', newSrc);
+        }
+      });
+
+      document.querySelectorAll('img[src^="/"]').forEach(function(img) {
+        var newSrc = toAssetPath(img.getAttribute('src'));
+        if (newSrc) img.setAttribute('src', newSrc);
+      });
+
+      document.querySelectorAll('a[href^="/"]').forEach(function(anchor) {
+        var newHref = toPagePath(anchor.getAttribute('href'));
+        if (newHref) anchor.setAttribute('href', newHref);
+      });
+
+      document.querySelectorAll('iframe[src^="/"]').forEach(function(frame) {
+        var newSrc = toPagePath(frame.getAttribute('src'));
+        if (newSrc) frame.setAttribute('src', newSrc);
+      });
+    })();
+  </script>
   <script defer src="/assets/consent.js"></script>
-  <script src="/assets/js/theme-toggle.js"></script>
-  <script src="/assets/js/navigation.js"></script>
+  <script defer src="/assets/js/theme-toggle.js"></script>
+  <script defer src="/assets/js/navigation.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+  
 </body>
 </html>

@@ -15,10 +15,12 @@ description: Explore the image gallery featuring photography, visualisations, an
   {% if site.gallery.size > 0 %}
   <div class="gallery-grid">
     {% for item in site.gallery %}
+      {% assign processed_filename = item.image_filename | replace: '.webp', '-512w.webp' %}
+      {% assign processed_path = '/assets/images/gallery/' | append: processed_filename %}
       <article class="gallery-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 50 }}">
         <a href="{{ item.url | relative_url }}" class="gallery-link">
           <div class="gallery-card__media">
-            <img src="{{ ('/assets/images/gallery/' | append: item.image_filename | replace: '.webp', '-512w.webp') | relative_url }}" alt="{{ item.title }}" loading="lazy">
+            <img src="{{ processed_path | relative_url }}" alt="{{ item.title }}" loading="lazy">
           </div>
           <div class="gallery-card__body">
             <h3 class="gallery-card__title">{{ item.title }}</h3>
