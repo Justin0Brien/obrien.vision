@@ -5,14 +5,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: site.title | default: site.github.repository_name }}</title>
-  
+  {% if page.description or site.description %}
+  <meta name="description" content="{{ page.description | default: site.description | escape }}">
+  {% endif %}
+
   <!-- Favicon and Touch Icons -->
   <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
   <link rel="apple-touch-icon" href="{{ '/apple-touch-icon.png' | relative_url }}">
   <link rel="apple-touch-icon-precomposed" href="{{ '/apple-touch-icon-precomposed.png' | relative_url }}">
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/icons/icon-base.svg' | relative_url }}">
   <link rel="manifest" href="{{ '/site.webmanifest' | relative_url }}">
-  
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <!--[if lt IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -20,65 +28,94 @@
   {% include head-custom.html %}
 </head>
 <body class="{{ page.layout }}-page{% if page.url == '/contact/' or page.permalink == '/contact/' %} contact-page{% endif %}">
-  <div class="wrapper">
-    <!-- Main Navigation -->
-    <nav class="main-navigation">
-      <div class="nav-container">
-        <div class="nav-brand">
-          <a href="{{ "/" | absolute_url }}" class="nav-brand">
-            <span class="site-name-primary">obrien</span><span class="site-name-secondary">.vision</span>
-          </a>
-        </div>
-        
-        <!-- Mobile menu toggle -->
-        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-        
-        <!-- Navigation Menu -->
-        <div class="nav-menu">
-          <ul class="nav-links">
-            {% assign menu = site.data.navigation.main %}
-            {% for item in menu %}
-              <li class="nav-item">
-                {% unless forloop.first %}<span class="nav-sep">|</span>{% endunless %}
-                <a href="{{ item.url | relative_url }}" class="nav-link {% if page.url == item.url %}active{% endif %}">{{ item.name }}</a>
+  <div class="site-wrapper">
+    <header class="site-header">
+      <div class="container">
+        <div class="nav-shell">
+          <div class="nav-brand">
+            <a href="{{ '/' | relative_url }}" class="brand-link" aria-label="obrien.vision home">
+              <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+            </a>
+          </div>
+          <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+          <div class="nav-menu" id="primary-navigation">
+            <ul class="nav-links">
+              {% assign menu = site.data.navigation.main %}
+              {% for item in menu %}
+                {% assign is_contact = item.name | downcase | strip == 'contact' %}
+                <li class="nav-item{% if is_contact %} nav-item--cta{% endif %}">
+                  <a href="{{ item.url | relative_url }}"
+                     class="nav-link{% if page.url == item.url %} active{% endif %}{% if is_contact %} nav-link--cta{% endif %}"
+                     {% if page.url == item.url %}aria-current="page"{% endif %}>
+                    {{ item.name }}
+                  </a>
+                </li>
+              {% endfor %}
+              <li class="nav-item nav-item--theme">
+                <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme" type="button">🌙</button>
               </li>
-            {% endfor %}
-            <li class="nav-item">
-              <button id="theme-toggle" class="theme-toggle-nav" aria-label="Toggle theme">🌙</button>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <main>
-      <div class="container site-grid">
+    <main class="site-main">
+      <div class="container content-container">
         {{ content }}
       </div>
     </main>
 
-    <footer>
-      <div class="container">
-        <div class="footer-links">
-          {% assign menu = site.data.navigation.footer | default: site.data.navigation.main %}
-          {% for item in menu %}
-            <a href="{{ item.url | relative_url }}">{{ item.name }}</a>
-            {% unless forloop.last %}<span class="footer-sep">|</span>{% endunless %}
-          {% endfor %}
-    <span class="footer-sep">|</span>
-    <a href="#" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</a>
+    <footer class="site-footer">
+      <div class="container footer-container">
+        <div class="footer-branding">
+          <a href="{{ '/' | relative_url }}" class="footer-logo" aria-label="obrien.vision home">
+            <span class="brand-word brand-word--primary">obrien</span><span class="brand-dot">.</span><span class="brand-word brand-word--secondary">vision</span>
+          </a>
+          <p class="footer-tagline">Human perception research meets responsible AI evaluation and storytelling.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/justin08rien" class="footer-social" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/Justin0Brien" class="footer-social" target="_blank" rel="noopener">GitHub</a>
+          </div>
         </div>
-        <p class="footer-brand">&copy; {{ "now" | date: "%Y" }} <span class="site-name-secondary">Justin O'Brien</span>. All rights reserved.</p>
-        <p>Data visualization and analysis insights for modern employment dynamics.</p>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Explore</h4>
+            <ul class="footer-list">
+              {% for item in site.data.navigation.main %}
+              <li><a href="{{ item.url | relative_url }}">{{ item.name }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Policies</h4>
+            <ul class="footer-list">
+              {% assign footer_menu = site.data.navigation.footer | default: site.data.navigation.main %}
+              {% for item in footer_menu %}
+              <li><a href="{{ item.url | relative_url }}">{{ item.name }}</a></li>
+              {% endfor %}
+              <li><button class="footer-link" type="button" onclick="window.revisitConsent && window.revisitConsent(); return false;">Cookie settings</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>&copy; {{ "now" | date: "%Y" }} Justin O'Brien. All rights reserved.</p>
       </div>
     </footer>
   </div>
   <script defer src="{{ '/assets/consent.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  {% if page.custom_js %}
+    {% for script in page.custom_js %}
+  <script defer src="{{ script | relative_url }}"></script>
+    {% endfor %}
+  {% endif %}
 </body>
 </html>

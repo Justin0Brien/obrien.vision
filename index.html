@@ -1,46 +1,204 @@
 ---
 layout: default
 title: Home
+description: Human-centred AI evaluation, perception research, and interactive data stories from Justin O’Brien, PhD.
 ---
 
-<div class="home">
-  <header class="hero-section">
-    <h1 class="site-title">
-      <span class="site-name-secondary">Justin O'Brien, PhD</span>
-    </h1>
-    <p>I’m a psychologist and vision scientist who spent over three decades studying how people perceive faces and expressions across the lifespan and in neurodevelopmental conditions. I now help organisations design, test and deploy trustworthy AI—bringing human-factors methods, experimental design and explainable analyses to computer-vision and multimodal systems.</p>
-  </header>
+{% assign illusions_only = site.illusions | where: "layout", "illusion" %}
+{% assign recent_visualizations = site.visualizations %}
 
-  <section class="all-posts">
+<div class="home">
+  <section class="hero hero--split" data-reveal>
+    <div class="hero__content" data-reveal>
+      <p class="hero__eyebrow">Vision science × trustworthy AI</p>
+      <h1 class="hero__title">Human perception expertise for responsible, explainable AI</h1>
+      <p class="hero__lede">I’m Justin O’Brien, PhD—psychologist, vision scientist, and evaluation consultant. I help teams level-up AI experiences with psychophysics-grade testing, human factors insight, and high-impact storytelling.</p>
+      <div class="hero__actions">
+        <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">Start a project</a>
+        <a class="btn btn-ghost" href="{{ '/visualizations/' | relative_url }}">Explore visualisations</a>
+      </div>
+      <ul class="hero__highlights">
+        <li>30+ years translating perception research into product decisions</li>
+        <li>Designing evaluation frameworks for vision, multimodal & LLM systems</li>
+        <li>Interactive illusions and data stories that make complex ideas stick</li>
+      </ul>
+    </div>
+    <div class="hero__visual" data-reveal>
+      <div class="hero__visual-inner">
+        <img src="{{ '/assets/images/hero.webp' | relative_url }}" alt="Justin O’Brien working on perception and AI visualisations" loading="lazy">
+        <div class="hero__badge">
+          <span class="hero__badge-title">Now booking</span>
+          <span class="hero__badge-text">Q1–Q2 2025 audits & experiments</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">How I partner</p>
+      <h2>Ways I help teams</h2>
+      <p class="section-lead">From lab-grade evaluation to interactive storytelling that aligns stakeholders.</p>
+    </div>
+    <div class="grid grid--cards grid--three">
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">AI & perception</p>
+        <h3 class="card__title">Evaluation blueprints</h3>
+        <p class="card__excerpt">Psychophysics-style testbeds, human-in-the-loop audits, and decision-ready reporting for vision and multimodal systems.</p>
+        <ul class="card__list">
+          <li>Stress-tests for bias, brittleness & UX failure modes</li>
+          <li>Explainable dashboards & experiment automation</li>
+          <li>Guardrails for ethical deployment</li>
+        </ul>
+      </article>
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">Data storytelling</p>
+        <h3 class="card__title">Visual analytics labs</h3>
+        <p class="card__excerpt">Custom dashboards, interactive narratives, and signal-finding workflows built with D3.js, Observable, and modern web stacks.</p>
+        <ul class="card__list">
+          <li>Rapid prototyping with real datasets</li>
+          <li>Executive-ready views & press assets</li>
+          <li>Embedded training for product teams</li>
+        </ul>
+      </article>
+      <article class="card card--feature" data-reveal>
+        <p class="card__eyebrow">Learning & alignment</p>
+        <h3 class="card__title">Workshops & advisory</h3>
+        <p class="card__excerpt">Tailored sessions on perception science, experimental design, and audit methodology to align research, product, and policy stakeholders.</p>
+        <ul class="card__list">
+          <li>Hands-on measurement clinics</li>
+          <li>Executive briefings & roadmaps</li>
+          <li>Lab-to-product translation support</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="writing">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Latest writing</p>
+      <h2>Field notes & experiments</h2>
+      <a class="section-action" href="{{ '/blog/' | relative_url }}">View all posts</a>
+    </div>
     {% if site.posts.size > 0 %}
-      <div class="post-list max-3-grid">
-      {% for post in site.posts %}
-        <article class="post-preview card">
+      <div class="grid grid--cards grid--three">
+        {% for post in site.posts limit:3 %}
+        <article class="card post-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}">
           {% if post.thumbnail or post.image %}
-            <div class="post-thumbnail">
-              <a href="{{ post.url | relative_url }}">
-                <img src="{{ post.thumbnail | default: post.image }}" alt="{{ post.title }}" loading="lazy">
-              </a>
-            </div>
+          <div class="card__media">
+            <a href="{{ post.url | relative_url }}">
+              <img src="{{ post.thumbnail | default: post.image }}" alt="{{ post.title }}" loading="lazy">
+            </a>
+          </div>
           {% endif %}
-          <div class="post-content card__body">
+          <div class="card__body">
+            <p class="card__meta">{{ post.date | date: "%B %d, %Y" }}</p>
             <h3 class="card__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            <p class="post-meta card__meta">{{ post.date | date: "%B %d, %Y" }}</p>
-            <p class="card__excerpt">{{ post.excerpt | strip_html | truncatewords: 40 }}</p>
-            {% if post.tags.size > 0 %}
-              <p class="post-tags">
-                {% for tag in post.tags limit:3 %}
-                  <span class="tag">{{ tag }}</span>
-                {% endfor %}
-              </p>
-            {% endif %}
-            <div class="card__actions"><a class="read-more btn btn-primary" href="{{ post.url | relative_url }}">Read more →</a></div>
+            <p class="card__excerpt">{{ post.excerpt | strip_html | truncatewords: 28 }}</p>
+            <div class="card__actions">
+              <a class="btn btn-inline" href="{{ post.url | relative_url }}">Read →</a>
+            </div>
           </div>
         </article>
-      {% endfor %}
+        {% endfor %}
       </div>
     {% else %}
-      <p>Posts coming soon. Check back for insights on data visualization, employment trends, and economic analysis.</p>
+      <div class="empty-state" data-reveal>
+        <p>Writing in progress. Expect analysis on data visualisation, perception science, and AI evaluation soon.</p>
+      </div>
     {% endif %}
+  </section>
+
+  {% if illusions_only and illusions_only.size > 0 %}
+  <section class="section" id="illusions">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Perception lab</p>
+      <h2>Optical illusions with layered explainers</h2>
+      <a class="section-action" href="{{ '/illusions/' | relative_url }}">Browse all illusions</a>
+    </div>
+    <div class="grid grid--cards grid--three">
+      {% for illusion in illusions_only reversed limit:3 %}
+      <article class="card collection-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}">
+        {% if illusion.thumbnail %}
+          {% assign preview_src = illusion.thumbnail %}
+          {% assign preview_alt = illusion.title %}
+        {% elsif illusion.carousel_images and illusion.carousel_images.first %}
+          {% assign preview_src = illusion.carousel_images.first.src %}
+          {% assign preview_alt = illusion.carousel_images.first.alt | default: illusion.title %}
+        {% else %}
+          {% assign preview_src = '/assets/images/placeholders/illusion-thumb.svg' %}
+          {% assign preview_alt = illusion.title %}
+        {% endif %}
+        <div class="card__media">
+          <a href="{{ illusion.url | relative_url }}">
+            <img src="{{ preview_src | relative_url }}" alt="{{ preview_alt }}" loading="lazy">
+          </a>
+          {% if illusion.difficulty %}
+          <span class="chip chip--floating">{{ illusion.difficulty }}</span>
+          {% endif %}
+        </div>
+        <div class="card__body">
+          <h3 class="card__title"><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h3>
+          <p class="card__excerpt">{{ illusion.excerpt | strip_html | truncatewords: 26 }}</p>
+          <div class="card__actions">
+            <a class="btn btn-inline" href="{{ illusion.url | relative_url }}">Try the demo →</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if recent_visualizations and recent_visualizations.size > 0 %}
+  <section class="section" id="visualizations">
+    <div class="section-header" data-reveal>
+      <p class="section-eyebrow">Data stories</p>
+      <h2>Visualisation lab experiments</h2>
+      <a class="section-action" href="{{ '/visualizations/' | relative_url }}">See the lab</a>
+    </div>
+    <div class="grid grid--cards grid--three">
+      {% for viz in recent_visualizations reversed limit:3 %}
+      <article class="card collection-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}">
+        {% if viz.gallery_images and viz.gallery_images.first %}
+        <div class="card__media">
+          <a href="{{ viz.url | relative_url }}">
+            <img src="{{ viz.gallery_images.first.src | relative_url }}" alt="{{ viz.gallery_images.first.alt | default: viz.title }}" loading="lazy">
+          </a>
+          {% if viz.interactive %}
+          <span class="chip chip--floating chip--accent">Interactive</span>
+          {% endif %}
+        </div>
+        {% endif %}
+        <div class="card__body">
+          <p class="card__meta">{{ viz.date | date: "%B %Y" }}</p>
+          <h3 class="card__title"><a href="{{ viz.url | relative_url }}">{{ viz.title }}</a></h3>
+          <p class="card__excerpt">{{ viz.excerpt | strip_html | truncatewords: 28 }}</p>
+          {% if viz.technologies %}
+          <div class="card__tags">
+            {% for tech in viz.technologies limit:3 %}
+            <span class="tag">{{ tech }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section section--cta" data-reveal>
+    <div class="cta-panel">
+      <div class="cta-content">
+        <p class="section-eyebrow">Let’s build something rigorous</p>
+        <h2>Ready to stress-test your AI or tell the story right?</h2>
+        <p>I work with research, product, and policy teams to turn perception science into practical, auditable workflows. If you need a partner who speaks both experiment design and executive decision-making, let’s talk.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">Book an intro call</a>
+        <a class="btn btn-outline" href="{{ '/about/' | relative_url }}">About Justin</a>
+      </div>
+    </div>
   </section>
 </div>

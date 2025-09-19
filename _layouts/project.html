@@ -2,144 +2,56 @@
 layout: default
 ---
 
-<article class="project">
-  <header class="project-header">
-    <h1>{{ page.title }}</h1>
-    {% if page.featured %}
-      <span class="featured-badge">Featured Project</span>
-    {% endif %}
-    <div class="project-meta">
+<article class="detail detail--project" data-reveal>
+  <header class="detail__header">
+    <p class="detail__eyebrow">Project</p>
+    <h1 class="detail__title">{{ page.title }}</h1>
+    <div class="detail__meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
-      {% if page.status %}
-        <span class="status status-{{ page.status }}">{{ page.status | capitalize }}</span>
-      {% endif %}
+      {% if page.status %}<span class="status-pill">{{ page.status | capitalize }}</span>{% endif %}
+      {% if page.featured %}<span class="chip chip--accent">Featured</span>{% endif %}
     </div>
+    {% if page.excerpt %}
+    <p class="detail__summary">{{ page.excerpt }}</p>
+    {% endif %}
   </header>
 
   {% if page.technologies %}
-  <div class="tech-stack">
-    <h3>Technologies Used</h3>
-    <ul class="tech-list">
+  <section class="detail__section detail__section--inline">
+    <h2>Technologies</h2>
+    <div class="card__tags">
       {% for tech in page.technologies %}
-        <li class="tech-item">{{ tech }}</li>
+      <span class="tag">{{ tech }}</span>
       {% endfor %}
-    </ul>
-  </div>
+    </div>
+  </section>
   {% endif %}
 
-  <div class="project-content">
+  <div class="detail__content prose">
     {{ content }}
   </div>
 
   {% if page.repository or page.demo_url %}
-  <div class="project-links">
-    {% if page.demo_url %}
-      <a href="{{ page.demo_url }}" class="btn btn-primary" target="_blank">View Demo</a>
-    {% endif %}
-    {% if page.repository %}
-      <a href="{{ page.repository }}" class="btn btn-secondary" target="_blank">View Code</a>
-    {% endif %}
-  </div>
+  <section class="detail__section detail__section--actions">
+    <h2>Links</h2>
+    <div class="detail__actions">
+      {% if page.demo_url %}
+      <a class="btn btn-primary" href="{{ page.demo_url }}" target="_blank" rel="noopener">View demo</a>
+      {% endif %}
+      {% if page.repository %}
+      <a class="btn btn-secondary" href="{{ page.repository }}" target="_blank" rel="noopener">View code</a>
+      {% endif %}
+    </div>
+  </section>
   {% endif %}
 
   {% if page.tags %}
-  <div class="project-tags">
-    {% for tag in page.tags %}
+  <footer class="detail__footer">
+    <div class="card__tags">
+      {% for tag in page.tags %}
       <span class="tag">{{ tag }}</span>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  </footer>
   {% endif %}
 </article>
-
-<style>
-.project-header {
-  margin-bottom: 2rem;
-}
-
-.featured-badge {
-  background: #28a745;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-left: 1rem;
-}
-
-.project-meta {
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-.status {
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-left: 1rem;
-}
-
-.status-active { background: #d4edda; color: #155724; }
-.status-completed { background: #d1ecf1; color: #0c5460; }
-.status-archived { background: #f8d7da; color: #721c24; }
-
-.tech-stack {
-  background: #f8f9fa;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin: 1.5rem 0;
-}
-
-.tech-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0.5rem 0 0 0;
-}
-
-.tech-item {
-  background: #007bff;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  font-size: 0.875rem;
-}
-
-.project-links {
-  margin: 2rem 0;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
-  text-decoration: none;
-  border-radius: 0.25rem;
-  font-weight: 500;
-}
-
-.btn-primary {
-  background: #007bff;
-  color: white;
-}
-
-.btn-secondary {
-  background: #6c757d;
-  color: white;
-}
-
-.project-tags {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #dee2e6;
-}
-
-.tag {
-  background: #e9ecef;
-  color: #495057;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-right: 0.5rem;
-}
-</style>

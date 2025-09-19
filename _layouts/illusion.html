@@ -2,298 +2,121 @@
 layout: default
 ---
 
-<article class="illusion">
-  <header class="illusion-header">
-    <h1>{{ page.title }}</h1>
-    {% if page.featured %}
-      <span class="featured-badge">Featured Illusion</span>
-    {% endif %}
-    <div class="illusion-meta">
+<article class="detail detail--illusion" data-reveal>
+  <header class="detail__header">
+    <p class="detail__eyebrow">Visual illusion</p>
+    <h1 class="detail__title">{{ page.title }}</h1>
+    <div class="detail__meta">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
+      {% if page.difficulty %}
+      <span class="chip">{{ page.difficulty }}</span>
+      {% endif %}
+      {% if page.duration %}
+      <span class="detail__meta-item">{{ page.duration }}</span>
+      {% endif %}
       {% if page.illusion_type %}
-        <span class="illusion-type">{{ page.illusion_type }}</span>
+      <span class="detail__meta-item">{{ page.illusion_type }}</span>
       {% endif %}
     </div>
     {% if page.description %}
-      <p class="illusion-description">{{ page.description }}</p>
+    <p class="detail__summary">{{ page.description }}</p>
     {% endif %}
   </header>
 
   {% if page.warning %}
-  <div class="warning-notice">
-    <strong>⚠️ Warning:</strong> {{ page.warning }}
+  <div class="notice notice--warning" role="note">
+    <strong>Heads up:</strong> {{ page.warning }}
   </div>
   {% endif %}
 
-  <div class="illusion-container">
-    {% assign embed_src = page.iframe_src | default: page.iframe_url %}
+  {% assign embed_src = page.iframe_src | default: page.iframe_url %}
+  {% if embed_src or page.images %}
+  <div class="detail__media">
     {% if embed_src %}
-  <iframe src="{{ embed_src | relative_url }}" 
-              width="{{ page.iframe_width | default: '100%' }}" 
-              height="{{ page.iframe_height | default: '600' }}" 
-              frameborder="0" 
-              class="illusion-iframe">
-      </iframe>
+    <div class="responsive-frame">
+      <iframe src="{{ embed_src | relative_url }}"
+              width="{{ page.iframe_width | default: '100%' }}"
+              height="{{ page.iframe_height | default: '640' }}"
+              loading="lazy"
+              class="detail__iframe"
+              allowfullscreen></iframe>
+    </div>
     {% endif %}
 
     {% if page.images %}
-    <div class="illusion-gallery">
+    <div class="media-grid">
       {% for image in page.images %}
-        <div class="illusion-image">
-          <img src="{{ image.src | relative_url }}" 
-               alt="{{ image.alt | default: page.title }}"
-               {% if image.interactive %}onclick="toggleIllusionEffect(this)"{% endif %}>
-          {% if image.caption %}
-            <p class="image-caption">{{ image.caption }}</p>
-          {% endif %}
-        </div>
+      <figure class="media-grid__item">
+        <img src="{{ image.src | relative_url }}" alt="{{ image.alt | default: page.title }}" {% if image.interactive %}data-interactive="true"{% endif %}>
+        {% if image.caption %}
+        <figcaption>{{ image.caption }}</figcaption>
+        {% endif %}
+      </figure>
       {% endfor %}
     </div>
     {% endif %}
-    
-    <div class="illusion-content">
-      {{ content }}
-    </div>
+  </div>
+  {% endif %}
+
+  <div class="detail__content prose">
+    {{ content }}
   </div>
 
   {% if page.controls %}
-  <div class="illusion-controls">
-    <h3>Interactive Controls</h3>
-    <div class="controls-container">
+  <section class="detail__section">
+    <h2>Interactive controls</h2>
+    <div class="control-grid">
       {% for control in page.controls %}
         {% case control.type %}
         {% when 'slider' %}
-          <div class="control-group">
-            <label for="{{ control.id }}">{{ control.label }}</label>
-            <input type="range" 
-                   id="{{ control.id }}" 
-                   min="{{ control.min | default: 0 }}" 
-                   max="{{ control.max | default: 100 }}" 
+        <div class="control-group">
+          <label for="{{ control.id }}">{{ control.label }}</label>
+          <div class="control-group__input">
+            <input type="range"
+                   id="{{ control.id }}"
+                   min="{{ control.min | default: 0 }}"
+                   max="{{ control.max | default: 100 }}"
                    value="{{ control.default | default: 50 }}"
                    oninput="{{ control.callback }}(this.value)">
             <span class="control-value" id="{{ control.id }}-value">{{ control.default | default: 50 }}</span>
           </div>
+        </div>
         {% when 'button' %}
-          <button class="control-button" onclick="{{ control.callback }}()">{{ control.label }}</button>
+        <div class="control-group control-group--inline">
+          <button class="btn btn-secondary" type="button" onclick="{{ control.callback }}()">{{ control.label }}</button>
+        </div>
         {% when 'checkbox' %}
-          <div class="control-group">
-            <label>
-              <input type="checkbox" 
-                     id="{{ control.id }}" 
-                     {% if control.default %}checked{% endif %}
-                     onchange="{{ control.callback }}(this.checked)">
-              {{ control.label }}
-            </label>
-          </div>
+        <div class="control-group">
+          <label class="control-checkbox">
+            <input type="checkbox"
+                   id="{{ control.id }}"
+                   {% if control.default %}checked{% endif %}
+                   onchange="{{ control.callback }}(this.checked)">
+            <span>{{ control.label }}</span>
+          </label>
+        </div>
         {% endcase %}
       {% endfor %}
     </div>
-  </div>
+  </section>
   {% endif %}
 
   {% if page.explanation %}
-  <div class="illusion-explanation">
-    <h3>How It Works</h3>
-    <div class="explanation-content">
+  <section class="detail__section">
+    <h2>How it works</h2>
+    <div class="prose">
       {{ page.explanation }}
     </div>
-  </div>
+  </section>
   {% endif %}
 
   {% if page.tags %}
-  <div class="illusion-tags">
-    {% for tag in page.tags %}
+  <footer class="detail__footer">
+    <div class="card__tags">
+      {% for tag in page.tags %}
       <span class="tag">{{ tag }}</span>
-    {% endfor %}
-  </div>
+      {% endfor %}
+    </div>
+  </footer>
   {% endif %}
 </article>
-
-<style>
-/* Respect theme variables */
-body.illusion-page { background-color: var(--background); }
-.illusion,
-.illusion p,
-.illusion li,
-.illusion h1,
-.illusion h2,
-.illusion h3,
-.illusion h4,
-.illusion h5,
-.illusion h6 {
-  color: var(--text);
-}
-.illusion a {
-  color: var(--link);
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
-.illusion a:hover { color: var(--link-hover); text-decoration: underline; }
-.illusion hr { border-color: rgba(0,0,0,0.1); }
-.illusion-header {
-  margin-bottom: 2rem;
-}
-
-.featured-badge {
-  background: #dc3545;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-left: 1rem;
-}
-
-.illusion-meta {
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-.illusion-type {
-  background: #ffc107;
-  color: #212529;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-left: 1rem;
-}
-
-.illusion-description {
-  font-size: 1.125rem;
-  color: #555;
-  margin-top: 1rem;
-}
-
-.warning-notice {
-  background: rgba(255, 193, 7, 0.15);
-  border: 1px solid rgba(255, 193, 7, 0.35);
-  color: var(--text);
-  padding: 1rem;
-  border-radius: 0.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.illusion-container {
-  margin: 2rem 0;
-}
-
-.illusion-iframe {
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  width: 100%;
-  background: var(--background);
-}
-
-.illusion-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.illusion-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.illusion-image img:hover {
-  transform: scale(1.02);
-}
-
-.image-caption {
-  font-size: 0.875rem;
-  color: #666;
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
-.illusion-controls {
-  background: rgba(0,0,0,0.04);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  margin: 2rem 0;
-}
-
-.controls-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.control-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.control-group label {
-  font-weight: 500;
-  color: #333;
-}
-
-.control-group input[type="range"] {
-  width: 100%;
-}
-
-.control-value {
-  font-size: 0.875rem;
-  color: #666;
-}
-
-.control-button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.control-button:hover {
-  background: #0056b3;
-}
-
-.illusion-explanation {
-  background: rgba(37, 99, 235, 0.12);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  margin: 2rem 0;
-  border-left: 4px solid var(--primary);
-}
-
-.illusion-tags {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #dee2e6;
-}
-
-.tag {
-  background: #e9ecef;
-  color: #495057;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  margin-right: 0.5rem;
-}
-
-@media (max-width: 768px) {
-  .illusion-iframe {
-    height: 400px;
-  }
-  
-  .controls-container {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
-<script>
-function toggleIllusionEffect(img) {
-  img.style.filter = img.style.filter ? '' : 'invert(1)';
-}
-</script>

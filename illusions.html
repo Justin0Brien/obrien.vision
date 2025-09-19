@@ -2,327 +2,105 @@
 layout: default
 title: "Visual Illusions"
 permalink: /illusions/
-description: "Explore fascinating optical illusions, perceptual phenomena, and interactive demonstrations that reveal how our visual system processes the world."
+description: "Explore optical illusions, perceptual phenomena, and interactive demos that reveal how our visual system interprets the world."
+custom_js:
+  - /assets/js/illusions-listing.js
 ---
 
 {% assign illusions_only = site.illusions | where: "layout", "illusion" %}
+{% assign difficulties = illusions_only | map: 'difficulty' | uniq %}
 
-<div class="illusions-landing">
-  <header class="page-header">
+<div class="page page--illusions">
+  <header class="page-header" data-reveal>
+    <p class="section-eyebrow">Perception lab</p>
     <h1>{{ page.title }}</h1>
-    <p class="lead">A curated set of classic visual illusions. Showing {{ illusions_only | size }} item(s).</p>
+    <p class="section-lead">Layered explainers and interactive demos for classic and contemporary optical illusions.</p>
+    <p class="page-meta">Showing <span data-illusion-count>{{ illusions_only | size }}</span> illusion{% if illusions_only | size != 1 %}s{% endif %}.</p>
   </header>
 
-
-  <div class="all-illusions">
-    <div class="illusions-grid">
-  {% assign illusions_count = illusions_only | size %}
-  {% unless illusions_count == 0 %}
-  {% for illusion in illusions_only reversed %}
-        <article class="illusion-card" data-difficulty="{{ illusion.difficulty | downcase }}">
-          <div class="illusion-card-content">
-            <h3><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h3>
-            <p class="illusion-excerpt">{{ illusion.excerpt | strip_html | truncate: 120 }}</p>
-            
-            <div class="illusion-meta">
-              <div class="difficulty">
-                <span class="difficulty-badge {{ illusion.difficulty | downcase }}">{{ illusion.difficulty }}</span>
-              </div>
-              {% if illusion.duration %}
-                <div class="duration">{{ illusion.duration }}</div>
-              {% endif %}
-              <time datetime="{{ illusion.date | date_to_xmlschema }}">{{ illusion.date | date: "%B %Y" }}</time>
-            </div>
-            
-            {% if illusion.categories %}
-              <div class="categories">
-                {% for category in illusion.categories limit: 2 %}
-                  <span class="category-tag">{{ category }}</span>
-                {% endfor %}
-              </div>
-            {% endif %}
-            
-            {% if illusion.warning %}
-              <div class="warning-notice">
-                ⚠️ {{ illusion.warning }}
-              </div>
-            {% endif %}
-            
-            <div class="illusion-actions">
-              <a href="{{ illusion.url | relative_url }}" class="btn btn-primary">Try Illusion</a>
-            </div>
-          </div>
-          
-          <div class="illusion-card-image">
-            {% if illusion.thumbnail %}
-              <img src="{{ illusion.thumbnail | relative_url }}" alt="{{ illusion.title }} thumbnail" loading="lazy">
-            {% elsif illusion.carousel_images and illusion.carousel_images.first %}
-              <img src="{{ illusion.carousel_images.first.src | relative_url }}" alt="{{ illusion.carousel_images.first.alt | default: illusion.title }}" loading="lazy">
-            {% else %}
-              <img src="{{ '/assets/images/placeholders/illusion-thumb.svg' | relative_url }}" alt="{{ illusion.title }} thumbnail placeholder" loading="lazy">
-            {% endif %}
-          </div>
-        </article>
-      {% endfor %}
-  {% else %}
-  <p>No illusions found yet. Add Markdown files under <code>_illusions/</code> to populate this page.</p>
-  {% endunless %}
+  <div class="filter-bar" data-reveal data-illusion-filters>
+    <div class="filter-group">
+      <label for="illusion-search" class="filter-label">Search</label>
+      <input type="search" id="illusion-search" placeholder="Search by title, mechanism, or tags" data-illusion-search>
+    </div>
+    <div class="filter-group filter-group--chips" role="group" aria-label="Filter by difficulty">
+      <span class="filter-label">Difficulty</span>
+      <div class="chip-set">
+        <button type="button" class="chip is-active" data-illusion-filter="all">All</button>
+        {% for diff in difficulties %}
+          {% assign diff_trim = diff | default: '' | strip %}
+          {% if diff_trim != '' %}
+          <button type="button" class="chip" data-illusion-filter="{{ diff_trim | downcase }}">{{ diff_trim }}</button>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 
-  <noscript>
-    <p>JavaScript is disabled; showing a simple list:</p>
-  </noscript>
-  <div class="illusions-fallback-list">
-    <h2>Illusions List</h2>
-    <ul>
-      {% for illusion in illusions_only %}
-        <li><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></li>
-      {% endfor %}
-    </ul>
+  {% if illusions_only and illusions_only.size > 0 %}
+  <div class="collection-grid" data-illusion-list>
+    {% for illusion in illusions_only reversed %}
+      {% capture keywords %}
+        {{ illusion.title }} {% if illusion.excerpt %}{{ illusion.excerpt | strip_html }}{% endif %}
+        {% if illusion.categories %} {{ illusion.categories | join: ' ' }}{% endif %}
+        {% if illusion.difficulty %} {{ illusion.difficulty }}{% endif %}
+      {% endcapture %}
+      {% if illusion.thumbnail %}
+        {% assign image_src = illusion.thumbnail %}
+        {% assign image_alt = illusion.title %}
+      {% elsif illusion.carousel_images and illusion.carousel_images.first %}
+        {% assign image_src = illusion.carousel_images.first.src %}
+        {% assign image_alt = illusion.carousel_images.first.alt | default: illusion.title %}
+      {% else %}
+        {% assign image_src = '/assets/images/placeholders/illusion-thumb.svg' %}
+        {% assign image_alt = illusion.title %}
+      {% endif %}
+      <article class="collection-card" data-illusion-card
+               data-difficulty="{{ illusion.difficulty | default: 'all' | downcase }}"
+               data-keywords="{{ keywords | strip | downcase | escape }}">
+        <div class="collection-card__media">
+          <a href="{{ illusion.url | relative_url }}">
+            <img src="{{ image_src | relative_url }}" alt="{{ image_alt }}" loading="lazy">
+          </a>
+          {% if illusion.difficulty %}<span class="chip chip--floating">{{ illusion.difficulty }}</span>{% endif %}
+        </div>
+        <div class="collection-card__body">
+          <div class="collection-card__meta">
+            <time datetime="{{ illusion.date | date_to_xmlschema }}">{{ illusion.date | date: "%B %Y" }}</time>
+            {% if illusion.duration %}<span>{{ illusion.duration }}</span>{% endif %}
+          </div>
+          <h2 class="collection-card__title"><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h2>
+          <p class="collection-card__excerpt">{{ illusion.excerpt | strip_html | truncatewords: 32 }}</p>
+          {% if illusion.categories %}
+          <div class="card__tags">
+            {% for category in illusion.categories limit: 3 %}
+            <span class="tag">{{ category }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <div class="collection-card__actions">
+            <a class="btn btn-inline" href="{{ illusion.url | relative_url }}">Open illusion →</a>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
   </div>
-
-  
+  <div class="collection-empty" data-illusion-empty hidden>
+    <p>No illusions meet those filters. Try another difficulty or search term.</p>
+  </div>
+  <noscript>
+    <div class="collection-fallback">
+      <h2>Illusions list</h2>
+      <ul>
+        {% for illusion in illusions_only %}
+        <li><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </noscript>
+  {% else %}
+  <div class="empty-state" data-reveal>
+    <p>No illusions yet. Add Markdown files under <code>_illusions/</code> to populate this page.</p>
+  </div>
+  {% endif %}
 </div>
-
-<style>
-/* Illusions landing now uses global surface + tag variables */
-.illusions-landing { --card-bg: var(--surface); --card-border: var(--surface-border); --card-shadow: var(--surface-shadow); --text-primary: var(--text); }
-.illusions-landing .lead { color: var(--text-secondary); }
-.illusions-landing {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-}
-
-.page-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.page-header h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.lead {
-  font-size: 1.25rem;
-  color: var(--text-secondary);
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-.safety-notice {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.safety-notice h3 {
-  color: #dc2626;
-  margin-bottom: 1rem;
-}
-
-.safety-notice ul {
-  margin: 0.5rem 0 0 1.5rem;
-  color: #7f1d1d;
-}
-
-.featured-illusion {
-  margin-bottom: 4rem;
-}
-
-.featured-card {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  overflow: hidden;
-  border: 1px solid #e0e6ed;
-}
-
-.featured-content {
-  padding: 2rem;
-}
-
-.featured-content h3 {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
-}
-
-.featured-content h3 a {
-  color: #333;
-  text-decoration: none;
-}
-
-.featured-image img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-}
-
-.illusion-meta {
-  margin: 1rem 0;
-}
-
-.difficulty-badge {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.difficulty-badge.easy {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.difficulty-badge.medium {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.difficulty-badge.hard {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.warning-badge {
-  background: #fef2f2;
-  color: #dc2626;
-  padding: 0.5rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  margin: 1rem 0;
-  border: 1px solid #fecaca;
-}
-
-/* Category styles removed with section */
-
-.filter-controls {
-  margin-bottom: 2rem;
-}
-
-.filter-controls select {
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  margin-left: 0.5rem;
-}
-
-.illusions-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.illusion-card { background: var(--card-bg); border-radius: 12px; box-shadow: var(--card-shadow); border:1px solid var(--card-border); overflow:hidden; transition: transform .2s ease, box-shadow .2s ease; }
-
-.illusion-card:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-}
-
-.illusion-card-content {
-  padding: 1.5rem;
-  color: var(--text-primary);
-}
-
-.illusion-card-content a {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.illusion-card-content a:hover {
-  text-decoration: underline;
-}
-
-.illusion-card-image img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.categories {
-  margin: 1rem 0;
-}
-
-.category-tag {
-  display: inline-block;
-  background: var(--tag-bg);
-  color: var(--tag-fg);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  margin: 0.25rem 0.5rem 0.25rem 0;
-}
-
-.warning-notice {
-  background: #fef2f2;
-  color: #dc2626;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  margin: 1rem 0;
-  border: 1px solid #fecaca;
-}
-
-.btn {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
-}
-
-.btn-primary {
-  background: var(--btn-primary-bg);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: var(--btn-primary-bg-hover);
-}
-
-.science-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.illusions-fallback-list ul { padding-left: 1.25rem; }
-
-/* Science section removed */
-
-@media (max-width: 768px) {
-  .featured-card {
-    grid-template-columns: 1fr;
-  }
-  
-  .category-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .illusions-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // No interactive filters; page lists only the selected illusions
-});
-</script>
