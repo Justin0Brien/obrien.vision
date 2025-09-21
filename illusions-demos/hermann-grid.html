@@ -7,68 +7,115 @@ permalink: /illusions/hermann-grid.html
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Interactive Hermann Grid (all controls working)</title>
+<title>Interactive Hermann Grid — mobile-first walkthrough</title>
+<link rel="stylesheet" href="../assets/css/illusion-demo.css" />
 <style>
-  :root{
-    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
-    --soft:#e5e7eb; --soft2:#d1d5db;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns: 560px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
-  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
-  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
-  legend{padding:0 6px; font-weight:650; color:#374151}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .hint{font-size:13px;color:#4b5563}
-  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  .ctl{ display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0; }
-  .ctl input[type="range"]{width:100%}
-  .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
-  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer; }
-  .btn:hover{background:var(--soft2)}
-  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
+  .demo-surface canvas { --demo-aspect: 1 / 1; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <fieldset>
-      <legend>Grid</legend>
-      <div class="ctl"><span>Cells per row/column</span><input id="cells" type="range" min="3" max="20" value="8"><span id="cellsVal" class="value">8</span></div>
-      <div class="ctl"><span>Square size (px)</span><input id="sq" type="range" min="18" max="120" value="64"><span id="sqVal" class="value">64</span></div>
-      <div class="ctl"><span>Street width (px)</span><input id="street" type="range" min="6" max="40" value="22"><span id="streetVal" class="value">22</span></div>
-      <div class="ctl"><span>Corner rounding (px)</span><input id="round" type="range" min="0" max="24" value="0"><span id="roundVal" class="value">0</span></div>
-      <div class="ctl"><span>Square darkness</span><input id="dark" type="range" min="0" max="100" value="100"><span id="darkVal" class="value">100%</span></div>
-      <div class="ctl"><span>Invert colours</span><input id="invert" type="checkbox"><span class="value" aria-hidden="true"></span></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Extras</legend>
-      <div class="ctl"><span>Blur (defocus, px)</span><input id="blur" type="range" min="0" max="4" step="0.2" value="0"><span id="blurVal" class="value">0.0</span></div>
-      <div class="ctl"><span>Show “scintillating” dots</span><input id="dots" type="checkbox"><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Dot radius (px)</span><input id="dotR" type="range" min="2" max="14" value="6"><span id="dotRVal" class="value">6</span></div>
-      <div class="hint">Tip: look slightly away from a junction, or move your eyes. Grey smudges should pop in the periphery. Rounding the corners weakens the effect.</div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Parameter presets</legend>
-      <div id="paramPresets" class="row presets"></div>
-      <div class="hint">These snap the controls to combinations that reliably produce a strong (or deliberately weak) Hermann Grid.</div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Export</legend>
-      <div class="row">
-        <button id="exportPng" class="btn">Export PNG</button>
-        <button id="exportSvg" class="btn">Export SVG</button>
-        <button id="reset" class="btn">Reset</button>
+<main class="illusion-page">
+  <section class="hero">
+    <p class="kicker">Hermann grid illusion</p>
+    <h1>Watch grey smudges appear where bright streets cross</h1>
+    <p class="lede">The Hermann grid produces phantom dark spots at intersections when your retina adapts to high-contrast “streets”. Begin by narrowing the streets, then scroll to expand the full lab.</p>
+    <div class="demo-frame">
+      <p class="kicker">Live canvas</p>
+      <div class="demo-surface">
+        <canvas id="cv" aria-label="Hermann Grid canvas"></canvas>
       </div>
-    </fieldset>
-  </div>
+    </div>
+  </section>
 
-  <canvas id="cv" aria-label="Hermann Grid canvas"></canvas>
-</div>
+  <section class="stage" id="stage-street">
+    <p class="kicker">Step 1 · Street width</p>
+    <h2>Make the white streets narrow or wide</h2>
+    <p>Thin white corridors between black squares trigger the strongest grey blobs. Widen the streets and the illusion fades away.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="street">Street width (px)</label>
+        <input id="street" type="range" min="6" max="40" value="22" />
+        <span id="streetVal" class="value">22</span>
+      </div>
+    </div>
+  </section>
 
+  <section class="stage" id="stage-contrast">
+    <p class="kicker">Step 2 · Contrast</p>
+    <h2>Dial in the dark square levels or invert the entire grid</h2>
+    <p>High contrast exaggerates the response from retinal ganglion cells. Softening the dark squares or inverting the palette lets you test how polarity influences the effect.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="dark">Square darkness</label>
+        <input id="dark" type="range" min="0" max="100" value="100" />
+        <span id="darkVal" class="value">100%</span>
+      </div>
+      <div class="control-check">
+        <input id="invert" type="checkbox" />
+        <label for="invert">Invert colours</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-geometry">
+    <p class="kicker">Step 3 · Geometry</p>
+    <h2>Control the grid size and the corners</h2>
+    <p>More cells create more intersections to explore. Slight corner rounding morphs the illusion toward the Scintillating Grid variant.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="cells">Cells per row/column</label>
+        <input id="cells" type="range" min="3" max="20" value="8" />
+        <span id="cellsVal" class="value">8</span>
+      </div>
+      <div class="control-row">
+        <label for="sq">Square size (px)</label>
+        <input id="sq" type="range" min="18" max="120" value="64" />
+        <span id="sqVal" class="value">64</span>
+      </div>
+      <div class="control-row">
+        <label for="round">Corner rounding (px)</label>
+        <input id="round" type="range" min="0" max="24" value="0" />
+        <span id="roundVal" class="value">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-extras">
+    <p class="kicker">Step 4 · Extras</p>
+    <h2>Add blur or scintillating dots</h2>
+    <p>Soft defocus mimics viewing the grid slightly out of focus. Adding small white dots at intersections morphs the classic illusion into its scintillating cousin.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="blur">Blur (defocus, px)</label>
+        <input id="blur" type="range" min="0" max="4" step="0.2" value="0" />
+        <span id="blurVal" class="value">0.0</span>
+      </div>
+      <div class="control-check">
+        <input id="dots" type="checkbox" />
+        <label for="dots">Show “scintillating” dots</label>
+      </div>
+      <div class="control-row">
+        <label for="dotR">Dot radius (px)</label>
+        <input id="dotR" type="range" min="2" max="14" value="6" />
+        <span id="dotRVal" class="value">6</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-presets">
+    <p class="kicker">Step 5 · Presets & export</p>
+    <h2>Jump to proven configurations or save a snapshot</h2>
+    <p>Use presets to demonstrate strong and weak variants in class, then export a PNG or SVG when you find a setup you like.</p>
+    <div class="controls">
+      <div id="paramPresets" class="button-row presets"></div>
+      <div class="button-row">
+        <button id="exportPng" class="btn" type="button">Export PNG</button>
+        <button id="exportSvg" class="btn" type="button">Export SVG</button>
+        <button id="reset" class="btn" type="button">Reset</button>
+      </div>
+    </div>
+  </section>
+</main>
 <script>
 (() => {
   const $ = id => document.getElementById(id);

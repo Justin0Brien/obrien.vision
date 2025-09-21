@@ -3,60 +3,111 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Café Wall Illusion — Interactive Lab</title>
+<title>Café Wall Illusion — interactive, mobile-first walkthrough</title>
+<link rel="stylesheet" href="../assets/css/illusion-demo.css" />
 <style>
-  :root{
-    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
-    --soft:#e5e7eb; --soft2:#d1d5db;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns: 620px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
-  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
-  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
-  legend{padding:0 6px; font-weight:650; color:#374151}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .hint{font-size:13px;color:#4b5563}
-  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-
-  /* one-line control rows: label | slider/input | value */
-  .ctl{ display:grid; grid-template-columns: 1fr 320px 72px; gap:10px; align-items:center; margin:8px 0; }
-  .ctl input[type="range"]{width:100%}
-  .value{justify-self:end; min-width:72px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
-  input[type="color"]{width:64px;height:28px;padding:0;border:none;background:none}
-  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
-  .btn:hover{background:var(--soft2)}
-  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
-  .meter{display:flex;align-items:center;gap:8px}
-  .meterbar{flex:1;height:10px;border-radius:6px;background:#e5e7eb;overflow:hidden}
-  .meterbar > i{display:block;height:100%;background:linear-gradient(90deg,#94a3b8,#60a5fa,#2563eb);width:0%}
-  .badge{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:8px;padding:2px 8px;font-size:12px}
+  .demo-surface canvas { --demo-aspect: 3 / 2; }
+  .control-note { font-size: 13px; color: #6b7280; margin: -6px 0 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <fieldset>
-      <legend>Grid</legend>
-      <div class="ctl"><span>Rows</span><input id="rows" type="range" min="4" max="40" value="14"><span id="rowsVal" class="value">14</span></div>
-      <div class="ctl"><span>Columns</span><input id="cols" type="range" min="6" max="80" value="30"><span id="colsVal" class="value">30</span></div>
-      <div class="ctl"><span>Tile size (px)</span><input id="tile" type="range" min="16" max="120" value="40"><span id="tileVal" class="value">40</span></div>
-      <div class="ctl"><span>Tile corner rounding (px)</span><input id="round" type="range" min="0" max="18" value="0"><span id="roundVal" class="value">0</span></div>
-      <div class="ctl"><span>Dark tile lightness</span><input id="Ld" type="range" min="0" max="40" value="10"><span id="LdVal" class="value">10%</span></div>
-      <div class="ctl"><span>Light tile lightness</span><input id="Ll" type="range" min="60" max="100" value="90"><span id="LlVal" class="value">90%</span></div>
-    </fieldset>
+<main class="illusion-page">
+  <section class="hero">
+    <p class="kicker">Café Wall illusion</p>
+    <h1>Watch straight mortar lines lean as you change the offset</h1>
+    <p class="lede">The café wall illusion comes from alternating rows of tiles that are slightly shifted. Start with the canvas, then scroll to uncover how each ingredient strengthens or weakens the effect.</p>
+    <div class="demo-frame">
+      <p class="kicker">Live canvas</p>
+      <div class="demo-surface">
+        <canvas id="cv" aria-label="Café Wall illusion canvas"></canvas>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Mortar</legend>
-      <div class="ctl"><span>Mortar width (px)</span><input id="mortar" type="range" min="0" max="24" value="4"><span id="mortarVal" class="value">4</span></div>
-      <div class="ctl"><span>Mortar lightness</span><input id="Lm" type="range" min="0" max="100" value="55"><span id="LmVal" class="value">55%</span></div>
-      <div class="ctl"><span>Wavy mortar amplitude (px)</span><input id="wAmp" type="range" min="0" max="20" value="0"><span id="wAmpVal" class="value">0</span></div>
-      <div class="ctl"><span>Wavy mortar frequency</span><input id="wFreq" type="range" min="1" max="20" value="8"><span id="wFreqVal" class="value">8</span></div>
-    </fieldset>
+  <section class="stage" id="stage-offset">
+    <p class="kicker">Step 1 · Row offset</p>
+    <h2>Offsetting alternating rows makes the mortar look slanted</h2>
+    <p>Slide the offset to zero and the mortar lines become straight. Nudge it towards half a tile and your brain swears the mortar tilts. This is the core mechanism of the café wall illusion.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="offset">Offset per odd row (fraction of tile)</label>
+        <input id="offset" type="range" min="0" max="1" step="0.01" value="0.5" />
+        <span id="offsetVal" class="value">0.50</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Row offset & disorder</legend>
-      <div class="ctl"><span>Offset per odd row (fraction of tile)</span><input id="offset" type="range" min="0" max="1" step="0.01" value="0.5"><span id="offsetVal" class="value">0.50</span></div>
-      <div class="ctl"><span>Offset mode</span>
+  <section class="stage" id="stage-mortar">
+    <p class="kicker">Step 2 · Mortar strip</p>
+    <h2>Mortar thickness and shade set the illusion strength</h2>
+    <p>Thin mortar that sits midway between the light and dark tiles maximises the contrast cue. Widen or darken it too much and the tilt fades away.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="mortar">Mortar width (px)</label>
+        <input id="mortar" type="range" min="0" max="24" value="4" />
+        <span id="mortarVal" class="value">4</span>
+      </div>
+      <div class="control-row">
+        <label for="Lm">Mortar lightness</label>
+        <input id="Lm" type="range" min="0" max="100" value="55" />
+        <span id="LmVal" class="value">55%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-tiles">
+    <p class="kicker">Step 3 · Tile contrast</p>
+    <h2>Boost the contrast between dark and light tiles</h2>
+    <p>The illusion thrives on a strong contrast between tile rows. Tune the dark and light lightness values here to see how the mortar leans more convincingly.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="Ld">Dark tile lightness</label>
+        <input id="Ld" type="range" min="0" max="40" value="10" />
+        <span id="LdVal" class="value">10%</span>
+      </div>
+      <div class="control-row">
+        <label for="Ll">Light tile lightness</label>
+        <input id="Ll" type="range" min="60" max="100" value="90" />
+        <span id="LlVal" class="value">90%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-layout">
+    <p class="kicker">Step 4 · Layout</p>
+    <h2>Change the number and size of tiles</h2>
+    <p>More rows and columns extend the effect across the canvas. Tile size and corner rounding let you match photographs of real café walls.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="rows">Rows</label>
+        <input id="rows" type="range" min="4" max="40" value="14" />
+        <span id="rowsVal" class="value">14</span>
+      </div>
+      <div class="control-row">
+        <label for="cols">Columns</label>
+        <input id="cols" type="range" min="6" max="80" value="30" />
+        <span id="colsVal" class="value">30</span>
+      </div>
+      <div class="control-row">
+        <label for="tile">Tile size (px)</label>
+        <input id="tile" type="range" min="16" max="120" value="40" />
+        <span id="tileVal" class="value">40</span>
+      </div>
+      <div class="control-row">
+        <label for="round">Tile corner rounding (px)</label>
+        <input id="round" type="range" min="0" max="18" value="0" />
+        <span id="roundVal" class="value">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-offsetmodes">
+    <p class="kicker">Step 5 · Pattern variations</p>
+    <h2>Play with different offsets and mortar waves</h2>
+    <p>Alternative offset modes and wavy mortar disrupt or exaggerate the effect. Add jitter to see how small amounts of disorder collapse the illusion.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="offsetMode">Offset mode</label>
         <select id="offsetMode">
           <option value="alternate" selected>Alternate rows (classic)</option>
           <option value="progressive">Progressive drift</option>
@@ -64,42 +115,67 @@
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Row jitter (px, disrupts illusion)</span><input id="jitter" type="range" min="0" max="40" value="0"><span id="jitterVal" class="value">0</span></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Overlays & export</legend>
-      <div class="ctl"><span>Show straight reference lines</span><input id="refs" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Board margin (px)</span><input id="margin" type="range" min="10" max="120" value="40"><span id="marginVal" class="value">40</span></div>
-      <div class="row">
-        <button id="exportPng" class="btn">Export PNG</button>
-        <button id="exportSvg" class="btn">Export SVG</button>
-        <button id="reset" class="btn">Reset</button>
+      <div class="control-row">
+        <label for="wAmp">Wavy mortar amplitude (px)</label>
+        <input id="wAmp" type="range" min="0" max="20" value="0" />
+        <span id="wAmpVal" class="value">0</span>
       </div>
-    </fieldset>
+      <div class="control-row">
+        <label for="wFreq">Wavy mortar frequency</label>
+        <input id="wFreq" type="range" min="1" max="20" value="8" />
+        <span id="wFreqVal" class="value">8</span>
+      </div>
+      <div class="control-row">
+        <label for="jitter">Row jitter (px, disrupts illusion)</label>
+        <input id="jitter" type="range" min="0" max="40" value="0" />
+        <span id="jitterVal" class="value">0</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Illusion strength</legend>
+  <section class="stage" id="stage-overlay">
+    <p class="kicker">Step 6 · Guides and framing</p>
+    <h2>Add reference lines and margins to compare</h2>
+    <p>Reference rulers prove the mortar is level. A generous margin keeps the illusion readable even on small screens.</p>
+    <div class="controls">
+      <div class="control-check">
+        <input id="refs" type="checkbox" checked />
+        <label for="refs">Show straight reference lines</label>
+      </div>
+      <div class="control-row">
+        <label for="margin">Board margin (px)</label>
+        <input id="margin" type="range" min="10" max="120" value="40" />
+        <span id="marginVal" class="value">40</span>
+      </div>
       <div class="meter">
-        <strong>Score:</strong><span id="scoreTxt" class="badge">—</span>
-        <div class="meterbar"><i id="scoreBar" style="width:0%"></i></div>
+        <strong>Illusion score</strong>
+        <span id="scoreTxt" class="badge">—</span>
       </div>
-      <div class="hint" id="why">Adjust the controls to see why the score changes. Aim for mid-grey mortar, thin mortar, and ~½-tile offset.</div>
-    </fieldset>
+      <div class="meterbar"><i id="scoreBar" style="width:0%"></i></div>
+      <p id="why" class="stage-footer">Adjust the controls to see why the score changes. Aim for mid-grey mortar, thin mortar, and roughly half-tile offsets.</p>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Presets</legend>
-      <div id="presetRow" class="row presets"></div>
-    </fieldset>
-  </div>
-
-  <canvas id="cv" aria-label="Café Wall illusion canvas"></canvas>
-</div>
+  <section class="stage" id="stage-presets">
+    <p class="kicker">Step 7 · Presets & export</p>
+    <h2>Try classic setups or save your own configuration</h2>
+    <p>Use presets to jump to canonical café wall arrangements or export a snapshot as PNG or SVG to share the illusion.</p>
+    <div class="controls">
+      <div id="presetRow" class="presets"></div>
+      <div class="button-row">
+        <button id="exportPng" type="button">Export PNG</button>
+        <button id="exportSvg" type="button">Export SVG</button>
+        <button id="reset" type="button">Reset</button>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script>
 (() => {
   const $ = id => document.getElementById(id);
-  const cv = $('cv'), ctx = cv.getContext('2d');
+  const cv = $('cv');
+  const ctx = cv.getContext('2d');
 
   const ctl = {
     rows: $('rows'), cols: $('cols'), tile: $('tile'), round: $('round'),
@@ -114,19 +190,23 @@
     mortar: $('mortarVal'), Lm: $('LmVal'), wAmp: $('wAmpVal'), wFreq: $('wFreqVal'),
     offset: $('offsetVal'), jitter: $('jitterVal'), margin: $('marginVal')
   };
-  const scoreTxt = $('scoreTxt'), scoreBar = $('scoreBar'), why = $('why');
+  const scoreTxt = $('scoreTxt');
+  const scoreBar = $('scoreBar');
+  const why = $('why');
 
-  /* ---------- canvas sizing ---------- */
   function fitCanvas(){
-    const dpr = Math.max(1, window.devicePixelRatio||1);
     const rect = cv.getBoundingClientRect();
-    cv.width = Math.round(rect.width*dpr);
-    cv.height = Math.round(rect.height*dpr);
-    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    cv.width = Math.max(1, Math.round(rect.width * dpr));
+    cv.height = Math.max(1, Math.round(rect.height * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  /* ---------- helpers ---------- */
-  function L2hex(L){ const v=Math.round(255*L/100); const h=v.toString(16).padStart(2,'0'); return `#${h}${h}${h}`; }
+  function L2hex(L){
+    const v=Math.round(255*L/100);
+    const h=v.toString(16).padStart(2,'0');
+    return `#${h}${h}${h}`;
+  }
   function clamp(v,a,b){ return Math.min(b, Math.max(a,v)); }
   function seededRand(i){ // deterministic pseudo-random for row jitter
     let x=(i*9301+49297)%233280; x=(x*9301+49297)%233280; return x/233280;
@@ -146,44 +226,41 @@
     ctx.closePath();
   }
 
-  /* ---------- illusion strength heuristic ---------- */
   function illusionScore(params){
     const {Ld,Ll,Lm,mortar,tile,offset,jitter} = params;
-    const contrast = Math.abs(Ll - Ld)/100;                 // 0..1
-    const mid = (Ll+Ld)/2, dMid = Math.abs(Lm - mid);       // how close mortar is to mid-grey
-    const mortarMid = clamp(1 - dMid / Math.max(1, (Ll-Ld)/2), 0, 1); // 1 if exactly mid
-    const r = mortar / tile;                                 // relative mortar thickness
-    const mortarOpt = Math.exp(-Math.pow((r-0.05)/0.05,2));  // peak around 5% of tile size
-    const offF = Math.sin(Math.PI*offset);                   // 0 at 0 and 1; 1 at 0.5
-    const jitF = 1 - clamp(jitter/(tile*0.8), 0, 1);         // jitter kills it
+    const contrast = Math.abs(Ll - Ld)/100;
+    const mid = (Ll+Ld)/2, dMid = Math.abs(Lm - mid);
+    const mortarMid = clamp(1 - dMid / Math.max(1, (Ll-Ld)/2), 0, 1);
+    const r = mortar / tile;
+    const mortarOpt = Math.exp(-Math.pow((r-0.05)/0.05,2));
+    const offF = Math.sin(Math.PI*offset);
+    const jitF = 1 - clamp(jitter/(tile*0.8), 0, 1);
     const score = 100 * contrast * mortarMid * mortarOpt * offF * jitF;
     return clamp(score, 0, 100);
   }
   function describeScore(s){
-    if (s>=75) return "VERY STRONG — classic slant";
-    if (s>=50) return "strong";
-    if (s>=25) return "moderate";
-    if (s>5)   return "weak";
-    return "likely absent";
+    if (s>=75) return 'VERY STRONG — classic slant';
+    if (s>=50) return 'strong';
+    if (s>=25) return 'moderate';
+    if (s>5)   return 'weak';
+    return 'likely absent';
   }
   function whyText(p, s){
     const bits=[];
     const contrast = Math.abs(p.Ll - p.Ld);
-    if (contrast < 30) bits.push("low tile contrast");
+    if (contrast < 30) bits.push('low tile contrast');
     const mid = (p.Ll+p.Ld)/2, dMid = Math.abs(p.Lm - mid);
-    if (dMid > (contrast/3)) bits.push("mortar not near mid-grey");
+    if (dMid > (contrast/3)) bits.push('mortar not near mid-grey');
     const r = p.mortar/p.tile;
-    if (r < 0.02) bits.push("mortar too thin");
-    if (r > 0.12) bits.push("mortar too thick");
-    if (p.offset < 0.1 || p.offset > 0.9) bits.push("offset ~0 (aligned rows)");
-    if (p.jitter > p.tile*0.5) bits.push("row jitter too high");
-    if (bits.length===0) return "Great: mid-grey mortar, thin-ish mortar, high contrast, and ~½-tile offset maximise the tilt.";
-    return "Weakeners: " + bits.join("; ") + ".";
+    if (r < 0.02) bits.push('mortar too thin');
+    if (r > 0.12) bits.push('mortar too thick');
+    if (p.offset < 0.1 || p.offset > 0.9) bits.push('offset ~0 (aligned rows)');
+    if (p.jitter > p.tile*0.5) bits.push('row jitter too high');
+    if (bits.length===0) return 'Great: mid-grey mortar, thin-ish mortar, high contrast, and ~½-tile offset maximise the tilt.';
+    return 'Weakeners: ' + bits.join('; ') + '.';
   }
 
-  /* ---------- drawing ---------- */
   function draw(){
-    // labels
     lab.rows.textContent = ctl.rows.value;
     lab.cols.textContent = ctl.cols.value;
     lab.tile.textContent = ctl.tile.value;
@@ -201,33 +278,28 @@
     const W=cv.width, H=cv.height;
     ctx.clearRect(0,0,W,H);
 
-    // params
     const rows=+ctl.rows.value, cols=+ctl.cols.value, tile=+ctl.tile.value, round=+ctl.round.value;
     const Ld=+ctl.Ld.value, Ll=+ctl.Ll.value, Lm=+ctl.Lm.value, mortar=+ctl.mortar.value;
     const wAmp=+ctl.wAmp.value, wFreq=+ctl.wFreq.value;
     const offsetF=+ctl.offset.value, mode=ctl.offsetMode.value, jitter=+ctl.jitter.value;
     const showRefs = ctl.refs.checked, margin=+ctl.margin.value;
 
-    // board geometry
     const boardW = cols*tile;
     const boardH = rows*tile + (rows-1)*mortar;
     const x0 = (W/2) - boardW/2;
     const y0 = (H/2) - boardH/2;
 
-    // background
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0,0,W,H);
 
-    // draw mortar bands (horizontal), optionally wavy
     ctx.fillStyle = L2hex(Lm);
     for (let r=0; r<rows-1; r++){
       const yTop = y0 + (r+1)*tile + r*mortar;
       if (wAmp<=0){
         ctx.fillRect(x0 - margin, yTop, boardW + 2*margin, mortar);
       } else {
-        // fill shape between two sinusoids
         const steps = Math.max(100, Math.floor(boardW/6));
-        const phase = r*0.7; // small phase shift row-to-row for flavour
+        const phase = r*0.7;
         ctx.beginPath();
         for (let i=0;i<=steps;i++){
           const k=i/steps;
@@ -246,7 +318,6 @@
       }
     }
 
-    // draw tiles row by row with offsets
     for (let r=0; r<rows; r++){
       let off = 0;
       if (mode === 'alternate'){
@@ -257,22 +328,23 @@
         const f = (r%2? offsetF : 1-offsetF);
         off = f*tile;
       }
-      // add jitter per row
       const j = jitter>0 ? (seededRand(r)*2-1)*jitter : 0;
       off += j;
 
       const y = y0 + r*(tile+mortar);
-      // draw from slightly before board to cover offset wrap
       for (let c=-1; c<=cols; c++){
         const x = x0 + c*tile + off;
-        const light = ((r+c)&1) === 1; // alternating along row
+        const light = ((r+c)&1) === 1;
         ctx.fillStyle = L2hex(light ? Ll : Ld);
-        if (round>0) { roundRectPath(x,y,tile,tile,round); ctx.fill(); }
-        else { ctx.fillRect(x,y,tile,tile); }
+        if (round>0) {
+          roundRectPath(x,y,tile,tile,round);
+          ctx.fill();
+        } else {
+          ctx.fillRect(x,y,tile,tile);
+        }
       }
     }
 
-    // reference lines (perfectly straight through mortar centres)
     if (showRefs && mortar>0){
       ctx.save();
       ctx.strokeStyle = 'rgba(0,0,0,0.25)';
@@ -289,21 +361,18 @@
       ctx.restore();
     }
 
-    // border
     ctx.save();
     ctx.strokeStyle = '#9ca3af';
     ctx.lineWidth = 1;
     ctx.strokeRect(x0 - margin, y0 - margin, boardW + 2*margin, boardH + 2*margin);
     ctx.restore();
 
-    // score & diagnosis
     const s = illusionScore({Ld,Ll,Lm,mortar,tile,offset:offsetF,jitter});
     scoreBar.style.width = s.toFixed(0)+'%';
     scoreTxt.textContent = `${s.toFixed(0)}/100 · ${describeScore(s)}`;
     why.textContent = whyText({Ld,Ll,Lm,mortar,tile,offset:offsetF,jitter}, s);
   }
 
-  /* ---------- presets ---------- */
   const presets = [
     { id:'classic', name:'Classic (strong)', rows:14, cols:30, tile:40, round:0, Ld:10, Ll:90, mortar:4, Lm:55, wAmp:0, wFreq:8, offset:0.5, offsetMode:'alternate', jitter:0, refs:true, margin:40 },
     { id:'super', name:'Super-strong (micro mortar)', rows:18, cols:48, tile:28, round:0, Ld:8, Ll:94, mortar:2, Lm:50, wAmp:0, wFreq:8, offset:0.5, offsetMode:'alternate', jitter:0, refs:true, margin:30 },
@@ -326,14 +395,12 @@
   function buildPresetButtons(){
     presets.forEach(p=>{
       const b=document.createElement('button');
-      b.className='btn';
       b.textContent=p.name;
       b.addEventListener('click', ()=> applyPreset(p));
       presetRow.appendChild(b);
     });
   }
 
-  /* ---------- export ---------- */
   $('exportPng').addEventListener('click', ()=>{
     const a=document.createElement('a');
     a.download='cafe-wall.png';
@@ -359,7 +426,6 @@
     const parts=[];
     parts.push(`<rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>`);
 
-    // mortar (SVG: approximate wavy with polyline)
     parts.push(`<!-- mortar -->`);
     for (let r=0;r<rows-1;r++){
       const yTop = y0 + (r+1)*tile + r*mortar;
@@ -383,7 +449,6 @@
       }
     }
 
-    // tiles
     parts.push(`<!-- tiles -->`);
     for (let r=0;r<rows;r++){
       let off=0;
@@ -406,7 +471,6 @@
       }
     }
 
-    // reference lines
     if (showRefs && mortar>0){
       parts.push(`<!-- straight reference lines -->`);
       for (let r=0;r<rows-1;r++){
@@ -416,7 +480,6 @@
       }
     }
 
-    // frame
     parts.push(`<rect x="${x0 - margin}" y="${y0 - margin}" width="${boardW + 2*margin}" height="${boardH + 2*margin}" fill="none" stroke="#9ca3af" stroke-width="1"/>`);
 
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">\n${parts.join('\n')}\n</svg>`;
@@ -428,7 +491,6 @@
 
   $('reset').addEventListener('click', ()=> applyPreset(presets[0]));
 
-  /* ---------- input wiring ---------- */
   function bindInputs(){
     document.querySelectorAll('input,select').forEach(inp=>{
       const ev = (inp.tagName==='SELECT'||inp.type==='checkbox')?'change':'input';
@@ -437,12 +499,11 @@
     window.addEventListener('resize', ()=>{ fitCanvas(); draw(); }, {passive:true});
   }
 
-  /* ---------- boot ---------- */
   function init(){
     fitCanvas();
     buildPresetButtons();
     bindInputs();
-    applyPreset(presets[0]); // Classic strong
+    applyPreset(presets[0]);
   }
   init();
 })();

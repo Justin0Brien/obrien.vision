@@ -1,47 +1,66 @@
-
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Müller–Lyer Illusion — Interactive Lab</title>
+<title>Müller–Lyer Illusion — step-by-step interactive</title>
+<link rel="stylesheet" href="../assets/css/illusion-demo.css" />
 <style>
-  :root{
-    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
-    --soft:#e5e7eb; --soft2:#d1d5db;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns: 620px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
-  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
-  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
-  legend{padding:0 6px; font-weight:650; color:#374151}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .hint{font-size:13px;color:#4b5563}
-  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  /* one-line control rows: label | slider/input | value */
-  .ctl{ display:grid; grid-template-columns: 1fr 320px 80px; gap:10px; align-items:center; margin:8px 0; }
-  .ctl input[type="range"], .ctl select{width:100%}
-  .value{justify-self:end; min-width:80px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
-  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
-  .btn:hover{background:var(--soft2)}
-  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
-  .badge{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:8px;padding:2px 8px;font-size:12px}
+  .demo-surface canvas { --demo-aspect: 3 / 2; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <fieldset>
-      <legend>Pair presets</legend>
-      <div id="pairPresets" class="row presets"></div>
-      <div class="hint">Presets configure the <em>top</em> and <em>bottom</em> figures together for classic, extreme, neutral and explanatory conditions.</div>
-    </fieldset>
+<main class="illusion-page">
+  <section class="hero">
+    <p class="kicker">Müller–Lyer illusion</p>
+    <h1>Use the length slider to chase the point of subjective equality</h1>
+    <p class="lede">Arrowheads and arrowtails push the endpoints of a line inward or outward. Slide the length offset until both shafts look equal, then scroll to reveal how each component modulates the illusion.</p>
+    <div class="demo-frame">
+      <p class="kicker">Live canvas</p>
+      <div class="demo-surface">
+        <canvas id="cv" aria-label="Müller–Lyer illusion canvas"></canvas>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Global</legend>
-      <div class="ctl"><span>Canvas margin (px)</span><input id="margin" type="range" min="10" max="160" value="80"><span id="marginVal" class="value">80</span></div>
-      <div class="ctl"><span>Line colour</span>
+  <section class="stage" id="stage-psychophysics">
+    <p class="kicker">Step 1 · Length offset</p>
+    <h2>Match the shafts by eye</h2>
+    <p>Keep the lengths locked and adjust the offset until the two shafts appear identical. The required offset is your personal point of subjective equality (PSE).</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="delta">Length offset (top − bottom, px)</label>
+        <input id="delta" type="range" min="-200" max="200" value="0" />
+        <span id="deltaVal" class="value">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-presets">
+    <p class="kicker">Step 2 · Classic pairs</p>
+    <h2>Switch between canonical Müller–Lyer configurations</h2>
+    <p>Each preset sets both the top and bottom figures. Jump between arrowheads, arrowtails, t-caps, and other combinations to see how the illusion changes, then choose whether the shafts stay physically equal.</p>
+    <div class="controls">
+      <div class="control-check">
+        <input id="lockEq" type="checkbox" checked />
+        <label for="lockEq">Lock lengths equal</label>
+      </div>
+      <div id="pairPresets" class="button-row presets"></div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-global">
+    <p class="kicker">Step 3 · Global framing</p>
+    <h2>Adjust the canvas margin, colours, and striped backgrounds</h2>
+    <p>Framing and context alter how strong the illusion feels. Striped backgrounds can add assimilation cues that bias your judgement.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="margin">Canvas margin (px)</label>
+        <input id="margin" type="range" min="10" max="160" value="80" />
+        <span id="marginVal" class="value">80</span>
+      </div>
+      <div class="control-row">
+        <label for="colour">Line colour</label>
         <select id="colour">
           <option value="#111111" selected>Black</option>
           <option value="#0057ff">Blue</option>
@@ -50,7 +69,8 @@
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Background stripes (assimilation)</span>
+      <div class="control-row">
+        <label for="bgStripes">Background stripes (assimilation)</label>
         <select id="bgStripes">
           <option value="none" selected>None</option>
           <option value="parallel">Parallel to shafts</option>
@@ -58,12 +78,21 @@
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Stripes contrast</span><input id="bgContrast" type="range" min="0" max="100" value="20"><span id="bgContrastVal" class="value">20%</span></div>
-    </fieldset>
+      <div class="control-row">
+        <label for="bgContrast">Stripes contrast</label>
+        <input id="bgContrast" type="range" min="0" max="100" value="20" />
+        <span id="bgContrastVal" class="value">20%</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Underlay (Gregory perspective test)</legend>
-      <div class="ctl"><span>Underlay type</span>
+  <section class="stage" id="stage-underlay">
+    <p class="kicker">Step 4 · Perspective underlay</p>
+    <h2>Test Gregory’s 3‑D interpretation</h2>
+    <p>Add an inside or outside corner to simulate depth. Tuning the opacity and vanishing-point exaggeration shows how implied 3‑D context modulates the illusion.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="underlay">Underlay type</label>
         <select id="underlay">
           <option value="none" selected>None</option>
           <option value="inside">Inside room corner</option>
@@ -71,82 +100,154 @@
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Underlay strength (opacity)</span><input id="uAlpha" type="range" min="0" max="100" value="40"><span id="uAlphaVal" class="value">40%</span></div>
-      <div class="ctl"><span>Perspective (vanishing) amount</span><input id="uPersp" type="range" min="0" max="100" value="60"><span id="uPerspVal" class="value">60%</span></div>
-      <div class="hint">Swap between an <strong>inside corner</strong> and an <strong>outside (building) corner</strong> to see whether 3‑D interpretation modulates the illusion for you, as proposed by Richard Gregory.</div>
-    </fieldset>
+      <div class="control-row">
+        <label for="uAlpha">Underlay strength (opacity)</label>
+        <input id="uAlpha" type="range" min="0" max="100" value="40" />
+        <span id="uAlphaVal" class="value">40%</span>
+      </div>
+      <div class="control-row">
+        <label for="uPersp">Perspective (vanishing) amount</label>
+        <input id="uPersp" type="range" min="0" max="100" value="60" />
+        <span id="uPerspVal" class="value">60%</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Top figure</legend>
-      <div class="ctl"><span>Configuration</span>
+  <section class="stage" id="stage-top">
+    <p class="kicker">Step 5 · Top figure</p>
+    <h2>Shape the upper figure</h2>
+    <p>Experiment with arrowheads, arrowtails, caps, circles, and feathered fins. Each option changes how far the endpoints feel from the shaft.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="topType">Configuration</label>
         <select id="topType">
-          <option value="in">Wings‑in (arrowheads)</option>
-          <option value="out">Wings‑out (tails)</option>
-          <option value="caps">T‑caps (90°)</option>
-          <option value="circles">Circular end‑caps</option>
+          <option value="in">Wings-in (arrowheads)</option>
+          <option value="out">Wings-out (tails)</option>
+          <option value="caps">T-caps (90°)</option>
+          <option value="circles">Circular end-caps</option>
           <option value="none">No ends (plain line)</option>
           <option value="feather">Feathered (multiple fins)</option>
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Shaft length (px)</span><input id="topLen" type="range" min="60" max="800" value="420"><span id="topLenVal" class="value">420</span></div>
-      <div class="ctl"><span>Shaft thickness (px)</span><input id="topThick" type="range" min="1" max="20" value="4"><span id="topThickVal" class="value">4</span></div>
-      <div class="ctl"><span>Wing angle (°)</span><input id="topAng" type="range" min="15" max="165" value="45"><span id="topAngVal" class="value">45°</span></div>
-      <div class="ctl"><span>Wing length (px)</span><input id="topWing" type="range" min="6" max="120" value="60"><span id="topWingVal" class="value">60</span></div>
-      <div class="ctl"><span>Wing thickness (px)</span><input id="topWingTh" type="range" min="1" max="16" value="3"><span id="topWingThVal" class="value">3</span></div>
-      <div class="ctl"><span>Feather fins (count)</span><input id="topFeatherN" type="range" min="2" max="8" value="4"><span id="topFeatherNVal" class="value">4</span></div>
-      <div class="ctl"><span>Feather spacing (px)</span><input id="topFeatherDx" type="range" min="4" max="30" value="12"><span id="topFeatherDxVal" class="value">12</span></div>
-    </fieldset>
+      <div class="control-row">
+        <label for="topLen">Shaft length (px)</label>
+        <input id="topLen" type="range" min="60" max="800" value="420" />
+        <span id="topLenVal" class="value">420</span>
+      </div>
+      <div class="control-row">
+        <label for="topThick">Shaft thickness (px)</label>
+        <input id="topThick" type="range" min="1" max="20" value="4" />
+        <span id="topThickVal" class="value">4</span>
+      </div>
+      <div class="control-row">
+        <label for="topAng">Wing angle (°)</label>
+        <input id="topAng" type="range" min="15" max="165" value="45" />
+        <span id="topAngVal" class="value">45°</span>
+      </div>
+      <div class="control-row">
+        <label for="topWing">Wing length (px)</label>
+        <input id="topWing" type="range" min="6" max="120" value="60" />
+        <span id="topWingVal" class="value">60</span>
+      </div>
+      <div class="control-row">
+        <label for="topWingTh">Wing thickness (px)</label>
+        <input id="topWingTh" type="range" min="1" max="16" value="3" />
+        <span id="topWingThVal" class="value">3</span>
+      </div>
+      <div class="control-row">
+        <label for="topFeatherN">Feather fins (count)</label>
+        <input id="topFeatherN" type="range" min="2" max="8" value="4" />
+        <span id="topFeatherNVal" class="value">4</span>
+      </div>
+      <div class="control-row">
+        <label for="topFeatherDx">Feather spacing (px)</label>
+        <input id="topFeatherDx" type="range" min="4" max="30" value="12" />
+        <span id="topFeatherDxVal" class="value">12</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Bottom figure</legend>
-      <div class="ctl"><span>Configuration</span>
+  <section class="stage" id="stage-bottom">
+    <p class="kicker">Step 6 · Bottom figure</p>
+    <h2>Independently adjust the lower figure</h2>
+    <p>Give the lower shaft its own configuration to create asymmetric pairs, or match the top for comparison. Try mixing feathers with plain lines.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="botType">Configuration</label>
         <select id="botType">
-          <option value="out">Wings‑out (tails)</option>
-          <option value="in">Wings‑in (arrowheads)</option>
-          <option value="caps">T‑caps (90°)</option>
-          <option value="circles">Circular end‑caps</option>
+          <option value="out">Wings-out (tails)</option>
+          <option value="in">Wings-in (arrowheads)</option>
+          <option value="caps">T-caps (90°)</option>
+          <option value="circles">Circular end-caps</option>
           <option value="none">No ends (plain line)</option>
           <option value="feather">Feathered (multiple fins)</option>
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Shaft length (px)</span><input id="botLen" type="range" min="60" max="800" value="420"><span id="botLenVal" class="value">420</span></div>
-      <div class="ctl"><span>Shaft thickness (px)</span><input id="botThick" type="range" min="1" max="20" value="4"><span id="botThickVal" class="value">4</span></div>
-      <div class="ctl"><span>Wing angle (°)</span><input id="botAng" type="range" min="15" max="165" value="135"><span id="botAngVal" class="value">135°</span></div>
-      <div class="ctl"><span>Wing length (px)</span><input id="botWing" type="range" min="6" max="120" value="60"><span id="botWingVal" class="value">60</span></div>
-      <div class="ctl"><span>Wing thickness (px)</span><input id="botWingTh" type="range" min="1" max="16" value="3"><span id="botWingThVal" class="value">3</span></div>
-      <div class="ctl"><span>Feather fins (count)</span><input id="botFeatherN" type="range" min="2" max="8" value="4"><span id="botFeatherNVal" class="value">4</span></div>
-      <div class="ctl"><span>Feather spacing (px)</span><input id="botFeatherDx" type="range" min="4" max="30" value="12"><span id="botFeatherDxVal" class="value">12</span></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Psychophysics mode</legend>
-      <div class="ctl"><span>Lock lengths equal</span><input id="lockEq" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Length offset (top − bottom, px)</span><input id="delta" type="range" min="-200" max="200" value="0"><span id="deltaVal" class="value">0</span></div>
-      <div class="hint">Set <em>Lock lengths</em> on, then adjust <strong>Length offset</strong> until the two lines <em>look</em> equal to you: that difference is your approximate <strong>PSE</strong> (point of subjective equality).</div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Overlays & export</legend>
-      <div class="ctl"><span>Show measuring ticks</span><input id="ticks" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Show central bisection marks</span><input id="bisection" type="checkbox"><span class="value" aria-hidden="true"></span></div>
-      <div class="row">
-        <button id="exportPng" class="btn">Export PNG</button>
-        <button id="exportSvg" class="btn">Export SVG</button>
-        <button id="reset" class="btn">Reset</button>
+      <div class="control-row">
+        <label for="botLen">Shaft length (px)</label>
+        <input id="botLen" type="range" min="60" max="800" value="420" />
+        <span id="botLenVal" class="value">420</span>
       </div>
-    </fieldset>
+      <div class="control-row">
+        <label for="botThick">Shaft thickness (px)</label>
+        <input id="botThick" type="range" min="1" max="20" value="4" />
+        <span id="botThickVal" class="value">4</span>
+      </div>
+      <div class="control-row">
+        <label for="botAng">Wing angle (°)</label>
+        <input id="botAng" type="range" min="15" max="165" value="135" />
+        <span id="botAngVal" class="value">135°</span>
+      </div>
+      <div class="control-row">
+        <label for="botWing">Wing length (px)</label>
+        <input id="botWing" type="range" min="6" max="120" value="60" />
+        <span id="botWingVal" class="value">60</span>
+      </div>
+      <div class="control-row">
+        <label for="botWingTh">Wing thickness (px)</label>
+        <input id="botWingTh" type="range" min="1" max="16" value="3" />
+        <span id="botWingThVal" class="value">3</span>
+      </div>
+      <div class="control-row">
+        <label for="botFeatherN">Feather fins (count)</label>
+        <input id="botFeatherN" type="range" min="2" max="8" value="4" />
+        <span id="botFeatherNVal" class="value">4</span>
+      </div>
+      <div class="control-row">
+        <label for="botFeatherDx">Feather spacing (px)</label>
+        <input id="botFeatherDx" type="range" min="4" max="30" value="12" />
+        <span id="botFeatherDxVal" class="value">12</span>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Illusion strength (heuristic)</legend>
-      <div class="row"><span class="badge" id="scoreTxt">—</span><span id="why" class="hint"></span></div>
-    </fieldset>
-  </div>
-
-  <canvas id="cv" aria-label="Müller–Lyer illusion canvas"></canvas>
-</div>
-
+  <section class="stage" id="stage-overlays">
+    <p class="kicker">Step 7 · Overlays & export</p>
+    <h2>Toggle measurement aids and save the scene</h2>
+    <p>Use ticks and bisection marks to prove the shafts are equal. Export a PNG or SVG when you want to capture a specific configuration.</p>
+    <div class="controls">
+      <div class="control-check">
+        <input id="ticks" type="checkbox" checked />
+        <label for="ticks">Show measuring ticks</label>
+      </div>
+      <div class="control-check">
+        <input id="bisection" type="checkbox" />
+        <label for="bisection">Show central bisection marks</label>
+      </div>
+      <div class="button-row">
+        <button id="exportPng" class="btn" type="button">Export PNG</button>
+        <button id="exportSvg" class="btn" type="button">Export SVG</button>
+        <button id="reset" class="btn" type="button">Reset</button>
+      </div>
+      <div class="meter">
+        <span class="badge" id="scoreTxt">—</span>
+        <span id="why" class="control-note"></span>
+      </div>
+    </div>
+  </section>
+</main>
 <script>
 (() => {
   const $ = id => document.getElementById(id);

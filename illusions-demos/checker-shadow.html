@@ -7,86 +7,167 @@ permalink: /illusions/checker-shadow.html
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Adelson Checker–Shadow — interactive, draggable, with reveal</title>
+<title>Adelson Checker–Shadow — interactive, mobile walkthrough</title>
+<link rel="stylesheet" href="../assets/css/illusion-demo.css" />
 <style>
-  :root{
-    --bg:#f6f7fb; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8; --soft:#e5e7eb; --soft2:#d1d5db;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns: 560px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
-  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
-  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
-  legend{padding:0 6px; font-weight:650; color:#374151}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  .ctl{display:grid; grid-template-columns: 1fr 280px 64px; gap:10px; align-items:center; margin:8px 0}
-  .ctl input[type="range"]{width:100%}
-  .value{justify-self:end; min-width:64px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
-  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
-  .btn:hover{background:var(--soft2)}
-  .presets .btn.active{background:var(--accent); color:#fff}
-  .hint{font-size:13px;color:#4b5563}
-  .badge{display:inline-block; padding:2px 6px; border-radius:6px; font-size:12px; background:#eef2ff; color:#3730a3; margin-left:6px}
+  .demo-surface canvas { --demo-aspect: 1 / 1; }
+  .control-note { font-size: 13px; color: #6b7280; margin: -6px 0 0; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <fieldset>
-      <legend>Board</legend>
-      <div class="ctl"><span>Squares per side</span><input id="n" type="range" min="6" max="16" value="8"><span id="nVal" class="value">8</span></div>
-      <div class="ctl"><span>Square size (px)</span><input id="size" type="range" min="30" max="120" value="70"><span id="sizeVal" class="value">70</span></div>
-      <div class="ctl"><span>Board margin (px)</span><input id="margin" type="range" min="20" max="120" value="60"><span id="marginVal" class="value">60</span></div>
-      <div class="ctl"><span>Dark square lightness</span><input id="Ldark" type="range" min="5" max="60" value="35"><span id="LdarkVal" class="value">35%</span></div>
-      <div class="ctl"><span>Light square lightness</span><input id="Llight" type="range" min="40" max="95" value="70"><span id="LlightVal" class="value">70%</span></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Shadow & light</legend>
-      <div class="ctl"><span>Shadow strength (multiplier)</span><input id="shadow" type="range" min="20" max="95" value="50"><span id="shadowVal" class="value">0.50×</span></div>
-      <div class="ctl"><span>Shadow softness (px)</span><input id="soft" type="range" min="5" max="120" value="60"><span id="softVal" class="value">60</span></div>
-      <div class="ctl"><span>Shadow width (px)</span><input id="shWidth" type="range" min="60" max="420" value="260"><span id="shWidthVal" class="value">260</span></div>
-      <div class="ctl"><span>Shadow length (px)</span><input id="shLength" type="range" min="150" max="900" value="560"><span id="shLengthVal" class="value">560</span></div>
-      <div class="ctl"><span>Light angle (°)</span><input id="angle" type="range" min="-180" max="180" value="30"><span id="angleVal" class="value">30°</span></div>
-      <div class="ctl"><span>Show cylinder (drag me)</span><input id="showCyl" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Cylinder radius (px)</span><input id="cylR" type="range" min="30" max="140" value="80"><span id="cylRVal" class="value">80</span></div>
-      <div class="row">
-        <button id="animate" class="btn">Animate light</button>
-        <button id="stopAnim" class="btn">Stop</button>
+<main class="illusion-page">
+  <section class="hero">
+    <p class="kicker">Checker–shadow illusion</p>
+    <h1>Slide the shadow strength to watch tiles A and B trade places</h1>
+    <p class="lede">When a soft shadow sweeps across a checkerboard, identical tiles look wildly different. Start with the core control below, then scroll to unlock the full lab.</p>
+    <div class="demo-frame">
+      <p class="kicker">Live canvas</p>
+      <div class="demo-surface">
+        <canvas id="cv" aria-label="Adelson Checker–Shadow canvas"></canvas>
       </div>
-      <div class="hint">Tip: drag the cylinder on the canvas; the shadow updates. The illusion is strongest when a “light” square lies under shadow next to a “dark” square in the light.</div>
-    </fieldset>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Labels, reveal & proof</legend>
-      <div class="ctl"><span>Show labels A & B</span><input id="showLabels" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Lock equality (A shade = B shade)</span><input id="lockEq" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-      <div class="ctl"><span>Context fade (reveal)</span><input id="fade" type="range" min="0" max="100" value="0"><span id="fadeVal" class="value">0%</span></div>
-      <div class="row">
-        <button id="bridge" class="btn">Draw bridging strip</button>
-        <button id="clearBridge" class="btn">Clear strip</button>
+  <section class="stage" id="stage-shadow">
+    <p class="kicker">Step 1 · Shadow strength</p>
+    <h2>Turn the cast shadow up or down</h2>
+    <p>With no shadow the checkerboard is boringly balanced. Strengthen it and the square inside the shade suddenly appears darker than its twin outside, even though the pixels remain identical.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="shadow">Shadow strength (multiplier)</label>
+        <input id="shadow" type="range" min="20" max="95" value="50" />
+        <span id="shadowVal" class="value">0.50×</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-angle">
+    <p class="kicker">Step 2 · Light direction</p>
+    <h2>Rotate the light source around the board</h2>
+    <p>The perceptual trick depends on a convincing light direction. Adjust the angle or set it spinning to see how the apparent “lighter” tile swaps places.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="angle">Light angle (°)</label>
+        <input id="angle" type="range" min="-180" max="180" value="30" />
+        <span id="angleVal" class="value">30°</span>
+      </div>
+      <div class="button-row">
+        <button id="animate" class="btn" type="button">Animate light</button>
+        <button id="stopAnim" class="btn" type="button">Stop</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-softness">
+    <p class="kicker">Step 3 · Shadow shape</p>
+    <h2>Control width, length, softness, and the casting object</h2>
+    <p>A long, soft-edged shadow makes the comparison more ambiguous. Reveal the cylinder to drag it and test different radii.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="shWidth">Shadow width (px)</label>
+        <input id="shWidth" type="range" min="60" max="420" value="260" />
+        <span id="shWidthVal" class="value">260</span>
+      </div>
+      <div class="control-row">
+        <label for="shLength">Shadow length (px)</label>
+        <input id="shLength" type="range" min="150" max="900" value="560" />
+        <span id="shLengthVal" class="value">560</span>
+      </div>
+      <div class="control-row">
+        <label for="soft">Shadow softness (px)</label>
+        <input id="soft" type="range" min="5" max="120" value="60" />
+        <span id="softVal" class="value">60</span>
+      </div>
+      <div class="control-check">
+        <input id="showCyl" type="checkbox" checked />
+        <label for="showCyl">Show cylinder (drag me)</label>
+      </div>
+      <div class="control-row">
+        <label for="cylR">Cylinder radius (px)</label>
+        <input id="cylR" type="range" min="30" max="140" value="80" />
+        <span id="cylRVal" class="value">80</span>
+      </div>
+      <p class="control-note">Tip: drag the cylinder directly on the canvas; the shadow updates instantly.</p>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-board">
+    <p class="kicker">Step 4 · Board and palette</p>
+    <h2>Adjust the checkerboard itself</h2>
+    <p>Once you believe the illusion, explore how board size and tile contrast change its potency. Strong contrast and a generous margin keep the comparison readable.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="n">Squares per side</label>
+        <input id="n" type="range" min="6" max="16" value="8" />
+        <span id="nVal" class="value">8</span>
+      </div>
+      <div class="control-row">
+        <label for="size">Square size (px)</label>
+        <input id="size" type="range" min="30" max="120" value="70" />
+        <span id="sizeVal" class="value">70</span>
+      </div>
+      <div class="control-row">
+        <label for="margin">Board margin (px)</label>
+        <input id="margin" type="range" min="20" max="120" value="60" />
+        <span id="marginVal" class="value">60</span>
+      </div>
+      <div class="control-row">
+        <label for="Ldark">Dark square lightness</label>
+        <input id="Ldark" type="range" min="5" max="60" value="35" />
+        <span id="LdarkVal" class="value">35%</span>
+      </div>
+      <div class="control-row">
+        <label for="Llight">Light square lightness</label>
+        <input id="Llight" type="range" min="40" max="95" value="70" />
+        <span id="LlightVal" class="value">70%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-reveal">
+    <p class="kicker">Step 5 · Proof tools</p>
+    <h2>Fade the context and bridge the twins</h2>
+    <p>Labels and reveals help you convince sceptical audiences. Fade the surroundings, lock the luminance equality, or draw a connecting strip to show the tiles really match.</p>
+    <div class="controls">
+      <div class="control-check">
+        <input id="showLabels" type="checkbox" checked />
+        <label for="showLabels">Show labels A &amp; B</label>
+      </div>
+      <div class="control-check">
+        <input id="lockEq" type="checkbox" checked />
+        <label for="lockEq">Lock equality (A shade = B shade)</label>
+      </div>
+      <div class="control-row">
+        <label for="fade">Context fade (reveal)</label>
+        <input id="fade" type="range" min="0" max="100" value="0" />
+        <span id="fadeVal" class="value">0%</span>
+      </div>
+      <div class="button-row">
+        <button id="bridge" class="btn" type="button">Draw bridging strip</button>
+        <button id="clearBridge" class="btn" type="button">Clear strip</button>
         <span class="badge">Prove they’re identical</span>
       </div>
-    </fieldset>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Presets & export</legend>
-      <div class="row">
-        <button class="btn" id="presetClassic">Classic setup</button>
-        <button class="btn" id="presetWide">Wide soft shadow</button>
-        <button class="btn" id="presetDramatic">Dramatic contrast</button>
+  <section class="stage" id="stage-presets">
+    <p class="kicker">Step 6 · Presets & export</p>
+    <h2>Jump to favourite setups or save the canvas</h2>
+    <p>Use curated presets for classroom demos, or export a PNG/SVG snapshot when you find a configuration that astonishes people.</p>
+    <div class="controls">
+      <div class="button-row">
+        <button class="btn" id="presetClassic" type="button">Classic setup</button>
+        <button class="btn" id="presetWide" type="button">Wide soft shadow</button>
+        <button class="btn" id="presetDramatic" type="button">Dramatic contrast</button>
       </div>
-      <div class="row" style="margin-top:8px">
-        <button id="exportPng" class="btn">Export PNG</button>
-        <button id="exportSvg" class="btn">Export SVG</button>
-        <button id="reset" class="btn">Reset</button>
+      <div class="button-row">
+        <button id="exportPng" class="btn" type="button">Export PNG</button>
+        <button id="exportSvg" class="btn" type="button">Export SVG</button>
+        <button id="reset" class="btn" type="button">Reset</button>
       </div>
-    </fieldset>
-  </div>
-
-  <canvas id="cv" aria-label="Adelson Checker–Shadow canvas"></canvas>
-</div>
-
+    </div>
+  </section>
+</main>
 <script>
 (() => {
   const $ = id => document.getElementById(id);

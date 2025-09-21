@@ -3,41 +3,69 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Motion Aftereffect (Waterfall) — Interactive Lab</title>
+<title>Motion Aftereffect (Waterfall) — step-by-step lab</title>
+<link rel="stylesheet" href="../assets/css/illusion-demo.css" />
 <style>
-  :root{
-    --bg:#f5f5f7; --ink:#111; --panel:#fff; --accent:#2563eb; --accent-strong:#1d4ed8;
-    --soft:#e5e7eb; --soft2:#d1d5db;
-  }
-  html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  .wrap{display:grid;grid-template-columns: 620px 1fr; gap:16px; padding:16px; height:100%; box-sizing:border-box}
-  .controls{background:var(--panel); border-radius:12px; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,.08); overflow:auto}
-  fieldset{border:1px solid var(--soft); border-radius:10px; margin:0 0 14px; padding:10px 12px}
-  legend{padding:0 6px; font-weight:650; color:#374151}
-  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-  .hint{font-size:13px;color:#4b5563}
-  canvas{width:100%;height:100%;display:block;background:#fff;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-  /* one-line control rows: label | slider/input | value */
-  .ctl{ display:grid; grid-template-columns: 1fr 320px 80px; gap:10px; align-items:center; margin:8px 0; }
-  .ctl input[type="range"], .ctl select{width:100%}
-  .value{justify-self:end; min-width:80px; text-align:right; color:#111; font-variant-numeric: tabular-nums}
-  .btn{ background:var(--soft); color:#111; border:none; border-radius:10px; padding:8px 12px; cursor:pointer }
-  .btn:hover{background:var(--soft2)}
-  .presets .btn.active{background:var(--accent); color:#fff; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6)}
-
-  .overlay{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none}
-  .overlay .bubble{background:rgba(0,0,0,0.65); color:#fff; padding:10px 14px; border-radius:10px; font-weight:600; letter-spacing:.3px}
+  .mae-surface { position: relative; }
+  .mae-surface canvas { --demo-aspect: 1 / 1; }
+  .mae-overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none; }
+  .mae-overlay .bubble{background:rgba(0,0,0,0.65); color:#fff; padding:10px 14px; border-radius:10px; font-weight:600; letter-spacing:.3px}
   .progress{height:8px;border-radius:6px;background:#e5e7eb; overflow:hidden}
   .progress > i{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,#2563eb);width:0%}
   .badge{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:8px;padding:2px 8px;font-size:12px}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="controls">
-    <fieldset>
-      <legend>Adapt stimulus (moving)</legend>
-      <div class="ctl"><span>Type</span>
+<main class="illusion-page">
+  <section class="hero">
+    <p class="kicker">Motion aftereffect</p>
+    <h1>Trigger the waterfall illusion with a single adaptation run</h1>
+    <p class="lede">Stare at moving texture and the static test will drift the other way. Press start, fixate the cross, then scroll down to fine-tune every detail of the lab.</p>
+    <div class="demo-frame">
+      <p class="kicker">Live canvas</p>
+      <div class="demo-surface mae-surface">
+        <canvas id="cv" aria-label="Motion aftereffect canvas"></canvas>
+        <div class="mae-overlay" id="overlay" aria-hidden="true" style="display:none"><div class="bubble" id="overlayTxt">Fixate the +</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-run-basic">
+    <p class="kicker">Step 1 · Adaptation run</p>
+    <h2>Start the timer and keep your eyes on the cross</h2>
+    <p>Press start to begin the adaptation phase. The progress bar shows elapsed time and the label reports the current state.</p>
+    <div class="controls">
+      <div class="button-row">
+        <button id="start" class="btn" type="button">Start adapting</button>
+      </div>
+      <div class="control-row">
+        <label for="stateTxt">State</label>
+        <div class="progress"><i id="prog" style="width:0%"></i></div>
+        <span id="stateTxt" class="value badge">idle</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-run-advanced">
+    <p class="kicker">Step 2 · Advanced run controls</p>
+    <h2>Top up, jump to test, or abort early</h2>
+    <p>Once you understand the cycle, use these buttons to manage quick demonstrations: top up the adaptation, skip straight to the test, or halt the sequence.</p>
+    <div class="controls">
+      <div class="button-row">
+        <button id="topup" class="btn" type="button">Top‑up 2 s</button>
+        <button id="toTest" class="btn" type="button">Go to test</button>
+        <button id="stop" class="btn" type="button">Stop</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="stage-adapt">
+    <p class="kicker">Step 3 · Adapting stimulus</p>
+    <h2>Pick the moving pattern that drives adaptation</h2>
+    <p>Choose gratings, rotating dots, or expanding fields, then set motion strength, speed, and contrast. Fixation helps the effect accumulate.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="adaptType">Type</label>
         <select id="adaptType">
           <option value="gratingH">Drifting grating (→/←)</option>
           <option value="gratingV">Drifting grating (↑/↓)</option>
@@ -46,72 +74,95 @@
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Direction</span>
+      <div class="control-row">
+        <label for="direction">Direction</label>
         <select id="direction">
           <option value="forward">Forward (e.g., →, CW, expand)</option>
           <option value="reverse">Reverse (e.g., ←, CCW, contract)</option>
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Adaptation time (s)</span><input id="adaptTime" type="range" min="2" max="30" value="12"><span id="adaptTimeVal" class="value">12</span></div>
-      <div class="ctl"><span>Speed (a.u.)</span><input id="speed" type="range" min="0.1" max="8" step="0.1" value="2.5"><span id="speedVal" class="value">2.5</span></div>
-      <div class="ctl"><span>Spatial frequency (cycles)</span><input id="sf" type="range" min="2" max="40" value="12"><span id="sfVal" class="value">12</span></div>
-      <div class="ctl"><span>Contrast</span><input id="contrast" type="range" min="5" max="100" value="90"><span id="contrastVal" class="value">90%</span></div>
-      <div class="ctl"><span>Dot count (for dot fields)</span><input id="dots" type="range" min="100" max="2000" step="50" value="800"><span id="dotsVal" class="value">800</span></div>
-      <div class="ctl"><span>Fixation cross</span><input id="fixation" type="checkbox" checked><span class="value" aria-hidden="true"></span></div>
-    </fieldset>
+      <div class="control-row">
+        <label for="adaptTime">Adaptation time (s)</label>
+        <input id="adaptTime" type="range" min="2" max="30" value="12" />
+        <span id="adaptTimeVal" class="value">12</span>
+      </div>
+      <div class="control-row">
+        <label for="speed">Speed (a.u.)</label>
+        <input id="speed" type="range" min="0.1" max="8" step="0.1" value="2.5" />
+        <span id="speedVal" class="value">2.5</span>
+      </div>
+      <div class="control-row">
+        <label for="sf">Spatial frequency (cycles)</label>
+        <input id="sf" type="range" min="2" max="40" value="12" />
+        <span id="sfVal" class="value">12</span>
+      </div>
+      <div class="control-row">
+        <label for="contrast">Contrast</label>
+        <input id="contrast" type="range" min="5" max="100" value="90" />
+        <span id="contrastVal" class="value">90%</span>
+      </div>
+      <div class="control-row">
+        <label for="dots">Dot count (for dot fields)</label>
+        <input id="dots" type="range" min="100" max="2000" step="50" value="800" />
+        <span id="dotsVal" class="value">800</span>
+      </div>
+      <div class="control-check">
+        <input id="fixation" type="checkbox" checked />
+        <label for="fixation">Fixation cross</label>
+      </div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Test stimulus (static)</legend>
-      <div class="ctl"><span>Type</span>
+  <section class="stage" id="stage-test">
+    <p class="kicker">Step 4 · Test stimulus</p>
+    <h2>Select the static pattern used for the aftereffect</h2>
+    <p>Swap the stationary test between gratings, rings, noise, or blank mid-grey, and adjust its contrast. You can even show a faint test during adaptation.</p>
+    <div class="controls">
+      <div class="control-row">
+        <label for="testType">Type</label>
         <select id="testType">
           <option value="gratingH">Stationary grating (horizontal)</option>
           <option value="gratingV">Stationary grating (vertical)</option>
           <option value="rings">Stationary radial rings</option>
           <option value="noise">Static noise</option>
-          <option value="blank">Blank mid‑grey</option>
+          <option value="blank">Blank mid-grey</option>
         </select>
         <span class="value" aria-hidden="true"></span>
       </div>
-      <div class="ctl"><span>Test contrast</span><input id="testContrast" type="range" min="5" max="100" value="70"><span id="testContrastVal" class="value">70%</span></div>
-      <div class="ctl"><span>Show during adaptation</span><input id="ghostTest" type="checkbox"><span class="value" aria-hidden="true"></span></div>
-    </fieldset>
-
-    <fieldset>
-      <legend>Run</legend>
-      <div class="row">
-        <button id="start" class="btn">Start adapting</button>
-        <button id="topup" class="btn">Top‑up 2 s</button>
-        <button id="toTest" class="btn">Go to test</button>
-        <button id="stop" class="btn">Stop</button>
+      <div class="control-row">
+        <label for="testContrast">Test contrast</label>
+        <input id="testContrast" type="range" min="5" max="100" value="70" />
+        <span id="testContrastVal" class="value">70%</span>
       </div>
-      <div class="ctl"><span>State</span>
-        <div class="progress"><i id="prog" style="width:0%"></i></div>
-        <span id="stateTxt" class="value badge">idle</span>
+      <div class="control-check">
+        <input id="ghostTest" type="checkbox" />
+        <label for="ghostTest">Show during adaptation</label>
       </div>
-      <div class="hint">Keep your eyes on the **fixation cross** during adaptation. When the timer ends, the moving pattern will freeze and you should see **illusory motion in the opposite direction** on the static test.</div>
-    </fieldset>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Presets</legend>
-      <div id="presetRow" class="row presets"></div>
-    </fieldset>
+  <section class="stage" id="stage-presets">
+    <p class="kicker">Step 5 · Presets</p>
+    <h2>Jump to lab-tested combinations</h2>
+    <p>Use presets for quick demonstrations: classic waterfall, strong rotation, low contrast, and more.</p>
+    <div class="controls">
+      <div id="presetRow" class="button-row presets"></div>
+    </div>
+  </section>
 
-    <fieldset>
-      <legend>Export</legend>
-      <div class="row">
-        <button id="exportPng" class="btn">Export PNG</button>
-        <button id="reset" class="btn">Reset</button>
+  <section class="stage" id="stage-export">
+    <p class="kicker">Step 6 · Export & reset</p>
+    <h2>Capture the current frame or restore defaults</h2>
+    <p>Grab a PNG for lectures or reset everything before a new participant takes the test.</p>
+    <div class="controls">
+      <div class="button-row">
+        <button id="exportPng" class="btn" type="button">Export PNG</button>
+        <button id="reset" class="btn" type="button">Reset</button>
       </div>
-    </fieldset>
-  </div>
-
-  <div style="position:relative">
-    <canvas id="cv" aria-label="MAE canvas"></canvas>
-    <div class="overlay" id="overlay" aria-hidden="true" style="display:none"><div class="bubble" id="overlayTxt">Fixate the +</div></div>
-  </div>
-</div>
-
+    </div>
+  </section>
+</main>
 <script>
 (() => {
   const $ = id => document.getElementById(id);
