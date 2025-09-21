@@ -3,7 +3,6 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function() {
-    document.documentElement.classList.add('has-reveal');
     initRevealAnimations();
     enhanceExternalLinks();
   });
@@ -12,16 +11,26 @@
     const revealEls = document.querySelectorAll('[data-reveal]');
     if (!revealEls.length) return;
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.classList.add('has-reveal');
+
+    const supportsMatchMedia = typeof window.matchMedia === 'function';
+    const prefersReducedMotion = supportsMatchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       revealEls.forEach(el => el.classList.add('is-visible'));
       return;
     }
 
-    const observer = new IntersectionObserver(onIntersect, {
-      threshold: 0.16,
-      rootMargin: '0px 0px -5% 0px'
-    });
+    let observer;
+    try {
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.16,
+        rootMargin: '0px 0px -5% 0px'
+      });
+    } catch (err) {
+      // If the observer cannot be constructed (older browsers / polyfills), reveal immediately
+      revealEls.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
 
     revealEls.forEach(el => {
       const delay = el.getAttribute('data-reveal-delay');
