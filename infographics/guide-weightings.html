@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The University Ranking Recipe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-[#003f5c] text-white text-center py-12 px-4">
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight">The University Ranking Recipe</h1>
+        <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-200">Ever wonder why university rankings change so much between guides? It's all in the recipe. Discover the unique blend of ingredients each major UK guide uses to measure success.</p>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <section id="comparison" class="my-12">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003f5c]">Comparing the Recipes</h2>
+                <p class="mt-2 text-lg max-w-2xl mx-auto text-gray-600">Each guide prioritises different aspects of the university experience, from pure research power to student-focused services. This chart directly compares the weighting of key metrics across the top three guides.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-4 md:p-6">
+                <div class="chart-container">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="guides" class="my-16">
+            <div class="text-center mb-12">
+                 <h2 class="text-3xl md:text-4xl font-bold text-[#003f5c]">A Closer Look at Each Dish</h2>
+                <p class="mt-2 text-lg max-w-2xl mx-auto text-gray-600">Let's break down the individual recipe for each guide to see what they value most.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h3 class="text-2xl font-bold text-center text-[#003f5c]">🎓 The Complete University Guide</h3>
+                    <p class="text-center font-semibold text-[#58508d] mb-4">The Research Connoisseur's Blend</p>
+                    <p class="text-gray-600 text-center mb-4 flex-grow">This recipe is crafted for the academically-minded, placing a heavy emphasis on research excellence as its most important ingredient. It's a rich, full-bodied blend focused on intellectual depth.</p>
+                    <div class="w-full max-w-sm mx-auto h-64 md:h-80">
+                        <canvas id="cugChart"></canvas>
+                    </div>
+                    <div id="legend-cug" class="mt-4"></div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h3 class="text-2xl font-bold text-center text-[#003f5c]">⏳ The Times & Sunday Times</h3>
+                    <p class="text-center font-semibold text-[#bc5090] mb-4">The Classic All-Rounder's Brew</p>
+                    <p class="text-gray-600 text-center mb-4 flex-grow">A balanced recipe that blends traditional academic factors with student-focused metrics. It aims to provide a comprehensive picture without favoring one area too heavily, with a strong focus on student satisfaction.</p>
+                    <div class="w-full max-w-sm mx-auto h-64 md:h-80">
+                        <canvas id="tstChart"></canvas>
+                    </div>
+                    <div id="legend-tst" class="mt-4"></div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col h-full">
+                    <h3 class="text-2xl font-bold text-center text-[#003f5c]">💡 The Guardian</h3>
+                    <p class="text-center font-semibold text-[#ff6361] mb-4">The Student Experience Smoothie</p>
+                    <p class="text-gray-600 text-center mb-4 flex-grow">A vibrant recipe packed with ingredients that matter most to undergraduates. It uniquely disregards research, instead focusing on the day-to-day student experience, teaching, and support.</p>
+                     <div class="w-full max-w-sm mx-auto h-64 md:h-80">
+                        <canvas id="guardianChart"></canvas>
+                    </div>
+                    <div id="legend-guardian" class="mt-4"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="conclusion" class="my-16">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#003f5c]">Which Recipe is For You?</h2>
+                <p class="mt-2 text-lg max-w-2xl mx-auto text-gray-600">A ranking is just one perspective. The best university is the one that's the perfect fit for your personal and academic goals. Consider what ingredients matter most to you.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-[#003f5c] text-white rounded-lg shadow-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">The CUG Follower</h3>
+                    <p>You're a future academic seeking a world-class research institution. You value tradition and intellectual rigor above all else.</p>
+                </div>
+                <div class="bg-[#bc5090] text-white rounded-lg shadow-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">The T&ST Reader</h3>
+                    <p>You want a classic, well-rounded university experience with a strong balance of teaching quality, student life, and research reputation.</p>
+                </div>
+                <div class="bg-[#ff6361] text-white rounded-lg shadow-lg p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-2xl font-bold mb-3">The Guardian Fan</h3>
+                    <p>Your primary focus is on the student experience. You prioritize fantastic teaching, strong support services, and a positive campus environment.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <p>&copy; 2025 Justin O'Brien. All rights reserved.</p>
+        <p class="text-sm text-gray-400 mt-1">Data synthesized from publicly available 2024/2025 university guide methodologies.</p>
+        <p class="text-sm text-gray-400 mt-1">Infographic generated by Google Gemini, motto "Gemini can make mistakes, including about people, so double-check it."</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Unified categorical color palette, mapped by metric name
+            const CATEGORY_COLORS = {
+                'Student Satisfaction': '#003f5c',
+                'Research Assessment': '#58508d',
+                'Entry Standards': '#bc5090',
+                'Student-Staff Ratio': '#ff6361',
+                'Graduate Prospects': '#ffa600',
+                'Degree Completion': '#1984c5',
+                'Degree Classification': '#63b37b',
+                'Academic Services Spend': '#2ca02c',
+                'Value Added Score': '#9467bd',
+                'Research Intensity': '#8c564b'
+            };
+
+            // Fallback palette ordering if an unexpected label appears
+            const PALETTE_ORDER = ['#003f5c', '#58508d', '#bc5090', '#ff6361', '#ffa600', '#1984c5', '#63b37b', '#2ca02c', '#9467bd', '#8c564b'];
+
+            function colorsForLabels(rawLabels) {
+                return rawLabels.map(lbl => CATEGORY_COLORS[lbl] || PALETTE_ORDER[rawLabels.indexOf(lbl) % PALETTE_ORDER.length]);
+            }
+
+            function wrapLabels(label) {
+                if (typeof label === 'string' && label.length > 16) {
+                    const words = label.split(' ');
+                    const lines = [];
+                    let currentLine = '';
+                    words.forEach(word => {
+                        if ((currentLine + word).length > 16 && currentLine.length > 0) {
+                            lines.push(currentLine.trim());
+                            currentLine = '';
+                        }
+                        currentLine += word + ' ';
+                    });
+                    lines.push(currentLine.trim());
+                    return lines;
+                }
+                return label;
+            }
+
+            const universalTooltipOptions = {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        }
+                        return label;
+                    }
+                }
+            };
+
+            const universalOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: universalTooltipOptions
+                }
+            };
+
+            // Custom HTML legend generator for clean alignment
+            function renderLegend(containerId, labels) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                container.innerHTML = '';
+                container.className = 'legend-grid grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-sm';
+                labels.forEach(label => {
+                    const color = CATEGORY_COLORS[label] || '#999';
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center space-x-2';
+                    const swatch = document.createElement('span');
+                    swatch.className = 'inline-block w-3.5 h-3.5 rounded-sm flex-shrink-0';
+                    swatch.style.backgroundColor = color;
+                    const text = document.createElement('span');
+                    text.textContent = label;
+                    item.appendChild(swatch);
+                    item.appendChild(text);
+                    container.appendChild(item);
+                });
+            }
+            
+            const comparisonRawLabels = [
+                'Research Assessment', 'Student Satisfaction', 'Entry Standards', 'Student-Staff Ratio', 
+                'Graduate Prospects', 'Degree Completion', 'Degree Classification', 
+                'Academic Services Spend', 'Value Added Score'
+            ];
+            
+            new Chart(document.getElementById('comparisonChart'), {
+                type: 'bar',
+                data: {
+                    labels: comparisonRawLabels.map(wrapLabels),
+                    datasets: [
+                        { label: 'Complete University Guide', data: [25, 15, 10, 10, 10, 10, 10, 5, 0], backgroundColor: '#003f5c', borderRadius: 4 },
+                        { label: 'Times & Sunday Times', data: [15, 25, 13, 13, 13, 8, 10, 5, 0], backgroundColor: '#bc5090', borderRadius: 4 },
+                        { label: 'The Guardian', data: [0, 25, 15, 15, 5, 15, 0, 15, 15], backgroundColor: '#ff6361', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    ...universalOptions,
+                    plugins: {
+                        ...universalOptions.plugins,
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: { padding: 20, font: { size: 14 } }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Weighting (%)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            const cugRawLabels = [
+                'Research Assessment', 'Student Satisfaction', 'Entry Standards', 'Student-Staff Ratio',
+                'Graduate Prospects', 'Degree Completion', 'Degree Classification', 'Academic Services Spend', 'Research Intensity'
+            ];
+            const cugChart = new Chart(document.getElementById('cugChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: cugRawLabels.map(wrapLabels),
+                    datasets: [{
+                        label: 'CUG Weighting',
+                        data: [25, 15, 10, 10, 10, 10, 10, 5, 5],
+                        backgroundColor: colorsForLabels(cugRawLabels)
+                    }]
+                },
+                options: {
+                    ...universalOptions,
+                    plugins: {
+                        ...universalOptions.plugins,
+                        title: { display: false }
+                    }
+                }
+            });
+            renderLegend('legend-cug', cugRawLabels);
+            
+            const tstRawLabels = [
+                'Student Satisfaction', 'Research Assessment', 'Entry Standards', 'Student-Staff Ratio',
+                'Graduate Prospects', 'Degree Classification', 'Degree Completion', 'Academic Services Spend'
+            ];
+            const tstChart = new Chart(document.getElementById('tstChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: tstRawLabels.map(wrapLabels),
+                    datasets: [{
+                        label: 'T&ST Weighting',
+                        data: [25, 15, 13, 13, 13, 10, 8, 5],
+                        backgroundColor: colorsForLabels(tstRawLabels)
+                    }]
+                },
+                options: {
+                     ...universalOptions,
+                    plugins: {
+                        ...universalOptions.plugins,
+                        title: { display: false }
+                    }
+                }
+            });
+            renderLegend('legend-tst', tstRawLabels);
+
+            const guardianRawLabels = [
+                'Student Satisfaction', 'Academic Services Spend', 'Entry Standards',
+                'Student-Staff Ratio', 'Degree Completion', 'Value Added Score', 'Graduate Prospects'
+            ];
+            const guardianChart = new Chart(document.getElementById('guardianChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: guardianRawLabels.map(wrapLabels),
+                    datasets: [{
+                        label: 'Guardian Weighting',
+                        data: [25, 15, 15, 15, 15, 15, 5],
+                        backgroundColor: colorsForLabels(guardianRawLabels)
+                    }]
+                },
+                options: {
+                    ...universalOptions,
+                    plugins: {
+                        ...universalOptions.plugins,
+                        title: { display: false }
+                    }
+                }
+            });
+            renderLegend('legend-guardian', guardianRawLabels);
+        });
+    </script>
+</body>
+</html>

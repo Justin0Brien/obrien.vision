@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Future of UK University Fees: An Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-box {
+            border: 2px solid;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            transform: rotate(90deg);
+        }
+        @media (min-width: 768px) {
+            .flow-arrow {
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100" style="background-color: #1D2731; color: #FFFFFF;">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black mb-2" style="color: #D9B310;">UNCAPPING THE FUTURE</h1>
+            <p class="text-xl md:text-2xl font-light" style="color: #FFFFFF;">What if UK universities could set their own tuition fees?</p>
+        </header>
+
+        <main>
+            
+            <section class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2" style="color: #328CC1;">A System Under Strain: The Squeeze on UK Higher Education</h2>
+                    <p class="max-w-3xl mx-auto text-lg" style="color: #FFFFFF;">For over a decade, the cap on domestic undergraduate tuition fees in England has remained largely frozen. While costs have soared, core funding has dwindled in real terms, placing universities under immense financial pressure and increasing their reliance on other income sources.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                        <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">The Eroding Value of Tuition Fees</h3>
+                        <p class="text-center mb-4" style="color: #FFFFFF;">Inflation has significantly reduced the real-terms value of the £9,250 fee. This chart shows the widening gap between the fee cap and the actual funding value universities receive per student.</p>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="fundingGapChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                        <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">Shifting Income Sources</h3>
+                        <p class="text-center mb-4" style="color: #FFFFFF;">To bridge the funding gap, universities increasingly depend on fees from international students, which often cross-subsidize the cost of teaching domestic students and vital research activities.</p>
+                        <div class="chart-container h-64 md:h-80">
+                            <canvas id="incomeSourceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2" style="color: #328CC1;">The Tipping Point: A Tale of Two Tiers?</h2>
+                    <p class="max-w-3xl mx-auto text-lg" style="color: #FFFFFF;">Removing the fee cap would fundamentally alter the funding landscape. Experts predict a move from a uniform price point to a stratified market, where fees vary significantly by institution and course, much like the international student market.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12 p-6 rounded-lg" style="background-color: #0B3C5D;">
+                    <div class="flow-box" style="border-color: #D9B310; color: #FFFFFF;">
+                        <h4 class="text-lg mb-2">Current Capped System</h4>
+                        <p>Government sets a fee limit. Most universities charge the maximum, leading to relatively uniform funding per student.</p>
+                    </div>
+                    <div class="flow-arrow" style="color: #D9B310;">&rarr;</div>
+                    <div class="flow-box" style="border-color: #328CC1; color: #FFFFFF;">
+                        <h4 class="text-lg mb-2">Potential Deregulated System</h4>
+                        <p>Universities set their own fees, creating a tiered market where price reflects demand, cost, and prestige.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                        <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">Projected Fees: A Stratified Market</h3>
+                         <p class="text-center mb-4" style="color: #FFFFFF;">Without a cap, elite universities would likely charge significantly more, while others might compete on price. This could create distinct fee bands across the sector.</p>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="projectedFeesChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                        <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">Closing the Gap: Domestic vs. International</h3>
+                        <p class="text-center mb-4" style="color: #FFFFFF;">Deregulated domestic fees at top-tier universities could approach the levels currently paid by international students, reflecting the true cost of high-demand, high-cost courses.</p>
+                        <div class="chart-container h-80 md:h-96">
+                            <canvas id="feeComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mb-16">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2" style="color: #328CC1;">The Graduate View: Understanding the Real Cost</h2>
+                    <p class="max-w-3xl mx-auto text-lg" style="color: #FFFFFF;">Higher fees mean higher student loans, but the UK's income-contingent system means the immediate impact isn't on upfront costs, but on lifetime repayments for higher-earning graduates. The "headline debt" figure can be misleading.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                         <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">The Bottom Line: Lifetime Repayments</h3>
+                         <p class="text-center mb-4" style="color: #FFFFFF;">For a high-earning graduate, a £20,000 annual fee could significantly increase the total amount repaid over their career compared to the current system.</p>
+                         <div class="text-center">
+                            <div class="mb-4">
+                                 <p class="text-lg font-semibold" style="color: #FFFFFF;">Current System (Fee: £9,250/yr)</p>
+                                 <p class="text-4xl font-black" style="color: #328CC1;">~£46,000</p>
+                                 <p class="text-sm" style="color: #FFFFFF;">Average Repayment for a Full Repayer</p>
+                             </div>
+                             <div>
+                                 <p class="text-lg font-semibold" style="color: #FFFFFF;">Deregulated System (Fee: £20,000/yr)</p>
+                                 <p class="text-4xl font-black" style="color: #D9B310;">~£90,000+</p>
+                                 <p class="text-sm" style="color: #FFFFFF;">Projected Repayment for a Full Repayer</p>
+                             </div>
+                         </div>
+                    </div>
+                    <div class="rounded-lg shadow-xl p-6" style="background-color: #0B3C5D;">
+                        <h3 class="text-xl font-bold mb-4 text-center" style="color: #FFFFFF;">How Income-Contingent Loans Work</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-4" style="color: #D9B310;">✓</span>
+                                <p style="color: #FFFFFF;"><strong class="font-semibold">No Upfront Fees:</strong> Tuition costs are covered by a government loan.</p>
+                            </li>
+                            <li class="flex items-start">
+                                 <span class="text-2xl mr-4" style="color: #D9B310;">✓</span>
+                                <p style="color: #FFFFFF;"><strong class="font-semibold">Repay Only When You Earn:</strong> Graduates repay 9% of their income above a certain threshold (£27,295 in 2025).</p>
+                            </li>
+                            <li class="flex items-start">
+                                 <span class="text-2xl mr-4" style="color: #D9B310;">✓</span>
+                                <p style="color: #FFFFFF;"><strong class="font-semibold">Debt Written Off:</strong> Any outstanding debt is cancelled after a set period (e.g., 40 years for new students).</p>
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-2xl mr-4" style="color: #D9B310;">✓</span>
+                                <p style="color: #FFFFFF;"><strong class="font-semibold">Protection for Low Earners:</strong> Those earning below the threshold repay nothing.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+             <section>
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold mb-2" style="color: #328CC1;">The Ripple Effect: Wider Impacts</h2>
+                    <p class="max-w-3xl mx-auto text-lg" style="color: #FFFFFF;">Deregulating fees is not just a financial decision; it's a policy choice with far-reaching consequences for students, universities, and the UK's social and economic fabric.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-6 rounded-lg" style="background-color: #0B3C5D;">
+                        <h4 class="font-bold text-lg mb-2 text-center" style="color: #328CC1;">Students</h4>
+                        <p style="color: #FFFFFF;">Face a trade-off between course/university prestige and cost. May lead to greater debt aversion for some, while others benefit from better-funded, higher-quality courses.</p>
+                    </div>
+                     <div class="p-6 rounded-lg" style="background-color: #0B3C5D;">
+                        <h4 class="font-bold text-lg mb-2 text-center" style="color: #328CC1;">Universities</h4>
+                        <p style="color: #FFFFFF;">Gain financial stability and the ability to invest. The sector could become more competitive and diverse, but some institutions may struggle to attract students.</p>
+                    </div>
+                     <div class="p-6 rounded-lg" style="background-color: #0B3C5D;">
+                        <h4 class="font-bold text-lg mb-2 text-center" style="color: #328CC1;">The Taxpayer</h4>
+                        <p style="color: #FFFFFF;">The immediate cost of student loans to the government would decrease as more is repaid by graduates. However, the overall loan book would be larger.</p>
+                    </div>
+                     <div class="p-6 rounded-lg" style="background-color: #0B3C5D;">
+                        <h4 class="font-bold text-lg mb-2 text-center" style="color: #328CC1;">The Economy</h4>
+                        <p style="color: #FFFFFF;">A better-funded HE sector could boost innovation and global competitiveness. Concerns remain about potential impacts on social mobility and access to certain professions.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t" style="border-color: #0B3C5D;">
+            <p class="text-sm" style="color: #FFFFFF;">Data sourced from analysis by the Institute for Fiscal Studies, Russell Group, Higher Education Policy Institute, and UK Parliament research briefings. Projections are illustrative, based on expert commentary on market behaviour. Infographic created on September 22, 2025.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const brilliantBlues = {
+            darkBlue: '#0B3C5D',
+            midBlue: '#328CC1',
+            gold: '#D9B310',
+            darkGrey: '#1D2731',
+            white: '#FFFFFF'
+        };
+
+        const chartTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    labels: {
+                        color: brilliantBlues.white
+                    }
+                }
+            },
+             scales: {
+                y: {
+                    ticks: { color: brilliantBlues.white },
+                    grid: { color: 'rgba(255, 255, 255, 0.2)' }
+                },
+                x: {
+                    ticks: { color: brilliantBlues.white },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        };
+
+        function wrapLabels(label) {
+            const maxLength = 16;
+            if (typeof label !== 'string' || label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).trim().length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = word;
+                } else {
+                    currentLine = (currentLine + ' ' + word).trim();
+                }
+            });
+            if (currentLine) {
+                lines.push(currentLine.trim());
+            }
+            return lines;
+        }
+
+        const fundingGapCtx = document.getElementById('fundingGapChart').getContext('2d');
+        new Chart(fundingGapCtx, {
+            type: 'line',
+            data: {
+                labels: ['2012', '2015', '2018', '2021', '2024', '2025'],
+                datasets: [{
+                    label: 'Nominal Fee Cap (£)',
+                    data: [9000, 9000, 9250, 9250, 9250, 9535],
+                    borderColor: brilliantBlues.midBlue,
+                    backgroundColor: brilliantBlues.midBlue,
+                    tension: 0.1,
+                    fill: false
+                }, {
+                    label: 'Real-Terms Value (£)',
+                    data: [9000, 8500, 8100, 7200, 6200, 6400],
+                    borderColor: brilliantBlues.gold,
+                    backgroundColor: brilliantBlues.gold,
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: { ...chartTooltipConfig, maintainAspectRatio: false }
+        });
+
+        const incomeSourceCtx = document.getElementById('incomeSourceChart').getContext('2d');
+        new Chart(incomeSourceCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Domestic Fees', 'International Fees', ['Government', 'Grants'], 'Other Income'],
+                datasets: [{
+                    label: 'University Income Breakdown',
+                    data: [28, 22, 12, 38],
+                    backgroundColor: [brilliantBlues.midBlue, brilliantBlues.gold, '#1f77b4', '#d1e3f3'],
+                    borderColor: brilliantBlues.darkBlue
+                }]
+            },
+            options: { ...chartTooltipConfig, maintainAspectRatio: false }
+        });
+
+        const projectedFeesCtx = document.getElementById('projectedFeesChart').getContext('2d');
+        new Chart(projectedFeesCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabels('Current Capped Fee'), wrapLabels('Price-Competitive Institutions'), wrapLabels('Mid-Tier Institutions'), wrapLabels('Elite / Russell Group Institutions')],
+                datasets: [{
+                    label: 'Projected Annual Fee (£)',
+                    data: [9535, 10500, 14000, 22000],
+                    backgroundColor: [brilliantBlues.midBlue, '#6baed6', '#3182bd', brilliantBlues.gold],
+                }]
+            },
+            options: { ...chartTooltipConfig, maintainAspectRatio: false, indexAxis: 'y' }
+        });
+        
+        const feeComparisonCtx = document.getElementById('feeComparisonChart').getContext('2d');
+        new Chart(feeComparisonCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabels('Current Domestic Fee'), wrapLabels('Projected Elite Domestic Fee'), wrapLabels('Average International Fee')],
+                datasets: [{
+                    label: 'Annual Fee Comparison (£)',
+                    data: [9535, 22000, 28000],
+                     backgroundColor: [brilliantBlues.midBlue, brilliantBlues.gold, '#d62728'],
+                }]
+            },
+            options: { ...chartTooltipConfig, maintainAspectRatio: false, indexAxis: 'y' }
+        });
+    </script>
+</body>
+</html>

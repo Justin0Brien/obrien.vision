@@ -95,8 +95,9 @@ main.illusion-page {
 .demo-surface canvas {
   width: 100%;
   display: block;
-  aspect-ratio: var(--demo-aspect, 1 / 1);
-  min-height: clamp(240px, 55vw, 520px);
+  aspect-ratio: var(--demo-aspect, 3 / 4);
+  min-height: clamp(200px, 65vw, 420px);
+  border-radius: 18px;
 }
 
 .demo-surface video,
