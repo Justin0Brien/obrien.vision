@@ -7988,3 +7988,4 @@ timestamp_iso,icmp_host,icmp_avg_ms,icmp_loss_pct,speedtest_server,speedtest_lat
 2025-09-24T10:03:08,8.8.8.8,900.9,0,,,,,NONE,,,,[Speedtest Failed]
 2025-09-24T10:08:21,8.8.8.8,770.9,0,Trooli (Slough),1069.0,3.40,2.27,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
 2025-09-24T10:14:34,8.8.8.8,936.5,0,Glide (London),682.5,2.32,2.32,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]
+2025-09-24T10:20:41,8.8.8.8,690.3,0,Community Fibre Limited (London),847.6,2.96,2.22,PPP_RESET_SKIPPED_WINDOW,,,,[Below Threshold][Window Skip]

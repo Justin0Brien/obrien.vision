@@ -36,7 +36,7 @@
     }
     .chart-panel h2 { margin: .2rem 0 .4rem; font-size: 0.85rem; font-weight: 600; letter-spacing: .5px; }
     
-    #hourly-chart-wrap, #hist-chart-wrap { position: relative; width: 100%; height: 340px; }
+    #hourly-chart-wrap, #hist-chart-wrap, #share-chart-wrap { position: relative; width: 100%; height: 340px; }
     
     #timeControls {
         display: flex; flex-wrap: wrap; gap: .6rem; align-items: center;
@@ -158,6 +158,10 @@
         <div id="hourly-chart-wrap"><svg id="hourlyChart"></svg></div>
     </div>
     <div class="chart-panel">
+        <h2>Share Above 40 Mb/s (Guaranteed Minimum)</h2>
+        <div id="share-chart-wrap"><svg id="shareChart"></svg></div>
+    </div>
+    <div class="chart-panel">
         <h2>Download Speed Distribution</h2>
         <div id="hist-chart-wrap"><svg id="histChart"></svg></div>
     </div>
@@ -196,7 +200,7 @@ class BroadbandChart {
         this.init();
     }
     getCSS(variable) { return getComputedStyle(document.documentElement).getPropertyValue(variable).trim(); }
-    initializeElements() { this.svg = d3.select('#chart'); this.hourlySvg = d3.select('#hourlyChart'); this.histSvg = d3.select('#histChart'); this.tooltip = d3.select('#tooltip'); this.statusEl = d3.select('#status'); }
+    initializeElements() { this.svg = d3.select('#chart'); this.hourlySvg = d3.select('#hourlyChart'); this.shareSvg = d3.select('#shareChart'); this.histSvg = d3.select('#histChart'); this.tooltip = d3.select('#tooltip'); this.statusEl = d3.select('#status'); }
     initializeScales() { this.xScale = d3.scaleTime(); this.yScaleLog = d3.scaleSymlog().constant(1); this.pingScale = d3.scaleLinear(); this.xOrig = null; }
     initializeGroups() { const { margin } = this.config; this.gRoot = this.svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`); this.gGrid = this.gRoot.append('g'); this.gPlot = this.gRoot.append('g').attr('class', 'plot-area'); this.gSpikes = this.gPlot.append('g'); this.gDots = this.gPlot.append('g'); this.gPing = this.gPlot.append('g'); this.gPingMean = this.gPlot.append('g'); this.gMeans = this.gPlot.append('g'); this.gAxes = this.gRoot.append('g'); this.gOverlay = this.gRoot.append('g'); this.setupDefsAndClipping(); this.xAxis = this.gAxes.append('g').attr('class', 'axis x'); this.yAxis = this.gAxes.append('g').attr('class', 'axis y'); this.y2Axis = this.gAxes.append('g').attr('class', 'axis y2'); this.zoomBehavior = d3.zoom().scaleExtent([1, 100]).on('zoom', (event) => this.onZoom(event)); this.svg.call(this.zoomBehavior); }
     setupDefsAndClipping() { const defs = this.svg.append('defs'); const grad = defs.append('linearGradient').attr('id', 'downGrad').attr('x1', '0').attr('x2', '0').attr('y1', '0').attr('y2', '1'); grad.append('stop').attr('offset', '0%').attr('stop-color', this.config.colors.download).attr('stop-opacity', 0.9); grad.append('stop').attr('offset', '100%').attr('stop-color', this.config.colors.download).attr('stop-opacity', 0.15); const clipPath = defs.append('clipPath').attr('id', 'plotClip'); this.clipRect = clipPath.append('rect').attr('x', 0).attr('y', 0); this.gPlot.attr('clip-path', 'url(#plotClip)'); }
@@ -231,7 +235,50 @@ class BroadbandChart {
     drawStatistics(g, values, xScale, height) { const mean = d3.mean(values); const median = d3.median(values); g.append('line').attr('x1', xScale(mean)).attr('x2', xScale(mean)).attr('y1', 0).attr('y2', height).attr('stroke', this.config.colors.mean).attr('stroke-dasharray', '4 4'); g.append('text').attr('x', xScale(mean) + 4).attr('y', 12).attr('fill', this.config.colors.mean).attr('font-size', '.6rem').text(`Mean (range) ${mean.toFixed(1)}`); g.append('line').attr('x1', xScale(median)).attr('x2', xScale(median)).attr('y1', 0).attr('y2', height).attr('stroke', this.config.colors.upload).attr('stroke-dasharray', '3 3'); g.append('text').attr('x', xScale(median) + 4).attr('y', 24).attr('fill', this.config.colors.upload).attr('font-size', '.6rem').text(`Median ${median.toFixed(1)}`); }
     kernelDensityEstimator(kernel, X) { return function(V) { return X.map(x => [x, d3.mean(V, v => kernel(x - v))]); }; }
     kernelEpanechnikov(k) { return function(v) { v /= k; return Math.abs(v) <= 1 ? 0.75 * (1 - v * v) / k : 0; }; }
-    drawAll() { this.draw(); this.drawHourly(); this.drawHistogram(); }
+    drawAll() { this.draw(); this.drawHourly(); this.drawThresholdShare(); this.drawHistogram(); }
+    drawThresholdShare() {
+        const subset = this.getCurrentSubset();
+        const dlVals = subset.filter(d => d.download != null).map(d => d.download);
+        this.shareSvg.selectAll('*').remove();
+        if (!dlVals.length) return;
+        const threshold = 40;
+        const above = dlVals.filter(v => v > threshold).length;
+        const below = dlVals.length - above;
+        const data = [
+            { key: 'Above 40', value: above },
+            { key: 'Below 40', value: below }
+        ];
+        const total = dlVals.length;
+        const { w, h, ml, mt } = this.getSecondarySize(this.shareSvg);
+        const size = Math.min(w, h);
+        const radius = size / 2;
+        const g = this.shareSvg.append('g').attr('transform', `translate(${ml + w/2},${mt + h/2})`);
+        const defs = this.shareSvg.append('defs');
+        const gradAbove = defs.append('linearGradient').attr('id', 'gradAbove').attr('x1', '0%').attr('x2', '100%').attr('y1', '0%').attr('y2', '100%');
+        gradAbove.append('stop').attr('offset', '0%').attr('stop-color', '#118f1f');
+        gradAbove.append('stop').attr('offset', '100%').attr('stop-color', '#6dd400');
+        const gradBelow = defs.append('linearGradient').attr('id', 'gradBelow').attr('x1', '0%').attr('x2', '100%').attr('y1', '0%').attr('y2', '100%');
+        gradBelow.append('stop').attr('offset', '0%').attr('stop-color', '#a40000');
+        gradBelow.append('stop').attr('offset', '100%').attr('stop-color', '#ff4741');
+        const pie = d3.pie().value(d => d.value).sort(null);
+        const arc = d3.arc().outerRadius(radius).innerRadius(radius * 0.58).cornerRadius(4);
+        const arcs = g.selectAll('path.slice').data(pie(data)).join('path').attr('class', 'slice').attr('d', arc).attr('fill', d => d.data.key === 'Above 40' ? 'url(#gradAbove)' : 'url(#gradBelow)').attr('stroke', '#0b1a27').attr('stroke-width', 1);
+        // Center label
+        const pctAbove = total ? (above / total * 100).toFixed(1) : '0.0';
+        g.append('text').attr('text-anchor', 'middle').attr('y', -4).attr('fill', '#e4ecf4').attr('font-size', '1.4rem').attr('font-weight', 600).text(`${pctAbove}%`);
+        g.append('text').attr('text-anchor', 'middle').attr('y', 18).attr('fill', '#b9c5d6').attr('font-size', '.55rem').text('tests > 40 Mb/s');
+        // Legend inline under donut
+        const legend = this.shareSvg.append('g').attr('transform', `translate(${ml + w/2 - 80},${mt + h - 10})`);
+        const legendItems = [
+            { label: 'Above 40 Mb/s', color: 'url(#gradAbove)' },
+            { label: 'Below 40 Mb/s', color: 'url(#gradBelow)' }
+        ];
+        const li = legend.selectAll('g.li').data(legendItems).join('g').attr('class', 'li').attr('transform', (d,i) => `translate(${i*120},0)`);
+        li.append('rect').attr('width', 14).attr('height', 14).attr('rx', 3).attr('fill', d => d.color).attr('stroke', '#0b1a27').attr('stroke-width', 1);
+        li.append('text').attr('x', 20).attr('y', 11).attr('fill', '#cdd5e0').attr('font-size', '.55rem').text(d => d.label);
+        // Accessibility title
+        this.shareSvg.append('title').text(`Download speed share above 40 Mb/s: ${pctAbove}% (${above} of ${total} tests)`);
+    }
     initSliders() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); const maxIndex = this.data.length - 1; startEl.min = endEl.min = 0; startEl.max = endEl.max = maxIndex; startEl.value = 0; endEl.value = maxIndex; this.updateSliderVisual(); this.updateEdgeLabels(); }
     onSliderChange() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); let startIndex = +startEl.value; let endIndex = +endEl.value; if (startIndex > endIndex) { [startIndex, endIndex] = [endIndex, startIndex]; startEl.value = startIndex; endEl.value = endIndex; } this.viewDomain = [this.data[startIndex].t, this.data[endIndex].t]; this.drawAll(); }
     updateSliderVisual() { if (!this.data.length) return; const startEl = document.getElementById('startRange'); const endEl = document.getElementById('endRange'); const maxIndex = (this.data.length - 1) || 1; const startPct = (+startEl.value) / maxIndex * 100; const endPct = (+endEl.value) / maxIndex * 100; const fill = document.getElementById('progressFill'); if (fill) { const left = Math.min(startPct, endPct); const right = Math.max(startPct, endPct); fill.style.left = left + '%'; fill.style.width = (right - left) + '%'; } const { formatters } = this.config; const startIndex = Math.min(+startEl.value, +endEl.value); const endIndex = Math.max(+startEl.value, +endEl.value); document.getElementById('earliestLabel').textContent = formatters.edgeLabel(this.data[startIndex].t); document.getElementById('latestLabel').textContent = formatters.edgeLabel(this.data[endIndex].t); }
