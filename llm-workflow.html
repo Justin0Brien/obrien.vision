@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Modern LLM System Architecture (2025)</title>
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", sans-serif; background:#f8fafc; }
+    header { padding: 20px 28px; background: #0f172a; color: #fff; }
+    h1 { margin: 0 0 6px 0; font-size: 20px; letter-spacing: 0.2px; }
+    p.subtitle { margin: 0; opacity: .85; font-size: 14px; }
+    .wrap { padding: 18px 24px 28px; }
+    .note { margin-top: 8px; font-size: 12px; color: #334155; }
+    svg { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 2px 14px rgba(2,6,23,.15); background: #ffffff; }
+    .col-title { font-weight: 700; font-size: 14px; fill: #0f172a; }
+    .box-title { font-weight: 700; font-size: 12px; fill: #0f172a; }
+    .box-text { font-size: 11px; fill: #0f172a; }
+    .legend-title { font-weight: 700; font-size: 12px; fill: #0f172a; }
+    .legend-text { font-size: 11px; fill: #0f172a; }
+    /* Palette */
+    .stroke-blue { stroke:#3b82f6; }
+    .fill-blue { fill:#cfe8ff; }
+    .stroke-purple { stroke:#7c3aed; }
+    .fill-purple { fill:#e9ddff; }
+    .stroke-emerald { stroke:#10b981; }
+    .fill-emerald { fill:#d1fae5; }
+    .stroke-amber { stroke:#f59e0b; }
+    .fill-amber { fill:#fef3c7; }
+    .stroke-rose { stroke:#e11d48; }
+    .fill-rose { fill:#ffe4e6; }
+    .stroke-zinc { stroke:#6b7280; }
+    .fill-zinc { fill:#e5e7eb; }
+    .stroke-sky { stroke:#0ea5e9; }
+    .fill-sky { fill:#e0f2fe; }
+    .stroke-slate { stroke:#94a3b8; }
+    .fill-slate { fill:#f1f5f9; }
+    .thin { stroke-width:1.25; }
+    .med { stroke-width:1.5; }
+    .thick { stroke-width:2; }
+    .round { rx:10; ry:10; }
+    .dash { stroke-dasharray: 6 5; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Modern LLM System Architecture (2025) – End‑to‑End Flow</h1>
+    <p class="subtitle">From pre‑processing and orchestration to agentic execution, governance, and delivery.</p>
+  </header>
+  <div class="wrap">
+    <svg viewBox="0 0 1500 1040" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram of a modern LLM system">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed" />
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e11d48" />
+    </marker>
+    <style>
+      .col-title { font-weight: 700; font-size: 14px; fill: #0f172a; dominant-baseline: text-before-edge; }
+      .box-title { font-weight: 700; font-size: 12px; fill: #0f172a; dominant-baseline: text-before-edge; }
+      .box-text { font-size: 11px; fill: #0f172a; dominant-baseline: text-before-edge; }
+      .legend-title { font-weight: 700; font-size: 12px; fill: #0f172a; dominant-baseline: text-before-edge; }
+      .legend-text { font-size: 11px; fill: #0f172a; dominant-baseline: text-before-edge; }
+      .stroke-blue { stroke:#3b82f6; }
+      .fill-blue { fill:#cfe8ff; }
+      .stroke-purple { stroke:#7c3aed; }
+      .fill-purple { fill:#e9ddff; }
+      .stroke-emerald { stroke:#10b981; }
+      .fill-emerald { fill:#d1fae5; }
+      .stroke-amber { stroke:#f59e0b; }
+      .fill-amber { fill:#fef3c7; }
+      .stroke-rose { stroke:#e11d48; }
+      .fill-rose { fill:#ffe4e6; }
+      .stroke-zinc { stroke:#6b7280; }
+      .fill-zinc { fill:#e5e7eb; }
+      .stroke-sky { stroke:#0ea5e9; }
+      .fill-sky { fill:#e0f2fe; }
+      .stroke-slate { stroke:#94a3b8; }
+      .fill-slate { fill:#f1f5f9; }
+      .thin { stroke-width:1.25; }
+      .med { stroke-width:1.5; }
+      .thick { stroke-width:2; }
+      .round { rx:10; ry:10; }
+      .dash { stroke-dasharray: 6 5; }
+      .no-scale { vector-effect: non-scaling-stroke; }
+    </style>
+  </defs>
+
+  <!-- Column titles -->
+  <text x="70" y="60" class="col-title">Users &amp; Channels</text>
+  <text x="320" y="60" class="col-title">Pre‑processing &amp; Orchestration</text>
+  <text x="610" y="60" class="col-title">Model Inference</text>
+  <text x="900" y="60" class="col-title">Tools &amp; Data</text>
+  <text x="1160" y="60" class="col-title">Post‑processing &amp; Governance</text>
+  <text x="1410" y="60" class="col-title">Observability &amp; Audit</text>
+
+  <!-- USERS -->
+  <g transform="translate(40,80)">
+    <rect class="fill-slate stroke-slate med round" x="0" y="0" width="220" height="120"/>
+    <text x="12" y="12" class="box-title">Users &amp; Channels</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Web, Mobile, API, Voice</tspan>
+      <tspan x="12" dy="18">Chat UI, Email, Agents</tspan>
+      <tspan x="12" dy="18">Locale &amp; consent notices</tspan>
+    </text>
+  </g>
+
+  <!-- PRE‑PROCESSING &amp; ORCHESTRATION COLUMN -->
+  <g transform="translate(290,80)">
+    <rect class="fill-blue stroke-blue med round" x="0" y="0" width="260" height="140"/>
+    <text x="12" y="12" class="box-title">Ingress &amp; Triage</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Intent routing • Language detect</tspan>
+      <tspan x="12" dy="18">Rate limits • Abuse screening</tspan>
+      <tspan x="12" dy="18">PII redaction • Risk tiering</tspan>
+      <tspan x="12" dy="18">Jurisdiction/policy gates</tspan>
+    </text>
+
+    <rect class="fill-blue stroke-blue med round" x="0" y="160" width="260" height="170"/>
+    <text x="12" y="172" class="box-title">Context Builder</text>
+    <text x="12" y="194" class="box-text">
+      <tspan x="12" dy="0">Conversation state &amp; memory</tspan>
+      <tspan x="12" dy="18">RAG: retrieve docs/web/db</tspan>
+      <tspan x="12" dy="18">Prompt‑injection defences</tspan>
+      <tspan x="12" dy="18">Tool selection &amp; capability map</tspan>
+      <tspan x="12" dy="18">Schema/format expectations</tspan>
+    </text>
+
+    <rect class="fill-blue stroke-blue med round" x="0" y="350" width="260" height="130"/>
+    <text x="12" y="362" class="box-title">Prompt Assembler</text>
+    <text x="12" y="384" class="box-text">
+      <tspan x="12" dy="0">System + developer + user</tspan>
+      <tspan x="12" dy="18">Retrieved context &amp; citations</tspan>
+      <tspan x="12" dy="18">Guardrail reminders &amp; roles</tspan>
+    </text>
+  </g>
+
+  <!-- MODEL INFERENCE COLUMN -->
+  <g transform="translate(580,80)">
+    <rect class="fill-purple stroke-purple med round" x="0" y="0" width="260" height="120"/>
+    <text x="12" y="12" class="box-title">LLM Core (Transformer)</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Tokenisation • Attention</tspan>
+      <tspan x="12" dy="18">Instruction‑tuned &amp; aligned</tspan>
+      <tspan x="12" dy="18">Adapters/LoRA as needed</tspan>
+    </text>
+
+    <rect class="fill-purple stroke-purple med round" x="0" y="140" width="260" height="120"/>
+    <text x="12" y="152" class="box-title">Decoding &amp; Constraints</text>
+    <text x="12" y="174" class="box-text">
+      <tspan x="12" dy="0">Temperature • Top‑p • Stops</tspan>
+      <tspan x="12" dy="18">Constrained JSON/regex/CFG</tspan>
+      <tspan x="12" dy="18">Log‑probs • Length caps</tspan>
+    </text>
+
+    <rect class="fill-purple stroke-purple med round" x="0" y="270" width="260" height="150"/>
+    <text x="12" y="282" class="box-title">Function‑Calling Loop</text>
+    <text x="12" y="304" class="box-text">
+      <tspan x="12" dy="0">Emit tool call → execute</tspan>
+      <tspan x="12" dy="18">Return results → continue</tspan>
+      <tspan x="12" dy="18">Budgets • Circuit‑breakers</tspan>
+      <tspan x="12" dy="18">Tool‑result attribution</tspan>
+    </text>
+
+    <rect class="fill-purple stroke-purple med round" x="0" y="440" width="260" height="120"/>
+    <text x="12" y="452" class="box-title">Test‑time Reasoning</text>
+    <text x="12" y="474" class="box-text">
+      <tspan x="12" dy="0">Plan‑and‑execute • ReAct</tspan>
+      <tspan x="12" dy="18">Self‑critique • Consistency</tspan>
+      <tspan x="12" dy="18">Deliberate multi‑pass</tspan>
+    </text>
+  </g>
+
+  <!-- TOOLS &amp; DATA COLUMN -->
+  <g transform="translate(870,80)">
+    <rect class="fill-emerald stroke-emerald med round" x="0" y="0" width="240" height="150"/>
+    <text x="12" y="12" class="box-title">Tool Registry &amp; Sandboxes</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Calculators • Code exec</tspan>
+      <tspan x="12" dy="18">SQL/Vector DB • Search/Web</tspan>
+      <tspan x="12" dy="18">Email/Calendar • CRM/APIs</tspan>
+      <tspan x="12" dy="18">Allow/deny • Permissions</tspan>
+    </text>
+
+    <rect class="fill-amber stroke-amber med round" x="0" y="170" width="240" height="170"/>
+    <text x="12" y="182" class="box-title">Data Sources</text>
+    <text x="12" y="204" class="box-text">
+      <tspan x="12" dy="0">Vector DB (embeddings)</tspan>
+      <tspan x="12" dy="18">Document stores &amp; files</tspan>
+      <tspan x="12" dy="18">Enterprise systems/APIs</tspan>
+      <tspan x="12" dy="18">Web retrieval (guarded)</tspan>
+    </text>
+
+    <rect class="fill-emerald stroke-emerald med round" x="0" y="360" width="240" height="110"/>
+    <text x="12" y="372" class="box-title">Policy &amp; Budgets</text>
+    <text x="12" y="394" class="box-text">
+      <tspan x="12" dy="0">Spend/time caps • Rate limits</tspan>
+      <tspan x="12" dy="18">Jurisdiction &amp; licensing</tspan>
+      <tspan x="12" dy="18">Data‑minimisation</tspan>
+    </text>
+  </g>
+
+  <!-- POST‑PROCESSING &amp; GOVERNANCE COLUMN -->
+  <g transform="translate(1130,80)">
+    <rect class="fill-rose stroke-rose med round" x="0" y="0" width="260" height="140"/>
+    <text x="12" y="12" class="box-title">Safety Filters</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Toxicity • Self‑harm • Extremism</tspan>
+      <tspan x="12" dy="18">PII leakage &amp; secrets</tspan>
+      <tspan x="12" dy="18">IP/quotations policy</tspan>
+    </text>
+
+    <rect class="fill-rose stroke-rose med round" x="0" y="160" width="260" height="150"/>
+    <text x="12" y="172" class="box-title">Verification &amp; Grounding</text>
+    <text x="12" y="194" class="box-text">
+      <tspan x="12" dy="0">Schema/JSON validation</tspan>
+      <tspan x="12" dy="18">Code/SQL tests in sandbox</tspan>
+      <tspan x="12" dy="18">Groundedness checks (RAG)</tspan>
+      <tspan x="12" dy="18">Link/number validation</tspan>
+    </text>
+
+    <rect class="fill-rose stroke-rose med round" x="0" y="330" width="260" height="100"/>
+    <text x="12" y="342" class="box-title">Human‑in‑the‑Loop (as needed)</text>
+    <text x="12" y="364" class="box-text">
+      <tspan x="12" dy="0">Approvals • Escalations</tspan>
+      <tspan x="12" dy="18">High‑risk actions</tspan>
+    </text>
+
+    <rect class="fill-rose stroke-rose med round" x="0" y="450" width="260" height="140"/>
+    <text x="12" y="462" class="box-title">Formatting &amp; Delivery</text>
+    <text x="12" y="484" class="box-text">
+      <tspan x="12" dy="0">Citations • Tables • Redactions</tspan>
+      <tspan x="12" dy="18">Tone/locale • Accessibility</tspan>
+      <tspan x="12" dy="18">Channels (chat/email/docs)</tspan>
+    </text>
+  </g>
+
+  <!-- OBSERVABILITY &amp; AUDIT (vertical strip) -->
+  <g transform="translate(1400,80)">
+    <rect class="fill-zinc stroke-zinc med round" x="0" y="0" width="80" height="760"/>
+    <text x="40" y="12" text-anchor="middle" class="box-title">Obs &amp; Audit</text>
+    <text x="40" y="34" text-anchor="middle" class="box-text">Telemetry</text>
+    <text x="40" y="52" text-anchor="middle" class="box-text">Evals</text>
+    <text x="40" y="70" text-anchor="middle" class="box-text">Event log</text>
+    <text x="40" y="88" text-anchor="middle" class="box-text">Approvals</text>
+    <text x="40" y="106" text-anchor="middle" class="box-text">Retention</text>
+    <text x="40" y="124" text-anchor="middle" class="box-text">Provenance</text>
+  </g>
+
+  <!-- AGENTIC CONTROLLER OVERLAY (dashed) -->
+  <g>
+    <rect class="fill-sky stroke-sky dash thick round" x="560" y="60" width="570" height="600" opacity="0.35"/>
+    <text x="845" y="66" text-anchor="middle" class="box-title">Agentic Controller</text>
+    <text x="845" y="84" text-anchor="middle" class="box-text">Planner • Memory • Budget Manager • Policy‑aware executor</text>
+  </g>
+
+  <!-- POLICY ENGINE SIDEBOX -->
+  <g transform="translate(40,240)">
+    <rect class="fill-zinc stroke-zinc med round" x="0" y="0" width="220" height="170"/>
+    <text x="12" y="12" class="box-title">Policy Engine</text>
+    <text x="12" y="34" class="box-text">
+      <tspan x="12" dy="0">Org policy &amp; jurisdiction</tspan>
+      <tspan x="12" dy="18">Safety configs &amp; blocklists</tspan>
+      <tspan x="12" dy="18">Data residency &amp; privacy</tspan>
+      <tspan x="12" dy="18">Licensing/usage controls</tspan>
+    </text>
+  </g>
+
+  <!-- CONNECTORS (aligned to box edges) -->
+  <!-- Users → Ingress: from Users right‑mid to Ingress left‑mid -->
+  <path d="M260,140 H280 V150 H290" stroke="#334155" stroke-width="1.6" fill="none" marker-end="url(#arrow)" class="no-scale"/>
+
+  <!-- Orchestration vertical flow (exact bottoms → tops) -->
+  <path d="M420,220 V240" stroke="#3b82f6" stroke-width="1.6" fill="none" marker-end="url(#arrow-blue)" class="no-scale"/>
+  <path d="M420,410 V430" stroke="#3b82f6" stroke-width="1.6" fill="none" marker-end="url(#arrow-blue)" class="no-scale"/>
+
+  <!-- Prompt Assembler → LLM Core (edge aligned) -->
+  <path d="M550,415 H570 V140 H580" stroke="#7c3aed" stroke-width="1.8" fill="none" marker-end="url(#arrow-purple)" class="no-scale"/>
+
+  <!-- LLM column vertical connectors (exact bottoms → tops) -->
+  <path d="M710,200 V220" stroke="#7c3aed" stroke-width="1.6" fill="none" marker-end="url(#arrow-purple)" class="no-scale"/>
+  <path d="M710,340 V350" stroke="#7c3aed" stroke-width="1.6" fill="none" marker-end="url(#arrow-purple)" class="no-scale"/>
+  <path d="M710,500 V520" stroke="#7c3aed" stroke-width="1.6" fill="none" marker-end="url(#arrow-purple)" class="no-scale"/>
+
+  <!-- Function Loop → Tool Registry (right edge of Function → left edge of Tool box) -->
+  <path d="M840,345 H870" stroke="#10b981" stroke-width="1.8" fill="none" marker-end="url(#arrow-emerald)" class="no-scale"/>
+
+  <!-- Tools vertical relations (bottom → top) -->
+  <path d="M990,230 V250" stroke="#10b981" stroke-width="1.6" fill="none" marker-end="url(#arrow-emerald)" class="no-scale"/>
+  <path d="M990,420 V440" stroke="#10b981" stroke-width="1.6" fill="none" marker-end="url(#arrow-emerald)" class="no-scale"/>
+
+  <!-- Model output → Safety (from LLM column right‑mid of Test‑time to Safety left‑mid) -->
+  <path d="M840,580 H1115 V150 H1130" stroke="#e11d48" stroke-width="1.6" fill="none" marker-end="url(#arrow-rose)" class="no-scale"/>
+
+  <!-- Safety chain (exact bottoms → tops) -->
+  <path d="M1260,220 V240" stroke="#e11d48" stroke-width="1.6" fill="none" marker-end="url(#arrow-rose)" class="no-scale"/>
+  <path d="M1260,390 V410" stroke="#e11d48" stroke-width="1.6" fill="none" marker-end="url(#arrow-rose)" class="no-scale"/>
+  <path d="M1260,510 V530" stroke="#e11d48" stroke-width="1.6" fill="none" marker-end="url(#arrow-rose)" class="no-scale"/>
+
+  <!-- Formatting → back to Users (route up then into right edge centre) -->
+  <path d="M1130,600 H270 V140 H260" stroke="#334155" stroke-width="1.4" fill="none" marker-end="url(#arrow)" class="no-scale"/>
+
+  <!-- Policy Engine → Ingress (top‑right corner up to mid, then into Ingress) -->
+  <path d="M260,240 V150 H290" stroke="#6b7280" stroke-width="1.2" fill="none" marker-end="url(#arrow)" class="no-scale"/>
+  <!-- Policy Engine → Context Builder (mid‑right to mid‑left) -->
+  <path d="M260,325 H290" stroke="#6b7280" stroke-width="1.2" fill="none" marker-end="url(#arrow)" class="no-scale"/>
+
+  <!-- Legend -->
+  <g transform="translate(40,880)">
+    <rect class="fill-slate stroke-slate med round" x="0" y="0" width="840" height="140"/>
+    <text x="16" y="12" class="legend-title">Legend</text>
+    <g transform="translate(16,40)">
+      <rect class="fill-blue stroke-blue thin round" x="0" y="-12" width="18" height="18"/>
+      <text x="26" y="-10" class="legend-text">Pre‑processing &amp; orchestration</text>
+      <rect class="fill-purple stroke-purple thin round" x="250" y="-12" width="18" height="18"/>
+      <text x="276" y="-10" class="legend-text">Model inference</text>
+      <rect class="fill-emerald stroke-emerald thin round" x="450" y="-12" width="18" height="18"/>
+      <text x="476" y="-10" class="legend-text">Tools / policy</text>
+      <rect class="fill-amber stroke-amber thin round" x="620" y="-12" width="18" height="18"/>
+      <text x="646" y="-10" class="legend-text">Data sources</text>
+    </g>
+    <g transform="translate(16,78)">
+      <rect class="fill-rose stroke-rose thin round" x="0" y="-12" width="18" height="18"/>
+      <text x="26" y="-10" class="legend-text">Safety, verification, delivery</text>
+      <rect class="fill-zinc stroke-zinc thin round" x="290" y="-12" width="18" height="18"/>
+      <text x="316" y="-10" class="legend-text">Observability &amp; audit / policy</text>
+      <rect class="fill-sky stroke-sky thin round" x="590" y="-12" width="18" height="18"/>
+      <text x="616" y="-10" class="legend-text">Agentic controller scope</text>
+    </g>
+    <text x="16" y="118" class="legend-text">Notes: Apply data‑minimisation, GDPR/CCPA compliance, and content provenance where applicable. Maintain immutable audit trails for sensitive workflows.</text>
+  </g>
+</svg>
+    <p class="note">Tip: Use this as a teaching aid. Walk left→right to explain the flow, then highlight the dashed agentic area to show planning, tools, and verification loops. The Observability strip underscores governance throughout.</p>
+  </div>
+</body>
+</html>
