@@ -130,7 +130,7 @@
         </select>
     </label>
     <button id="reloadBtn">Reload Now</button>
-    <label><input type="checkbox" id="showLatency" /> Show Latency (ms)</label>
+    <label><input type="checkbox" id="showLatency" checked /> Show Latency (ms)</label>
     <label><input type="checkbox" id="logScale" /> Log Speed Scale</label>
     <label class="file-btn">Load CSV<input type="file" id="fileInput" accept=".csv" /></label>
         <span id="status">Idle</span>
@@ -293,7 +293,7 @@ class BroadbandChart {
     setupEventListeners() { document.getElementById('reloadBtn').addEventListener('click', () => this.fetchData()); document.getElementById('rangeAll').addEventListener('click', () => this.onRangeAll()); document.getElementById('range24h').addEventListener('click', () => this.onRange24h()); document.getElementById('startRange').addEventListener('input', () => this.onSliderChange()); document.getElementById('endRange').addEventListener('input', () => this.onSliderChange()); document.getElementById('showLatency').addEventListener('change', () => this.drawAll()); document.getElementById('logScale').addEventListener('change', () => this.drawAll()); document.getElementById('autoReload').addEventListener('change', () => this.scheduleReload()); document.getElementById('reloadInterval').addEventListener('change', () => this.scheduleReload()); document.getElementById('fileInput').addEventListener('change', (e) => this.onFileLoad(e)); this.setupLegend(); window.addEventListener('resize', () => this.drawAll()); }
     setupLegend() { const legendItems = [{ key: 'download', label: 'Download' }, { key: 'upload', label: 'Upload' }, { key: 'latency', label: 'Latency' }]; const legend = d3.select('#legend').selectAll('.legend-item').data(legendItems).join('div').attr('class', 'legend-item').on('click', (event, d) => { this.hidden[d.key] = !this.hidden[d.key]; this.applyVisibility(); d3.select(event.currentTarget).classed('inactive', this.hidden[d.key]); }); legend.append('span').attr('class', 'legend-swatch').style('background', d => this.config.colors[d.key]); legend.append('span').text(d => d.label); }
     setupResizeObserver() { const chartWrap = document.getElementById('chart-wrap'); if (window.ResizeObserver) { const observer = new ResizeObserver(() => { if (this.data.length && !this.initialRenderComplete) { this.drawAll(); this.initialRenderComplete = true; } }); observer.observe(chartWrap); } window.addEventListener('load', () => { if (this.data.length && !this.initialRenderComplete) { this.drawAll(); this.initialRenderComplete = true; } }); }
-    async init() { await this.fetchData(); this.initSliders(); this.scheduleReload(); }
+    async init() { await this.fetchData(); this.initSliders(); this.onRange24h(); this.scheduleReload(); }
 }
 document.addEventListener('DOMContentLoaded', () => { new BroadbandChart(); });
 </script>
