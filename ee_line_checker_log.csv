@@ -13246,3 +13246,5 @@ timestamp_iso,icmp_host,icmp_avg_ms,icmp_loss_pct,speedtest_server,speedtest_lat
 2025-11-05T16:27:17,8.8.8.8,471.8,0,YouFibre (London),534.1,9.67,7.67,NONE,,,,[Below Threshold][No Reset]
 2025-11-05T16:58:16,8.8.8.8,924.0,0,"KamaTera, Inc. (London)",179.4,3.96,2.77,NONE,,,,[Below Threshold][No Reset]
 2025-11-05T17:29:10,8.8.8.8,930.1,0,YouFibre (London),836.3,2.46,1.65,NONE,,,,[Below Threshold][No Reset]
+2025-11-14T17:14:19,8.8.8.8,30.7,0,,,,,NONE,,,,[Speedtest Failed]
+2025-11-14T17:15:18,8.8.8.8,12.2,0,Quickline Communications (Barnsley),24.9,50.20,9.33,NONE,,,,[OK]
