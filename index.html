@@ -1,34 +1,33 @@
 ---
 layout: default
 title: Home
-description: Human-centred AI evaluation, perception research, and interactive data stories from Justin O’Brien, PhD.
+description: AI consulting for universities and education providers. Strategy, assessment design, and academic integrity from Justin O'Brien, PhD.
 ---
 
 {% assign illusions_only = site.illusions | where: "layout", "illusion" %}
 {% assign recent_visualizations = site.visualizations %}
 
 <div class="home">
-  <section class="hero hero--split" data-reveal>
+    <section class="hero hero--split" data-reveal>
     <div class="hero__content" data-reveal>
-      <p class="hero__eyebrow">Vision science × trustworthy AI</p>
-      <h1 class="hero__title">Human perception expertise for responsible, explainable AI</h1>
-      <p class="hero__lede">I’m Justin O’Brien, PhD—psychologist, vision scientist, and evaluation consultant. I help teams level-up AI experiences with psychophysics-grade testing, human factors insight, and high-impact storytelling.</p>
+      <p class="hero__eyebrow">AI in higher education</p>
+      <h1 class="hero__title">Responsible, evidence-based AI for universities and education providers</h1>
+      <p class="hero__lede">I'm Justin O'Brien, PhD—psychologist, AI consultant, and higher education specialist. I help universities navigate AI in teaching, assessment, student support, and recruitment with strategies grounded in measurement science and institutional reality.</p>
       <div class="hero__actions">
         <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">Start a project</a>
         <a class="btn btn-ghost" href="{{ '/visualizations/' | relative_url }}">Explore visualisations</a>
       </div>
       <ul class="hero__highlights">
-        <li>30+ years translating perception research into product decisions</li>
-        <li>Designing evaluation frameworks for vision, multimodal & LLM systems</li>
-        <li>Interactive illusions and data stories that make complex ideas stick</li>
+        <li>Decades of turning psychology and measurement into real-world decisions</li>
+        <li>Designing AI strategies, guardrails, and evaluation frameworks for universities</li>
+        <li>Specialist focus on assessment, academic integrity, and candidate evaluation</li>
       </ul>
-    </div>
     <div class="hero__visual" data-reveal>
       <div class="hero__visual-inner">
         <img src="{{ '/assets/images/hero.webp' | relative_url }}" alt="Justin O’Brien working on perception and AI visualisations" loading="lazy">
         <div class="hero__badge">
           <span class="hero__badge-title">Now booking</span>
-          <span class="hero__badge-text">Q1–Q2 2025 audits & experiments</span>
+          <span class="hero__badge-text">2025 AI strategy & assessment projects</span>
         </div>
       </div>
     </div>
@@ -36,39 +35,39 @@ description: Human-centred AI evaluation, perception research, and interactive d
 
   <section class="section" id="services">
     <div class="section-header" data-reveal>
-      <p class="section-eyebrow">How I partner</p>
-      <h2>Ways I help teams</h2>
-      <p class="section-lead">From lab-grade evaluation to interactive storytelling that aligns stakeholders.</p>
+      <p class="section-eyebrow">How I work with institutions</p>
+      <h2>AI services for universities and education providers</h2>
+      <p class="section-lead">From AI strategy and governance to assessment, academic integrity, and recruitment—practical, auditable solutions for institutional AI challenges.</p>
     </div>
     <div class="grid grid--cards grid--three">
       <article class="card card--feature" data-reveal>
-        <p class="card__eyebrow">AI & perception</p>
-        <h3 class="card__title">Evaluation blueprints</h3>
-        <p class="card__excerpt">Psychophysics-style testbeds, human-in-the-loop audits, and decision-ready reporting for vision and multimodal systems.</p>
+        <p class="card__eyebrow">Strategy & governance</p>
+        <h3 class="card__title">AI strategy for universities</h3>
+        <p class="card__excerpt">Institution-wide AI strategies, policies, and operating models that balance innovation with risk management and regulatory compliance.</p>
         <ul class="card__list">
-          <li>Stress-tests for bias, brittleness & UX failure modes</li>
-          <li>Explainable dashboards & experiment automation</li>
-          <li>Guardrails for ethical deployment</li>
+          <li>AI roadmaps aligned with institutional priorities</li>
+          <li>Governance frameworks and decision-making structures</li>
+          <li>Executive briefings and stakeholder alignment</li>
         </ul>
       </article>
       <article class="card card--feature" data-reveal>
-        <p class="card__eyebrow">Data storytelling</p>
-        <h3 class="card__title">Visual analytics labs</h3>
-        <p class="card__excerpt">Custom dashboards, interactive narratives, and signal-finding workflows built with D3.js, Observable, and modern web stacks.</p>
+        <p class="card__eyebrow">Assessment & integrity</p>
+        <h3 class="card__title">Assessment in the AI era</h3>
+        <p class="card__excerpt">Redesigning assessment, grading, and feedback to be robust to generative AI while preserving academic standards, fairness, and meaningful learning.</p>
         <ul class="card__list">
-          <li>Rapid prototyping with real datasets</li>
-          <li>Executive-ready views & press assets</li>
-          <li>Embedded training for product teams</li>
+          <li>Audits of existing assessment portfolios</li>
+          <li>Designing authentic, AI-resilient assessment tasks</li>
+          <li>Academic integrity policies and workflows aligned with current tools</li>
         </ul>
       </article>
       <article class="card card--feature" data-reveal>
-        <p class="card__eyebrow">Learning & alignment</p>
-        <h3 class="card__title">Workshops & advisory</h3>
-        <p class="card__excerpt">Tailored sessions on perception science, experimental design, and audit methodology to align research, product, and policy stakeholders.</p>
+        <p class="card__eyebrow">Recruitment & selection</p>
+        <h3 class="card__title">AI in candidate assessment</h3>
+        <p class="card__excerpt">Designing, auditing, and validating AI-enabled screening and candidate assessment systems for fairness, accuracy, and regulatory defensibility.</p>
         <ul class="card__list">
-          <li>Hands-on measurement clinics</li>
-          <li>Executive briefings & roadmaps</li>
-          <li>Lab-to-product translation support</li>
+          <li>Clarifying what can and cannot be inferred from documents and responses</li>
+          <li>Validation and fairness audits for AI-driven scoring systems</li>
+          <li>White papers and explainers for clients, candidates, and regulators</li>
         </ul>
       </article>
     </div>
@@ -104,7 +103,7 @@ description: Human-centred AI evaluation, perception research, and interactive d
       </div>
     {% else %}
       <div class="empty-state" data-reveal>
-        <p>Writing in progress. Expect analysis on data visualisation, perception science, and AI evaluation soon.</p>
+        <p>Writing in progress. Expect analysis on AI in higher education, assessment design, academic integrity, and candidate evaluation soon.</p>
       </div>
     {% endif %}
   </section>
@@ -191,9 +190,9 @@ description: Human-centred AI evaluation, perception research, and interactive d
   <section class="section section--cta" data-reveal>
     <div class="cta-panel">
       <div class="cta-content">
-        <p class="section-eyebrow">Let’s build something rigorous</p>
-        <h2>Ready to stress-test your AI or tell the story right?</h2>
-        <p>I work with research, product, and policy teams to turn perception science into practical, auditable workflows. If you need a partner who speaks both experiment design and executive decision-making, let’s talk.</p>
+        <p class="section-eyebrow">Let's get AI right in your institution</p>
+        <h2>Turn AI from anxiety into a defensible strategy</h2>
+        <p>I work with academic, professional services, and leadership teams to turn AI possibilities into practical, auditable workflows for teaching, assessment, and recruitment. If you need a partner who speaks pedagogy and policy as well as models and metrics, let's talk.</p>
       </div>
       <div class="cta-actions">
         <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">Book an intro call</a>
