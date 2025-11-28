@@ -1,83 +1,241 @@
-// Theme toggle functionality
+/**
+ * Theme toggle functionality for obrien.vision
+ * 
+ * Handles light/dark theme switching with:
+ *   - localStorage persistence
+ *   - System preference detection (prefers-color-scheme)
+ *   - Fallback button creation if not in navigation
+ *   - ARIA accessibility labels
+ * 
+ * @module theme-toggle
+ * @version 2.0.0
+ */
 (function() {
   'use strict';
   
-  // Get current theme from localStorage or default to system preference
+  // -----------------------------------------------------------------------------
+  // Configuration
+  // -----------------------------------------------------------------------------
+  var STORAGE_KEY = 'theme';
+  var THEME_DARK = 'dark';
+  var THEME_LIGHT = 'light';
+  var TOGGLE_ID = 'theme-toggle';
+  
+  // -----------------------------------------------------------------------------
+  // Logging (lightweight, disabled in production)
+  // -----------------------------------------------------------------------------
+  var DEBUG = false;  // Set to true for debugging
+  
+  function log(message, data) {
+    if (DEBUG && window.console && console.log) {
+      console.log('[theme-toggle] ' + message, data || '');
+    }
+  }
+  
+  function logError(message, error) {
+    if (window.console && console.error) {
+      console.error('[theme-toggle] ERROR: ' + message, error || '');
+    }
+  }
+  
+  // -----------------------------------------------------------------------------
+  // Utility functions
+  // -----------------------------------------------------------------------------
+  
+  /**
+   * Safely get item from localStorage
+   * @param {string} key - Storage key
+   * @returns {string|null} Stored value or null
+   */
+  function safeGetStorage(key) {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      logError('localStorage read failed', e);
+      return null;
+    }
+  }
+  
+  /**
+   * Safely set item in localStorage
+   * @param {string} key - Storage key
+   * @param {string} value - Value to store
+   */
+  function safeSetStorage(key, value) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      logError('localStorage write failed', e);
+    }
+  }
+  
+  /**
+   * Check if matchMedia is supported
+   * @returns {boolean}
+   */
+  function hasMatchMedia() {
+    return typeof window.matchMedia === 'function';
+  }
+  
+  // -----------------------------------------------------------------------------
+  // Theme logic
+  // -----------------------------------------------------------------------------
+  
+  /**
+   * Get current theme from localStorage or system preference
+   * @returns {string} 'dark' or 'light'
+   */
   function getCurrentTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
+    var savedTheme = safeGetStorage(STORAGE_KEY);
+    if (savedTheme === THEME_DARK || savedTheme === THEME_LIGHT) {
+      log('Using saved theme', savedTheme);
       return savedTheme;
     }
     
     // Check system preference
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
+    if (hasMatchMedia()) {
+      try {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          log('Using system preference', THEME_DARK);
+          return THEME_DARK;
+        }
+      } catch (e) {
+        logError('matchMedia query failed', e);
+      }
     }
     
-    return 'light';
+    log('Using default theme', THEME_LIGHT);
+    return THEME_LIGHT;
   }
   
-  // Apply theme to document
+  /**
+   * Apply theme to document
+   * @param {string} theme - 'dark' or 'light'
+   */
   function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    // Validate theme value
+    if (theme !== THEME_DARK && theme !== THEME_LIGHT) {
+      logError('Invalid theme value', theme);
+      theme = THEME_LIGHT;
+    }
     
-    // Update toggle button text - check for both button types
-    const toggleButton = document.getElementById('theme-toggle');
+    // Apply to document
+    if (document.documentElement) {
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+    
+    // Persist preference
+    safeSetStorage(STORAGE_KEY, theme);
+    
+    // Update toggle button
+    var toggleButton = document.getElementById(TOGGLE_ID);
     if (toggleButton) {
-      if (toggleButton.classList.contains('theme-toggle-nav')) {
+      var isNavButton = toggleButton.classList && toggleButton.classList.contains('theme-toggle-nav');
+      
+      if (isNavButton) {
         // Navigation button - just emoji
-        toggleButton.textContent = theme === 'dark' ? '☀️' : '🌙';
+        toggleButton.textContent = theme === THEME_DARK ? '☀️' : '🌙';
       } else {
         // Fixed position button - emoji + text
-        toggleButton.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+        toggleButton.textContent = theme === THEME_DARK ? '☀️ Light' : '🌙 Dark';
       }
-      toggleButton.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+      
+      var oppositeTheme = theme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
+      toggleButton.setAttribute('aria-label', 'Switch to ' + oppositeTheme + ' mode');
     }
+    
+    log('Theme applied', theme);
   }
   
-  // Toggle between themes
+  /**
+   * Toggle between themes
+   */
   function toggleTheme() {
-    const currentTheme = getCurrentTheme();
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    var currentTheme = getCurrentTheme();
+    var newTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
     applyTheme(newTheme);
   }
   
-  // Initialize theme on page load
+  // -----------------------------------------------------------------------------
+  // Initialization
+  // -----------------------------------------------------------------------------
+  
+  /**
+   * Initialize theme on page load
+   */
   function initTheme() {
-    const currentTheme = getCurrentTheme();
+    log('Initializing theme toggle');
+    
+    var currentTheme = getCurrentTheme();
     applyTheme(currentTheme);
     
     // Look for existing toggle button in navigation
-    let toggleButton = document.getElementById('theme-toggle');
+    var toggleButton = document.getElementById(TOGGLE_ID);
+    
     if (!toggleButton) {
       // Create fallback fixed position button if nav button doesn't exist
+      log('Creating fallback toggle button');
       toggleButton = document.createElement('button');
-      toggleButton.id = 'theme-toggle';
+      toggleButton.id = TOGGLE_ID;
       toggleButton.className = 'theme-toggle';
-      toggleButton.setAttribute('aria-label', `Switch to ${currentTheme === 'dark' ? 'light' : 'dark'} mode`);
-      document.body.appendChild(toggleButton);
+      
+      var oppositeTheme = currentTheme === THEME_DARK ? THEME_LIGHT : THEME_DARK;
+      toggleButton.setAttribute('aria-label', 'Switch to ' + oppositeTheme + ' mode');
+      
+      if (document.body) {
+        document.body.appendChild(toggleButton);
+      } else {
+        logError('document.body not available for button creation');
+        return;
+      }
     }
     
-    // Add click handler
-    toggleButton.addEventListener('click', toggleTheme);
+    // Add click handler (with defensive check)
+    if (toggleButton.addEventListener) {
+      toggleButton.addEventListener('click', toggleTheme);
+    } else if (toggleButton.attachEvent) {
+      // Legacy IE support
+      toggleButton.attachEvent('onclick', toggleTheme);
+    }
     
     // Set initial button text based on button type
-    if (toggleButton.classList.contains('theme-toggle-nav')) {
-      toggleButton.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    var isNavButton = toggleButton.classList && toggleButton.classList.contains('theme-toggle-nav');
+    if (isNavButton) {
+      toggleButton.textContent = currentTheme === THEME_DARK ? '☀️' : '🌙';
     } else {
-      toggleButton.textContent = currentTheme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      toggleButton.textContent = currentTheme === THEME_DARK ? '☀️ Light' : '🌙 Dark';
     }
+    
+    log('Theme toggle initialized');
   }
   
+  // -----------------------------------------------------------------------------
+  // Event listeners
+  // -----------------------------------------------------------------------------
+  
   // Listen for system theme changes
-  if (window.matchMedia) {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-      // Only auto-switch if user hasn't manually set a preference
-      if (!localStorage.getItem('theme')) {
-        applyTheme(e.matches ? 'dark' : 'light');
+  if (hasMatchMedia()) {
+    try {
+      var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      // Use addEventListener if available, otherwise addListener (older browsers)
+      var handler = function(e) {
+        // Only auto-switch if user hasn't manually set a preference
+        if (!safeGetStorage(STORAGE_KEY)) {
+          log('System theme changed', e.matches ? THEME_DARK : THEME_LIGHT);
+          applyTheme(e.matches ? THEME_DARK : THEME_LIGHT);
+        }
+      };
+      
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handler);
+      } else if (mediaQuery.addListener) {
+        // Deprecated but needed for older Safari
+        mediaQuery.addListener(handler);
       }
-    });
+    } catch (e) {
+      logError('Failed to set up system theme listener', e);
+    }
   }
   
   // Initialize when DOM is ready
