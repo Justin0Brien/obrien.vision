@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gutenberg Readability Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-color: #00f2ff;
+            --accent-hover: #00c8d3;
+            --border-color: #333;
+            --danger-color: #ff4757;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            max-height: calc(100vh - 2rem);
+            overflow-y: auto;
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .title-group h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: var(--text-main);
+        }
+
+        .title-group p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            background: #252525;
+            padding: 0.75rem;
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        label {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        select {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        select:hover, select:focus {
+            border-color: var(--accent-color);
+        }
+
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            margin-left: auto; /* Push to right */
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #444;
+            border-radius: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .toggle-checkbox {
+            display: none;
+        }
+
+        .toggle-checkbox:checked + .toggle-switch {
+            background-color: var(--accent-color);
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .toggle-checkbox:checked + .toggle-switch .toggle-thumb {
+            transform: translateX(20px);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: clamp(200px, 35vh, 350px);
+            width: 100%;
+            margin-top: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-info {
+            background: linear-gradient(135deg, #252525 0%, #1a1a1a 100%);
+            border-left: 3px solid var(--accent-color);
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .metric-info h2 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .metric-info p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-card {
+            background-color: #252525;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid transparent;
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-color);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            white-space: nowrap;
+        }
+
+        .stat-sub {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.2rem;
+        }
+
+        .outlier-count {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 0.15rem;
+            min-height: 1em;
+        }
+
+        .famous-works-tooltip {
+            position: fixed;
+            background: rgba(30, 30, 30, 0.95);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: none;
+            max-width: 280px;
+        }
+
+        .famous-works-tooltip .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .famous-works-tooltip .tooltip-author {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .famous-works-tooltip.fiction {
+            border-color: #FFD700;
+        }
+
+        .famous-works-tooltip.nonfiction {
+            border-color: #C0C0C0;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .toggle-container {
+                margin-left: 0;
+                margin-top: 0.75rem;
+            }
+            .chart-wrapper {
+                height: clamp(180px, 30vh, 250px);
+            }
+            .stat-card {
+                padding: 0.5rem;
+            }
+            .stat-value {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (min-height: 900px) {
+            .chart-wrapper {
+                height: clamp(250px, 40vh, 400px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="title-group">
+                <h1>Gutenberg Readability Analysis</h1>
+                <p id="fileStatus">Loading corpus data...</p>
+            </div>
+        </header>
+
+        <div id="famousWorksTooltip" class="famous-works-tooltip">
+            <div class="tooltip-title"></div>
+            <div class="tooltip-author"></div>
+        </div>
+
+        <div id="metricInfo" class="metric-info">
+            <h2 id="metricTitle">Select a Metric</h2>
+            <p id="metricDescription">Choose a metric from the dropdown to see its distribution across the corpus.</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="metricSelect">Metric to Visualise</label>
+                <select id="metricSelect" disabled>
+                    <option>Loading...</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="binCount">KDE Resolution</label>
+                <select id="binCount">
+                    <option value="50">Standard (50 pts)</option>
+                    <option value="100" selected>Fine (100 pts)</option>
+                    <option value="200">Very Fine (200 pts)</option>
+                    <option value="500">Ultra (500 pts)</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label class="toggle-container" title="Filter values outside 1.5 * IQR">
+                    <input type="checkbox" id="outlierToggle" class="toggle-checkbox" checked>
+                    <div class="toggle-switch">
+                        <div class="toggle-thumb"></div>
+                    </div>
+                    <span>Exclude Outliers</span>
+                </label>
+                <div id="outlierCount" class="outlier-count"></div>
+            </div>
+
+            <label class="toggle-container" title="Show famous works markers">
+                <input type="checkbox" id="famousWorksToggle" class="toggle-checkbox" checked>
+                <div class="toggle-switch">
+                    <div class="toggle-thumb"></div>
+                </div>
+                <span>Famous Works</span>
+            </label>
+        </div>
+
+        <div class="chart-wrapper">
+            <canvas id="mainChart"></canvas>
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <!-- Dynamic Stats -->
+        </div>
+    </div>
+
+    <script>
+        // ------------------------------------------------------------------
+        // 0. FAMOUS WORKS DATA (with Gutenberg IDs for reliable matching)
+        // Note: Only includes works with IDs 1-19 and 1080 as available in the dataset
+        // ------------------------------------------------------------------
+        const famousWorksData = {
+            fiction: [
+                { title: "Alice's Adventures in Wonderland", author: "Lewis Carroll", gutenbergId: 11 },
+                { title: "Through the Looking-Glass", author: "Lewis Carroll", gutenbergId: 12 },
+                { title: "The Hunting of the Snark", author: "Lewis Carroll", gutenbergId: 13 },
+                { title: "Moby Dick", author: "Herman Melville", gutenbergId: 15 },
+                { title: "Peter Pan", author: "J.M. Barrie", gutenbergId: 16 },
+                { title: "The Song of Hiawatha", author: "H.W. Longfellow", gutenbergId: 19 }
+            ],
+            nonfiction: [
+                { title: "Declaration of Independence", author: "Thomas Jefferson", gutenbergId: 1 },
+                { title: "Bill of Rights", author: "United States", gutenbergId: 2 },
+                { title: "JFK Inaugural Address", author: "John F. Kennedy", gutenbergId: 3 },
+                { title: "Gettysburg Address", author: "Abraham Lincoln", gutenbergId: 4 },
+                { title: "US Constitution", author: "United States", gutenbergId: 5 },
+                { title: "King James Bible", author: "Various", gutenbergId: 10 },
+                { title: "CIA World Factbook 1990", author: "CIA", gutenbergId: 14 },
+                { title: "Book of Mormon", author: "Joseph Smith Jr.", gutenbergId: 17 },
+                { title: "The Federalist Papers", author: "Hamilton/Jay/Madison", gutenbergId: 18 },
+                { title: "A Modest Proposal", author: "Jonathan Swift", gutenbergId: 1080 }
+            ]
+        };
+
+        // ------------------------------------------------------------------
+        // 1. DEMO DATA (Fallback if no file uploaded)
+        // ------------------------------------------------------------------
+        const demoCsvData = `file_path,file_size_bytes,relative_path,char_count,word_count,sentence_count,avg_sentence_length,avg_syllables_per_word,avg_letter_per_word,flesch_reading_ease,flesch_kincaid_grade,gunning_fog,smog_index,automated_readability_index,coleman_liau_index,dale_chall_score,linsear_write_formula,difficult_words,text_standard,reading_time_minutes,idea_density,lexical_cohesion,entity_cohesion,cohesion_score,pronoun_ratio,nlp_char_coverage,nlp_backend,nlp_error
+/Volumes/X10/Archive/books/gutenberg/0/1/1-0.txt,10954,0/1/1-0.txt,10686,1751,59,29.677966101694917,1.6293546544831525,4.888635065676756,38.868460637504995,15.210791702562219,18.22184320823936,16.26610081862198,17.05002341469055,11.556710451170762,10.601053112507138,15.703389830508475,699,17.0,83.38095238095238,0.5282695598686121,0.06379821958456973,0.05263157894736842,0.05814580226687483,0.026841804683038263,0.9997193151479267,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/1/1.txt,594002,0/1/1.txt,580288,102241,3101,32.97033215091906,1.408710791169883,4.351238740035607,59.38719812959827,13.437434190820126,16.324317924032065,13.384594228968032,15.795101037255113,8.083750002445203,7.564478496884812,17.142857142857142,16866,16.0,3284.15873015873,0.4908011463102027,0.11186715694292164,0.02528205423854199,0.0674092789127266,0.10683570624029272,0.998492128046763,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/2/2.txt,373673,0/2/2.txt,365313,67433,3535,19.075813295615276,1.3534916138982397,4.2443017513680245,67.75628525046294,8.818818465103758,11.517032172773228,10.970176466986634,9.663189858544497,7.24584224341198,7.262529948244924,9.5,8886,11.0,2119.825396825397,0.48529651654234575,0.06775677567756776,0.06170650993077651,0.06473164280417214,0.12198775080450224,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/3/3-0.txt,252445,0/3/3-0.txt,246692,44222,1873,23.61025093432995,1.3855094749219846,4.351092216543784,60.84439031174987,11.082715019556094,14.453308892244197,12.723789397665792,12.062463259822363,7.990429198136674,8.601569309393515,13.625,10850,13.0,1403.873015873016,0.5097462801320609,0.06561592318090729,0.015024038461538461,0.04018742203774847,0.0898647731902047,0.9998135326642129,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/4/4.txt,306069,0/4/4.txt,298402,57201,3044,18.791392904073588,1.3533854303246447,4.041065715634342,67.63228678082402,8.718872580797825,11.43956795099388,10.871167472099368,8.889416551187431,5.655829443541197,6.866172671806437,8.666666666666666,7207,11.0,1723.111111111111,0.4856033985419835,0.0857706210975929,0.011603598379011982,0.04868710973830244,0.12643135609517316,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/5/5.txt,167882,0/5/5.txt,162235,30292,1121,27.022301516503123,1.3621418196223425,4.19520005281923,61.050419355610815,11.411624653303681,13.987747761239031,11.751307616677935,11.839077112009252,6.717153043707909,6.721474250627228,14.636363636363637,3219,12.0,891.952380952381,0.4862009771556847,0.11790675614139625,0.03842696629213483,0.07816686121676554,0.11326422817905718,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/6/6.txt,280802,0/6/6.txt,272183,50785,2589,19.615681730397836,1.3364773062912278,4.116648616717535,69.57754546524364,8.441926630767576,11.331562915011747,10.669677353974447,8.877889506450682,5.779265531160777,6.486634833120016,9.5,5028,11.0,1545.920634920635,0.4908142167962981,0.09054700019316206,0.009951807228915662,0.050249403711038865,0.12942798070296346,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/7/7.txt,171732,0/7/7.txt,167268,31835,1249,25.488390712569992,1.365007067692791,4.1039736139469175,64.21200388882069,11.139691761664426,13.75471928249821,11.599723385759714,10.84073324103126,6.177116381341292,6.435778231506199,14.625,3025,12.0,919.0634920634921,0.48518925710695777,0.11300913950496585,0.024225010076582025,0.06861707479077395,0.12640175907020576,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/8/8.txt,151744,0/8/8.txt,147854,27909,1408,19.821732954545453,1.3547959439607295,4.1670428893905195,67.33081121081827,9.071195655519888,11.838562423113214,11.127495535560938,9.544252329620894,6.757049697230283,7.124583467698592,10.600000000000001,3530,11.0,810.7142857142857,0.4891253717438819,0.08876404494382022,0.04616477272727273,0.06746440883554647,0.11713067469275144,1.0,spacy,
+/Volumes/X10/Archive/books/gutenberg/0/9/9.txt,209736,0/9/9.txt,203408,38264,2587,14.790877464244298,1.319360234162662,4.152859084256743,71.25881024343166,7.458925577626356,10.279626394339127,9.916843336714087,7.749007204981146,6.657599832741088,6.865510662763955,6.5,4171,10.0,1127.3492063492063,0.49074848421492787,0.0762493543360881,0.03822837311756586,0.05723886372682698,0.1345912607150324,1.0,spacy,`;
+
+        // ------------------------------------------------------------------
+        // 2. LOGIC
+        // ------------------------------------------------------------------
+
+        class DataEngine {
+            constructor() {
+                this.rows = [];
+                this.numericColumns = [];
+                this.famousWorksMatches = { fiction: [], nonfiction: [] };
+            }
+
+            loadData(csvText) {
+                this.rows = this.parseCSV(csvText);
+                this.headers = this.rows.length > 0 ? Object.keys(this.rows[0]) : [];
+                this.numericColumns = this.identifyNumericColumns();
+                this.matchFamousWorks();
+                return this.rows.length;
+            }
+
+            matchFamousWorks() {
+                // Match famous works by Gutenberg ID in file paths
+                // Paths follow pattern: X/ID/ID-0.txt or X/X/.../ID/ID-0.txt
+                this.famousWorksMatches = { fiction: [], nonfiction: [] };
+                
+                const findWorkById = (work) => {
+                    const id = work.gutenbergId;
+                    const idStr = String(id);
+                    
+                    // Look for paths ending with /ID/ID-0.txt or /ID/ID.txt
+                    // This matches patterns like: 0/1/1-0.txt, 1/11/11-0.txt, 1/0/8/1080/1080-0.txt
+                    const pattern = new RegExp(`/${idStr}/${idStr}(?:-0)?\\.txt$`, 'i');
+                    
+                    for (let row of this.rows) {
+                        const path = row.relative_path || row.file_path || '';
+                        if (pattern.test(path)) {
+                            return row;
+                        }
+                    }
+                    return null;
+                };
+                
+                famousWorksData.fiction.forEach(work => {
+                    const row = findWorkById(work);
+                    if (row) {
+                        this.famousWorksMatches.fiction.push({
+                            ...work,
+                            type: 'fiction',
+                            data: row
+                        });
+                    }
+                });
+                
+                famousWorksData.nonfiction.forEach(work => {
+                    const row = findWorkById(work);
+                    if (row) {
+                        this.famousWorksMatches.nonfiction.push({
+                            ...work,
+                            type: 'nonfiction',
+                            data: row
+                        });
+                    }
+                });
+                
+                console.log(`Famous works matched: ${this.famousWorksMatches.fiction.length} fiction, ${this.famousWorksMatches.nonfiction.length} nonfiction`);
+            }
+
+            parseCSV(text) {
+                const lines = text.trim().split('\n');
+                if (lines.length < 2) return [];
+                
+                // Parse Headers
+                const headers = lines[0].split(',').map(h => h.trim());
+                
+                const data = [];
+                // Simple parsing (assumes no internal commas in numeric fields)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+                    if(!line.trim()) continue;
+                    
+                    // Regex to handle quoted strings (like paths)
+                    const matches = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                    
+                    if (matches) {
+                         const obj = {};
+                         // Handle cases where trailing empty columns might be missed by regex
+                         // We iterate up to headers length to ensure alignment
+                         headers.forEach((h, index) => {
+                             if(index < matches.length) {
+                                 let val = matches[index].replace(/^"|"$/g, '').trim(); 
+                                 if (val !== '' && !isNaN(val)) {
+                                     obj[h] = parseFloat(val);
+                                 } else {
+                                     obj[h] = val;
+                                 }
+                             } else {
+                                 obj[h] = null;
+                             }
+                         });
+                         data.push(obj);
+                    }
+                }
+                return data;
+            }
+
+            identifyNumericColumns() {
+                if (this.rows.length === 0) return [];
+                return this.headers.filter(h => {
+                    // Check first non-null value
+                    const sample = this.rows.find(r => r[h] !== null && r[h] !== undefined);
+                    return sample && typeof sample[h] === 'number';
+                });
+            }
+
+            getColumnData(columnName, excludeOutliers = false) {
+                let values = this.rows
+                    .map(r => r[columnName])
+                    .filter(v => typeof v === 'number' && !isNaN(v))
+                    .sort((a, b) => a - b);
+
+                const totalCount = values.length;
+                let outlierCount = 0;
+
+                if (excludeOutliers && values.length > 4) {
+                    const q1 = values[Math.floor((values.length / 4))];
+                    const q3 = values[Math.floor((values.length * (3 / 4)))];
+                    const iqr = q3 - q1;
+                    
+                    const lowerBound = q1 - (1.5 * iqr);
+                    const upperBound = q3 + (1.5 * iqr);
+
+                    const filtered = values.filter(x => x >= lowerBound && x <= upperBound);
+                    outlierCount = values.length - filtered.length;
+                    values = filtered;
+                }
+
+                return { values, outlierCount, totalCount };
+            }
+
+            calculateStats(arr) {
+                if (arr.length === 0) return null;
+                
+                const n = arr.length;
+                const sum = arr.reduce((a, b) => a + b, 0);
+                const mean = sum / n;
+                const min = arr[0];
+                const max = arr[n - 1];
+                const median = (n % 2 === 0) ? (arr[n/2 - 1] + arr[n/2]) / 2 : arr[(n-1)/2];
+                
+                // Std Dev
+                const variance = arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
+                const std = Math.sqrt(variance);
+
+                return { mean, median, min, max, std, count: n };
+            }
+
+            // Gaussian kernel function
+            gaussianKernel(x) {
+                return Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+            }
+
+            // Silverman's rule of thumb for bandwidth selection
+            calculateBandwidth(arr, std) {
+                const n = arr.length;
+                // Silverman's rule: h = 0.9 * min(std, IQR/1.34) * n^(-1/5)
+                const q1 = arr[Math.floor(n * 0.25)];
+                const q3 = arr[Math.floor(n * 0.75)];
+                const iqr = q3 - q1;
+                const spread = Math.min(std, iqr / 1.34);
+                return 0.9 * spread * Math.pow(n, -0.2);
+            }
+
+            // Generate Kernel Density Estimation
+            generateKDE(arr, numPoints = 100) {
+                if (arr.length === 0) return [];
+                
+                const min = arr[0]; // array is sorted
+                const max = arr[arr.length - 1];
+                
+                if (min === max) {
+                    return [{ x: min, density: 1, scaledCount: arr.length }];
+                }
+
+                const n = arr.length;
+                const stats = this.calculateStats(arr);
+                const bandwidth = this.calculateBandwidth(arr, stats.std);
+                
+                // Extend range slightly for better visualization
+                const padding = (max - min) * 0.05;
+                const xMin = min - padding;
+                const xMax = max + padding;
+                const step = (xMax - xMin) / (numPoints - 1);
+                
+                const kdePoints = [];
+                
+                for (let i = 0; i < numPoints; i++) {
+                    const x = xMin + i * step;
+                    let density = 0;
+                    
+                    // Sum contributions from all data points
+                    for (let j = 0; j < n; j++) {
+                        const u = (x - arr[j]) / bandwidth;
+                        density += this.gaussianKernel(u);
+                    }
+                    
+                    // Normalize by n * bandwidth
+                    density = density / (n * bandwidth);
+                    
+                    kdePoints.push({
+                        x: x,
+                        density: density,
+                        // Scale to approximate counts for display
+                        scaledCount: density * n * step * (numPoints / 50)
+                    });
+                }
+                
+                // Store bandwidth for tooltip info
+                this.lastBandwidth = bandwidth;
+                
+                return kdePoints;
+            }
+
+            // Keep histogram for backward compatibility but mark as legacy
+            generateHistogram(arr, binCount = 50) {
+                // Now redirects to KDE
+                return this.generateKDE(arr, binCount);
+            }
+        }
+
+        // ------------------------------------------------------------------
+        // 3. UI HANDLING
+        // ------------------------------------------------------------------
+
+        const ctx = document.getElementById('mainChart').getContext('2d');
+        const metricSelect = document.getElementById('metricSelect');
+        const binSelect = document.getElementById('binCount');
+        const outlierToggle = document.getElementById('outlierToggle');
+        const statsGrid = document.getElementById('statsGrid');
+        const fileStatus = document.getElementById('fileStatus');
+        const outlierCountEl = document.getElementById('outlierCount');
+        const metricTitle = document.getElementById('metricTitle');
+        const metricDescription = document.getElementById('metricDescription');
+        const famousWorksTooltip = document.getElementById('famousWorksTooltip');
+
+        // --- Metric Information Database ---
+        const metricInfo = {
+            // Basic Text Metrics
+            'file_size_bytes': {
+                title: 'File Size Distribution',
+                description: 'Raw file size in bytes. Larger files typically contain longer works like novels, while smaller files may be short stories, poems, or fragments.'
+            },
+            'char_count': {
+                title: 'Character Count',
+                description: 'Total characters including spaces and punctuation. Provides a raw measure of text length independent of word complexity.'
+            },
+            'word_count': {
+                title: 'Words in Text',
+                description: 'Total word count across the document. The average novel contains 70,000–100,000 words; short stories typically 1,000–7,500 words.'
+            },
+            'sentence_count': {
+                title: 'Sentence Count',
+                description: 'Total sentences detected in the text. Combined with word count, this reveals the typical sentence complexity of each work.'
+            },
+            'avg_sentence_length': {
+                title: 'Sentence Length',
+                description: 'Average words per sentence. Modern plain English averages 15–20 words. Victorian prose often exceeds 25–30 words per sentence.'
+            },
+            'avg_syllables_per_word': {
+                title: 'Syllabic Complexity',
+                description: 'Average syllables per word. English averages ~1.5. Higher values indicate more polysyllabic (and often Latinate) vocabulary typical of formal or academic writing.'
+            },
+            'avg_letter_per_word': {
+                title: 'Word Length',
+                description: 'Average letters per word. English averages 4–5 letters. Longer words often indicate technical, scientific, or formal vocabulary.'
+            },
+
+            // Readability Scores
+            'flesch_reading_ease': {
+                title: 'How Easy to Read?',
+                description: 'Flesch Reading Ease (0–100). Higher = easier. 60–70 is standard; 30–50 is college-level; below 30 is academic/legal. Reader\'s Digest averages 65, Time Magazine 52.'
+            },
+            'flesch_kincaid_grade': {
+                title: 'U.S. Grade Level Required',
+                description: 'Flesch-Kincaid Grade Level. The years of U.S. education needed to understand the text. Developed for the U.S. Navy to assess technical manual difficulty.'
+            },
+            'gunning_fog': {
+                title: 'Fog Index: Clarity Score',
+                description: 'Gunning Fog Index measures "foggy" writing. Estimates years of education needed. Under 8 = universal; 8–12 = high school; 12–16 = college; 17+ = post-graduate.'
+            },
+            'smog_index': {
+                title: 'SMOG Grade Level',
+                description: 'Simple Measure of Gobbledygook. Counts polysyllables to estimate grade level. Preferred for health communications; correlates 0.985 with reader comprehension.'
+            },
+            'automated_readability_index': {
+                title: 'Automated Readability',
+                description: 'ARI uses character count (not syllables) for machine-scoring. Originally designed for real-time monitoring on electric typewriters. Output is U.S. grade level.'
+            },
+            'coleman_liau_index': {
+                title: 'Coleman-Liau Index',
+                description: 'Character-based readability designed for optical scanning. Unlike syllable formulas, it counts only characters and words—enabling mechanical text analysis.'
+            },
+            'dale_chall_score': {
+                title: 'Vocabulary Difficulty',
+                description: 'Dale-Chall compares words against 3,000 familiar terms known to 4th graders. Under 5 = 4th grade; 9–10 = college. Measures vocabulary sophistication, not just length.'
+            },
+            'linsear_write_formula': {
+                title: 'Linsear Write Grade',
+                description: 'Developed for U.S. Air Force technical manuals. Distinguishes "easy" (≤2 syllable) from "hard" (≥3 syllable) words. Output is U.S. grade level required.'
+            },
+
+            // Text Complexity
+            'difficult_words': {
+                title: 'Difficult Word Count',
+                description: 'Words not on common vocabulary lists (Dale-Chall or similar). High counts suggest specialized, technical, or literary vocabulary beyond everyday English.'
+            },
+            'text_standard': {
+                title: 'Consensus Grade Level',
+                description: 'Aggregated grade level from multiple readability formulas. Provides a balanced estimate by combining different measurement approaches.'
+            },
+            'reading_time_minutes': {
+                title: 'Estimated Reading Time',
+                description: 'Minutes to read at ~200–250 words per minute (average adult pace). Useful for comparing text lengths in human-relatable terms.'
+            },
+
+            // NLP & Cohesion Metrics
+            'idea_density': {
+                title: 'Propositional Density',
+                description: 'Ratio of expressed ideas to total words. Higher density = more information-packed prose. Academic writing typically shows higher idea density than narrative fiction.'
+            },
+            'lexical_cohesion': {
+                title: 'Vocabulary Consistency',
+                description: 'Measures how consistently vocabulary is used across the text. Higher cohesion indicates focused topic discussion; lower suggests diverse or shifting subjects.'
+            },
+            'entity_cohesion': {
+                title: 'Entity Reference Patterns',
+                description: 'Tracks how named entities (people, places, things) are re-referenced. Higher scores indicate clear character/subject tracking throughout the narrative.'
+            },
+            'cohesion_score': {
+                title: 'Overall Text Cohesion',
+                description: 'Combined measure of how well the text "holds together." Considers lexical ties, entity references, and structural connections between sentences and paragraphs.'
+            },
+            'pronoun_ratio': {
+                title: 'Pronoun Usage Rate',
+                description: 'Proportion of pronouns to total words. High ratios suggest conversational or narrative style; low ratios indicate formal or expository writing.'
+            },
+            'nlp_char_coverage': {
+                title: 'NLP Processing Coverage',
+                description: 'Percentage of text successfully analyzed by the NLP pipeline. Values near 1.0 indicate complete processing; lower values may signal encoding issues or unusual characters.'
+            }
+        };
+
+        let chartInstance = null;
+        let engine = new DataEngine();
+        let famousWorksHoverData = null;
+
+        // --- Update Metric Info Display ---
+        function updateMetricInfo(metricKey) {
+            const info = metricInfo[metricKey];
+            if (info) {
+                metricTitle.textContent = info.title;
+                metricDescription.textContent = info.description;
+            } else {
+                // Fallback for unknown metrics
+                const displayName = metricKey.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                metricTitle.textContent = displayName;
+                metricDescription.textContent = 'Distribution of ' + displayName.toLowerCase() + ' values across the corpus.';
+            }
+        }
+
+        // --- Custom Chart Plugin: Famous Works Markers ---
+        const famousWorksPlugin = {
+            id: 'famousWorks',
+            afterDraw: (chart) => {
+                if (!chart.config.options.plugins.famousWorks.enabled) return;
+                const { ctx, chartArea, scales } = chart;
+                const metric = metricSelect.value;
+                const matches = engine.famousWorksMatches;
+                
+                const drawMarker = (value, color, type, work) => {
+                    const xVal = scales.x.getPixelForValue(value);
+                    if (xVal >= chartArea.left && xVal <= chartArea.right) {
+                        // Draw vertical line
+                        ctx.save();
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([3, 3]);
+                        ctx.globalAlpha = 0.7;
+                        ctx.beginPath();
+                        ctx.moveTo(xVal, chartArea.top);
+                        ctx.lineTo(xVal, chartArea.bottom);
+                        ctx.stroke();
+                        
+                        // Draw glowing effect
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 4;
+                        ctx.globalAlpha = 0.2;
+                        ctx.setLineDash([]);
+                        ctx.beginPath();
+                        ctx.moveTo(xVal, chartArea.top);
+                        ctx.lineTo(xVal, chartArea.bottom);
+                        ctx.stroke();
+                        
+                        // Draw sphere/circle at top
+                        ctx.globalAlpha = 1;
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.arc(xVal, chartArea.top - 10, 6, 0, 2 * Math.PI);
+                        ctx.fill();
+                        
+                        // Glow effect for sphere
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = 2;
+                        ctx.globalAlpha = 0.4;
+                        ctx.beginPath();
+                        ctx.arc(xVal, chartArea.top - 10, 10, 0, 2 * Math.PI);
+                        ctx.stroke();
+                        
+                        ctx.restore();
+                        
+                        // Store for hover detection (includes line boundaries)
+                        if (!famousWorksHoverData) famousWorksHoverData = [];
+                        famousWorksHoverData.push({
+                            xPixel: xVal,
+                            sphereY: chartArea.top - 10,
+                            lineTop: chartArea.top,
+                            lineBottom: chartArea.bottom,
+                            value: value,
+                            sphereRadius: 6,
+                            lineWidth: 8, // Hit area width for the line
+                            work: work,
+                            type: type
+                        });
+                    }
+                };
+                
+                // Draw fiction markers (gold)
+                if (matches.fiction && matches.fiction.length > 0) {
+                    matches.fiction.forEach(match => {
+                        const value = match.data[metric];
+                        if (value !== null && value !== undefined) {
+                            drawMarker(value, '#FFD700', 'fiction', match);
+                        }
+                    });
+                }
+                
+                // Draw nonfiction markers (silver)
+                if (matches.nonfiction && matches.nonfiction.length > 0) {
+                    matches.nonfiction.forEach(match => {
+                        const value = match.data[metric];
+                        if (value !== null && value !== undefined) {
+                            drawMarker(value, '#C0C0C0', 'nonfiction', match);
+                        }
+                    });
+                }
+            }
+        };
+        Chart.register(famousWorksPlugin);
+
+        // --- Custom Chart Plugin: Mean Line ---
+        const meanLinePlugin = {
+            id: 'meanLine',
+            afterDraw: (chart) => {
+                if (!chart.config.options.plugins.meanLine.enabled) return;
+                const { ctx, chartArea, scales } = chart;
+                const meanVal = chart.config.options.plugins.meanLine.value;
+                
+                const xVal = scales.x.getPixelForValue(meanVal);
+                // Ensure line is drawn only if within current view
+                if (xVal >= chartArea.left && xVal <= chartArea.right) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.strokeStyle = '#ff4757';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 5]);
+                    ctx.moveTo(xVal, chartArea.top);
+                    ctx.lineTo(xVal, chartArea.bottom);
+                    ctx.stroke();
+                    
+                    ctx.fillStyle = '#ff4757';
+                    ctx.textAlign = 'center';
+                    ctx.font = 'bold 12px Inter';
+                    ctx.fillText('MEAN', xVal, chartArea.top - 10);
+                    ctx.restore();
+                }
+            }
+        };
+        Chart.register(meanLinePlugin);
+
+        // --- Init ---
+        async function init() {
+            try {
+                // Fetch the CSV file from the same directory
+                const response = await fetch('gutenberg_readability.csv');
+                if (!response.ok) {
+                    throw new Error(`Failed to load CSV: ${response.status}`);
+                }
+                const csvText = await response.text();
+                const count = engine.loadData(csvText);
+                
+                fileStatus.textContent = `Loaded ${count.toLocaleString()} texts from Project Gutenberg`;
+                fileStatus.style.color = '#00f2ff';
+                
+                populateDropdown();
+                updateView();
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                // Fall back to demo data
+                fileStatus.textContent = 'Using demo data (CSV not found)';
+                fileStatus.style.color = '#ff9f43';
+                const count = engine.loadData(demoCsvData);
+                populateDropdown();
+                updateView();
+            }
+        }
+
+        function populateDropdown() {
+            metricSelect.innerHTML = '';
+            engine.numericColumns.forEach(col => {
+                const opt = document.createElement('option');
+                opt.value = col;
+                opt.textContent = col.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+                metricSelect.appendChild(opt);
+            });
+            
+            // Try to select 'flesch_reading_ease' by default if exists
+            if (engine.numericColumns.includes('flesch_reading_ease')) {
+                metricSelect.value = 'flesch_reading_ease';
+            }
+            metricSelect.disabled = false;
+        }
+
+        // --- Core Update Logic ---
+        function updateView() {
+            const metric = metricSelect.value;
+            const binCount = parseInt(binSelect.value);
+            const excludeOutliers = outlierToggle.checked;
+
+            if (!metric) return;
+
+            // Update metric info panel
+            updateMetricInfo(metric);
+
+            // 1. Get Data (Filtered or Raw)
+            const { values,_ , totalCount } = engine.getColumnData(metric, false); // Get raw first for total
+            const processed = engine.getColumnData(metric, excludeOutliers);
+            
+            const dataArr = processed.values;
+            const outliersRemoved = processed.outlierCount;
+            
+            // 2. Calculate Stats
+            const stats = engine.calculateStats(dataArr);
+            
+            // 3. Generate Kernel Density Estimation
+            const kdeData = engine.generateKDE(dataArr, binCount);
+
+            // 4. Update UI
+            if (stats) {
+                stats.outliers = outliersRemoved;
+                stats.totalOriginal = totalCount;
+                stats.bandwidth = engine.lastBandwidth;
+            }
+            renderStats(stats);
+            renderChart(kdeData, stats ? stats.mean : 0, metric);
+            
+            // Update outlier count display
+            if (excludeOutliers && outliersRemoved > 0) {
+                outlierCountEl.textContent = `${outliersRemoved.toLocaleString()} outliers removed`;
+            } else {
+                outlierCountEl.textContent = '';
+            }
+        }
+
+        function renderStats(stats) {
+            if (!stats) return;
+            
+            const items = [
+                { label: 'Active Count', value: stats.count.toLocaleString(), sub: `of ${stats.totalOriginal.toLocaleString()} total` },
+                { label: 'Mean', value: stats.mean.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
+                { label: 'Median', value: stats.median.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
+                { label: 'Std Dev', value: stats.std.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
+                { label: 'Min', value: stats.min.toLocaleString(undefined, { maximumFractionDigits: 2 }) },
+                { label: 'Max', value: stats.max.toLocaleString(undefined, { maximumFractionDigits: 2 }) },
+                { label: 'KDE Bandwidth', value: stats.bandwidth ? stats.bandwidth.toFixed(4) : 'N/A', sub: "Silverman's rule" }
+            ];
+
+            statsGrid.innerHTML = items.map(item => `
+                <div class="stat-card">
+                    <div class="stat-label">${item.label}</div>
+                    <div class="stat-value" title="${item.value}">${item.value}</div>
+                    ${item.sub ? `<div class="stat-sub">${item.sub}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function createGradient(ctx, chartArea) {
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, 'rgba(0, 242, 255, 0)');
+            gradient.addColorStop(1, 'rgba(0, 242, 255, 0.4)');
+            return gradient;
+        }
+
+        function renderChart(kdeData, mean, metricLabel) {
+            const labels = kdeData.map(p => p.x);
+            const densities = kdeData.map(p => p.density);
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+            
+            // Reset hover data for fresh markers
+            famousWorksHoverData = [];
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Density',
+                        data: densities,
+                        borderColor: '#00f2ff',
+                        backgroundColor: function(context) {
+                            const chart = context.chart;
+                            const {ctx, chartArea} = chart;
+                            if (!chartArea) return null;
+                            return createGradient(ctx, chartArea);
+                        },
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0, // KDE is already smooth, no need for extra smoothing
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        pointHitRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            top: 25,  // Room for famous works spheres
+                            right: 10,
+                            bottom: 5,
+                            left: 10
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(30,30,30, 0.95)',
+                            titleColor: '#fff',
+                            bodyColor: '#ccc',
+                            borderColor: '#444',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: false,
+                            callbacks: {
+                                title: (items) => {
+                                    const idx = items[0].dataIndex;
+                                    const point = kdeData[idx];
+                                    return `Value: ${point.x.toFixed(2)}`;
+                                },
+                                label: (item) => {
+                                    const idx = item.dataIndex;
+                                    const point = kdeData[idx];
+                                    return `Density: ${point.density.toFixed(4)}`;
+                                }
+                            }
+                        },
+                        meanLine: {
+                            enabled: true,
+                            value: mean
+                        },
+                        famousWorks: {
+                            enabled: document.getElementById('famousWorksToggle').checked
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            grid: { color: '#333' },
+                            ticks: { color: '#a0a0a0', maxTicksLimit: 8 },
+                            title: { display: true, text: metricLabel.replace(/_/g, ' '), color: '#666' }
+                        },
+                        y: {
+                            grid: { color: '#333' },
+                            ticks: { color: '#a0a0a0' },
+                            beginAtZero: true,
+                            title: { display: true, text: 'Frequency', color: '#666' }
+                        }
+                    }
+                }
+            });
+            
+            // Add hover tooltip for famous works
+            const canvas = document.getElementById('mainChart');
+            
+            function showTooltip(marker, e) {
+                famousWorksTooltip.querySelector('.tooltip-title').textContent = marker.work.title;
+                famousWorksTooltip.querySelector('.tooltip-author').textContent = '— ' + marker.work.author;
+                famousWorksTooltip.className = 'famous-works-tooltip ' + marker.type;
+                famousWorksTooltip.style.display = 'block';
+                
+                // Position tooltip near cursor
+                const tooltipRect = famousWorksTooltip.getBoundingClientRect();
+                let left = e.clientX + 15;
+                let top = e.clientY - 10;
+                
+                // Keep tooltip on screen
+                if (left + tooltipRect.width > window.innerWidth - 10) {
+                    left = e.clientX - tooltipRect.width - 15;
+                }
+                if (top + tooltipRect.height > window.innerHeight - 10) {
+                    top = e.clientY - tooltipRect.height - 10;
+                }
+                
+                famousWorksTooltip.style.left = left + 'px';
+                famousWorksTooltip.style.top = top + 'px';
+            }
+            
+            function hideTooltip() {
+                famousWorksTooltip.style.display = 'none';
+            }
+            
+            canvas.addEventListener('mousemove', (e) => {
+                if (!famousWorksHoverData || !document.getElementById('famousWorksToggle').checked) {
+                    hideTooltip();
+                    canvas.style.cursor = 'default';
+                    return;
+                }
+                
+                const rect = canvas.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                for (let marker of famousWorksHoverData) {
+                    // Check if hovering over sphere
+                    const dx = mouseX - marker.xPixel;
+                    const dy = mouseY - marker.sphereY;
+                    const sphereDistance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // Check if hovering over line (within lineWidth of x, between top and bottom)
+                    const onLine = Math.abs(dx) <= marker.lineWidth && 
+                                   mouseY >= marker.lineTop && 
+                                   mouseY <= marker.lineBottom;
+                    
+                    if (sphereDistance <= marker.sphereRadius + 6 || onLine) {
+                        showTooltip(marker, e);
+                        canvas.style.cursor = 'pointer';
+                        return;
+                    }
+                }
+                
+                hideTooltip();
+                canvas.style.cursor = 'default';
+            });
+            
+            canvas.addEventListener('mouseleave', () => {
+                hideTooltip();
+                canvas.style.cursor = 'default';
+            });
+        }
+
+        // Listeners
+        metricSelect.addEventListener('change', updateView);
+        binSelect.addEventListener('change', updateView);
+        outlierToggle.addEventListener('change', updateView);
+        document.getElementById('famousWorksToggle').addEventListener('change', updateView);
+
+        // Run Init
+        init();
+
+    </script>
+</body>
+</html>
