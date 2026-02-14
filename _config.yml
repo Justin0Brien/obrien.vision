@@ -9,7 +9,8 @@ url: "https://obrien.vision"
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-modernist
+# theme: jekyll-theme-modernist
+# theme: minima # Uncomment to use a basic theme if you prefer
 plugins:
   - jekyll-feed
   - jekyll-sitemap

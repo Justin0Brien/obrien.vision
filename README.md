@@ -13,6 +13,7 @@ This Jekyll-powered website features:
 ## Featured Projects
 
 ### [Outcomes For Professionals Age 50+ After Redundancy](sankey.html)
+
 An interactive Sankey diagram visualizing employment outcomes for professionals aged 50+ following redundancy, tracking career transitions over 24 months.
 
 ## Local Development
@@ -23,8 +24,8 @@ Quick start (macOS):
 
 1) One-time bootstrap
 
-	- Install Homebrew if needed: <https://brew.sh>
-	- Run the project setup script:
+- Install Homebrew if needed: <https://brew.sh>
+- Run the project setup script:
 
 ```bash
 ./bin/setup

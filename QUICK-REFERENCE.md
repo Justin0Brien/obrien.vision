@@ -13,6 +13,7 @@ bundle exec jekyll serve
 
 1. **Create post file:** `_posts/YYYY-MM-DD-title-with-hyphens.md`
 2. **Add front matter:**
+
    ```yaml
    ---
    layout: default
@@ -24,10 +25,12 @@ bundle exec jekyll serve
    excerpt: "Summary for previews"
    ---
    ```
+
 3. **Create image folder:** `assets/images/posts/YYYY-MM-DD/`
 4. **Write content** with proper markdown formatting
-5. **Test locally** at http://localhost:4000
+5. **Test locally** at <http://localhost:4000>
 6. **Deploy:**
+
    ```bash
    git add .
    git commit -m "Add new post: Title"
@@ -44,6 +47,7 @@ bundle exec jekyll serve
 ## 📚 Content Examples
 
 ### Headings
+
 ```markdown
 # Post Title (automatic from front matter)
 ## Main Section
@@ -51,6 +55,7 @@ bundle exec jekyll serve
 ```
 
 ### Emphasis
+
 ```markdown
 **Bold text**
 *Italic text*
@@ -58,12 +63,14 @@ bundle exec jekyll serve
 ```
 
 ### Links
+
 ```markdown
 [Link text](/page-url/)
 [External link](https://example.com)
 ```
 
 ### Lists
+
 ```markdown
 - Bullet point
 - Another point
@@ -73,6 +80,7 @@ bundle exec jekyll serve
 ```
 
 ### Quotes
+
 ```markdown
 > Important quote or callout
 ```
