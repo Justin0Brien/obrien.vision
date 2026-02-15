@@ -1,5 +1,8 @@
 ---
-layout: visualization
+layout: illusion
+permalink: /illusions/ames-room/
+difficulty: "Medium"
+categories: [visual, interactive]
 title: "The Ames Room"
 date: 2026-02-15
 description: "A demonstration of the classic Ames Room illusion, where a distorted room appears cubic from a specific vantage point."

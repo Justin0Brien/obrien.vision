@@ -1,24 +1,14 @@
 ---
-layout: null
+
+layout: visualization
 title: "University Cash Flow: Transaction Timeline"
 date: 2026-02-15
 technologies: ['HTML']
 interactive: true
 ---
 {% raw %}
-
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>University Cash Flow: Transaction Timeline</title>
-    <!-- Load Plotly.js -->
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
         :root {
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
@@ -153,9 +143,7 @@ interactive: true
             font-size: 0.9rem;
         }
     </style>
-</head>
-<body>
-
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
 <div class="container">
     <header>
         <h1>University Cash Flow Events</h1>
@@ -514,7 +502,4 @@ interactive: true
         Plotly.newPlot('cashflow-chart', allTraces, layout, config);
     });
 </script>
-
-</body>
-</html>
 {% endraw %}

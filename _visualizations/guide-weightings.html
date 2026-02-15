@@ -1,24 +1,16 @@
 ---
-layout: null
+
+layout: visualization
 title: "The University Ranking Recipe"
 date: 2026-02-15
 technologies: ['HTML', 'Chart.js', 'Tailwind CSS']
 interactive: true
 ---
 {% raw %}
-
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The University Ranking Recipe</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
         body {
             font-family: 'Inter', sans-serif;
         }
@@ -37,10 +29,9 @@ interactive: true
             }
         }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
-
-    <header class="bg-[#003f5c] text-white text-center py-12 px-4">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<header class="bg-[#003f5c] text-white text-center py-12 px-4">
         <h1 class="text-4xl md:text-6xl font-black tracking-tight">The University Ranking Recipe</h1>
         <p class="mt-4 text-lg md:text-xl max-w-3xl mx-auto text-gray-200">Ever wonder why university rankings change so much between guides? It's all in the recipe. Discover the unique blend of ingredients each major UK guide uses to measure success.</p>
     </header>
@@ -326,7 +317,4 @@ interactive: true
             renderLegend('legend-guardian', guardianRawLabels);
         });
     </script>
-</body>
-</html>
-
 {% endraw %}

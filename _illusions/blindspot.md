@@ -1,5 +1,8 @@
 ---
-layout: visualization
+layout: illusion
+permalink: /illusions/blindspot/
+difficulty: "Medium"
+categories: [visual, interactive]
 title: "The Blind Spot"
 date: 2026-02-15
 description: "Discover the physiological hole in your vision where the optic nerve exits the eye, and see how your brain 'fills in' missing data."

@@ -1,5 +1,8 @@
 ---
-layout: visualization
+layout: illusion
+permalink: /illusions/benhams-top/
+difficulty: "Medium"
+categories: [visual, interactive]
 title: "Benham's Top"
 date: 2026-02-15
 description: "An interactive version of Benham's Disk, where spinning black and white patterns create the illusion of color."

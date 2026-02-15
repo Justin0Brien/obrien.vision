@@ -1,20 +1,13 @@
 ---
-layout: null
+
+layout: visualization
 title: "The Compliance Reality: International Student Data"
 date: 2026-02-15
 technologies: ['HTML', 'Chart.js', 'D3.js']
 interactive: true
 ---
 {% raw %}
-
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Compliance Reality: International Student Data</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
+<style>
         :root {
             --bg-color: #f0f4f8;
             --card-bg: #ffffff;
@@ -159,9 +152,7 @@ interactive: true
         }
 
     </style>
-</head>
-<body>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="container">
     <header>
         <h1>The Compliance Reality</h1>
@@ -320,7 +311,4 @@ interactive: true
         }
     });
 </script>
-
-</body>
-</html>
 {% endraw %}

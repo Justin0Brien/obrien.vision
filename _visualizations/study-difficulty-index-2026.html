@@ -1,20 +1,13 @@
 ---
-layout: null
+
+layout: visualization
 title: "Global Student Visa Difficulty Index (Expanded)"
 date: 2026-02-15
 technologies: ['HTML', 'Chart.js']
 interactive: true
 ---
 {% raw %}
-
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Student Visa Difficulty Index (Expanded)</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
+<style>
         :root {
             --bg-color: #f4f6f8;
             --card-bg: #ffffff;
@@ -188,9 +181,7 @@ interactive: true
         .b-low { border-left-color: var(--diff-low); }
 
     </style>
-</head>
-<body>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="container">
     <header>
         <h1>Study Difficulty Index 2026</h1>
@@ -407,7 +398,4 @@ interactive: true
     });
 
 </script>
-
-</body>
-</html>
 {% endraw %}

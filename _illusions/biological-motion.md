@@ -1,5 +1,8 @@
 ---
-layout: visualization
+layout: illusion
+permalink: /illusions/biological-motion/
+difficulty: "Medium"
+categories: [visual, interactive]
 title: "Biological Motion Illusion"
 date: 2026-02-15
 description: "A demonstration of the Johansson point-light walker phenomenon, showing how 15 moving dots creates a vivid perception of a human figure."
