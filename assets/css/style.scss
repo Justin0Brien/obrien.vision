@@ -1272,6 +1272,14 @@ a:hover {
   transform: translateY(32px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .has-reveal [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);

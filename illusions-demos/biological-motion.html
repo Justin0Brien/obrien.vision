@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biological Motion Illusion</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --accent-color: #3b82f6;
+            --control-bg: #2a2a2a;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 { margin-bottom: 0.5rem; font-weight: 300; }
+        p { color: #888; max-width: 600px; text-align: center; margin-bottom: 2rem; line-height: 1.5; }
+
+        .canvas-container {
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        canvas { display: block; }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            background: var(--control-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 800px;
+            box-sizing: border-box;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ccc;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-color);
+        }
+
+        .toggle-group {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .value-display { font-family: monospace; color: var(--accent-color); }
+
+        button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+    <h1>Biological Motion</h1>
+    <p>
+        Just 15 moving dots are enough for your brain to instantly recognize a human figure. 
+        This is the "Point-Light Walker" phenomenon (Johansson, 1973). 
+        Adjust the controls to test the robustness of your perception.
+    </p>
+
+    <div class="canvas-container">
+        <canvas id="walkerCanvas" width="600" height="400"></canvas>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label>Animation Speed <span id="speedVal" class="value-display">1.0x</span></label>
+            <input type="range" id="speed" min="0" max="3" step="0.1" value="1.2">
+        </div>
+
+        <div class="control-group">
+            <label>Scramble (Structure) <span id="scrambleVal" class="value-display">0%</span></label>
+            <input type="range" id="scramble" min="0" max="100" value="0">
+        </div>
+
+        <div class="control-group">
+            <label>Noise Dots (Masking) <span id="noiseVal" class="value-display">0</span></label>
+            <input type="range" id="noise" min="0" max="200" value="0">
+        </div>
+
+        <div class="control-group toggle-group">
+            <label for="inverted">Invert (Upside Down)</label>
+            <input type="checkbox" id="inverted">
+        </div>
+
+        <div class="control-group toggle-group">
+            <label for="retrograde">Reverse Direction</label>
+            <input type="checkbox" id="retrograde">
+        </div>
+
+        <button id="randomize">Randomize Configuration</button>
+    </div>
+
+<script>
+/**
+ * Simple kinematic model of a human walker adapted for point-light display.
+ * Generates joint positions based on phase of the gait cycle.
+ */
+class WalkerModel {
+    constructor() {
+        this.t = 0;
+    }
+
+    // Helper math functions for basic kinematics
+    cos(x) { return Math.cos(x); }
+    sin(x) { return Math.sin(x); }
+
+    getJoints(t, direction = 1) {
+        // t is gait cycle time (0 to 2PI)
+        // Returns x,y coordinates relative to center (0,0) with height ~200px
+        
+        const scale = 100;
+        const phaseR = 0;
+        const phaseL = Math.PI; // Left side 180 deg out of phase
+
+        // Calculates a single leg/arm set based on phase offset
+        const calculateSide = (phase) => {
+            const time = t + phase;
+            
+            // MATH MODEL 
+            // Approximations of joint angles using Fourier series terms
+            
+            // HIP (Origin reference)
+            const hipX = 0;
+            const hipY = 5 * this.cos(2 * time); // Slight bobbing
+
+            // KNEE
+            const hipAngle = 0.5 * this.cos(time + 0.2); 
+            const kneeX = hipX + (scale * 0.45) * this.sin(hipAngle);
+            const kneeY = hipY + (scale * 0.45) * this.cos(hipAngle);
+
+            const kneeAngle = -0.5 - 0.6 * this.cos(time + 0.5) - 0.2 * this.cos(2 * time);
+            
+            // ANKLE
+            const ankleX = kneeX + (scale * 0.45) * this.sin(hipAngle + kneeAngle);
+            const ankleY = kneeY + (scale * 0.45) * this.cos(hipAngle + kneeAngle);
+
+            // SHOULDER (Opposite to hips)
+            const shoulderX = 0 + 5 * this.sin(time); // Upper torso twist
+            const shoulderY = -scale * 0.6 + 5 * this.cos(2 * time);
+
+            // ELBOW
+            const shoulderAngle = -0.4 * this.cos(time + 0.5);
+            const elbowX = shoulderX + (scale * 0.35) * this.sin(shoulderAngle);
+            const elbowY = shoulderY + (scale * 0.35) * this.cos(shoulderAngle);
+
+            // WRIST
+            const elbowAngle = 1.0 + 0.5 * this.cos(time);
+            const wristX = elbowX + (scale * 0.30) * this.sin(shoulderAngle + elbowAngle);
+            const wristY = elbowY + (scale * 0.30) * this.cos(shoulderAngle + elbowAngle);
+
+            return {
+                shoulder: [shoulderX, shoulderY],
+                elbow: [elbowX, elbowY],
+                wrist: [wristX, wristY],
+                hip: [hipX, hipY],
+                knee: [kneeX, kneeY],
+                ankle: [ankleX, ankleY]
+            };
+        };
+
+        const right = calculateSide(phaseR);
+        const left = calculateSide(phaseL);
+
+        // Head position
+        const headX = 0;
+        const headY = -scale * 0.75 + 5 * this.cos(2 * t);
+
+        const joints = [
+            { id: 'head', x: headX, y: headY },
+            { id: 'r_shoulder', x: right.shoulder[0], y: right.shoulder[1] },
+            { id: 'r_elbow', x: right.elbow[0], y: right.elbow[1] },
+            { id: 'r_wrist', x: right.wrist[0], y: right.wrist[1] },
+            { id: 'r_hip', x: right.hip[0], y: right.hip[1] },
+            { id: 'r_knee', x: right.knee[0], y: right.knee[1] },
+            { id: 'r_ankle', x: right.ankle[0], y: right.ankle[1] },
+            { id: 'l_shoulder', x: left.shoulder[0], y: left.shoulder[1] },
+            { id: 'l_elbow', x: left.elbow[0], y: left.elbow[1] },
+            { id: 'l_wrist', x: left.wrist[0], y: left.wrist[1] },
+            { id: 'l_hip', x: left.hip[0], y: left.hip[1] },
+            { id: 'l_knee', x: left.knee[0], y: left.knee[1] },
+            { id: 'l_ankle', x: left.ankle[0], y: left.ankle[1] },
+        ];
+
+        // Apply direction flip
+        if (direction === -1) {
+            joints.forEach(j => j.x *= -1);
+        }
+
+        return joints;
+    }
+}
+
+// APP CONTROLLER
+const canvas = document.getElementById('walkerCanvas');
+const ctx = canvas.getContext('2d');
+const walker = new WalkerModel();
+
+let params = {
+    speed: 1.2,
+    scramble: 0,
+    noiseDots: 0,
+    inverted: false,
+    retrograde: false,
+    time: 0
+};
+
+// Offset map for scrambling (keeps spatial offsets consistent per joint)
+const scrambleOffsets = new Map();
+
+function resize() {
+    // Keep canvas crisp
+}
+
+function updateParams() {
+    params.speed = parseFloat(document.getElementById('speed').value);
+    document.getElementById('speedVal').textContent = params.speed.toFixed(1) + 'x';
+
+    params.scramble = parseInt(document.getElementById('scramble').value);
+    document.getElementById('scrambleVal').textContent = params.scramble + '%';
+
+    params.noiseDots = parseInt(document.getElementById('noise').value);
+    document.getElementById('noiseVal').textContent = params.noiseDots;
+
+    params.inverted = document.getElementById('inverted').checked;
+    params.retrograde = document.getElementById('retrograde').checked;
+}
+
+// Generate stable random noise dots
+let noiseParticles = [];
+function generateNoise(count) {
+    if (noiseParticles.length !== count) {
+        noiseParticles = [];
+        for(let i=0; i<count; i++) {
+            noiseParticles.push({
+                x: (Math.random() - 0.5) * canvas.width,
+                y: (Math.random() - 0.5) * canvas.height,
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.5) * 4
+            });
+        }
+    }
+}
+
+function draw() {
+    // Clear background
+    ctx.fillStyle = '#111';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Filter update
+    updateParams();
+    generateNoise(params.noiseDots);
+
+    // Update time
+    params.time += 0.1 * params.speed;
+
+    // Get walker joints
+    const direction = params.retrograde ? -1 : 1;
+    let joints = walker.getJoints(params.time, direction);
+
+    // Draw Coherent Walker
+    ctx.save();
+    ctx.translate(canvas.width/2, canvas.height/2);
+
+    if (params.inverted) {
+        ctx.scale(1, -1);
+    }
+
+    ctx.fillStyle = '#fff';
+
+    joints.forEach(joint => {
+        let jx = joint.x;
+        let jy = joint.y;
+
+        // Apply Spatial Scramble
+        // If scrambled, each joint gets a consistent random offset 
+        // derived from its ID, scaled by the scramble %
+        if (!scrambleOffsets.has(joint.id)) {
+            // Create a random vector for this joint
+            const angle = Math.random() * Math.PI * 2;
+            const mag = 150; // Max scramble radius
+            scrambleOffsets.set(joint.id, {
+                x: Math.cos(angle) * mag,
+                y: Math.sin(angle) * mag
+            });
+        }
+
+        if (params.scramble > 0) {
+            const offset = scrambleOffsets.get(joint.id);
+            const factor = params.scramble / 100;
+            jx += offset.x * factor;
+            jy += offset.y * factor;
+        }
+
+        // Draw Dot
+        ctx.beginPath();
+        ctx.arc(jx, jy, 4, 0, Math.PI * 2);
+        ctx.fill();
+    });
+
+    ctx.restore();
+
+    // Draw Noise Dots (Masking)
+    // Noise dots move randomly to confuse the visual system
+    ctx.save();
+    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.fillStyle = '#555'; // Slightly dimmer noise dots
+
+    noiseParticles.forEach(p => {
+        // Update noise pos
+        p.x += p.vx * params.speed;
+        p.y += p.vy * params.speed;
+
+        // Wrap around screen
+        const w = canvas.width/2 + 20;
+        const h = canvas.height/2 + 20;
+        if(p.x > w) p.x = -w;
+        if(p.x < -w) p.x = w;
+        if(p.y > h) p.y = -h;
+        if(p.y < -h) p.y = h;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    ctx.restore();
+
+    requestAnimationFrame(draw);
+}
+
+// Event Listeners for UI
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('input', updateParams);
+});
+
+document.getElementById('randomize').addEventListener('click', () => {
+    document.getElementById('speed').value = 0.5 + Math.random() * 2;
+    document.getElementById('noise').value = Math.floor(Math.random() * 100);
+    document.getElementById('inverted').checked = Math.random() > 0.7;
+    
+    // Reset scramble offsets to get new random configuration
+    scrambleOffsets.clear();
+});
+
+// Start loop
+draw();
+
+</script>
+</body>
+</html>

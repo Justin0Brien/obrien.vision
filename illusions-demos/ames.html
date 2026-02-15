@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ames Room Illusion</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --highlight: #3b82f6;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        h1 { text-align: center; margin-bottom: 2rem; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .view-label {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.9);
+            padding: 4px 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            background: #f8f9fa;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        button:hover { background: #f0f0f0; }
+        button.active { 
+            background: var(--highlight); 
+            color: white; 
+            border-color: var(--highlight);
+        }
+
+        .description {
+            max-width: 600px;
+            margin: 2rem auto;
+            line-height: 1.6;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>The Ames Room</h1>
+
+    <div class="grid">
+        <!-- Main Illusion View -->
+        <div class="card">
+            <div class="view-label">👁️ Observer's View (The Illusion)</div>
+            <canvas id="illusionView" width="600" height="400"></canvas>
+        </div>
+
+        <!-- Structural Views -->
+        <div class="card" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="position: relative; flex: 1;">
+                <div class="view-label">📐 Top View (Actual Layout)</div>
+                <canvas id="topView" width="300" height="250"></canvas>
+            </div>
+            <div style="position: relative; flex: 1;">
+                 <div class="view-label">📐 Front View (Actual Heights)</div>
+                 <canvas id="frontView" width="300" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="movePeople">Animate People</button>
+        <button id="toggleGrid">Show Grid / Checkers</button>
+        <button id="reset">Reset Positions</button>
+    </div>
+
+    <div class="description">
+        <p>
+            An <strong>Ames room</strong> is a distorted room that creates an optical illusion. 
+            From the front (the peephole), it looks like an ordinary cubic room. 
+            However, the true shape is trapezoidal: the walls are slanted, and the floor and ceiling are at an incline.
+        </p>
+    </div>
+</div>
+
+<script>
+/**
+ * AMES ROOM DEMO
+ * 
+ * Coordinate System:
+ * - Origin is roughly center of room
+ * - X: Left/Right
+ * - Y: Up/Down
+ * - Z: Depth (Camera is at positive Z)
+ */
+
+const illusionCanvas = document.getElementById('illusionView');
+const topCanvas = document.getElementById('topView');
+const frontCanvas = document.getElementById('frontView');
+
+const ctxIllusion = illusionCanvas.getContext('2d');
+const ctxTop = topCanvas.getContext('2d');
+const ctxFront = frontCanvas.getContext('2d');
+
+// --- ROOM GEOMETRY (The Trap) ---
+// The detailed geometry that produces the illusion
+const room = {
+    // Corners defined as {x, z} (Top view)
+    corners: {
+        nearLeft: { x: -80, z: 100 },  // Close to camera
+        farLeft: { x: -30, z: -100 },  // Far away
+        farRight: { x: 120, z: 60 },   // Close, but looks far
+        nearRight: { x: 100, z: 200 }  // Very close
+    },
+    // Heights at corners {floor, ceiling}
+    heights: {
+        farLeft: { floor: 20, ceiling: 180 }, // Short wall (looks normal distance)
+        farRight: { floor: -40, ceiling: 240 } // Tall wall (looks far, but is close)
+    }
+};
+
+// --- ANIMATION STATE ---
+let people = [
+    { x: 0.1, color: '#e74c3c', label: 'A' }, // Position 0 to 1 along back wall
+    { x: 0.9, color: '#3498db', label: 'B' }
+];
+let isAnimating = false;
+let animationDir = 1;
+let showGrid = true;
+
+
+// --- PROJECTION MATH ---
+
+// Simple perspective projection
+function project(x, y, z) {
+    const fov = 400;
+    const scale = fov / (fov + z);
+    const x2d = x * scale + illusionCanvas.width / 2;
+    const y2d = -y * scale + illusionCanvas.height / 2; // Y is inverted for canvas
+    return { x: x2d, y: y2d, scale: scale };
+}
+
+// Get 3D position of a point on the back wall (t = 0..1 from left to right)
+function getBackWallPos(t) {
+    // Interpolate X and Z
+    const x = room.corners.farLeft.x + (room.corners.farRight.x - room.corners.farLeft.x) * t;
+    const z = room.corners.farLeft.z + (room.corners.farRight.z - room.corners.farLeft.z) * t;
+    
+    // Interpolate Y (Floor and Ceiling)
+    // Note: In a real Ames room, floor slopes down and ceiling slopes up from left to right
+    const floorY = room.heights.farLeft.floor + (room.heights.farRight.floor - room.heights.farLeft.floor) * t;
+    return { x, z, y: floorY }; 
+}
+
+
+// --- RENDERING ---
+
+function drawTopView() {
+    const ctx = ctxTop;
+    const w = topCanvas.width;
+    const h = topCanvas.height;
+    
+    ctx.clearRect(0, 0, w, h);
+    ctx.save();
+    
+    // Transform to center drawing
+    ctx.translate(w/2, h/2);
+    ctx.scale(0.8, 0.8);
+
+    // Draw Room Walls
+    ctx.beginPath();
+    ctx.moveTo(room.corners.nearLeft.x, room.corners.nearLeft.z);
+    ctx.lineTo(room.corners.farLeft.x, room.corners.farLeft.z);
+    ctx.lineTo(room.corners.farRight.x, room.corners.farRight.z);
+    ctx.lineTo(room.corners.nearRight.x, room.corners.nearRight.z);
+    ctx.closePath();
+    
+    ctx.fillStyle = '#fdfdfd';
+    ctx.fill();
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Draw Peephole / Camera
+    ctx.beginPath();
+    ctx.arc(0, 400, 10, 0, Math.PI*2);
+    ctx.fillStyle = '#333';
+    ctx.fill();
+    ctx.fillText("👁️", -10, 420);
+
+    // Draw People (Top View dots)
+    people.forEach(p => {
+        const pos = getBackWallPos(p.x);
+        ctx.beginPath();
+        ctx.arc(pos.x, pos.z, 8, 0, Math.PI*2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.fillStyle = 'white';
+        ctx.font = '10px Arial';
+        ctx.fillText(p.label, pos.x-3, pos.z+3);
+    });
+
+    // Draw Sight Lines
+    ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+    ctx.setLineDash([5, 5]);
+    people.forEach(p => {
+        const pos = getBackWallPos(p.x);
+        ctx.beginPath();
+        ctx.moveTo(0, 400); // Camera
+        ctx.lineTo(pos.x, pos.z);
+        ctx.stroke();
+    });
+
+    ctx.restore();
+}
+
+function drawIllusionView() {
+    const ctx = ctxIllusion;
+    ctx.clearRect(0,0, illusionCanvas.width, illusionCanvas.height);
+    
+    // 1. Draw the Room (Back Wall)
+    // We construct the room such that it LOOKS square from the camera
+    // In reality, we are projecting the trapezoidal 3D coordinates
+    
+    // Floor Corners (Back Left, Back Right, Front Right, Front Left)
+    const BL = getBackWallPos(0);
+    const BR = getBackWallPos(1);
+    
+    // Ceiling Heights at back
+    const ceilL = room.heights.farLeft.ceiling;
+    const ceilR = room.heights.farRight.ceiling;
+
+    const pBL = project(BL.x, BL.y, BL.z);
+    const pBR = project(BR.x, BR.y, BR.z);
+    const pTL = project(BL.x, ceilL, BL.z);
+    const pTR = project(BR.x, ceilR, BR.z);
+
+    // Draw Back Wall
+    ctx.beginPath();
+    ctx.moveTo(pTL.x, pTL.y);
+    ctx.lineTo(pTR.x, pTR.y);
+    ctx.lineTo(pBR.x, pBR.y);
+    ctx.lineTo(pBL.x, pBL.y);
+    ctx.closePath();
+    ctx.fillStyle = '#eee';
+    ctx.fill();
+    ctx.stroke();
+
+    // Draw Grid on Back Wall to enhance the "squareness" illusion
+    if (showGrid) {
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+        
+        // Vertical grid lines (actually slanted in 3D, but vertical in 2D projection)
+        for(let i=1; i<5; i++) {
+            const t = i/5;
+            const bot = getBackWallPos(t);
+            const topY = room.heights.farLeft.ceiling + (room.heights.farRight.ceiling - room.heights.farLeft.ceiling) * t;
+            
+            const pBot = project(bot.x, bot.y, bot.z);
+            const pTop = project(bot.x, topY, bot.z);
+            
+            ctx.moveTo(pBot.x, pBot.y);
+            ctx.lineTo(pTop.x, pTop.y);
+        }
+        ctx.stroke();
+    }
+
+    // Draw People
+    // They are physically the same size (e.g. 60 units), 
+    // but scale differently due to depth.
+    people.forEach(p => {
+        const pos = getBackWallPos(p.x);
+        const height = 65; // Physical height of person
+        
+        const foot = project(pos.x, pos.y, pos.z);
+        const head = project(pos.x, pos.y + height, pos.z);
+        
+        // Size on screen
+        const h = Math.abs(foot.y - head.y);
+        const w = h * 0.4; 
+
+        // Draw Stick Figure
+        ctx.fillStyle = p.color;
+        
+        // Head
+        ctx.beginPath();
+        ctx.arc(foot.x, head.y + h*0.2, w*0.4, 0, Math.PI*2);
+        ctx.fill();
+        
+        // Body
+        ctx.fillRect(foot.x - w/2, head.y + h*0.4, w, h*0.6);
+        
+        // Label
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 16px sans-serif';
+        ctx.fillText(p.label, foot.x - 5, head.y + h*0.8);
+    });
+}
+
+function drawFrontView() {
+    // This view cuts away the front wall and shows the room "straight on" 
+    // revealing the slanted floor and ceiling.
+    const ctx = ctxFront;
+    ctx.clearRect(0,0, frontCanvas.width, frontCanvas.height);
+    
+    // Remap coordinates to fit canvas
+    const mapX = (x) => (x + 100) * 1.0 + 20;
+    const mapY = (y) => 150 - (y + 50) * 0.4;
+    
+    // Draw Floor Line (actually sloped)
+    const floorL = room.heights.farLeft.floor;
+    const floorR = room.heights.farRight.floor;
+    const ceilL = room.heights.farLeft.ceiling;
+    const ceilR = room.heights.farRight.ceiling;
+
+    ctx.beginPath();
+    ctx.moveTo(mapX(-50), mapY(floorL)); // Left
+    ctx.lineTo(mapX(150), mapY(floorR)); // Right
+    ctx.lineTo(mapX(150), mapY(ceilR));  // Right Top
+    ctx.lineTo(mapX(-50), mapY(ceilL));  // Left Top
+    ctx.closePath();
+    
+    ctx.fillStyle = '#f0f0f0';
+    ctx.strokeStyle = '#999';
+    ctx.setLineDash([5,5]);
+    ctx.fill();
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Draw People (True Scale)
+    people.forEach(p => {
+        const t = p.x;
+        // Interpolate 2D position for "Front View"
+        // This is a simplified orthographic projection of the back wall
+        const x = -50 + (150 - -50) * t; 
+        const floorY = floorL + (floorR - floorL) * t;
+        
+        const px = mapX(x);
+        const py = mapY(floorY);
+        const h = 65 * 0.4; // Scaled height
+
+        ctx.fillStyle = p.color;
+        ctx.fillRect(px - 5, py - h, 10, h);
+    });
+    
+    // Draw Level Helper Line
+    ctx.strokeStyle = 'red';
+    ctx.beginPath();
+    ctx.moveTo(0, mapY(0));
+    ctx.lineTo(300, mapY(0));
+    ctx.stroke();
+    ctx.fillStyle = 'red';
+    ctx.fillText("True Horizon", 10, mapY(0)-5);
+
+}
+
+function render() {
+    drawTopView();
+    drawIllusionView();
+    drawFrontView();
+
+    if (isAnimating) {
+        people[0].x += 0.005 * animationDir;
+        people[1].x -= 0.005 * animationDir;
+
+        if (people[0].x > 1.0 || people[0].x < 0) {
+            animationDir *= -1;
+        }
+    }
+
+    requestAnimationFrame(render);
+}
+
+// --- CONTROLS ---
+
+document.getElementById('movePeople').addEventListener('click', () => {
+    isAnimating = !isAnimating;
+    document.getElementById('movePeople').classList.toggle('active');
+});
+
+document.getElementById('toggleGrid').addEventListener('click', () => {
+    showGrid = !showGrid;
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+    people[0].x = 0.1;
+    people[1].x = 0.9;
+    isAnimating = false;
+    document.getElementById('movePeople').classList.remove('active');
+});
+
+// Start
+render();
+
+</script>
+</body>
+</html>

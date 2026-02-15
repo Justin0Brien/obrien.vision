@@ -1,0 +1,520 @@
+---
+layout: null
+title: "University Cash Flow: Transaction Timeline"
+date: 2026-02-15
+technologies: ['HTML']
+interactive: true
+---
+{% raw %}
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Cash Flow: Transaction Timeline</title>
+    <!-- Load Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent-color: #2563eb;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .chart-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 20px;
+            margin-bottom: 30px;
+            /* Reduced height from 900px to 700px for single-screen viewing */
+            height: 700px; 
+            position: relative;
+        }
+
+        #cashflow-chart {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Custom Legend styling */
+        .legend-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 10px;
+            background: #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Analysis Section Styling */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .analysis-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .analysis-card h3 {
+            margin-top: 0;
+            color: var(--text-primary);
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .analysis-item {
+            margin-bottom: 20px;
+        }
+
+        .analysis-item h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .analysis-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>University Cash Flow Events</h1>
+        <p class="subtitle">
+            A timeline of discrete financial events. The top chart tracks the resulting cash reserves. 
+            The bottom chart visualises individual transactions: income (positive spikes) and expenditure (negative spikes).
+        </p>
+    </header>
+
+    <!-- Custom Legend for clearer reading -->
+    <div class="legend-grid">
+        <div class="legend-item"><div class="dot" style="background: #3b82f6;"></div>Home Fees</div>
+        <div class="legend-item"><div class="dot" style="background: #8b5cf6;"></div>Intl Fees</div>
+        <div class="legend-item"><div class="dot" style="background: #f59e0b;"></div>Research Grants</div>
+        <div class="legend-item"><div class="dot" style="background: #0ea5e9;"></div>Accommodation</div>
+        <div class="legend-item"><div class="dot" style="background: #ef4444;"></div>Staff Pay</div>
+        <div class="legend-item"><div class="dot" style="background: #f97316;"></div>Operations</div>
+    </div>
+
+    <div class="chart-card">
+        <div id="cashflow-chart"></div>
+    </div>
+
+    <!-- Extended Caption / Analysis -->
+    <div class="analysis-grid">
+        <div class="analysis-card" style="border-top-color: #22c55e;">
+            <h3>Inflows: Receipt Periodicity</h3>
+            
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #3b82f6;"></div> Home Tuition Fees</h4>
+                <p><strong>Periodicity:</strong> Tranches in Oct (25%), Feb (25%), May (50%).<br>
+                These dates are dictated by the Student Loans Company (SLC). The massive 50% tranche in May is critical; it is the "harvest" that must sustain the university through the long, income-dry summer months until October.</p>
+            </div>
+
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #8b5cf6;"></div> International Fees</h4>
+                <p><strong>Periodicity:</strong> Seasonal spikes (Sept/Oct & Jan).<br>
+                Unlike Home fees, these are paid directly by students. They cluster around the start of the academic year and the January intake. This income is highly volatile, dependent on visa issuance speeds and global banking transfers.</p>
+            </div>
+
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #f59e0b;"></div> Research Income</h4>
+                <p><strong>Periodicity:</strong> Quarterly (Block Grant) & Irregular (Projects).<br>
+                The "Quality Related" (QR) block grant arrives reliably every quarter (Aug, Nov, Feb, May). However, specific project grants (e.g., from UKRI or charities) arrive irregularly, creating unpredictable cash injections.</p>
+            </div>
+        </div>
+
+        <div class="analysis-card" style="border-top-color: #ef4444;">
+            <h3>Outflows: Payment Periodicity</h3>
+
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #ef4444;"></div> Staff Payroll</h4>
+                <p><strong>Periodicity:</strong> Monthly (Fixed Date, e.g., 28th).<br>
+                This is the single largest and most rigid outflow. It represents academic and professional staff salaries, taxes, and pensions. Unlike commercial businesses that might reduce labour costs during quiet periods, university payroll remains constant year-round.</p>
+            </div>
+
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #f97316;"></div> Operational Costs</h4>
+                <p><strong>Periodicity:</strong> Bi-weekly Batch Runs.<br>
+                Universities typically process supplier invoices in "payment runs" (e.g., mid-month and end-month) to maintain efficiency. This covers utilities, security, cleaning, and software licensing. Note the spike in late winter due to higher heating costs.</p>
+            </div>
+
+            <div class="analysis-item">
+                <h4><div class="dot" style="background: #0ea5e9;"></div> Accommodation</h4>
+                <p><strong>Periodicity:</strong> Termly (Start of Terms).<br>
+                While technically income, this is often ring-fenced to service the debt on the buildings. The inflows coincide with student loan drops, as students use their maintenance loans to pay rent immediately.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Model based on a £400m turnover institution. All figures in £ Millions.</p>
+    </footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- DATA GENERATION ---
+        const startDate = new Date("2024-08-01");
+        const endDate = new Date("2025-07-31");
+        
+        // We need to store events for the "Spike" chart
+        // Structure: { date: 'YYYY-MM-DD', category: 'Name', amount: 10, label: 'Details' }
+        const events = [];
+        
+        // We also need daily balance for the Line chart
+        const dailyBalanceData = [];
+        const dateStrings = [];
+        
+        let currentBalance = 50; // Starting reserves
+        
+        // Helper date iterator
+        let currentDate = new Date(startDate);
+        
+        // --- EVENT GENERATORS ---
+        // To make the chart cleaner, we won't do daily drizzle.
+        // We will simulate "Batch Runs" for operations.
+        
+        while (currentDate <= endDate) {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            const month = currentDate.getMonth(); // 0-11
+            const day = currentDate.getDate();
+            
+            let dailyNet = 0;
+
+            // --- EXPENDITURE ---
+            
+            // 1. Staff Pay (28th of every month)
+            // Big red spike
+            if (day === 28) {
+                const amount = -18.5;
+                events.push({
+                    date: dateStr,
+                    category: 'Staff Pay',
+                    amount: amount,
+                    label: 'Monthly Payroll Run'
+                });
+                dailyNet += amount;
+            }
+
+            // 2. Operations (Batch Payments on 15th and 30th)
+            // Orange spikes
+            if (day === 15) {
+                const amount = -5.0; // Mid-month run
+                events.push({
+                    date: dateStr,
+                    category: 'Operations',
+                    amount: amount,
+                    label: 'Mid-Month Supplier Batch'
+                });
+                dailyNet += amount;
+            }
+            if (day === 30 || (month === 1 && day === 28)) { // End of month (handling Feb)
+                const amount = -8.0; // End-month run (slightly larger)
+                events.push({
+                    date: dateStr,
+                    category: 'Operations',
+                    amount: amount,
+                    label: 'End-Month Invoices & Utilities'
+                });
+                dailyNet += amount;
+            }
+
+            // --- INCOME ---
+
+            // 3. Home Fees (Oct, Feb, May)
+            if (month === 9 && day === 16) { 
+                const val = 27.5; 
+                events.push({ date: dateStr, category: 'Home Fees', amount: val, label: 'SLC Tranche 1 (25%)' });
+                dailyNet += val;
+            }
+            if (month === 1 && day === 12) { 
+                const val = 27.5; 
+                events.push({ date: dateStr, category: 'Home Fees', amount: val, label: 'SLC Tranche 2 (25%)' });
+                dailyNet += val;
+            }
+            if (month === 4 && day === 8) { 
+                const val = 55.0; 
+                events.push({ date: dateStr, category: 'Home Fees', amount: val, label: 'SLC Tranche 3 (50%)' });
+                dailyNet += val;
+            }
+
+            // 4. Intl Fees (Sept, Jan)
+            if (month === 8 && day === 25) { 
+                const val = 50.0; 
+                events.push({ date: dateStr, category: 'Intl Fees', amount: val, label: 'Autumn Intake Fees' });
+                dailyNet += val;
+            }
+            if (month === 0 && day === 25) { 
+                const val = 50.0; 
+                events.push({ date: dateStr, category: 'Intl Fees', amount: val, label: 'Spring Intake Fees' });
+                dailyNet += val;
+            }
+
+            // 5. Accommodation (Sept, Jan, Apr)
+            if (month === 8 && day === 20) { 
+                const val = 13; 
+                events.push({ date: dateStr, category: 'Accommodation', amount: val, label: 'Term 1 Rent' });
+                dailyNet += val;
+            }
+            if (month === 0 && day === 10) { 
+                const val = 13; 
+                events.push({ date: dateStr, category: 'Accommodation', amount: val, label: 'Term 2 Rent' });
+                dailyNet += val;
+            }
+            if (month === 3 && day === 20) { 
+                const val = 14; 
+                events.push({ date: dateStr, category: 'Accommodation', amount: val, label: 'Term 3 Rent' });
+                dailyNet += val;
+            }
+
+            // 6. Research / Grants (Quarterly + Random Spikes)
+            // Block Grant
+            if (day === 5 && [7, 10, 1, 4].includes(month)) {
+                const val = 11.25;
+                events.push({ date: dateStr, category: 'Research Grants', amount: val, label: 'Quality Related (QR) Grant' });
+                dailyNet += val;
+            }
+            
+            // Random Research Spikes
+            // We want fewer, distinct spikes for the "clean" look
+            // Let's seed a few specific dates
+            const researchDates = ["2024-11-10", "2024-12-05", "2025-03-15", "2025-06-20"];
+            if (researchDates.includes(dateStr)) {
+                 const val = 8.5; // A nice chunk
+                 events.push({ date: dateStr, category: 'Research Grants', amount: val, label: 'UKRI Project Grant Award' });
+                 dailyNet += val;
+            }
+
+            // Update Balance
+            // We also add a tiny bit of "noise" to the balance so it's not perfectly flat between spikes
+            currentBalance += dailyNet - 0.1; // -0.1 daily burn
+            dailyBalanceData.push(currentBalance);
+            dateStrings.push(dateStr);
+
+            // Increment Date
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        // --- PREPARE PLOTLY TRACES ---
+
+        // Trace 1: Balance Line (Top Chart)
+        const traceBalance = {
+            x: dateStrings,
+            y: dailyBalanceData,
+            xaxis: 'x', // Matches anchor 'x' below
+            yaxis: 'y', // Matches anchor 'y' below
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Cash Balance',
+            line: { color: '#1e293b', width: 2, shape: 'hv' },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(30, 41, 59, 0.05)',
+            hovertemplate: '<b>%{x}</b><br>Reserves: £%{y:.1f}m<extra></extra>'
+        };
+
+        // --- CREATE LOLLIPOP TRACES (Bottom Chart) ---
+        // We need 2 traces per category: Bar (Stem) and Scatter (Head)
+        
+        const categories = {
+            'Home Fees': '#3b82f6',
+            'Intl Fees': '#8b5cf6',
+            'Research Grants': '#f59e0b',
+            'Accommodation': '#0ea5e9',
+            'Staff Pay': '#ef4444',
+            'Operations': '#f97316'
+        };
+
+        const spikeTraces = [];
+
+        Object.keys(categories).forEach(cat => {
+            const catEvents = events.filter(e => e.category === cat);
+            const xVal = catEvents.map(e => e.date);
+            const yVal = catEvents.map(e => e.amount);
+            const textVal = catEvents.map(e => e.label);
+            const color = categories[cat];
+
+            // 1. The Stems (Thin Bars)
+            spikeTraces.push({
+                x: xVal,
+                y: yVal,
+                xaxis: 'x2', // Matches anchor 'x2' below
+                yaxis: 'y2', // Matches anchor 'y2' below
+                type: 'bar',
+                name: cat, // Hidden from legend to prevent duplicates
+                showlegend: false, 
+                marker: { color: color },
+                width: 86400000 * 0.4, // Approx 12 hours width in milliseconds (makes distinct lines)
+                hoverinfo: 'none' // Hover on the circle instead
+            });
+
+            // 2. The Heads (Circles)
+            spikeTraces.push({
+                x: xVal,
+                y: yVal,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                mode: 'markers',
+                name: cat,
+                showlegend: false, // We use HTML legend
+                marker: { 
+                    color: color, 
+                    size: 10,
+                    line: { color: 'white', width: 1 }
+                },
+                text: textVal,
+                hovertemplate: `<b>${cat}</b><br>%{x}<br>Amount: £%{y:.1f}m<br><i>%{text}</i><extra></extra>`
+            });
+        });
+
+        const allTraces = [traceBalance, ...spikeTraces];
+
+        const layout = {
+            // Using manual domains instead of grid to ensure tight spacing
+            font: { family: 'Inter, sans-serif', color: '#1e293b' },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            showlegend: false, // Using custom HTML legend
+            
+            // TOP CHART: Balance (Top 40% height)
+            xaxis: {
+                anchor: 'y',
+                visible: false, // Hide X labels for top chart to reduce clutter
+                range: [dateStrings[0], dateStrings[dateStrings.length-1]],
+                domain: [0, 1]
+            },
+            yaxis: {
+                anchor: 'x',
+                domain: [0.55, 1], // Occupies top 45%
+                title: 'Reserves (£m)',
+                titlefont: { size: 14, weight: 600 },
+                gridcolor: '#e2e8f0'
+            },
+
+            // BOTTOM CHART: Spikes (Bottom 45% height)
+            xaxis2: {
+                anchor: 'y2',
+                domain: [0, 1],
+                title: 'Continuous Timeline (Aug - Jul)',
+                gridcolor: '#f1f5f9',
+                type: 'date',
+                range: [dateStrings[0], dateStrings[dateStrings.length-1]]
+            },
+            yaxis2: {
+                anchor: 'x2',
+                domain: [0, 0.45], // Occupies bottom 45% (Leaving 10% gap)
+                title: 'Transaction Size (£m)',
+                titlefont: { size: 14, weight: 600 },
+                gridcolor: '#e2e8f0',
+                zeroline: true,
+                zerolinecolor: '#334155',
+                zerolinewidth: 1
+            },
+            
+            // Annotation for Danger Zone
+            annotations: [
+                {
+                    x: '2025-04-20',
+                    y: 20, 
+                    xref: 'x', yref: 'y',
+                    text: '⚠️ Danger Zone',
+                    showarrow: true,
+                    arrowhead: 2,
+                    ax: 0, ay: -30,
+                    font: { color: '#ef4444', weight: 'bold' }
+                }
+            ],
+            margin: { t: 40, b: 60, l: 60, r: 20 },
+            hovermode: 'closest'
+        };
+
+        const config = { responsive: true, displayModeBar: false };
+
+        Plotly.newPlot('cashflow-chart', allTraces, layout, config);
+    });
+</script>
+
+</body>
+</html>
+{% endraw %}

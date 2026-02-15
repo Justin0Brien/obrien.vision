@@ -1,53 +1,34 @@
 ---
-layout: default
+layout: simple
 ---
 
-<article class="detail detail--visualization" data-reveal>
-  <header class="detail__header">
-    <p class="detail__eyebrow">Data visualisation</p>
-    <h1 class="detail__title">{{ page.title }}</h1>
-    <div class="detail__meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %Y" }}</time>
-      {% if page.status %}<span class="status-pill">{{ page.status | capitalize }}</span>{% endif %}
-      {% if page.interactive %}<span class="chip chip--accent">Interactive</span>{% endif %}
+<article>
+  <header>
+    <h1>{{ page.title }}</h1>
+    <div style="color: #666; font-size: 0.9em; margin-bottom: 20px;">
+      Published on {{ page.date | date: "%B %d, %Y" }}
+      {% if page.technologies %} • Built with {{ page.technologies | join: ", " }}{% endif %}
     </div>
-    {% if page.description %}
-    <p class="detail__summary">{{ page.description }}</p>
-    {% endif %}
   </header>
-
-  {% if page.technologies %}
-  <section class="detail__section detail__section--inline">
-    <h2>Stack</h2>
-    <div class="card__tags">
-      {% for tech in page.technologies %}
-      <span class="tag">{{ tech }}</span>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
 
   {% assign embed_src = page.iframe_src | default: page.iframe_url %}
   {% if embed_src %}
-  <div class="detail__media">
-    <div class="responsive-frame">
-      <iframe src="{{ embed_src | relative_url }}"
-              width="{{ page.iframe_width | default: '100%' }}"
-              height="{{ page.iframe_height | default: '640' }}"
-              loading="lazy"
-              class="detail__iframe"
-              allowfullscreen></iframe>
-    </div>
+  <div style="margin: 20px 0; border: 1px solid #ddd; border-radius: 4px; overflow: hidden;">
+    <iframe src="{{ embed_src | relative_url }}"
+            width="100%"
+            height="600"
+            style="border: none;"
+            title="{{ page.title }} Demo"></iframe>
   </div>
   {% endif %}
 
-  <div class="detail__content prose">
+  <div class="content">
     {{ content }}
   </div>
 
-  {% if page.data_source or page.repository or page.demo_url %}
-  <section class="detail__section detail__section--actions">
-    <h2>Explore further</h2>
+  <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+    <a href="{{ '/visualizations.html' | relative_url }}">&larr; Back to Visualizations</a>
+  </div>
     <div class="detail__actions">
       {% if page.demo_url %}
       <a class="btn btn-primary" href="{{ page.demo_url }}" target="_blank" rel="noopener">Live demo</a>
@@ -59,8 +40,6 @@ layout: default
       <a class="btn btn-ghost" href="{{ page.data_source }}" target="_blank" rel="noopener">Data source</a>
       {% endif %}
     </div>
-  </section>
-  {% endif %}
 
   {% if page.tags %}
   <footer class="detail__footer">

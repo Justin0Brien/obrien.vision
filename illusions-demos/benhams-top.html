@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benham's Top Illusion</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --text-color: #1a1a1a;
+            --accent-color: #3b82f6;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 { margin-bottom: 0.5rem; font-weight: 300; }
+        p { color: #555; max-width: 600px; text-align: center; margin-bottom: 2rem; }
+
+        .disk-container {
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 50%;
+            background: white;
+            padding: 10px;
+            margin-bottom: 2rem;
+        }
+
+        canvas {
+            border-radius: 50%;
+            display: block;
+        }
+
+        .controls {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .control-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-top: 0.5rem;
+            accent-color: var(--accent-color);
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        button:active { transform: scale(0.98); }
+        button.secondary { background: #e2e8f0; color: #333; }
+
+        .value-display {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Benham's Top</h1>
+    <p>
+        Spin this black and white disk to see colors that aren't there. 
+        Adjust the speed to change the perceived hues (Fechner colors).
+    </p>
+
+    <div class="disk-container">
+        <canvas id="disk" width="400" height="400"></canvas>
+    </div>
+
+    <div class="controls">
+        <div class="control-row">
+            <label>Rotation Speed</label>
+            <span id="speedVal" class="value-display">300 RPM</span>
+        </div>
+        <input type="range" id="speed" min="0" max="1000" value="300">
+
+        <div class="control-row">
+            <button id="toggleBtn">Stop</button>
+            <button id="reverseBtn" class="secondary">Reverse Direction</button>
+        </div>
+    </div>
+
+<script>
+    const canvas = document.getElementById('disk');
+    const ctx = canvas.getContext('2d');
+    const radius = canvas.width / 2;
+    const center = { x: radius, y: radius };
+
+    let rotationInfo = {
+        angle: 0,
+        speed: 5,     // arbitrary speed unit
+        rpm: 300,
+        isPlaying: true,
+        direction: 1  // 1 or -1
+    };
+
+    // Draw the static pattern once on an offscreen canvas for performance
+    const patternCanvas = document.createElement('canvas');
+    patternCanvas.width = canvas.width;
+    patternCanvas.height = canvas.height;
+    const pCtx = patternCanvas.getContext('2d');
+
+    function drawPattern() {
+        pCtx.clearRect(0,0, 400, 400);
+        
+        // 1. White Background
+        pCtx.fillStyle = '#fff';
+        pCtx.beginPath();
+        pCtx.arc(center.x, center.y, radius, 0, Math.PI * 2);
+        pCtx.fill();
+
+        // 2. Black Semicircle (Bottom half)
+        pCtx.fillStyle = '#000';
+        pCtx.beginPath();
+        pCtx.arc(center.x, center.y, radius, 0, Math.PI);
+        pCtx.fill();
+
+        // 3. The Arcs
+        // Standard Benham pattern usually divides the white half into concentric bands
+        // We act on the top half (PI to 2PI), so y is negative rel to center, or simple rotate
+        
+        pCtx.lineWidth = 3;
+        pCtx.strokeStyle = '#000';
+        pCtx.lineCap = 'butt'; // sharp ends
+
+        const bands = 4;
+        const arcSets = 3; 
+        
+        // Radius step for sets
+        const rStep = radius / (bands + 1);
+
+        // We draw bands on the white half (Angle PI to 2PI)
+        // Set 1 (Inner) - Shortest arcs
+        // Set 2 - Longer
+        // Actually, Benham's usually has equal length arcs at different phases
+        
+        // Let's implement the standard pattern:
+        // 4 sets of 3 arcs each. The arcs subtend different angles or start at different angles.
+        
+        // Configuration:
+        // Group 1: Inner tracks. Start near black edge.
+        // Group 2: Middle-inner.
+        // Group 3: Middle-outer.
+        // Group 4: Outer.
+        
+        const trackWidth = 2.5; 
+        
+        for (let group = 0; group < 4; group++) {
+            // Each group has 3 tracks (lines)
+            for (let line = 0; line < 3; line++) {
+                 // Calculate radius for this specific ring
+                 // We have 12 rings total roughly
+                 let r = radius * 0.2 + (group * 3 + line) * (radius * 0.8 / 12);
+                 
+                 pCtx.beginPath();
+                 // Start angle logic:
+                 // The white sector is from PI to 2PI (180 to 360)
+                 // Group 1 starts at 180 (PI)
+                 // Group 2 starts at 180 + 45 deg
+                 // Group 3 starts at 180 + 90 deg
+                 // Group 4 starts at 180 + 135 deg
+                 // Each arc is approx 45 degrees long
+                 
+                 let offsetDeg = group * 45; 
+                 let startAngle = Math.PI + (offsetDeg * Math.PI / 180) + 0.1; // +0.1 for margin
+                 let endAngle = startAngle + (40 * Math.PI / 180); 
+                 
+                 pCtx.arc(center.x, center.y, r, startAngle, endAngle);
+                 pCtx.lineWidth = Math.max(2, radius/50);
+                 pCtx.stroke();
+            }
+        }
+    }
+
+    drawPattern();
+
+    // Animation Loop
+    let lastTime = 0;
+
+    function animate(timestamp) {
+        if (!lastTime) lastTime = timestamp;
+        const dt = timestamp - lastTime;
+        lastTime = timestamp;
+
+        if (rotationInfo.isPlaying) {
+            // Speed conversion
+            // RPM to rads per ms?
+            // 300 RPM = 5 RPS = 10PI rads/sec = 0.01PI rads/ms
+            const rps = rotationInfo.rpm / 60;
+            const radsPerMs = (rps * Math.PI * 2) / 1000;
+            
+            rotationInfo.angle += radsPerMs * dt * rotationInfo.direction;
+        }
+
+        // Draw rotated pattern
+        ctx.save();
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        
+        // Move to center, rotate, move back (standard 2d rotation)
+        ctx.translate(center.x, center.y);
+        ctx.rotate(rotationInfo.angle);
+        ctx.translate(-center.x, -center.y);
+        
+        ctx.drawImage(patternCanvas, 0, 0);
+        
+        ctx.restore();
+
+        // Center nut
+        ctx.beginPath();
+        ctx.arc(center.x, center.y, 5, 0, Math.PI*2);
+        ctx.fillStyle = '#ccc';
+        ctx.fill();
+
+        requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // Initial Start
+    const speedInput = document.getElementById('speed');
+    const toggleBtn = document.getElementById('toggleBtn');
+    const reverseBtn = document.getElementById('reverseBtn');
+    const speedVal = document.getElementById('speedVal');
+
+    speedInput.addEventListener('input', (e) => {
+        rotationInfo.rpm = parseInt(e.target.value);
+        speedVal.innerText = rotationInfo.rpm + " RPM";
+    });
+
+    toggleBtn.addEventListener('click', () => {
+        rotationInfo.isPlaying = !rotationInfo.isPlaying;
+        toggleBtn.innerText = rotationInfo.isPlaying ? "Stop" : "Spin";
+        toggleBtn.className = rotationInfo.isPlaying ? "" : "secondary";
+    });
+
+    reverseBtn.addEventListener('click', () => {
+        rotationInfo.direction *= -1;
+    });
+
+</script>
+</body>
+</html>

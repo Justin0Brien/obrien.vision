@@ -11,8 +11,6 @@
     const revealEls = document.querySelectorAll('[data-reveal]');
     if (!revealEls.length) return;
 
-    document.documentElement.classList.add('has-reveal');
-
     const supportsMatchMedia = typeof window.matchMedia === 'function';
     const prefersReducedMotion = supportsMatchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -32,6 +30,11 @@
       return;
     }
 
+    // Safety timeout: if checking takes too long, just show content
+    setTimeout(() => {
+        revealEls.forEach(el => el.classList.add('is-visible'));
+    }, 1000);
+
     revealEls.forEach(el => {
       const delay = el.getAttribute('data-reveal-delay');
       if (delay) {
@@ -39,6 +42,8 @@
       }
       observer.observe(el);
     });
+
+    document.documentElement.classList.add('has-reveal');
 
     function onIntersect(entries, obs) {
       entries.forEach(entry => {

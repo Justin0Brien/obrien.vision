@@ -1,0 +1,591 @@
+---
+layout: null
+title: "UKRI Funding Flows: Interactive Explorer"
+date: 2026-02-15
+technologies: ['HTML', 'D3.js', 'Tailwind CSS']
+interactive: true
+---
+{% raw %}
+
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKRI Funding Flows: Interactive Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        /* Chart specific styles */
+        .sankey-node rect { cursor: default; fill-opacity: .9; shape-rendering: crispEdges; transition: fill-opacity 0.2s; }
+        .sankey-node rect:hover { fill-opacity: 1; }
+        .sankey-node text { pointer-events: none; text-shadow: 0 1px 0 #fff; font-weight: 600; font-size: 0.70rem; fill: #334155; }
+        .sankey-link { fill: none; stroke-opacity: 0.15; cursor: pointer; transition: stroke-opacity 0.3s; }
+        .sankey-link:hover { stroke-opacity: 0.5; }
+        .tooltip {
+            position: absolute; text-align: left; padding: 10px; font-size: 12px;
+            background: rgba(15, 23, 42, 0.95); color: #fff; border-radius: 6px;
+            pointer-events: none; opacity: 0; transition: opacity 0.2s; z-index: 50;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); border: 1px solid #334155;
+            max-width: 300px;
+        }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        
+        /* Typography for the explainer text */
+        .prose h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #0f172a; }
+        .prose h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #334155; }
+        .prose p { margin-bottom: 1rem; line-height: 1.7; color: #475569; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+        .prose li { margin-bottom: 0.5rem; color: #475569; }
+        .prose strong { color: #1e293b; font-weight: 600; }
+        .citation { color: #2563eb; font-size: 0.85em; text-decoration: none; }
+        .citation:hover { text-decoration: underline; }
+        .methodology-box { background-color: #f1f5f9; padding: 1.5rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; margin-top: 2rem; }
+
+        /* Control Button Styles */
+        .control-group {
+            display: flex;
+            background-color: white;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            padding: 0.25rem;
+        }
+        .control-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border-radius: 0.25rem;
+            transition: all 0.2s;
+            border: none;
+            background-color: transparent;
+            color: #64748b;
+        }
+        .control-btn:hover {
+            color: #1e293b;
+            background-color: #f1f5f9;
+        }
+        .control-btn.active {
+            background-color: #3b82f6;
+            color: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .control-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 px-6 py-4 flex-none shadow-sm z-10 sticky top-0">
+        <div class="max-w-7xl mx-auto flex justify-between items-center w-full">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-slate-900">UKRI Funding Flows 2026–2030</h1>
+                <p class="text-sm text-slate-500">Interactive Strategy Explorer</p>
+            </div>
+            <div class="hidden md:block text-right text-xs text-slate-400">
+                Total Envelope: <strong>£38.6bn</strong><br>
+                Source: UKRI Strategy
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="flex-grow w-full bg-slate-50 flex flex-col">
+        
+        <!-- Controls Section -->
+        <div class="w-full bg-slate-50 border-b border-slate-200 px-6 py-4 z-20">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-center items-center gap-6">
+                
+                <!-- View Mode Toggle -->
+                <div class="flex flex-col items-center">
+                    <span class="control-label">View Breakdown By</span>
+                    <div class="control-group">
+                        <button onclick="setMode('subject')" id="btn-mode-subject" class="control-btn active">Subject Discipline</button>
+                        <button onclick="setMode('institution')" id="btn-mode-institution" class="control-btn">Institution / Recipient</button>
+                    </div>
+                </div>
+
+                <div class="h-8 w-px bg-slate-300 hidden md:block"></div>
+
+                <!-- Detail Level Toggle -->
+                <div class="flex flex-col items-center">
+                    <span class="control-label">Detail Level</span>
+                    <div class="control-group">
+                        <button onclick="setLevel(1)" id="btn-lvl-1" class="control-btn active">Funding Bodies</button>
+                        <button onclick="setLevel(2)" id="btn-lvl-2" class="control-btn">Grouped</button>
+                        <button onclick="setLevel(3)" id="btn-lvl-3" class="control-btn">Specific</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <section class="w-full h-[80vh] relative bg-slate-50 border-b border-slate-200 shrink-0">
+            <div id="chart" class="w-full h-full transition-opacity duration-300"></div>
+            <div id="tooltip" class="tooltip"></div>
+            
+            <!-- Legend Overlay -->
+            <div class="absolute bottom-4 left-6 bg-white/90 backdrop-blur-sm border border-slate-200 p-2 rounded-lg text-xs text-slate-500 shadow-sm">
+                <div class="flex gap-4">
+                    <span class="flex items-center"><span class="legend-dot bg-blue-500"></span>Curiosity</span>
+                    <span class="flex items-center"><span class="legend-dot bg-purple-500"></span>Strategic</span>
+                    <span class="flex items-center"><span class="legend-dot bg-emerald-500"></span>Innovation</span>
+                    <span class="flex items-center"><span class="legend-dot bg-slate-500"></span>Enabling</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explainer Text Section -->
+        <section class="w-full bg-white py-12 px-6">
+            <div class="max-w-4xl mx-auto prose">
+                
+                <h2>Analysis of Funding Streams</h2>
+                <p>
+                    This visualization allows you to explore the UKRI strategy from two perspectives. Use the <strong>"Breakdown By"</strong> toggle to switch between an academic subject view and an institutional destination view.
+                </p>
+
+                <h3>Option A: By Subject Discipline (CAH2)</h3>
+                <p>
+                    This view maps the money to research topics. It is useful for understanding the balance between broad fields like <em>Engineering</em> versus <em>Arts & Humanities</em>. The deepest level uses the <strong>Common Aggregation Hierarchy Level 2 (CAH2)</strong>. (Note: Level 3 CAH data is too granular for this visualization).
+                </p>
+                <ul>
+                    <li><strong>Key Insight:</strong> Notice the massive concentration of funding in <strong>Physics & Astronomy</strong> (red nodes). This is heavily inflated by international facility subscriptions (CERN, ESO), masking the squeeze on actual research grants.</li>
+                </ul>
+
+                <h3>Option B: By Institution / Recipient</h3>
+                <p>
+                    This view maps the money to the organizations that actually receive the bank transfers. This reveals the "Golden Triangle" dominance and the role of the private sector.
+                </p>
+                <ul>
+                    <li><strong>Universities:</strong> We isolate the top 6 recipients (Oxford, Cambridge, UCL, Imperial, Edinburgh, Manchester) to show the concentration of "Curiosity" and "Talent" funding.</li>
+                    <li><strong>Industry:</strong> Notice the green "Innovation" stream flows almost entirely to the <strong>Private Sector</strong> via Innovate UK, bypassing universities.</li>
+                </ul>
+
+                <div class="methodology-box">
+                    <h3 class="mt-0">Data Sources & Methodology</h3>
+                    <p class="text-sm">
+                        This Sankey diagram is a forecast model based on the UKRI 2026–2030 strategy announcements and historical statistical patterns.
+                    </p>
+                    
+                    <h4 class="text-sm font-bold text-slate-800 mt-4 mb-2">1. The Financial Envelope (£38.6bn)</h4>
+                    <p class="text-sm">
+                        Derived from the UKRI Chief Executive's open letter.
+                        <br>
+                        <a href="https://www.ukri.org/news/open-letter-from-ian-chapman-to-research-and-innovation-community/" target="_blank" class="citation">[@chapman2026] Chapman, I. (2026). <em>Open letter from Ian Chapman to research and innovation community</em>. UKRI.</a>
+                    </p>
+
+                    <h4 class="text-sm font-bold text-slate-800 mt-4 mb-2">2. Subject Modelling (CAH2)</h4>
+                    <p class="text-sm">
+                        Estimated using HESA "Research Grants and Contracts" income data by cost centre.
+                        <br>
+                        <a href="https://www.hesa.ac.uk/data-and-analysis/finances/income" target="_blank" class="citation">[@hesa2024] HESA. (2024). <em>HE Finance Record 2023/24</em>.</a>
+                    </p>
+                    
+                    <h4 class="text-sm font-bold text-slate-800 mt-4 mb-2">3. Institutional Modelling</h4>
+                    <p class="text-sm">
+                        Allocations to universities are projected based on 2023/24 market share of UKRI income. "Private Sector" flows are estimated based on Innovate UK's historical business-led grant ratio (~75%).
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // --- MASTER DATA ---
+        // Group IDs: 
+        // 0=Gov, 1=Buckets, 2=Delivery
+        // 3=CAH1 (Subject L2), 4=CAH2 (Subject L3)
+        // 5=Institution Groups (Inst L2), 6=Specific Institutions (Inst L3)
+        
+        const masterNodes = [
+            // --- Group 0: Source ---
+            { id: 0, group: 0, name: "UK Gov (DSIT)", color: "#0f172a" },
+
+            // --- Group 1: Buckets ---
+            { id: 1, group: 1, name: "Curiosity-Driven", color: "#3b82f6" }, 
+            { id: 2, group: 1, name: "Strategic Priorities", color: "#a855f7" }, 
+            { id: 3, group: 1, name: "Innovation", color: "#10b981" }, 
+            { id: 4, group: 1, name: "Enabling & Infra", color: "#64748b" }, 
+
+            // --- Group 2: Delivery Bodies ---
+            { id: 5, group: 2, name: "Research England (QR)", color: "#60a5fa" }, 
+            { id: 6, group: 2, name: "Innovate UK", color: "#34d399" }, 
+            { id: 7, group: 2, name: "STFC", color: "#ef4444" }, 
+            { id: 8, group: 2, name: "EPSRC", color: "#818cf8" }, 
+            { id: 9, group: 2, name: "MRC/BBSRC", color: "#f472b6" }, 
+            { id: 10, group: 2, name: "AHRC/ESRC", color: "#fb923c" }, 
+            { id: 11, group: 2, name: "Talent/Cross-Council", color: "#94a3b8" }, 
+
+            // --- Group 3: CAH1 Broad Subjects (SUBJECT MODE LEVEL 2) ---
+            { id: 12, group: 3, name: "Medicine & Health", color: "#ec4899" }, 
+            { id: 13, group: 3, name: "Biological Sciences", color: "#f472b6" }, 
+            { id: 14, group: 3, name: "Physical Sciences", color: "#ef4444" }, 
+            { id: 15, group: 3, name: "Engineering & Tech", color: "#6366f1" }, 
+            { id: 16, group: 3, name: "Computing", color: "#8b5cf6" }, 
+            { id: 17, group: 3, name: "Geog & Env", color: "#14b8a6" }, 
+            { id: 18, group: 3, name: "Social Sciences", color: "#f59e0b" }, 
+            { id: 19, group: 3, name: "Arts & Humanities", color: "#fbbf24" }, 
+            { id: 20, group: 3, name: "Business & Man.", color: "#15803d" }, 
+
+            // --- Group 4: CAH2 Specific Disciplines (SUBJECT MODE LEVEL 3) ---
+            { id: 21, group: 4, name: "Clinical Medicine", color: "#be185d" }, 
+            { id: 22, group: 4, name: "Allied Health", color: "#db2777" }, 
+            { id: 23, group: 4, name: "Biosciences", color: "#f9a8d4" }, 
+            { id: 24, group: 4, name: "Psychology", color: "#fbcfe8" }, 
+            { id: 25, group: 4, name: "Physics & Astronomy", color: "#b91c1c" }, 
+            { id: 26, group: 4, name: "Chemistry", color: "#dc2626" }, 
+            { id: 27, group: 4, name: "Materials Science", color: "#f87171" }, 
+            { id: 28, group: 4, name: "General Engineering", color: "#4338ca" }, 
+            { id: 29, group: 4, name: "Mech/Aero/Prod", color: "#4f46e5" }, 
+            { id: 30, group: 4, name: "Elec/Electronic", color: "#6366f1" }, 
+            { id: 31, group: 4, name: "Civil/Chem Eng", color: "#818cf8" }, 
+            { id: 32, group: 4, name: "Computer Science", color: "#7c3aed" }, 
+            { id: 33, group: 4, name: "Earth/Marine/Env", color: "#0d9488" }, 
+            { id: 34, group: 4, name: "Economics", color: "#d97706" }, 
+            { id: 35, group: 4, name: "Sociology/Pol", color: "#f59e0b" }, 
+            { id: 36, group: 4, name: "History/Phil", color: "#b45309" }, 
+            { id: 37, group: 4, name: "Creative Arts", color: "#d97706" }, 
+            { id: 38, group: 4, name: "Business & Mgmt", color: "#166534" },
+
+            // --- Group 5: Institution Groups (INSTITUTION MODE LEVEL 2) ---
+            // We use this for the "Grouped" view in Inst mode (e.g. Russell Group vs Others)
+            // But to simplify the graph, let's map directly to Specifics at Level 3, 
+            // and use these as intermediate if needed. 
+            // Actually, for consistency with the previous "Destination" chart, let's just use specific unis.
+            
+            // --- Group 6: Specific Institutions (INSTITUTION MODE LEVEL 2/3) ---
+            { id: 40, group: 6, name: "Univ. of Oxford", color: "#1e3a8a" },
+            { id: 41, group: 6, name: "Univ. of Cambridge", color: "#1e3a8a" },
+            { id: 42, group: 6, name: "UCL", color: "#1e3a8a" },
+            { id: 43, group: 6, name: "Imperial College", color: "#1e3a8a" },
+            { id: 44, group: 6, name: "Univ. of Edinburgh", color: "#1e40af" },
+            { id: 45, group: 6, name: "Univ. of Manchester", color: "#1e40af" },
+            { id: 46, group: 6, name: "Rest of Russell Grp", color: "#475569" },
+            { id: 47, group: 6, name: "Other Universities", color: "#94a3b8" },
+            { id: 48, group: 6, name: "Private Sector & Ind.", color: "#15803d" },
+            { id: 49, group: 6, name: "Intl. Facilities (CERN)", color: "#b91c1c" }
+        ];
+
+        // We distinguish links by "type" to filter them: 'common', 'subject', 'institution'
+        const masterLinks = [
+            // --- COMMON LINKS (Gov -> Buckets -> Bodies) ---
+            { source: 0, target: 1, value: 14.5, type: 'common' },
+            { source: 0, target: 2, value: 8.3, type: 'common' },
+            { source: 0, target: 3, value: 7.4, type: 'common' },
+            { source: 0, target: 4, value: 8.4, type: 'common' },
+
+            { source: 1, target: 5, value: 9.0, type: 'common' }, { source: 1, target: 8, value: 2.0, type: 'common' }, { source: 1, target: 9, value: 2.0, type: 'common' }, { source: 1, target: 10, value: 0.9, type: 'common' }, { source: 1, target: 7, value: 0.6, type: 'common' },
+            { source: 2, target: 6, value: 2.0, type: 'common' }, { source: 2, target: 8, value: 2.5, type: 'common' }, { source: 2, target: 9, value: 1.5, type: 'common' }, { source: 2, target: 10, value: 0.8, type: 'common' }, { source: 2, target: 11, value: 1.5, type: 'common' },
+            { source: 3, target: 6, value: 5.4, type: 'common' }, { source: 3, target: 8, value: 1.0, type: 'common' }, { source: 3, target: 9, value: 1.0, type: 'common' },
+            { source: 4, target: 11, value: 6.4, type: 'common' }, { source: 4, target: 7, value: 2.0, type: 'common' },
+
+            // --- SUBJECT LINKS (Bodies -> CAH1 -> CAH2) ---
+            // Bodies -> CAH1
+            { source: 5, target: 12, value: 1.8, type: 'subject' }, { source: 5, target: 13, value: 1.0, type: 'subject' }, { source: 5, target: 14, value: 1.0, type: 'subject' }, { source: 5, target: 15, value: 1.2, type: 'subject' }, { source: 5, target: 16, value: 0.5, type: 'subject' }, { source: 5, target: 17, value: 0.5, type: 'subject' }, { source: 5, target: 18, value: 1.0, type: 'subject' }, { source: 5, target: 19, value: 1.0, type: 'subject' }, { source: 5, target: 20, value: 1.0, type: 'subject' },
+            { source: 6, target: 15, value: 3.5, type: 'subject' }, { source: 6, target: 20, value: 2.0, type: 'subject' }, { source: 6, target: 16, value: 1.4, type: 'subject' }, { source: 6, target: 12, value: 0.5, type: 'subject' },
+            { source: 7, target: 14, value: 2.6, type: 'subject' },
+            { source: 8, target: 15, value: 3.0, type: 'subject' }, { source: 8, target: 14, value: 1.5, type: 'subject' }, { source: 8, target: 16, value: 1.0, type: 'subject' },
+            { source: 9, target: 12, value: 2.5, type: 'subject' }, { source: 9, target: 13, value: 2.0, type: 'subject' },
+            { source: 10, target: 18, value: 1.0, type: 'subject' }, { source: 10, target: 19, value: 0.7, type: 'subject' },
+            { source: 11, target: 14, value: 2.0, type: 'subject' }, { source: 11, target: 17, value: 1.5, type: 'subject' }, { source: 11, target: 13, value: 1.5, type: 'subject' }, { source: 11, target: 15, value: 1.5, type: 'subject' }, { source: 11, target: 12, value: 1.4, type: 'subject' },
+
+            // CAH1 -> CAH2
+            { source: 12, target: 21, value: 5.0, type: 'subject' }, { source: 12, target: 22, value: 1.2, type: 'subject' },
+            { source: 13, target: 23, value: 3.5, type: 'subject' }, { source: 13, target: 24, value: 1.0, type: 'subject' },
+            { source: 14, target: 25, value: 4.5, type: 'subject' }, { source: 14, target: 26, value: 1.8, type: 'subject' }, { source: 14, target: 27, value: 0.8, type: 'subject' },
+            { source: 15, target: 28, value: 2.5, type: 'subject' }, { source: 15, target: 29, value: 2.5, type: 'subject' }, { source: 15, target: 30, value: 2.5, type: 'subject' }, { source: 15, target: 31, value: 1.7, type: 'subject' },
+            { source: 16, target: 32, value: 2.9, type: 'subject' },
+            { source: 17, target: 33, value: 2.0, type: 'subject' },
+            { source: 18, target: 34, value: 0.8, type: 'subject' }, { source: 18, target: 35, value: 1.2, type: 'subject' },
+            { source: 19, target: 36, value: 0.9, type: 'subject' }, { source: 19, target: 37, value: 0.8, type: 'subject' },
+            { source: 20, target: 38, value: 3.0, type: 'subject' },
+
+            // --- INSTITUTION LINKS (Bodies -> Institutions) ---
+            // Research England (QR)
+            { source: 5, target: 40, value: 1.1, type: 'institution' }, // Ox
+            { source: 5, target: 41, value: 1.1, type: 'institution' }, // Cam
+            { source: 5, target: 42, value: 1.0, type: 'institution' }, // UCL
+            { source: 5, target: 43, value: 0.8, type: 'institution' }, // Imp
+            { source: 5, target: 44, value: 0.5, type: 'institution' }, // Ed
+            { source: 5, target: 45, value: 0.4, type: 'institution' }, // Man
+            { source: 5, target: 46, value: 2.5, type: 'institution' }, // Rest Russ
+            { source: 5, target: 47, value: 1.6, type: 'institution' }, // Other
+
+            // Innovate UK
+            { source: 6, target: 48, value: 5.5, type: 'institution' }, // Private
+            { source: 6, target: 46, value: 1.0, type: 'institution' }, // Rest Russ (Collab)
+            { source: 6, target: 47, value: 0.9, type: 'institution' }, // Other (Collab)
+
+            // STFC
+            { source: 7, target: 49, value: 1.8, type: 'institution' }, // CERN/Facs
+            { source: 7, target: 40, value: 0.15, type: 'institution' }, // Ox
+            { source: 7, target: 41, value: 0.15, type: 'institution' }, // Cam
+            { source: 7, target: 42, value: 0.1, type: 'institution' },  // UCL
+            { source: 7, target: 43, value: 0.1, type: 'institution' },  // Imp
+            { source: 7, target: 46, value: 0.3, type: 'institution' },  // Other Russ
+
+            // EPSRC
+            { source: 8, target: 43, value: 0.7, type: 'institution' }, // Imp
+            { source: 8, target: 40, value: 0.5, type: 'institution' }, // Ox
+            { source: 8, target: 41, value: 0.5, type: 'institution' }, // Cam
+            { source: 8, target: 42, value: 0.4, type: 'institution' }, // UCL
+            { source: 8, target: 45, value: 0.4, type: 'institution' }, // Man
+            { source: 8, target: 46, value: 2.0, type: 'institution' }, // Rest Russ
+            { source: 8, target: 47, value: 1.0, type: 'institution' }, // Other
+
+            // MRC/BBSRC
+            { source: 9, target: 42, value: 0.6, type: 'institution' }, // UCL
+            { source: 9, target: 40, value: 0.5, type: 'institution' }, // Ox
+            { source: 9, target: 41, value: 0.5, type: 'institution' }, // Cam
+            { source: 9, target: 43, value: 0.4, type: 'institution' }, // Imp
+            { source: 9, target: 44, value: 0.3, type: 'institution' }, // Ed
+            { source: 9, target: 46, value: 1.5, type: 'institution' }, // Rest Russ
+            { source: 9, target: 47, value: 0.7, type: 'institution' }, // Other
+
+            // AHRC/ESRC
+            { source: 10, target: 40, value: 0.2, type: 'institution' },
+            { source: 10, target: 41, value: 0.2, type: 'institution' },
+            { source: 10, target: 42, value: 0.2, type: 'institution' },
+            { source: 10, target: 46, value: 0.7, type: 'institution' },
+            { source: 10, target: 47, value: 0.4, type: 'institution' },
+
+            // Talent/Infra
+            { source: 11, target: 49, value: 0.7, type: 'institution' }, // Facs
+            { source: 11, target: 48, value: 1.0, type: 'institution' }, // Ind
+            { source: 11, target: 40, value: 0.6, type: 'institution' },
+            { source: 11, target: 41, value: 0.6, type: 'institution' },
+            { source: 11, target: 42, value: 0.6, type: 'institution' },
+            { source: 11, target: 43, value: 0.5, type: 'institution' },
+            { source: 11, target: 46, value: 2.5, type: 'institution' },
+            { source: 11, target: 47, value: 1.4, type: 'institution' },
+        ];
+
+        // State
+        let currentMode = 'subject'; // 'subject' or 'institution'
+        let currentLevel = 1;
+
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // Toggle active buttons
+            document.getElementById('btn-mode-subject').className = `control-btn ${mode === 'subject' ? 'active' : ''}`;
+            document.getElementById('btn-mode-institution').className = `control-btn ${mode === 'institution' ? 'active' : ''}`;
+
+            // Reset level to 1 on mode switch to avoid confusion
+            if (currentLevel > 1) {
+                setLevel(2); // Set to level 2 automatically to show the new data
+            } else {
+                drawChart();
+            }
+        }
+
+        function setLevel(level) {
+            currentLevel = level;
+            
+            // Toggle active buttons
+            [1, 2, 3].forEach(l => {
+                const btn = document.getElementById(`btn-lvl-${l}`);
+                btn.className = `control-btn ${l === level ? 'active' : ''}`;
+            });
+
+            drawChart();
+        }
+
+        function drawChart() {
+            const container = document.getElementById('chart');
+            container.innerHTML = '';
+            
+            const margin = { top: 20, right: 140, bottom: 20, left: 20 };
+            const width = container.offsetWidth - margin.left - margin.right;
+            const height = container.offsetHeight - margin.top - margin.bottom;
+
+            const svg = d3.select("#chart").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            const sankey = d3.sankey()
+                .nodeWidth(15)
+                .nodePadding(10) 
+                .extent([[1, 1], [width - 1, height - 6]]);
+
+            // --- FILTER LOGIC ---
+            
+            // 1. Determine Groups based on Mode and Level
+            const allowedGroups = new Set([0, 1, 2]); // Always Gov, Buckets, Delivery
+            
+            if (currentLevel >= 2) {
+                if (currentMode === 'subject') {
+                    allowedGroups.add(3); // CAH1
+                } else {
+                    allowedGroups.add(6); // Specific Institutions
+                }
+            }
+            if (currentLevel >= 3) {
+                if (currentMode === 'subject') {
+                    allowedGroups.add(4); // CAH2
+                } else {
+                    allowedGroups.add(6); // Institutions are flat, so stay at group 6
+                }
+            }
+
+            // 2. Filter Nodes
+            const nodes = masterNodes
+                .filter(n => allowedGroups.has(n.group))
+                .map(d => ({ ...d }));
+
+            const validNodeIds = new Set(nodes.map(n => n.id));
+
+            // 3. Filter Links
+            let links = masterLinks.filter(l => {
+                // First check: Are source and target visible?
+                if (!validNodeIds.has(l.source) || !validNodeIds.has(l.target)) return false;
+
+                // Second check: Is this link valid for the current mode?
+                // Common links are valid for both
+                if (l.type === 'common') return true;
+                if (currentMode === 'subject' && l.type === 'subject') return true;
+                if (currentMode === 'institution' && l.type === 'institution') return true;
+                
+                return false;
+            }).map(d => ({ ...d }));
+
+            // --- RENDER ---
+            
+            const nodeMap = new Map(nodes.map(n => [n.id, n]));
+            
+            links.forEach(l => {
+                l.source = nodeMap.get(l.source);
+                l.target = nodeMap.get(l.target);
+            });
+
+            const graph = sankey({
+                nodes: nodes,
+                links: links
+            });
+
+            const tooltip = d3.select("#tooltip");
+
+            // Links
+            const link = svg.append("g")
+                .selectAll("path")
+                .data(graph.links)
+                .enter().append("path")
+                .attr("class", "sankey-link")
+                .attr("d", d3.sankeyLinkHorizontal())
+                .attr("stroke-width", d => Math.max(1, d.width))
+                .attr("stroke", d => d.source.color)
+                .style("opacity", 0)
+                .on("mouseover", function(event, d) {
+                    d3.select(this).style("stroke-opacity", 0.6);
+                    tooltip.style("opacity", 1)
+                        .html(`
+                            <div class="font-bold border-b border-slate-600 pb-1 mb-1">${d.source.name} → ${d.target.name}</div>
+                            <div class="flex justify-between w-full gap-4">
+                                <span>Amount:</span>
+                                <span class="font-mono text-emerald-400">£${d.value.toFixed(2)}bn</span>
+                            </div>
+                        `);
+                })
+                .on("mousemove", function(event) {
+                    tooltip.style("left", (event.pageX + 15) + "px")
+                           .style("top", (event.pageY - 20) + "px");
+                })
+                .on("mouseout", function() {
+                    d3.select(this).style("stroke-opacity", 0.15);
+                    tooltip.style("opacity", 0);
+                });
+            
+            link.transition().duration(500).style("opacity", 1);
+
+            // Nodes
+            const node = svg.append("g")
+                .selectAll("g")
+                .data(graph.nodes)
+                .enter().append("g");
+
+            node.append("rect")
+                .attr("x", d => d.x0)
+                .attr("y", d => d.y0)
+                .attr("height", d => d.y1 - d.y0)
+                .attr("width", d => d.x1 - d.x0)
+                .attr("fill", d => d.color)
+                .attr("stroke", "#000")
+                .attr("stroke-opacity", 0.1)
+                .attr("rx", 3)
+                .style("opacity", 0)
+                .on("mouseover", function(event, d) {
+                    tooltip.style("opacity", 1)
+                        .html(`
+                            <div class="font-bold border-b border-slate-600 pb-1 mb-1">${d.name}</div>
+                            <div class="flex justify-between w-full gap-4">
+                                <span>Total Flow:</span>
+                                <span class="font-mono text-emerald-400">£${d.value.toFixed(2)}bn</span>
+                            </div>
+                        `);
+                })
+                .on("mousemove", function(event) {
+                    tooltip.style("left", (event.pageX + 15) + "px")
+                           .style("top", (event.pageY - 20) + "px");
+                })
+                .on("mouseout", function() {
+                    tooltip.style("opacity", 0);
+                });
+            
+            node.selectAll("rect").transition().duration(500).style("opacity", 1);
+
+            // Labels
+            node.append("text")
+                .attr("x", d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
+                .attr("y", d => (d.y1 + d.y0) / 2)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
+                .text(d => d.name)
+                .style("fill", "#1e293b")
+                .style("font-size", d => Math.min(11, (d.y1 - d.y0) - 2) + "px") 
+                .style("opacity", 0)
+                .filter(d => (d.y1 - d.y0) > 8)
+                .transition().duration(500).style("opacity", 1);
+
+            // Values
+            node.append("text")
+                .attr("x", d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
+                .attr("y", d => ((d.y1 + d.y0) / 2) + 12)
+                .attr("dy", "0.35em")
+                .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
+                .text(d => `£${d.value.toFixed(1)}bn`)
+                .style("fill", "#64748b")
+                .style("font-weight", "normal")
+                .style("font-size", "9px")
+                .style("opacity", 0)
+                .filter(d => (d.y1 - d.y0) > 25)
+                .transition().duration(500).style("opacity", 1);
+        }
+
+        // Initial Draw
+        drawChart();
+        
+        window.addEventListener('resize', () => {
+            clearTimeout(window.resizedFinished);
+            window.resizedFinished = setTimeout(drawChart, 250);
+        });
+    </script>
+</body>
+</html>
+{% endraw %}
