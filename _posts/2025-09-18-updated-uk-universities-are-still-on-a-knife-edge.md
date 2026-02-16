@@ -1,0 +1,20 @@
+---
+layout: post
+title: "UPDATED: UK universities are *still* on a knife-edge."
+date: 2025-09-18
+categories: [linkedin]
+tags: [linkedin, social-media]
+author: "Justin O'Brien"
+excerpt: "UPDATED: UK universities are *still* on a knife-edge. Thanks for all your comments. This topic has touched a nerve - if any more University PR people want to reach out I'm happy to update with the latest info. Recent..."
+linkedin_url: "https://www.linkedin.com/feed/update/urn:li:activity:7374428856969162753"
+image: "/assets/images/posts/2025-09-18-updated-uk-universities-are-still-on-a-knife-edge/1758200848708.jpg"
+thumbnail: "/assets/images/posts/2025-09-18-updated-uk-universities-are-still-on-a-knife-edge/1758200848708.jpg"
+---
+
+![LinkedIn post image](/assets/images/posts/2025-09-18-updated-uk-universities-are-still-on-a-knife-edge/1758200848708.jpg)
+
+*Originally posted on LinkedIn on September 18, 2025.*
+
+UPDATED: UK universities are *still* on a knife-edge. Thanks for all your comments. This topic has touched a nerve - if any more University PR people want to reach out I'm happy to update with the latest info. Recent cuts mostly stabilise cash and keep banks onside - they don’t mend the structural hole where research and home-UG teaching don’t cover their full costs. Until funding and cost models are reset (or alternative revenues scale up), many universities will keep trading short-term fixes for long-term uncertainty. A few are moving beyond firefighting into proper restructuring. But the sector outlook remains fragile. RED LIST: acute risk 🔴 Kent - Several years of losses; merging with Greenwich to steady the ship. 🔴 Brunel - Forecast £32.9m loss (24/25); about 423 jobs gone with more redundancies planned - severe cash pressure. 🔴 Dundee - About £35m in-year hole; large job cuts; selling assets. 🔴 UWS (Scotland) - £14.4m loss (23/24) plus cyber-attack costs; job cuts under way. 🔴 Robert Gordon (RGU) - ~188 roles removed in a finance “transformation” programme. AMBER LIST: high concern 🟠 UEA (East Anglia) - Large recent losses; extra £11m savings completed early 2025; c.170 FTE redundancies reported; no announced asset sales. 🟠 Middlesex - Loan rule breaches in 2024, but refinancing completed Feb 2025 with reset covenants. 🟠 London South Bank (LSBU) - ~£16m write-off; prior covenant breach waived; compliant at Jul 2024. 🟠 Bangor - ~£13m loss; ~200 posts at risk; Welsh funding strain. 🟠 Cardiff - £31.2m loss; up to 400 job cuts consulted. 🟠 Aberdeen - Repeated savings; extra ~£14m cuts to “survive”; big exposure to master’s recruitment. 🟠 Edinburgh Napier - Up to 70 job cuts to return to surplus. 🟠 Edinburgh - ~£140m in-year gap; large voluntary exit scheme. 🟠 Brighton - Multiple rounds of cuts and closures since 2023. 🟠 Huddersfield - Third straight loss; about 12% compulsory cuts planned. 🟠 Hull - ~£23m loss; headcount reductions; course/department closures. 🟠 Portsmouth - Fee income down ~£9.4m YoY - fewer international students. 🟠 Sheffield Hallam - £16.3m loss (23/24); >500 staff left; £40m savings plan. 🟠 Sussex - Targeting ~300 voluntary exits after falls in international income. 🟠 York - Savings ~£34m + £15m; ~270 voluntary exits; programme closures. 🟠 Greenwich - 300+ job cuts in 2025; leading the Kent merger vehicle. 🟠 Swansea - Underlying ~£15m loss in 2023/24 (ex-USS); £30m savings drive; 300+ leavers over 18 months. 🟠 Wolverhampton - Estate consolidation (eg Telford closure) and VR under consideration; leadership has signalled a path back to surplus. Cross-sector warning lights ⚠️ International master’s intake sharply lower (about down 17% YoY); overall new non-UK entrants down 11%. ⚠️ Regulator signals many providers still forecasting losses; “transformative” restructuring likely. ➡️ What did I miss or misclassify? Add evidence in the comments or DM me your on-the-ground view
+
+[View on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7374428856969162753)

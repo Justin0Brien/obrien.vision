@@ -1,0 +1,20 @@
+---
+layout: post
+title: "UK research funding 🇬🇧 is being quietly dismantled and rebuilt while most universities 🏛️ look the other way."
+date: 2025-11-12
+categories: [linkedin]
+tags: [linkedin, social-media]
+author: "Justin O'Brien"
+excerpt: "UK research funding 🇬🇧 is being quietly dismantled and rebuilt while most universities 🏛️ look the other way. If your institution is relaxed about the current flurry of consultations and the delay in the periodic Rese..."
+linkedin_url: "https://www.linkedin.com/feed/update/urn:li:activity:7394313031544979456"
+image: "/assets/images/posts/2025-11-12-uk-research-funding-is-being-quietly-dismantled-and-rebuilt-while-most-universit/1762878140967.jpg"
+thumbnail: "/assets/images/posts/2025-11-12-uk-research-funding-is-being-quietly-dismantled-and-rebuilt-while-most-universit/1762878140967.jpg"
+---
+
+![LinkedIn post image](/assets/images/posts/2025-11-12-uk-research-funding-is-being-quietly-dismantled-and-rebuilt-while-most-universit/1762878140967.jpg)
+
+*Originally posted on LinkedIn on November 12, 2025.*
+
+UK research funding 🇬🇧 is being quietly dismantled and rebuilt while most universities 🏛️ look the other way. If your institution is relaxed about the current flurry of consultations and the delay in the periodic Research Excellence Framework (REF) exercise, you are on the wrong script. Beneath the reassuring language about "continuity of dual support" and "alignment with priorities", three structural moves are now clearly happening: 1️⃣ The slow real-terms erosion of QR 💰 (the Quality-Related research funding UK universities get from the government) 2️⃣ The quiet design of conditional or two-tier access to public research funding 📉 3️⃣ The steady drift toward mission and place-led allocation that privileges some disciplines, geographies and partnership models over others. None of this requires a dramatic press release 🔔. It only requires small technical changes to thresholds, eligibility rules, assessment routes and targeted pots. Sector commentary has already spelled this out in plain English. REF could become the sorting mechanism for who still counts as a research university at all, where "minimum research culture" conditions and alternative tracks nudge some providers out of QR, and where an increasing share of flex is tied to industrial strategy, spin-outs and regional growth narratives. Meanwhile, universities continue to publish strategies that assume broadly universal research status, stable QR, and infinite capacity to absorb compliance demands. The interesting question is not "Will government blow up dual support tomorrow?". The interesting question is: "What happens if they do none of that, but five years of incremental tweaks leave two thirds of the sector functionally outside the serious research ecosystem 🚀?". If QR becomes conditional, project funding more targeted, and culture metrics more binary, then some institutions will wake up to find that research is no longer a core, fundable activity, but a brand accessory subsidised by teaching and international fees. If you sit on a Council, in a VC's office, or in a research leadership role, the task is not to panic. It is to scenario-plan in public 🧐. Under which futures does your institution remain a credible research actor without heroic cross-subsidy? What evidence do you have that your QR spend, research culture and KE profile would survive a harder-edged eligibility regime? Where, exactly, are you exposed ⚠️ to the gradual, technical version of radical change? Because the real risk here is not a headline-grabbing "overhaul". It is a series of sensible-sounding adjustments that, when viewed together in 2030, amount to a quiet redrawing of who gets to do discovery, who does delivery, and who was never really in the conversation. #UKResearch #HigherEd #REF2029 #ResearchFunding #Universities #DualSupport #QRfunding
+
+[View on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7394313031544979456)

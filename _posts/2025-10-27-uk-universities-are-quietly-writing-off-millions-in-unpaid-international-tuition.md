@@ -1,0 +1,20 @@
+---
+layout: post
+title: "UK universities are quietly writing off millions in unpaid international tuition –"
+date: 2025-10-27
+categories: [linkedin]
+tags: [linkedin, social-media]
+author: "Justin O'Brien"
+excerpt: "UK universities are quietly writing off millions in unpaid international tuition – and in some cases it's wiping out over 10% of their fee income in a single year. Here is the uncomfortable version. International fees..."
+linkedin_url: "https://www.linkedin.com/feed/update/urn:li:activity:7388532867993313280"
+image: "/assets/images/posts/2025-10-27-uk-universities-are-quietly-writing-off-millions-in-unpaid-international-tuition/1761563506226.jpg"
+thumbnail: "/assets/images/posts/2025-10-27-uk-universities-are-quietly-writing-off-millions-in-unpaid-international-tuition/1761563506226.jpg"
+---
+
+![LinkedIn post image](/assets/images/posts/2025-10-27-uk-universities-are-quietly-writing-off-millions-in-unpaid-international-tuition/1761563506226.jpg)
+
+*Originally posted on LinkedIn on October 27, 2025.*
+
+UK universities are quietly writing off millions in unpaid international tuition – and in some cases it's wiping out over 10% of their fee income in a single year. Here is the uncomfortable version. International fees have become the life support for a lot of UK institutions. For many post-92 universities, overseas postgrads are now the business model. Cash upfront, no government cap, no political noise about home fee freezes. You scale recruitment, you plug the deficit, you keep the lights on. Except the money is not all arriving. Across the sector, around 4% of international fee income is now going missing. Not “late”. Not “we’re chasing it”. Gone. At some institutions the situation is far worse. A few universities have had to recognise bad debt in their accounts equal to 15%+ of what they billed international students that year. One London university booked more than half of a year's international fee income as doubtful. That is not a rounding error. That is a solvency problem. Why this is happening: – You recruit heavily from highly price-sensitive markets. – Students arrive, the currency at home collapses, instalments stop. – You pause teaching access or withdraw the student. – The student leaves the UK. – The debt becomes effectively uncollectible across borders. Now scale that across thousands of students and you see why finance directors are panicking. The sector has been telling a growth story: “International is our diversification strategy.” The real story is risk concentration. A small number of highly exposed institutions are now carrying eight-figure arrears that they will never realistically recover. So what can universities actually do about it? 1. Stop treating “international students” as one line on a spreadsheet. Segment for risk. Some markets default at catastrophic rates when the exchange rate moves 20%. Treat them differently. This is basic credit control. 2. Move payment risk earlier. If you take on teaching and accommodation liability before you have actually collected the cash, you are acting like a lender with no underwriting. 3. Link continuation to cleared balance in real time. Do not wait until the end of term to intervene. If a student cannot legally continue on their visa without active enrolment, waiting three months before acting makes the eventual write-off inevitable and leaves the student stranded. 4. Stop chasing raw volume to fill the hole this year if that volume is exactly the cohort that will blow a bigger hole next year. “More internationals” is not a plan if half of that revenue is fictional. This is not just a finance story. It is a governance story. The leaders who fix this first will survive. The ones who keep selling the fantasy spreadsheet will end up in forced merger talks pretending it was all about “strategic alignment”. #HigherEducation #UniversityFinance #InternationalStudents #TuitionFees #BadDebt #HESector #UKUniversities #StudentRecruitment #HigherEdStrategy
+
+[View on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7388532867993313280)

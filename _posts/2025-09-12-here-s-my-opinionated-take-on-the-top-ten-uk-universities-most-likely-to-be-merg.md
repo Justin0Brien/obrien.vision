@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Here’s my opinionated take on the top ten UK universities most likely to be merged or subsumed in the next 2–3 years."
+date: 2025-09-12
+categories: [linkedin]
+tags: [linkedin, social-media]
+author: "Justin O'Brien"
+excerpt: "Here’s my opinionated take on the top ten UK universities most likely to be merged or subsumed in the next 2–3 years. Kent–Greenwich shows consolidation isn’t hypothetical any more; the question is who’s next. 10) Bir..."
+linkedin_url: "https://www.linkedin.com/feed/update/urn:li:activity:7372184718026403840"
+image: "/assets/images/posts/2025-09-12-here-s-my-opinionated-take-on-the-top-ten-uk-universities-most-likely-to-be-merg/1757613240092.jpg"
+thumbnail: "/assets/images/posts/2025-09-12-here-s-my-opinionated-take-on-the-top-ten-uk-universities-most-likely-to-be-merg/1757613240092.jpg"
+---
+
+![LinkedIn post image](/assets/images/posts/2025-09-12-here-s-my-opinionated-take-on-the-top-ten-uk-universities-most-likely-to-be-merg/1757613240092.jpg)
+
+*Originally posted on LinkedIn on September 12, 2025.*
+
+Here’s my opinionated take on the top ten UK universities most likely to be merged or subsumed in the next 2–3 years. Kent–Greenwich shows consolidation isn’t hypothetical any more; the question is who’s next. 10) Birkbeck → Queen Mary (QMUL) or City (both UoL) Likelihood: Low–moderate (2/5) Why/Suitor: Evening–teaching mission with shrinking headroom; deeper University of London integration could strip out overheads via a larger anchor (QMUL/City). Biggest brake is identity and alumni pride. 9) Brunel → Royal Holloway (UoL) (outside bet: a West London group with UWL) Likelihood: Low–moderate (2/5) Why/Suitor: Proximity and UoL membership make shared-services plausible with RHUL; STEM ↔ arts/social sciences complement. Execution risk is high after a bruising year; a group model with UWL is plausible if framed as “one West London system”. 8) University of Brighton → University of Sussex Likelihood: Low–moderate (2.5/5) Why/Suitor: Same-city duplication in admin/estates; scope to rationalise across Health/Arts/IT. Cultural politics and brand identity are the friction. 7) Bangor → Aberystwyth (or a Welsh federation) Likelihood: Moderate (3/5) Why/Suitor: Parallel savings drives and compatible scale suggest a North & Mid Wales consolidation. Government-brokered federation could ease identity concerns. 6) University of Wolverhampton → Birmingham City University (BCU) Likelihood: Moderate (3/5) Why/Suitor: West Midlands rationalisation: similar polytechnic heritage, clear back-office synergies, short travel times. Needs debt comfort and strong joint governance. 5) University of Bedfordshire → University of Hertfordshire Likelihood: Moderate (3/5) Why/Suitor: A1(M) corridor logic; big wins in IT/HR/student services; vocational portfolio overlap. Politics manageable with a dual-campus model. 4) University of Bradford → University of Huddersfield (alt: Leeds Beckett) Likelihood: Moderately high (3.5/5) Why/Suitor: Neighbouring civic missions and commuter catchments; obvious administrative efficiencies. Civic pride is the principal obstacle. 3) University of East Anglia (UEA) → University of Essex (alt: Anglia Ruskin) Likelihood: Moderately high (3.5/5) Why/Suitor: A12 axis: complementary strengths (science ↔ data/social sciences). Would likely start with a partnership, needing transition funding to land a legal merge. 2) London South Bank University (LSBU) → University of East London (UEL) Likelihood: High (4/5) Why/Suitor: Catchment and portfolio alignment, short distance, and scope to consolidate duplicated courses/labs/services. Leadership choreography and branding are the make-or-break. 1) Abertay → University of Dundee Likelihood: Very high (4.5/5) Why/Suitor: Same-city integration delivers fastest synergies; Games/Computing blends with Dundee’s wider science/health. Scottish Funding Council facilitation feels likely. Agree or disagree? I’d love to hear your take.
+
+[View on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7372184718026403840)

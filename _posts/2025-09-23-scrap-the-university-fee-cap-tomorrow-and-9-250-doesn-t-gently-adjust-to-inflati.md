@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Scrap the university fee cap tomorrow and £9,250 doesn’t gently adjust to inflation - it straps on a jetpack."
+date: 2025-09-23
+categories: [linkedin]
+tags: [linkedin, social-media]
+author: "Justin O'Brien"
+excerpt: "Scrap the university fee cap tomorrow and £9,250 doesn’t gently adjust to inflation - it straps on a jetpack. To be clear up front: complete price deregulation is not coming to the UK. No minister wants to spend the n..."
+linkedin_url: "https://www.linkedin.com/feed/update/urn:li:activity:7376170989673562112"
+image: "/assets/images/posts/2025-09-23-scrap-the-university-fee-cap-tomorrow-and-9-250-doesn-t-gently-adjust-to-inflati/1758613931453.jpg"
+thumbnail: "/assets/images/posts/2025-09-23-scrap-the-university-fee-cap-tomorrow-and-9-250-doesn-t-gently-adjust-to-inflati/1758613931453.jpg"
+---
+
+![LinkedIn post image](/assets/images/posts/2025-09-23-scrap-the-university-fee-cap-tomorrow-and-9-250-doesn-t-gently-adjust-to-inflati/1758613931453.jpg)
+
+*Originally posted on LinkedIn on September 23, 2025.*
+
+Scrap the university fee cap tomorrow and £9,250 doesn’t gently adjust to inflation - it straps on a jetpack. To be clear up front: complete price deregulation is not coming to the UK. No minister wants to spend the next decade being chased around TV studios by a “£100,000 degree” graphic. But as a thought experiment, it’s useful because it tells us where the pressures really are, and what would happen if we took the lid off. 🇦🇺 Australia blinked. In 2014, the government proposed full deregulation and promptly met the political equivalent of a brick wall. The “$100k degree” line ate the policy for breakfast. Voters don’t parse loan terms; they read the sticker price and imagine the bill on the kitchen table. 🇨🇦 Canada, meanwhile, actually did it, selectively. Ontario uncapped professional programmes in 1998. What followed wasn’t a tidy market equilibrium but a rocket ride for certain subjects: dentistry up +315%, medicine +241%, law +141% (versus +34% across all undergrad). Participation from middle-income families slipped. You don’t get a level playing field; you get a two-tier staircase. So, if the UK went fully uncapped, where would prices land? Think tiers, not chaos: 🚀 Top tier (elite, high-cost, high-return: medicine, CS, engineering): universities with strong global brands already signal what the market will bear via international fees. Realistically, we’d see £25k–£40k per year at the top. Not to cover a “shortfall” but to price the brand, the labs and the lifetime ROI. ⚖️ Middle tier (broad research and teaching mix): some subjects rise meaningfully but not extravagantly, clustering around £12k–£18k as institutions trade brand for volume and regional demand. 🏷️ Value tier (teaching-centred, price-competitive): a few would try to hug the current number for marketing reasons, but the true floor is driven by cost of delivery. Expect £10k–£12k, with anything below that either cross-subsidised or short-lived. Now the awkward bit we tend to whisper: the biggest barrier to access isn’t the tuition line; it’s the rent-and-food line. Without restoring maintenance grants (and fixing thresholds), higher sticker prices simply scare off the very students widening participation is meant to help, while the loan book quietly balloons and the taxpayer picks up a larger, more opaque write-off later. The grown-up settlement? If we must flex prices, do it where costs and returns actually justify it; and bring back grants so talent isn’t means-tested by Mum and Dad’s overdraft. Be honest about state subsidy (stop hiding it in the loan book), and add guardrails on access, transparency and value. If you were designing this from scratch, which poison would you pick: targeted deregulation with restored maintenance grants, or a rebuilt teaching grant that stops the cross-subsidy circus?
+
+[View on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7376170989673562112)
