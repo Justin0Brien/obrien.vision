@@ -33,6 +33,8 @@ Quick start (macOS):
 
 1) Start the dev server
 
+Run the **Serve Jekyll Site** task in VS Code (Cmd+Shift+P > Tasks: Run Task), or from the terminal:
+
 ```bash
 ./start-dev.sh
 ```

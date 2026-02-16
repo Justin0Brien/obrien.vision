@@ -4,9 +4,9 @@
 
 ```bash
 # Start development server
-cd /Users/justin/Documents/map/obrien.vision
-export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-bundle exec jekyll serve
+# Option 1: Run Task (Cmd+Shift+P > "Tasks: Run Task" > "Serve Jekyll Site")
+# Option 2: Run via terminal script
+./start-dev.sh
 ```
 
 ## 📝 New Post Checklist
