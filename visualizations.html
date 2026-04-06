@@ -50,8 +50,39 @@ custom_js:
   {% if all_viz and all_viz.size > 0 %}
   <div class="collection-grid" data-viz-list>
     {% for viz in all_viz reversed %}
+      {% assign viz_thumb_slug = viz.url | remove: '/visualizations/' | remove: '/' %}
+      {% assign generated_thumb = '/assets/images/visualizations/' | append: viz_thumb_slug | append: '.jpg' %}
+      {% assign generated_thumb_match = site.static_files | where: 'path', generated_thumb | first %}
+      {% if viz.gallery_images and viz.gallery_images.first %}
+        {% assign preview_src = viz.gallery_images.first.src %}
+        {% assign preview_alt = viz.gallery_images.first.alt | default: viz.title %}
+      {% elsif viz.thumbnail %}
+        {% assign preview_src = viz.thumbnail %}
+        {% assign preview_alt = viz.title %}
+      {% elsif viz.image %}
+        {% assign preview_src = viz.image %}
+        {% assign preview_alt = viz.title %}
+      {% elsif generated_thumb_match %}
+        {% assign preview_src = generated_thumb %}
+        {% assign preview_alt = viz.title %}
+      {% else %}
+        {% assign preview_src = '/assets/images/placeholders/dataviz-thumb.svg' %}
+        {% assign preview_alt = viz.title %}
+      {% endif %}
+
+      {% assign viz_summary = viz.description | default: '' | strip %}
+      {% if viz_summary == '' %}
+        {% assign excerpt_clean = viz.excerpt | default: '' | strip_html | strip %}
+        {% assign excerpt_lc = excerpt_clean | downcase %}
+        {% if excerpt_clean == '' or excerpt_lc contains ':root {' or excerpt_lc contains '@import url(' or excerpt_lc contains 'font-family:' or excerpt_lc contains '.sankey' or excerpt_lc contains 'function ' %}
+          {% assign viz_summary = 'Interactive data visualisation and analysis.' %}
+        {% else %}
+          {% assign viz_summary = excerpt_clean %}
+        {% endif %}
+      {% endif %}
+
       {% capture keywords %}
-        {{ viz.title }} {% if viz.excerpt %}{{ viz.excerpt | strip_html }}{% endif %}
+        {{ viz.title }} {{ viz_summary }}
         {% if viz.technologies %} {{ viz.technologies | join: ' ' }}{% endif %}
         {% if viz.categories %} {{ viz.categories | join: ' ' }}{% endif %}
       {% endcapture %}
@@ -60,14 +91,12 @@ custom_js:
                data-interactive="{{ viz.interactive | default: false }}"
                data-techs="{% if viz.technologies %}{{ viz.technologies | join: ',' | downcase | escape }}{% endif %}"
                data-keywords="{{ keywords | strip | downcase | escape }}">
-        {% if viz.gallery_images and viz.gallery_images.first %}
         <div class="collection-card__media">
           <a href="{{ viz.url | relative_url }}">
-            <img src="{{ viz.gallery_images.first.src | relative_url }}" alt="{{ viz.gallery_images.first.alt | default: viz.title }}" loading="lazy">
+            <img src="{{ preview_src | relative_url }}" alt="{{ preview_alt }}" loading="lazy">
           </a>
           {% if viz.interactive %}<span class="chip chip--floating chip--accent">Interactive</span>{% endif %}
         </div>
-        {% endif %}
         <div class="collection-card__body">
           <div class="collection-card__meta">
             <time datetime="{{ viz.date | date_to_xmlschema }}">{{ viz.date | date: "%B %Y" }}</time>
@@ -76,7 +105,7 @@ custom_js:
             {% endif %}
           </div>
           <h2 class="collection-card__title"><a href="{{ viz.url | relative_url }}">{{ viz.title }}</a></h2>
-          <p class="collection-card__excerpt">{{ viz.excerpt | strip_html | truncatewords: 32 }}</p>
+          <p class="collection-card__excerpt">{{ viz_summary | truncatewords: 32 }}</p>
           {% if viz.technologies %}
           <div class="card__tags">
             {% for tech in viz.technologies limit: 4 %}

@@ -4,9 +4,6 @@ title: Home
 description: AI consulting for universities and education providers. Strategy, assessment design, and academic integrity from Justin O'Brien, PhD.
 ---
 
-{% assign illusions_only = site.illusions | where: "layout", "illusion" %}
-{% assign recent_visualizations = site.visualizations %}
-
 <div class="home">
     <section class="hero hero--split" data-reveal>
     <div class="hero__content" data-reveal>
@@ -15,7 +12,7 @@ description: AI consulting for universities and education providers. Strategy, a
       <p class="hero__lede">I'm Justin O'Brien, PhD—psychologist, AI consultant, and higher education specialist. I help universities navigate AI in teaching, assessment, student support, and recruitment with strategies grounded in measurement science and institutional reality.</p>
       <div class="hero__actions">
         <a class="btn btn-primary" href="{{ '/contact/' | relative_url }}">Start a project</a>
-        <a class="btn btn-ghost" href="{{ '/visualizations/' | relative_url }}">Explore visualisations</a>
+        <a class="btn btn-ghost" href="{{ '/blog/' | relative_url }}">Read latest posts</a>
       </div>
       <ul class="hero__highlights">
         <li>Decades of turning psychology and measurement into real-world decisions</li>
@@ -28,7 +25,7 @@ description: AI consulting for universities and education providers. Strategy, a
         <img src="{{ '/assets/images/hero.webp' | relative_url }}" alt="Justin O’Brien working on perception and AI visualisations" loading="lazy">
         <div class="hero__badge">
           <span class="hero__badge-title">Now booking</span>
-          <span class="hero__badge-text">2025 AI strategy & assessment projects</span>
+          <span class="hero__badge-text">2026 AI strategy & assessment projects</span>
         </div>
       </div>
     </div>
@@ -108,85 +105,6 @@ description: AI consulting for universities and education providers. Strategy, a
       </div>
     {% endif %}
   </section>
-
-  {% if illusions_only and illusions_only.size > 0 %}
-  <section class="section" id="illusions">
-    <div class="section-header" data-reveal>
-      <p class="section-eyebrow">Perception lab</p>
-      <h2>Optical illusions with layered explainers</h2>
-      <a class="section-action" href="{{ '/illusions/' | relative_url }}">Browse all illusions</a>
-    </div>
-    <div class="grid grid--cards grid--three">
-      {% for illusion in illusions_only reversed limit:3 %}
-      <article class="card collection-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}">
-        {% if illusion.thumbnail %}
-          {% assign preview_src = illusion.thumbnail %}
-          {% assign preview_alt = illusion.title %}
-        {% elsif illusion.carousel_images and illusion.carousel_images.first %}
-          {% assign preview_src = illusion.carousel_images.first.src %}
-          {% assign preview_alt = illusion.carousel_images.first.alt | default: illusion.title %}
-        {% else %}
-          {% assign preview_src = '/assets/images/placeholders/illusion-thumb.svg' %}
-          {% assign preview_alt = illusion.title %}
-        {% endif %}
-        <div class="card__media">
-          <a href="{{ illusion.url | relative_url }}">
-            <img src="{{ preview_src | relative_url }}" alt="{{ preview_alt }}" loading="lazy">
-          </a>
-          {% if illusion.difficulty %}
-          <span class="chip chip--floating">{{ illusion.difficulty }}</span>
-          {% endif %}
-        </div>
-        <div class="card__body">
-          <h3 class="card__title"><a href="{{ illusion.url | relative_url }}">{{ illusion.title }}</a></h3>
-          <p class="card__excerpt">{{ illusion.excerpt | strip_html | truncatewords: 26 }}</p>
-          <div class="card__actions">
-            <a class="btn btn-inline" href="{{ illusion.url | relative_url }}">Try the demo →</a>
-          </div>
-        </div>
-      </article>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  {% if recent_visualizations and recent_visualizations.size > 0 %}
-  <section class="section" id="visualizations">
-    <div class="section-header" data-reveal>
-      <p class="section-eyebrow">Data stories</p>
-      <h2>Visualisation lab experiments</h2>
-      <a class="section-action" href="{{ '/visualizations/' | relative_url }}">See the lab</a>
-    </div>
-    <div class="grid grid--cards grid--three">
-      {% for viz in recent_visualizations reversed limit:3 %}
-      <article class="card collection-card" data-reveal data-reveal-delay="{{ forloop.index0 | times: 80 }}">
-        {% if viz.gallery_images and viz.gallery_images.first %}
-        <div class="card__media">
-          <a href="{{ viz.url | relative_url }}">
-            <img src="{{ viz.gallery_images.first.src | relative_url }}" alt="{{ viz.gallery_images.first.alt | default: viz.title }}" loading="lazy">
-          </a>
-          {% if viz.interactive %}
-          <span class="chip chip--floating chip--accent">Interactive</span>
-          {% endif %}
-        </div>
-        {% endif %}
-        <div class="card__body">
-          <p class="card__meta">{{ viz.date | date: "%B %Y" }}</p>
-          <h3 class="card__title"><a href="{{ viz.url | relative_url }}">{{ viz.title }}</a></h3>
-          <p class="card__excerpt">{{ viz.excerpt | strip_html | truncatewords: 28 }}</p>
-          {% if viz.technologies %}
-          <div class="card__tags">
-            {% for tech in viz.technologies limit:3 %}
-            <span class="tag">{{ tech }}</span>
-            {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </article>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
 
   <section class="section section--cta" data-reveal>
     <div class="cta-panel">
