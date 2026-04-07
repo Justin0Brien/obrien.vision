@@ -33,7 +33,7 @@ export function Header({ exportedAt, onRefreshComplete }: HeaderProps) {
     if (updateState === 'running') return;
     setUpdateState('running');
     setLogLines([]);
-    setShowLog(false);
+    setShowLog(true);
 
     try {
       const res = await fetch('/api/update', { method: 'POST' });
@@ -54,22 +54,34 @@ export function Header({ exportedAt, onRefreshComplete }: HeaderProps) {
         buf = lines.pop() ?? '';
         for (const line of lines) {
           if (!line.trim()) continue;
+          let event: { type: string; text?: string; exported_at?: string };
           try {
-            const event = JSON.parse(line);
-            if (event.type === 'log' || event.type === 'status') {
-              setLogLines((prev) => [...prev, event.text]);
-            } else if (event.type === 'done') {
-              setUpdateState('done');
-              onRefreshComplete();
-              setTimeout(() => setUpdateState('idle'), 3000);
-            } else if (event.type === 'error') {
-              throw new Error(event.text);
-            }
-          } catch { /* non-JSON line, ignore */ }
+            event = JSON.parse(line);
+          } catch {
+            // non-JSON line — show it raw so nothing is hidden
+            setLogLines((prev) => [...prev, line]);
+            continue;
+          }
+          if (event.type === 'log' || event.type === 'status') {
+            setLogLines((prev) => [...prev, event.text ?? '']);
+            setShowLog(true);
+          } else if (event.type === 'done') {
+            setUpdateState('done');
+            onRefreshComplete();
+            setTimeout(() => setUpdateState('idle'), 3000);
+          } else if (event.type === 'error') {
+            setLogLines((prev) => [...prev, `ERROR: ${event.text ?? 'unknown'}`]);
+            setShowLog(true);
+            setUpdateState('error');
+            return;
+          } else if (event.type === 'run') {
+            // skip internal run-cmd events silently
+          }
         }
       }
     } catch (err) {
       setLogLines((prev) => [...prev, String(err)]);
+      setShowLog(true);
       setUpdateState('error');
     }
   }, [updateState, onRefreshComplete]);

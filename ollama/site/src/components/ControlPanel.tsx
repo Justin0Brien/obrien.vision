@@ -12,11 +12,26 @@ interface ControlPanelProps {
   onMaxSizeGBChange: (v: number) => void;
   familyFilter: string;
   onFamilyFilterChange: (v: string) => void;
-  capFilter: string;
-  onCapFilterChange: (v: string) => void;
+  capFilters: string[];
+  onCapFiltersChange: (v: string[]) => void;
 }
 
 const SIZE_CEILING = 500; // GB
+
+// Ordered local capability pills
+const LOCAL_CAPS: { id: string; label: string; title: string }[] = [
+  { id: 'audio',     label: 'Audio',     title: 'Processes audio input' },
+  { id: 'embedding', label: 'Embedding', title: 'Generates vector embeddings' },
+  { id: 'thinking',  label: 'Thinking',  title: 'Extended chain-of-thought reasoning' },
+  { id: 'tools',     label: 'Tools',     title: 'Supports function / tool calling' },
+  { id: 'vision',    label: 'Vision',    title: 'Processes image input' },
+];
+
+const CLOUD_CAP = {
+  id: 'cloud',
+  label: '☁\ufe0e Cloud',
+  title: 'Model is hosted remotely — ollama proxies calls to the cloud; nothing is downloaded locally',
+};
 
 export function ControlPanel({
   models,
@@ -28,11 +43,16 @@ export function ControlPanel({
   onMaxSizeGBChange,
   familyFilter,
   onFamilyFilterChange,
-  capFilter,
-  onCapFilterChange,
+  capFilters,
+  onCapFiltersChange,
 }: ControlPanelProps) {
   const families = uniqueSorted(models.map((m) => m.family));
-  const capabilities = uniqueSorted(models.flatMap((m) => m.capabilities));
+
+  function toggleCap(id: string) {
+    onCapFiltersChange(
+      capFilters.includes(id) ? capFilters.filter((c) => c !== id) : [...capFilters, id],
+    );
+  }
 
   return (
     <div className="border-b border-[var(--color-border)] bg-white">
@@ -84,25 +104,53 @@ export function ControlPanel({
           </select>
         </div>
 
-        {/* Capability dropdown */}
-        <div className="flex flex-col gap-1">
+        {/* Capability pills */}
+        <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-[var(--color-secondary)]">
-            Capability
+            Capabilities
           </label>
-          <select
-            className="h-9 rounded-md border border-[var(--color-border)] px-2 text-sm
-              focus:border-[var(--color-accent)] focus:ring-1 focus:ring-[var(--color-accent)]
-              focus:outline-none"
-            value={capFilter}
-            onChange={(e) => onCapFilterChange(e.target.value)}
-          >
-            <option value="">All capabilities</option>
-            {capabilities.map((c) => (
-              <option key={c} value={c}>
-                {c}
-              </option>
-            ))}
-          </select>
+          <div className="flex items-center gap-1.5">
+            {LOCAL_CAPS.map(({ id, label, title }) => {
+              const active = capFilters.includes(id);
+              return (
+                <button
+                  key={id}
+                  onClick={() => toggleCap(id)}
+                  title={title}
+                  className={`inline-flex h-7 cursor-pointer items-center rounded-full border px-3 text-xs font-medium
+                    transition-colors select-none ${
+                    active
+                      ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white'
+                      : 'border-[var(--color-border)] bg-white text-[var(--color-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
+                  }`}
+                >
+                  {label}
+                </button>
+              );
+            })}
+
+            {/* Divider */}
+            <span className="mx-1 h-5 w-px bg-[var(--color-border)]" aria-hidden="true" />
+
+            {/* Cloud pill — visually distinct */}
+            {(() => {
+              const active = capFilters.includes(CLOUD_CAP.id);
+              return (
+                <button
+                  onClick={() => toggleCap(CLOUD_CAP.id)}
+                  title={CLOUD_CAP.title}
+                  className={`inline-flex h-7 cursor-pointer items-center rounded-full border px-3 text-xs font-medium
+                    transition-colors select-none ${
+                    active
+                      ? 'border-amber-500 bg-amber-500 text-white'
+                      : 'border-amber-200 bg-amber-50 text-amber-700 hover:border-amber-400 hover:bg-amber-100'
+                  }`}
+                >
+                  {CLOUD_CAP.label}
+                </button>
+              );
+            })()}
+          </div>
         </div>
 
         {/* Result count */}
@@ -113,3 +161,4 @@ export function ControlPanel({
     </div>
   );
 }
+

@@ -29,19 +29,25 @@ const PORT = (() => {
 })();
 
 // Paths
-const SCRAPER_SCRIPT = join(__dirname, '../util/llm-tools/update_ollama_library.py');
+const SCRAPER_SCRIPT = join(__dirname, '../../util/llm-tools/update_ollama_library.py');
 const EXPORTER_SCRIPT = join(__dirname, 'export_db_to_json.py');
 const DB_PATH = join(__dirname, 'ollama_library.db');
 const JSON_OUT = join(__dirname, 'site/public/data/models.json');
 
 // Prefer the llm-tools venv which has all scraper dependencies installed
-const PYTHON = join(__dirname, '../util/llm-tools/.venv/bin/python');
+const PYTHON = join(__dirname, '../../util/llm-tools/.venv/bin/python');
 
 // Run a command, writing newline-delimited JSON log lines to `write(line)`
+// Returns { promise, kill } so callers can abort on disconnect.
 function runScript(cmd, args, write) {
-  return new Promise((resolve, reject) => {
+  // -u: force unbuffered stdout/stderr so we get lines in real time
+  const child = spawn(cmd, ['-u', ...args], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+    env: { ...process.env, PYTHONUNBUFFERED: '1' },
+  });
+
+  const promise = new Promise((resolve, reject) => {
     write({ type: 'run', cmd: [cmd, ...args].join(' ') });
-    const child = spawn(cmd, args, { stdio: ['ignore', 'pipe', 'pipe'] });
 
     child.stdout.on('data', (d) =>
       d.toString().split('\n').filter(Boolean).forEach((l) => write({ type: 'log', text: l }))
@@ -50,11 +56,13 @@ function runScript(cmd, args, write) {
       d.toString().split('\n').filter(Boolean).forEach((l) => write({ type: 'log', text: l }))
     );
     child.on('close', (code) => {
-      if (code === 0) resolve();
+      if (code === 0 || code === null) resolve();
       else reject(new Error(`Process exited with code ${code}`));
     });
     child.on('error', reject);
   });
+
+  return { promise, kill: () => child.kill('SIGTERM') };
 }
 
 let updateInProgress = false;
@@ -85,23 +93,38 @@ const server = createServer((req, res) => {
       'Cache-Control': 'no-cache',
     });
 
-    const write = (obj) => res.write(JSON.stringify(obj) + '\n');
+    const write = (obj) => { try { res.write(JSON.stringify(obj) + '\n'); } catch { /* client gone */ } };
+
+    let currentChild = null;
+
+    // If the browser closes the connection, kill the running child and reset
+    req.on('close', () => {
+      if (updateInProgress) {
+        currentChild?.kill();
+        updateInProgress = false;
+      }
+    });
 
     (async () => {
       try {
         write({ type: 'status', text: 'Starting scraper…' });
-        await runScript(PYTHON, [SCRAPER_SCRIPT, '--no-arch', '--db', DB_PATH], write);
+        const s1 = runScript(PYTHON, [SCRAPER_SCRIPT, '--no-arch', '--db', DB_PATH], write);
+        currentChild = s1;
+        await s1.promise;
 
         write({ type: 'status', text: 'Exporting JSON…' });
-        await runScript(PYTHON, [EXPORTER_SCRIPT, '--db', DB_PATH, '--out', JSON_OUT], write);
+        const s2 = runScript(PYTHON, [EXPORTER_SCRIPT, '--db', DB_PATH, '--out', JSON_OUT], write);
+        currentChild = s2;
+        await s2.promise;
 
         const exported_at = JSON.parse(readFileSync(JSON_OUT, 'utf8')).exported_at;
         write({ type: 'done', exported_at });
       } catch (err) {
         write({ type: 'error', text: err.message });
       } finally {
+        currentChild = null;
         updateInProgress = false;
-        res.end();
+        try { res.end(); } catch { /* already closed */ }
       }
     })();
     return;

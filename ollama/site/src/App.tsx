@@ -13,7 +13,7 @@ function App() {
   const [minSizeGB, setMinSizeGB] = useState(0);
   const [maxSizeGB, setMaxSizeGB] = useState(500);
   const [familyFilter, setFamilyFilter] = useState('');
-  const [capFilter, setCapFilter] = useState('');
+  const [capFilters, setCapFilters] = useState<string[]>([]);
 
   const filteredModels = useMemo<Model[]>(() => {
     if (!data) return [];
@@ -35,11 +35,11 @@ function App() {
       }
       // Family filter
       if (familyFilter && m.family !== familyFilter) return false;
-      // Capability filter
-      if (capFilter && !m.capabilities.includes(capFilter)) return false;
+      // Capability filter (AND logic — model must have every selected cap)
+      if (capFilters.length > 0 && !capFilters.every((c) => m.capabilities.includes(c))) return false;
       return true;
     });
-  }, [data, search, minSizeGB, maxSizeGB, familyFilter, capFilter]);
+  }, [data, search, minSizeGB, maxSizeGB, familyFilter, capFilters]);
 
   if (loading) {
     return (
@@ -77,8 +77,8 @@ function App() {
           onMaxSizeGBChange={setMaxSizeGB}
           familyFilter={familyFilter}
           onFamilyFilterChange={setFamilyFilter}
-          capFilter={capFilter}
-          onCapFilterChange={setCapFilter}
+          capFilters={capFilters}
+          onCapFiltersChange={setCapFilters}
         />
 
         {/* Scatter Plot */}
