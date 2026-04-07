@@ -1,13 +1,78 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import logoImg from '../assets/llamallogo.png';
 
 interface HeaderProps {
-  officialMode: boolean;
-  onOfficialModeChange: (v: boolean) => void;
+  exportedAt: string | null;
+  onRefreshComplete: () => void;
 }
 
-export function Header({ officialMode, onOfficialModeChange }: HeaderProps) {
-  const [hover, setHover] = useState(false);
+function formatAge(iso: string | null): string {
+  if (!iso) return 'unknown';
+  const ms = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(ms / 60_000);
+  if (mins < 2) return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  const days = Math.floor(hrs / 24);
+  if (days === 1) return 'yesterday';
+  if (days < 30) return `${days}d ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months}mo ago`;
+  return `${Math.floor(months / 12)}y ago`;
+}
+
+type UpdateState = 'idle' | 'running' | 'done' | 'error';
+
+export function Header({ exportedAt, onRefreshComplete }: HeaderProps) {
+  const [updateState, setUpdateState] = useState<UpdateState>('idle');
+  const [logLines, setLogLines] = useState<string[]>([]);
+  const [showLog, setShowLog] = useState(false);
+
+  const handleUpdate = useCallback(async () => {
+    if (updateState === 'running') return;
+    setUpdateState('running');
+    setLogLines([]);
+    setShowLog(false);
+
+    try {
+      const res = await fetch('/api/update', { method: 'POST' });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? `HTTP ${res.status}`);
+      }
+
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let buf = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        const lines = buf.split('\n');
+        buf = lines.pop() ?? '';
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          try {
+            const event = JSON.parse(line);
+            if (event.type === 'log' || event.type === 'status') {
+              setLogLines((prev) => [...prev, event.text]);
+            } else if (event.type === 'done') {
+              setUpdateState('done');
+              onRefreshComplete();
+              setTimeout(() => setUpdateState('idle'), 3000);
+            } else if (event.type === 'error') {
+              throw new Error(event.text);
+            }
+          } catch { /* non-JSON line, ignore */ }
+        }
+      }
+    } catch (err) {
+      setLogLines((prev) => [...prev, String(err)]);
+      setUpdateState('error');
+    }
+  }, [updateState, onRefreshComplete]);
 
   return (
     <header className="border-b border-[var(--color-border)] bg-white">
@@ -20,40 +85,69 @@ export function Header({ officialMode, onOfficialModeChange }: HeaderProps) {
           </h1>
         </div>
 
-        {/* Official Mode toggle */}
-        <label
-          className="flex cursor-pointer items-center gap-2 select-none text-sm text-[var(--color-secondary)]"
-          onMouseEnter={() => setHover(true)}
-          onMouseLeave={() => setHover(false)}
-          title={
-            officialMode
-              ? 'Hides all useful charts and tables'
-              : 'Show the minimal official layout'
-          }
-        >
-          <span className={hover ? 'text-[var(--color-primary)]' : ''}>
-            Official Mode
+        {/* Update controls */}
+        <div className="flex items-center gap-3">
+          {/* Last scanned */}
+          <span className="text-xs text-[var(--color-secondary)]">
+            Last scanned:{' '}
+            <span className="font-medium text-[var(--color-primary)]">
+              {formatAge(exportedAt)}
+            </span>
           </span>
-          <div className="relative">
-            <input
-              type="checkbox"
-              className="sr-only"
-              checked={officialMode}
-              onChange={(e) => onOfficialModeChange(e.target.checked)}
-            />
-            <div
-              className={`h-5 w-9 rounded-full transition-colors ${
-                officialMode ? 'bg-[var(--color-accent)]' : 'bg-gray-300'
-              }`}
-            />
-            <div
-              className={`absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
-                officialMode ? 'translate-x-4' : ''
-              }`}
-            />
-          </div>
-        </label>
+
+          {/* Update button */}
+          <button
+            onClick={handleUpdate}
+            disabled={updateState === 'running'}
+            title={
+              updateState === 'running'
+                ? 'Scan in progress…'
+                : 'Rescan the Ollama library and refresh data'
+            }
+            className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+              updateState === 'running'
+                ? 'cursor-not-allowed bg-gray-100 text-[var(--color-secondary)]'
+                : updateState === 'done'
+                ? 'bg-green-50 text-green-700'
+                : updateState === 'error'
+                ? 'bg-red-50 text-red-700 hover:bg-red-100'
+                : 'bg-[var(--color-accent)] text-white hover:bg-blue-600'
+            }`}
+          >
+            {updateState === 'running' ? (
+              <>
+                <span className="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                Scanning…
+              </>
+            ) : updateState === 'done' ? (
+              <>✓ Updated</>
+            ) : updateState === 'error' ? (
+              <>⚠ Retry</>
+            ) : (
+              <>↻ Update</>
+            )}
+          </button>
+
+          {/* Show log toggle (only after activity) */}
+          {logLines.length > 0 && (
+            <button
+              onClick={() => setShowLog((v) => !v)}
+              className="text-xs text-[var(--color-secondary)] underline hover:text-[var(--color-primary)]"
+            >
+              {showLog ? 'hide log' : 'show log'}
+            </button>
+          )}
+        </div>
       </div>
+
+      {/* Collapsible log panel */}
+      {showLog && logLines.length > 0 && (
+        <div className="border-t border-[var(--color-border)] bg-gray-50 px-6 py-3">
+          <pre className="max-h-40 overflow-y-auto text-xs text-gray-600 whitespace-pre-wrap">
+            {logLines.join('\n')}
+          </pre>
+        </div>
+      )}
     </header>
   );
 }

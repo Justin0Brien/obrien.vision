@@ -1,4 +1,4 @@
-import { useMemo, useState, Fragment } from 'react';
+import { useMemo, useState, Fragment, useCallback, useRef } from 'react';
 import {
   useReactTable,
   getCoreRowModel,
@@ -17,6 +17,129 @@ interface ModelTableProps {
 }
 
 const col = createColumnHelper<Model>();
+
+/** Hardware acceleration tags detected from tag name */
+interface HwTag {
+  label: string;
+  title: string;
+  bg: string;
+  text: string;
+}
+
+function hwTags(tagName: string): HwTag[] {
+  const lower = tagName.toLowerCase();
+  const tags: HwTag[] = [];
+  if (lower.includes('mlx')) {
+    tags.push({ label: 'MLX', title: 'Optimised for Apple Silicon (MLX framework)', bg: '#f0fdf4', text: '#16a34a' });
+  }
+  if (lower.includes('nvfp4')) {
+    tags.push({ label: 'NVIDIA', title: 'Optimised for NVIDIA GPUs (FP4 precision)', bg: '#f0f9ff', text: '#0369a1' });
+  }
+  if (lower.includes('mxfp8')) {
+    tags.push({ label: 'MX FP8', title: 'Microscaling FP8 – optimised for hardware with MX (Microscaling) support', bg: '#fdf4ff', text: '#9333ea' });
+  }
+  return tags;
+}
+
+/** Copy a table element's data as TSV to the clipboard */
+function copyTableAsText(tableEl: HTMLTableElement): Promise<void> {
+  const rows = Array.from(tableEl.querySelectorAll('tr'));
+  const tsv = rows
+    .map((row) =>
+      Array.from(row.querySelectorAll('th, td'))
+        .map((cell) => (cell as HTMLElement).innerText.replace(/\t/g, ' ').trim())
+        .join('\t'),
+    )
+    .join('\n');
+  return navigator.clipboard.writeText(tsv);
+}
+
+/** Inline copy-button component with ✓ feedback */
+function CopyButton({ tableRef }: { tableRef: React.RefObject<HTMLTableElement | null> }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = useCallback(async () => {
+    if (!tableRef.current) return;
+    await copyTableAsText(tableRef.current);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
+  }, [tableRef]);
+
+  return (
+    <button
+      onClick={handleCopy}
+      title="Copy table to clipboard (paste into spreadsheet or ChatGPT)"
+      className="flex items-center gap-1 rounded border px-2 py-0.5 text-[10px] font-medium transition-colors"
+      style={{
+        borderColor: copied ? '#16a34a' : 'var(--color-border)',
+        color: copied ? '#16a34a' : 'var(--color-secondary)',
+        background: copied ? '#f0fdf4' : 'transparent',
+      }}
+    >
+      {copied ? '✓ Copied' : '⎘ Copy'}
+    </button>
+  );
+}
+
+/** Expanded versions sub-table with copy button and hardware tags */
+function VersionsTable({ tags }: { tags: import('../types').ModelTag[] }) {
+  const tableRef = useRef<HTMLTableElement>(null);
+  return (
+    <div className="mt-2 rounded border border-[var(--color-border)]">
+      {/* Toolbar */}
+      <div className="flex items-center justify-end border-b border-[var(--color-border)] bg-gray-50 px-2 py-1">
+        <CopyButton tableRef={tableRef} />
+      </div>
+      <div className="max-h-64 overflow-y-auto">
+        <table ref={tableRef} className="w-full text-xs">
+          <thead className="sticky top-0 bg-gray-50">
+            <tr className="text-left text-[var(--color-secondary)]">
+              <th className="px-2 py-1">Tag</th>
+              <th className="px-2 py-1">Params</th>
+              <th className="px-2 py-1">Quant</th>
+              <th className="px-2 py-1">Size</th>
+              <th className="px-2 py-1">Context</th>
+              <th className="px-2 py-1">Input</th>
+              <th className="px-2 py-1">Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tags.map((t) => {
+              const hw = hwTags(t.tag_name);
+              return (
+                <tr
+                  key={t.tag_name}
+                  className="border-t border-[var(--color-border)] hover:bg-gray-50"
+                >
+                  <td className="px-2 py-1">
+                    <span className="font-mono">{t.tag_name}</span>
+                    {hw.map((h) => (
+                      <span
+                        key={h.label}
+                        title={h.title}
+                        className="ml-1.5 inline-block rounded px-1 py-0 text-[9px] font-semibold leading-4"
+                        style={{ background: h.bg, color: h.text }}
+                      >
+                        {h.label}
+                      </span>
+                    ))}
+                  </td>
+                  <td className="px-2 py-1">{t.parameters ?? '—'}</td>
+                  <td className="px-2 py-1">{t.quantization ?? '—'}</td>
+                  <td className="px-2 py-1">{t.size_str ?? '—'}</td>
+                  <td className="px-2 py-1">{t.context_window ?? '—'}</td>
+                  <td className="px-2 py-1">{t.input_type ?? '—'}</td>
+                  <td className="px-2 py-1 text-[var(--color-secondary)]">
+                    {t.updated_at ?? '—'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
 
 export function ModelTable({ models, globalFilter }: ModelTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -246,39 +369,7 @@ export function ModelTable({ models, globalFilter }: ModelTableProps) {
                       </button>
                     )}
                     {isExpanded && (
-                      <div className="mt-2 max-h-64 overflow-y-auto rounded border border-[var(--color-border)]">
-                        <table className="w-full text-xs">
-                          <thead className="sticky top-0 bg-gray-50">
-                            <tr className="text-left text-[var(--color-secondary)]">
-                              <th className="px-2 py-1">Tag</th>
-                              <th className="px-2 py-1">Params</th>
-                              <th className="px-2 py-1">Quant</th>
-                              <th className="px-2 py-1">Size</th>
-                              <th className="px-2 py-1">Context</th>
-                              <th className="px-2 py-1">Input</th>
-                              <th className="px-2 py-1">Updated</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {m.tags.map((t) => (
-                              <tr
-                                key={t.tag_name}
-                                className="border-t border-[var(--color-border)] hover:bg-gray-50"
-                              >
-                                <td className="px-2 py-1 font-mono">{t.tag_name}</td>
-                                <td className="px-2 py-1">{t.parameters ?? '—'}</td>
-                                <td className="px-2 py-1">{t.quantization ?? '—'}</td>
-                                <td className="px-2 py-1">{t.size_str ?? '—'}</td>
-                                <td className="px-2 py-1">{t.context_window ?? '—'}</td>
-                                <td className="px-2 py-1">{t.input_type ?? '—'}</td>
-                                <td className="px-2 py-1 text-[var(--color-secondary)]">
-                                  {t.updated_at ?? '—'}
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                      <VersionsTable tags={m.tags} />
                     )}
                   </td>
                 </tr>
