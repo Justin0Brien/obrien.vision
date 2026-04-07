@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-04-07T15:59:22.619809+00:00",
+  "exported_at": "2026-04-07T16:02:48.491897+00:00",
   "count": 218,
   "models": [
     {
@@ -9,10 +9,10 @@
       "capabilities": [
         "vision"
       ],
-      "pulls": "987.4K",
+      "pulls": "987.5K",
       "tag_count": 13,
       "last_updated": "2 months ago",
-      "fetched_at": "2026-04-07T15:59:10.904799+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2026-02-06",
       "updated_days_ago": 60,
       "tags": [
@@ -280,10 +280,10 @@
       "description": "StarCoder is a code generation model trained on 80+ programming languages.",
       "family": "starcoder",
       "capabilities": [],
-      "pulls": "954.1K",
+      "pulls": "954.2K",
       "tag_count": 100,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -2281,10 +2281,10 @@
       "description": "An advanced language model crafted with 2 trillion bilingual tokens.",
       "family": "deepseek",
       "capabilities": [],
-      "pulls": "940.5K",
+      "pulls": "940.6K",
       "tag_count": 64,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -6437,10 +6437,10 @@
       "description": "CodeQwen1.5 is a large language model pretrained on a large amount of code data.",
       "family": "qwen",
       "capabilities": [],
-      "pulls": "902.8K",
+      "pulls": "902.9K",
       "tag_count": 30,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -9214,10 +9214,10 @@
       "description": "A fine-tuned model based on Mistral with good coverage of domain and language.",
       "family": null,
       "capabilities": [],
-      "pulls": "869.3K",
+      "pulls": "869.4K",
       "tag_count": 50,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -9834,10 +9834,10 @@
       "description": "Stable Code 3B is a coding model with instruct and code completion variants on par with models such as Code Llama 7B that are 2.5x larger.",
       "family": "stablelm",
       "capabilities": [],
-      "pulls": "867K",
+      "pulls": "867.1K",
       "tag_count": 36,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -10703,10 +10703,10 @@
       "description": "SQLCoder is a code completion model fined-tuned on StarCoder for SQL generation tasks",
       "family": null,
       "capabilities": [],
-      "pulls": "854.4K",
+      "pulls": "854.5K",
       "tag_count": 48,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -12128,10 +12128,10 @@
       "description": "Yi-Coder is a series of open-source code language models that delivers state-of-the-art coding performance with fewer than 10 billion parameters.",
       "family": "yi",
       "capabilities": [],
-      "pulls": "845.9K",
+      "pulls": "846K",
       "tag_count": 67,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -14016,10 +14016,10 @@
       "description": "A lightweight AI model with 3.8 billion parameters with performance overtaking similarly and larger sized models.",
       "family": "phi",
       "capabilities": [],
-      "pulls": "835.5K",
+      "pulls": "835.6K",
       "tag_count": 17,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -14240,10 +14240,10 @@
       "description": "A model from NVIDIA based on Llama 3 that excels at conversational question answering (QA) and retrieval-augmented generation (RAG).",
       "family": "llama",
       "capabilities": [],
-      "pulls": "834.1K",
+      "pulls": "834.2K",
       "tag_count": 35,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -14683,10 +14683,10 @@
       "capabilities": [
         "tools"
       ],
-      "pulls": "833.8K",
+      "pulls": "833.9K",
       "tag_count": 33,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -15102,10 +15102,10 @@
       "capabilities": [
         "tools"
       ],
-      "pulls": "831.8K",
+      "pulls": "831.9K",
       "tag_count": 33,
       "last_updated": "1 year ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-07",
       "updated_days_ago": 365,
       "tags": [
@@ -15968,10 +15968,10 @@
       "description": "DeepCoder is a fully open-Source 14B coder model at O3-mini level, with a 1.5B version also available.",
       "family": "deepseek",
       "capabilities": [],
-      "pulls": "822.9K",
+      "pulls": "823K",
       "tag_count": 9,
       "last_updated": "12 months ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2025-04-12",
       "updated_days_ago": 360,
       "tags": [
@@ -20102,10 +20102,10 @@
       "description": "Starling is a large language model trained by reinforcement learning from AI feedback focused on improving chatbot helpfulness.",
       "family": null,
       "capabilities": [],
-      "pulls": "798.9K",
+      "pulls": "799K",
       "tag_count": 36,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
@@ -20958,10 +20958,10 @@
       "description": "Code generation model based on Code Llama.",
       "family": "phi",
       "capabilities": [],
-      "pulls": "794.7K",
+      "pulls": "794.8K",
       "tag_count": 49,
       "last_updated": "2 years ago",
-      "fetched_at": "2026-04-07T15:45:53.971126+00:00",
+      "fetched_at": "2026-04-07T16:01:30.963051+00:00",
       "updated_date": "2024-04-07",
       "updated_days_ago": 730,
       "tags": [
